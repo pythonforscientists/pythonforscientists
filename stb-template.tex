@@ -21,7 +21,7 @@
 \usepackage{marginnote}
 \usepackage{exercise}
 \usepackage{draftwatermark}
-\usepackage{markdown}
+%\usepackage{markdown}
 \usepackage{listings}
 \usepackage{textcomp}
 \usepackage{hyperref}
@@ -226,7 +226,7 @@
 % The source file is book.svg. If you change the svg, you must then convert
 % it to pdf. There are many online and offline tools available to do that.
 \begin{center}
-\includegraphics{booksvg.pdf}\\[4pt]
+\includegraphics{img/booksvg.pdf}\\[4pt]
 \fontfamily{lmtt}\small{Kenyon College\\
 Department of Mathematics \& Statistics - Scientific Computing\\
 Gambier, Ohio}
@@ -259,7 +259,7 @@ Version Number: \bookversion
 % was actually page 3. So add two to page counter.
 \addtocounter{page}{2}
 
-\input{0preface}
+\input{chapters/0preface}
 
 % Three-level Table of Contents
 \setcounter{tocdepth}{3}
@@ -267,31 +267,31 @@ Version Number: \bookversion
 
 \mainmatter
 
-\input{1introduction}
+\input{chapters/1introduction}
 
-\input{2developmentbasics}
+\input{chapters/2developmentbasics}
 
-\input{3basicdatatypes}
+\input{chapters/3basicdatatypes}
 
-\input{4general}
+\input{chapters/4general}
 
-\input{5complexdatatypes}
+\input{chapters/5complexdatatypes}
 
-\input{6conditionallogic}
+\input{chapters/6conditionallogic}
 
-\input{7datastructures}
+\input{chapters/7datastructures}
 
-\input{8filehandling}
+\input{chapters/8filehandling}
 
-\input{9jupyternotebooks}
+\input{chapters/9jupyternotebooks}
 
-\input{10pandas}
+\input{chapters/10pandas}
 
-\input{11beautifulsoup}
+\input{chapters/11beautifulsoup}
 
-\input{12labs}
+\input{chapters/12labs}
 
-\input{13endmatter}
+\input{chapters/13endmatter}
 
 \backmatter
 

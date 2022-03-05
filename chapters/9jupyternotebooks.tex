@@ -3,6 +3,9 @@ Jupyter Notebooks are a very useful data analysis tool, especially among data sc
 \section{What Are Jupyter Notebooks?}
 At their most basic, Jupyter Notebooks are just spicy binders. They allow you to write Python code and add notes in a quick and easy way. You'll find that Jupyter Notebooks are actually quite common in academic settings, since they allow academics to share their exact findings with each other in an organized manner. \par
 Jupyter Notebooks always have the file extension \verb|.ipynb| (though the curious among you may try to open these files in a text editor to discover that they're just JSON files). IPYNB stands for Interactive PYthon NoteBook. It's not uncommon to have multiple notebooks, although some people choose to pile everything into one notebook.\par
+
+\includegraphics[width=0.8\textwidth]{img/jupyternotebook.png}
+
 When you're writing in a Jupyter Notebook, you can either write in a markdown block or a code block. Your markdown code will only be rendered, not executed. Even if you specify that a chunk of code should have its syntax highlighting in Python, it will not be executable. Essentially, your markdown code is read-only. However, your code blocks are read/write/executable. You can execute any of the Python code inside of a dedicated Jupyter Notebook code block.\par
 \section{Basic Markdown Syntax}
 Jupyter Notebooks support standard markdown syntax, such as what you might use on an Internet forum or on GitHub in \verb|.md| files (like READMEs or Contributing files). If you've never worked with markdown before, it's not too difficult. Markdown is just a way to change the appearance of plain-text while writing in plaintext. When writing markdown, you'll typically write it in a plain-text form, then open the same document in a markdown renderer. When you're working with Jupyter Notebooks, your notebook will be your markdown renderer.\par
@@ -10,11 +13,9 @@ The most basic of the markdowns is paragraph text. Paragraph text is written wit
 \begin{lstlisting}
 This is just regular paragraph text.
 \end{lstlisting}
-\begin{markdown}
-This is just regular paragraph text.
-\end{markdown}\\
-\\
-\\
+
+\includegraphics[width=0.8\textwidth]{img/mdparagraph.png}
+
 You can add additional emphasis styling to your paragraph text, just like you would in any other word processor: italics and bold. To italicize something, use single asterisks to mark the beginning and end of the italicized area. To bold something, use double asterisks to mark the beginning and end of the bolded area. You can also use combinations of asterisks to denote both italicized and bolded text. To create a line break, add an extra blank line, as a single line break won't add an extra line. Your symbols cannot span multiple lines, so if you want more than one line to be emphasized, you need to write more than one set of symbols for the respective emphasis symbol sequence.\par
 \begin{lstlisting}
 This is *italicized* and **bold**.
@@ -22,13 +23,9 @@ This is *italicized* and **bold**.
 This is ***italicized and bold***.
 \end{lstlisting}
 \par
-\begin{markdown}
-This is *italicized* and **bold**.
 
-This is ***italicized and bold***.
-\end{markdown}\\
-\\
-\\
+\includegraphics[width=0.8\textwidth]{img/mditalicbold.png}
+
 Another common block to use is writing snippits of code. This is different from writing code in a Jupyter Notebook code block. Code in a markdown block cannot be run; only code in code blocks can be run. You can choose the syntax highlighting that is used when writing in a code block. To write in a code block, use three backticks to mark the beginning and end of your code block. To write inline code, use single backticks.\par
 \boxtext{Where's the backtick?}{The backtick is the character right next to the number 1 key on most US-layout ANSI and ISO keyboards. Shift-Backtick normally gives you tilde \string~.}
 \begin{lstlisting}
