@@ -1,0 +1,31 @@
+\chapter{Introduction}
+Why should we study development, software or technology? Software is becoming a larger and larger part of our daily lives. Different machines use different forms of software. From ATMs to parking meters, compute servers to emergency radios, software runs our lives increasingly. In fact, if all of the software stopped working, planes would just drop out of the skies, stocks would crash instantly, and global communications would cease to exist.\par
+Python is only one of many different programming languages out there, and it has its own special place in the development world. Other languages include C++, Haskell, Ruby, R, Java, JavaScript, and even Ada. Once you pick up Python, though, you’ll find that other programming languages don’t look so different.\par
+You might have noticed that compared to many other code textbooks, this book is not nearly as long. We've tried to trim out much of the "fat" that is good in small amounts but becomes overburdening in larger quantities. Instead, we prefer to give you realistic code and problems that show you why you're doing what you're doing. Rather than pad the page count with information that you'll never use, we've instead chosen to give you the important stuff.\par
+What is this text not? It’s not a comprehensive view of the software development landscape, or the hardware or firmware world. We won’t discuss in detail what a CPU does or how it works, or how a temperature sensor on a motherboard sends input. These topics (software development, physical interface control, computer architecture, among others) are sufficiently advanced topics that can take their own semester to learn. Well, we don't have all the time in the world, so we're going to go over some of the basics of Python instead and delve into some cool stuff you can do with the language.\par
+\section{Reading This Book}
+Most of this book is written in plain English, not in code. Standard textbook material will appear like this, in this font, with this formatting.\par
+Sometimes, though, we will need to give you some code. Python code appears like this.
+\begin{lstlisting}[style=pippython]
+# A for loop
+for i in range(8):
+  print("Iteration" + i)
+\end{lstlisting}
+Don't worry if you don't understand this code. What you should notice are the colors. Keywords have been written in blue and orange, operators in orange, strings in red, and comments in green. All of this helps you understand the code that was written to you, as a human. Your IDE, or integrated development environment, will also color the text, though the colors might be different. Even if the colors are different, they should be consistent throughout the document, and as you get used to programming, you will better understand what the colors mean.\par
+Pay attention to the line numbers! Line numbers are marked on the left side of the script, and they indicate single lines as they are stored in the file, not as they are rendered. This is why a single logical line might span multiple physical lines, in the case where we've run out of space on the page. We'll cover this (it's called wrapping) in chapter 4.3, but for now, just be aware that you should read the line number on the left side of this textbook.
+Sometimes, we'll also give you some output. Output has no color formatting, and it just appears in a regular monospace font.
+\begin{lstlisting}[style=none]
+Iteration 0
+Iteration 1
+Iteration 2
+Iteration 3
+Iteration 4
+Iteration 5
+Iteration 6
+Iteration 7
+\end{lstlisting}
+The purpose of this is to differentiate it from the regular English text and also from the Python code. This is what Python might output.\par
+We've also provided you with some extra notes, warnings, and fun facts. These show up in colored boxes (one more reason to print in color or just view the textbook on your computer as a digital edition).
+\par\boxtext{Note}{Notes are provided in blue boxes. These can help you understand what you're doing a little bit better, but aren't, strictly speaking, necessary.}
+\par\warningtext{Warning}{Warnings are provided in orange boxes. These can help you avoid massive headaches, and we'll try to warn you of common pitfalls here.}
+\par\funtext{Fun Fact}{Fun facts are provided in green boxes. These aren't very helpful, but they are fun! (At least we think so...)}

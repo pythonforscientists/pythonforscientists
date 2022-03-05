@@ -1,0 +1,362 @@
+\documentclass{book}
+% The following dimensions specify 4.75" X 7.5" content on 6 3/8" by 9 1/4"
+% paper. The paper width and height can be tweaked as required and the content
+% should size to fit within the margins accordingly.
+%
+% The (inside) bindingoffset should be larger for books with more pages. Some
+% standard recommended sizes are .375in minimum up to 1in for 600+ page books.
+% Sizes .75in and .875in are also recommended roughly at 150 and 400 pages.
+\usepackage[bindingoffset=0.625in, left=.5in, right=.5in, top=.8125in, bottom=.9375in, paperwidth=6.375in, paperheight=9.25in]{geometry}
+% Here is an alternative geometry for reading on letter size paper:
+% \usepackage[margin=.75in, paperwidth=8.5in, paperheight=11in]{geometry}
+
+% This utf8 declaration is not needed for versions of latex > 2018 but may
+% be helpful for older software. Eventually it may not be worth keeping.
+\usepackage[utf8]{inputenc}  
+\usepackage[dvipsnames]{xcolor} % for setting colors
+\usepackage{fix-cm}  % this package allows large \fontsize
+\usepackage{tikz}    % this is for graphics. e.g. rectangle on title page
+\usepackage{amsmath} % Used by equations
+\usepackage{pythonhighlight}
+\usepackage{marginnote}
+\usepackage{exercise}
+\usepackage{draftwatermark}
+\usepackage{markdown}
+\usepackage{listings}
+\usepackage{textcomp}
+\usepackage{hyperref}
+\usepackage{hyphenat}
+\usepackage{titlesec}
+\usepackage{makecell}
+\usepackage{cprotect}
+\newcommand{\sectionbreak}{\clearpage}
+
+% set the default code style
+
+% Available LST languages: ABAP, ACSL, Ada, Algol, Ant, Assembler, Awk, bash, Basic, C#, C++, C, Caml, Clean, Cobol, Comal, csh, Delphi, Eiffel, Elan, erlang, Euphoria, Fortran, GCL, Go (golang), Gnuplot, Haskell, HTML, IDL4, inform, Java, JVMIS, ksh, Lisp, Logo, Lua, make, Mathematica, Matlab, Mercury, MetaPost, Miranda, Mizar, ML, Modelica, Modula-2, MuPAD, NASTRAN, Oberon-2, Objective C, OCL, Octave, Oz, Pascal, Perl, PHP, PL/I, Plasm, POV, Prolog, Promela, Python, R, Reduce, Rexx, RSL, Ruby, S, SAS, Scilab, sh, SHELXL, Simula, SQL, tcl, TeX, VBScript, Verilog, VHDL, VRML, XML, XSLT.
+
+\usepackage{xcolor}
+\definecolor{commentgreen}{RGB}{2,112,10}
+\definecolor{eminence}{RGB}{108,48,130}
+\definecolor{weborange}{RGB}{255, 100, 23}
+\definecolor{frenchplum}{RGB}{129,20,83}
+
+\lstset{ % These are defaults
+    basicstyle=\ttfamily, % set font style
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=2, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+}
+
+\lstdefinestyle{pippython}{
+    language=Python,
+    commentstyle=\color{commentgreen}, % comment color
+    keywordstyle=\color{eminence}, % keyword color
+    stringstyle=\color{red}, % string color
+    emphstyle=\color{blue}, % bool int, emphasis
+    % keyword highlighting
+    classoffset=1, % starting new class
+    otherkeywords={>,<,.,;,-,!,=,~,/,*,+},
+    morekeywords={>,<,.,;,-,!,=,~,/,*,+},
+    keywordstyle=\color{weborange},
+    breaklines=true, % line breaks for wrapping
+}
+
+\lstdefinestyle{cpp}{
+    language=C++,
+    commentstyle=\color{commentgreen}, % comment color
+    keywordstyle=\color{eminence}, % keyword color
+    stringstyle=\color{red}, % string color
+    emphstyle=\color{blue}, % bool int, emphasis
+    % keyword highlighting
+    classoffset=1, % starting new class
+    otherkeywords={>,<,.,;,-,!,=,~},
+    morekeywords={>,<,.,;,-,!,=,~},
+    keywordstyle=\color{weborange},
+    breaklines=true, % line breaks for wrapping
+}
+
+\lstdefinestyle{HTML}{
+    language=HTML,
+    commentstyle=\color{PineGreen}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{Maroon}, % string color
+    identifierstyle=\color{black}, % indentifier color
+    breaklines=true, % line breaks for wrapping
+}
+
+\lstdefinestyle{none}{
+    basicstyle=\ttfamily, % set font style
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=2, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    breaklines=true,
+    numbers=none,
+}
+
+% Set watermark
+\SetWatermarkText{Evaluation Copy}
+\SetWatermarkScale{.75}
+
+% Create term preset
+\newcommand{\newterm}[2][]{\textbf{\textit{#1\index{#2}}}}
+\newcommand{\indexterm}[1]{#1\index{#1}}
+
+\usepackage[skins]{tcolorbox}
+%\newcommand{\boxtext}[1]{\noindent\fbox{\begin{minipage}{\textwidth}#1\end{minipage}}\par}
+\newcommand{\boxtext}[2]{\vspace{5mm}\begin{tcolorbox}[skin = widget, boxrule = 1mm, coltitle = black, colframe = blue!45!white, colback = blue!15!white, width=(0.9\linewidth), before=\hfill, after=\hfill, adjusted title ={\textbf{#1}}]#2\end{tcolorbox}\vspace{5mm}\par}
+\newcommand{\warningtext}[2]{\vspace{5mm}\begin{tcolorbox}[skin = widget, boxrule = 1mm, coltitle = black, colframe = orange!45!white, colback = orange!15!white, width=(0.9\linewidth), before=\hfill, after=\hfill, adjusted title ={\textbf{#1}}]#2\end{tcolorbox}\vspace{5mm}\par}
+\newcommand{\funtext}[2]{\vspace{5mm}\begin{tcolorbox}[skin = widget, boxrule = 1mm, coltitle = black, colframe = green!45!white, colback = green!15!white, width=(0.9\linewidth), before=\hfill, after=\hfill, adjusted title ={\textbf{#1}}]#2\end{tcolorbox}\vspace{5mm}\par}
+
+\title{Python for Scientists}
+\newcommand{\bookprinttitle}{Python for\\Scientists}
+\newcommand{\booksubtitle}{Introduction to Python for Scientific Computing}
+\newcommand{\booklicense}{MIT License}
+\newcommand{\bookversion}{0.1.9023}
+
+\author{Sejin Kim}
+% Author subtitle could be a university or a geographical location, for example
+\newcommand{\authorsubtitle}{Kenyon College, Gambier, Ohio}
+
+% Create convenient commands \booktitle and \bookauthor
+\makeatletter
+\newcommand{\booktitle}{\@title}
+\newcommand{\bookauthor}{\@author}
+\makeatother
+
+\renewcommand{\contentsname}{Table of Contents} % default is {Contents}
+\usepackage{makeidx}
+\makeindex % Initialize an index so we can add entries with \index
+
+
+% Content Starts Here
+\begin{document}
+\frontmatter
+
+% ---- Half Title Page ----
+% current geometry will be restored after title page
+\newgeometry{top=1.75in,bottom=.5in}
+\begin{titlepage}
+\begin{flushleft}
+\tikz[remember picture,overlay] \node[opacity=0.3,inner sep=0pt] at (current page.center){\includegraphics[width=\paperwidth,height=\paperheight]{img/background-image.jpg}};
+\begin{tcolorbox}[skin = widget, coltitle = white, colframe = white, colback = white, width=(\textwidth), before=\hfill, after=\hfill]
+% Title
+\textbf{\fontfamily{qcs}\fontsize{48}{54}\selectfont \bookprinttitle\\}
+
+% Draw a line 4pt high
+\par\noindent\rule{\textwidth}{4pt}\\
+
+% Subtitle
+% Shaded box from left to right. Text node is midway (centered).
+\begin{tikzpicture}
+\shade[bottom color=lightgray,top color=white]
+    (0,0) rectangle (\textwidth, 1.5)
+    node[midway] {\textbf{\normalsize \textit{\booksubtitle}}};
+\end{tikzpicture}
+
+% Edition Number
+\begin{flushright}
+\Large Zeroth Edition
+\end{flushright}
+\vspace{3cm}
+\begin{center}
+    \LARGE{\textbf{Sejin Kim}}
+\end{center}
+\end{tcolorbox}
+\end{flushleft}
+\end{titlepage}
+% \begin{titlepage}
+% \begin{flushleft}
+
+
+
+
+
+
+
+% \vspace{\fill}
+% \vspace{\fill}
+
+% \end{flushleft}
+% \end{titlepage}
+\restoregeometry
+% ---- End of Half Title Page ----
+
+
+% No page numbers on the Frontispiece page
+\thispagestyle{empty}
+
+
+% ---- Title Page ----
+% current geometry will be restored after title page
+\newgeometry{top=1.75in,bottom=.5in}
+\begin{titlepage}
+\begin{flushleft}
+
+% Title
+\textbf{\fontfamily{qcs}\fontsize{48}{54}\selectfont \bookprinttitle}
+
+% Draw a line 4pt high
+\par\noindent\rule{\textwidth}{4pt}\\
+
+% Shaded box from left to right with Subtitle
+% The text node is midway (centered).
+\begin{tikzpicture}
+\shade[bottom color=lightgray,top color=white]
+    (0,0) rectangle (\textwidth, 1.5)
+    node[midway] {\textbf{\large \textit{\booksubtitle}}};
+\end{tikzpicture}
+
+% Edition Number
+\begin{flushright}
+\Large Zeroth Edition
+\end{flushright}
+
+\vspace{\fill}
+
+% Author and Location
+\textbf{\large \bookauthor}\\[3.5pt]
+\textbf{\large \textit{\authorsubtitle}}
+
+\vspace{\fill}
+
+% Self Publishing Logo. Free to use: CC0 license.
+% The source file is book.svg. If you change the svg, you must then convert
+% it to pdf. There are many online and offline tools available to do that.
+\begin{center}
+\includegraphics{booksvg.pdf}\\[4pt]
+\fontfamily{lmtt}\small{Kenyon College\\
+Department of Mathematics \& Statistics - Scientific Computing\\
+Gambier, Ohio}
+\end{center}
+
+\end{flushleft}
+\end{titlepage}
+\restoregeometry
+% ---- End of Title Page ----
+
+% Do not show page numbers on colophon page
+\thispagestyle{empty}
+
+\begin{flushleft}
+\vspace*{\fill}
+Credits and acknowledgements in this textbook appear on the appropriate page within the text.
+\newline
+\newline
+Many of the designations by manufacturers and sellers to distinguish their products are claimed as trademarks. Where those designations appear in this book, and the publisher was made aware of a trademark claim, the designations have been printed in initial caps or all caps.
+\newline
+\newline
+This book was typeset using \LaTeX{} software.\\
+\vspace{\fill}
+Copyright \textcopyright{} \the\year{}  \bookauthor\\
+License: \booklicense\\
+Version Number: \bookversion
+\end{flushleft}
+
+% A title page resets the page # to 1, but the second title page
+% was actually page 3. So add two to page counter.
+\addtocounter{page}{2}
+
+\input{0preface}
+
+% Three-level Table of Contents
+\setcounter{tocdepth}{3}
+\tableofcontents
+
+\mainmatter
+
+\input{1introduction}
+
+\input{2developmentbasics}
+
+\input{3basicdatatypes}
+
+\input{4general}
+
+\input{5complexdatatypes}
+
+\input{6conditionallogic}
+
+\input{7datastructures}
+
+\input{8filehandling}
+
+\input{9jupyternotebooks}
+
+\input{10pandas}
+
+\input{11beautifulsoup}
+
+\input{12labs}
+
+\input{13endmatter}
+
+\backmatter
+
+\addcontentsline{toc}{chapter}{Index}
+\printindex
+
+% ---- Author Page ----
+% current geometry will be restored after title page
+\noindent Sejin Kim '22 is a student at Kenyon College studying scientific computing. He serves as a lead tutor for introductory programming courses in the Department of Scientific Computing. He can be contacted at \verb|kim3[AT]kenyon.edu|.
+% ---- End of Author Page ----
+
+% ---- Inside Back Cover ----
+% current geometry will be restored after title page
+\newgeometry{top=1.75in,bottom=.5in}
+\begin{titlepage}
+\begin{flushleft}
+Version Number: \bookversion\\
+License: \booklicense\\
+Citation: The suggested BibTeX entry is as follows.
+\begin{lstlisting}[style=none]
+@book{scientificpython,
+    title = {Python for Scientists, version 0.1.9022},
+    author = {Kim, Sejin},
+    edition = {Zeroth},
+    year = {2022},
+    address = {Gambier},
+}
+\end{lstlisting}
+
+\end{flushleft}
+\end{titlepage}
+\restoregeometry
+% ---- End of Back Cover ----
+
+% ---- Back Cover ----
+% current geometry will be restored after title page
+\newgeometry{top=1.75in,bottom=.5in}
+\begin{titlepage}
+\begin{flushleft}
+\tikz[remember picture,overlay] \node[opacity=0.3,inner sep=0pt] at (current page.center){\includegraphics[width=\paperwidth,height=\paperheight]{img/background-image.jpg}};
+\begin{tcolorbox}[skin = widget, boxrule = 1mm, coltitle = white, colframe = white, colback = white, width=(\textwidth), before=\hfill, after=\hfill]
+\begin{center}
+    {\huge \textbf{Python for Scientists}}\\
+    \vspace{3mm}
+    {\LARGE Sejin Kim}
+\end{center}
+\vspace{5mm}
+Python in Purple is an open-source Python textbook designed for introductory courses in computer science or scientific computing. As opposed to other textbooks, which only cover the fundamentals of coding itself, Python in Purple also provides students with good programming and development skills. Written for students at Kenyon College, it should also serve students at similar, small liberal arts institutions with its emphasis in Python as a tool in scientific computing.\par
+\vspace{5mm}
+\noindent\textbf{This edition includes:}
+\begin{itemize}
+    \setlength\itemsep{-0.4em}
+    \item Fundamentals of programming
+    \item Good coding practices
+    \item Python in scientific computing using Jupyter Notebooks
+    \item Data manipulation with Pandas and plotting with Matplotlib
+    \item Basic statistical tests with statsmodels
+    \item Web scraping tables with Beautiful Soup 4
+\end{itemize}
+\vspace{5mm}
+Version Number: \bookversion\\
+License: \booklicense
+\end{tcolorbox}
+\end{flushleft}
+\end{titlepage}
+\restoregeometry
+% ---- End of Back Cover ----
+\end{document}

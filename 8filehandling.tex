@@ -1,0 +1,87 @@
+\chapter{File Handling}
+In chapter 4.2, we went over variables, and it was noted that "all data that is worked on in variables is stored in memory when you're running a Python script." "Since all of your variables are stored in memory, they can only persist while the program itself is running. After your program is terminated, the memory spaces is marked as free by the operating system, meaning that any other program is now free to overwrite that memory." But what if we want to persist data between sessions? The simplest way to do this is by interacting with files that are stored at the secondary or tertiary levels. Python has the ability to both read and write to those files in several different ways, each of which has its own advantages and disadvantages.
+\section{Reading Files}
+The easiest way to interact with files is to open them in a read-only mode. Read-only files cannot be edited by your Python script, meaning that if something goes wrong in your script, nothing will happen to the file. For the most part, you'll be working with plain-text files. These are files that can be opened in simple text editors, like Atom, BBEdit, or Notepad++. Programmers like to work with plain-text files, since they're easy to open, edit, and close without any decoding. File formats like \verb|.docx| (Microsoft Office Word 2013 or later) or \verb|.odt| (OpenDocument Text format) are much more complicated, and it's difficult to edit them with plain-text editor unless you're really determined and you know what you're doing. For these purposes, we'll only be working plain-text files.\par
+Plain-text file formats include \verb|.txt| (text document), \verb|.csv| (comma-separated values), \verb|.tsv| (tab-separated values), \verb|.xml| (eXtensible Markup Language), \verb|.json| (JavaScript Object Notation), or even source code, like \verb|.py| (Python script) or \verb|.cpp| (C++ source code). These file formats don't require any special software to open, so they can just be opened with a standard text editor. This also means that they're really easy to manipulate in programming lanugages like Python. That's right, you could use Python to make more Python!\par
+For now, we'll only focus on the most common type of plain-text file format to manipulate: simple text documents. Later, we'll also manipulate comma-separated value files, but we'll use another library to do this. The most basic way to interact with a text document is by reading it. Reading a document means that you are storing all of the contents of the document in memory, then using Python to manipulate the temporary version of the document in the memory. The original file is never altered. By consequence, this is also the safest way to manipulate files. There's never an opportunity for the file to be corrupted by the operations that are happening to it.\par
+In Python, we can open a file using the \verb|open()| function. \verb|open()| is built right into Python, so you can just call it. It returns a file object, which is a compound datatype that contains the contents of the file, along with some extra bits of information that are useful, especially in higher levels of programming. By itself, a file isn't very useful, so we also need to use the \verb|read()| method on the file object. \verb|read()| returns a string with the contents of the entire file.\par
+When we use the \verb|open()| function to open the file, we also need to specify the \textbf{\textit{mode}} by which we are opening the file. Since we are only looking to read the file, we can use the argument \verb|"r"| for "read-only". This argument is passed in as the second argument of the \verb|open()| function. Don't confuse the \verb|"r"| for read-only with the \verb|read()| method, which operates on the file object. Let's take a look at how we use the \verb|open()| function and \verb|read()| method.\par
+\begin{lstlisting}[style=pippython]
+file = open("fileToOpen.txt", "r")
+fileContents = file.read()
+\end{lstlisting}
+In this code, we're opening the file named \verb|fileToOpen.txt| in read mode, as indicated by the second argument of the \verb|open()| function. We're storing the file object that the \verb|open()| function returned in the variable \verb|file|. By itself, \verb|file| isn't very useful, so we need to \verb|read()| the contents of the \verb|file| into \verb|fileContents|. We can then do whatever we'd like to \verb|fileContents|. No additional changes will or can be made to the original \verb|fileToOpen.txt|.\par
+However, when you run the \verb|read()| function, you'll probably notice that it puts everything on one line. This is because as the string is returned from the \verb|read()| function, unnecessary whitespace is discarded "as a courtesy" to the programmer. If you want to keep the whitespace, you'll need to use the \verb|readline()| method instead of the \verb|read()| method. \verb|readline()| reads just one line from the file object. Consider the following code.\par
+\begin{lstlisting}[style=pippython]
+file = open("fileToOpen.txt", "r")
+print(file.readline())
+\end{lstlisting}
+This code would actually only read the first line of the text file, which might be useful, but you probably want the entire text file. Instead, we can run \verb|readline()| multiple times.\par
+\begin{lstlisting}[style=pippython]
+file = open("fileToOpen.txt", "r")
+print(file.readline())
+print(file.readline())
+\end{lstlisting}
+This code will read the first two lines of the text file. Again, this might be useful if you know that you only have two lines. However, it'd probably be easier to read the entire file line-by-line. We can do this by iterating through the file object using a \verb|for| loop, where the iteration variable is any of your choosing and the list to iterate through is the file itself. Each element of the file is a line. Consider the following code.\par
+\begin{lstlisting}[style=pippython]
+file = open("fileToOpen.txt", "r")
+for i in file:
+  print(i)
+\end{lstlisting}
+This will print each line in the file. We could also store the contents of the file in a list. Let's say that you had a list of words, with one word per line. You could read your list of words line-by-line and put each word into the next element of your list.\par
+\begin{lstlisting}[style=pippython]
+file = open("fileToOpen.txt", "r")
+listOfWords = []
+for i in file:
+  listOfWords.append(i)
+\end{lstlisting}
+When you've finished working with a file, it's important to close the file. Even if you open the file in read-mode, closing the file allows the memory that was used to point to the file to be freed, and it's especially important when editing and writing to files. Regardless of how you're working with a file, you should get into the habit of closing a file when you're done with. To indicate that you'd like to close the file, you can use the \verb|close()| method on the file object.
+\begin{lstlisting}[style=pippython]
+file.close()
+\end{lstlisting}
+It's worth noting that Python will look for the file in the current working directory. If you're using a local IDE, like Anaconda Spyder, you can run the command \verb|pwd| in the interactive Python shell, then put your file in that same directory in order for it to be found by your Python script. You can also navigate around your current working directory by using relative filepaths: \verb|.| means your current directory and \verb|..| means one directory up. Alternatively, you can specify an absolute directory. An absolute directory path is one where the entire filepath is written, from the root to the file itself. If \verb|./fileToOpen.txt| is using the relative filepath, the absolute filepath might be \verb|Users/Guest/Downloads/fileToOpen.txt|. You should be able to view the properties of a file in your operating system to view its absolute filepath.\par
+If you're using an online IDE, like repl.it, you can just reference the file by name unless it's in a subfolder. When using online IDEs, your file is almost always stored in the same directory as your Python script. If your file is in a subfolder from your script, you can just specify the subfolder before naming the file, along with a forward slash. For example, if your file is in the \verb|TestDocuments| directory, you can specify that your file should be read from \verb|TestDocuments/fileToOpen.txt|.\par
+\section{Writing Files}
+What if you want to do more than read files, you also want to write to those files? Well, Python has the ability to do so, but first, we need to understand what the dangers of writing to files are.\par
+When we opened files in read-only mode, we were offered the safeguard that if our code wasn't completely correct, we couldn't also muck up the file. The file was opened in such a way that Python had no way to change any of the contents of the file. However, when we open a file in read-write mode, we lose that safeguard. If we wrote our code incorrectly, there's a potential that we could cause serious damage to a file, especially if the file is preexisting. When manipulating files, you should be double-sure that your code is correct and that the information that you're writing back out to the file is absolutely correct. If you're not sure, you should also make backups of your file before you start to copy it. You could do this by opening the file in read-only mode, then writing a new file with the contents of the old file unchanged, or you can just do it manually in your operating system. If you don't \textit{need} to open a file in a writing mode, then don't; stick to the safe alternative and open the file in read-only mode.\par
+Phew! Now that we've gotten that out of our system, let's talk about the two ways that we can open a file in writing mode. We can open a file either to write to it, or to append to it. While these two methods sound quite similar, they're very different, and one has the potential to really ruin your day. Let's start with appending. As we've seen in the lists section, to append means to add to the end. The same thing applies when manipulating files. Appending to a file means that we're simply adding new material to the end of a file. The original contents of the file remain unchanged.\par
+Conversely, opening a file in write mode is much more dangerous. Unlike appending to a file, writing really means you're \textbf{overwriting} the old contents of the file. If you want to keep some of the old contents of the file, you need to read all of it into your program's memory, edit what you need to, then write the \textit{entire} file back out. Anything that you don't write back out will be deleted for good. There's no recycling bin or trash can to catch your work if you accidentally overwrite something that you didn't mean to overwrite. Once it's gone, it's gone for good!\par
+Like \verb|read()| for reading files, writing has its own set of methods for manipulating and editing files. We'll still use the same \verb|open()| function, but instead of passing in \verb|"r"| for read, we're going to pass in other modes: \verb|"a"| for append and \verb|"w"| for write/overwrite. Conversely to the \verb|read()| method in our read-only mode, we can use the \verb|write()| function to write something to the file. You can also read anything from the file. Take a look at the following code, which will append something to the end of the \verb|fileToOpen.txt| file.\par
+\begin{lstlisting}
+This is a file
+It has stuff in it
+\end{lstlisting}
+\begin{lstlisting}[style=pippython]
+file = open("fileToOpen.txt", "a")
+for i in file:
+  print(i)
+file.write("Something to add to the end")
+file.close()
+\end{lstlisting}
+\begin{lstlisting}
+This is a file
+It has stuff in it
+Something to add to the end
+\end{lstlisting}
+As you can see, we're opening the file that we've specified in append mode. We're then using our \verb|read()| function to read the current contents of the file before adding a new line to the end of the file using the \verb|write()| method on the \verb|file| object. Like we mentioned above, it's important to close your file once you're done with it, but it's extra important when you're writing or reading to a file. While you have a file open, it means that no other process can touch that file.\par
+Overwriting a file works in very much the same way. In fact, all we're going to do is change the file mode.\par
+\begin{lstlisting}
+This is a file
+It has stuff in it
+\end{lstlisting}
+\begin{lstlisting}[style=pippython]
+file = open("fileToOpen.txt", "w")
+for i in file:
+  print(i)
+file.write("Something new in the file")
+file.close()
+\end{lstlisting}
+\begin{lstlisting}
+Something new in the file
+\end{lstlisting}
+The code is identical, except for the writing mode on the first line. However, if we were to try and open this file in a text editor, we'd find none of its old contents - they've all been overwritten by our new write line.\par
+\section{Different Kinds of Files}
+If you're a runner, cyclist, or swimmer, you've probably used the fitness app Strava\textregistered or something similar. If you have, you'll know that you have the option to load in a \verb|.gpx| or a \verb|.tcx| file. These files are really useful if you record your fitness data from, say, a smart watch or from a head unit. These files aren't necessarily special because their extension is \verb|.gpx| or \verb|.tcx|. In fact, these files are bog-standard XML files. They've just been customized with a custom file extension and the structure of these files is designed to be read by specific pieces of software, like Strava\textregistered. In fact, you can try it! If you're on Strava\textregistered, you should be able to export a GPX file of any of your activities. Open this GPX file in Notepad (on Windows), TextEdit (on macOS), or your OS's text viewer if you're on some other OS like Linux, and you'll see that the first line indicates that the file is a standard XML file.\par
+Similarly, if you go to any webpage (literally, any webpage) and view the source code of that webpage, you can see that the webpage is written and/or rendered in HTML. However, this webpage is just "spicy" XML. It's a type of XML that web browsers are really good at reading. If you're on Google\textregistered Chrome\textregistered, just insert \verb|view-source:| before the URL in the address bar. If you're on Firefox, just right-click on the web page and select Show Page Source.\par
+All of these files are readable by a standard text editor, like Notepad or TextEdit, and you'd be shocked at how many of these "custom" filetypes are actually just XML (eXtensible Markup Language), JSON (JavaScript Object Notation), or SQLite (Structured Query Language Lite) files, and in fact, you could use Python to crack open these files and edit attributes from them.\footnote{Please don't take this as an endorsement to start faking your own .gpx files and uploading them to Strava\textregistered. You'll probably get flagged, and that's not my problem.}\par
+Using this, you can actually create your own file formats! Let's say that you're editing a plain-text file, and you know that it's going to have a very structured format. For example, the first line of the file will always be the title, the second line will always be the author, and the third line contains the data to be stored. You could store it as a custom filetype by just specifying a different file extension when you write the file out in Python. Since it's a plain-text file, you can still read and write in any text-editing program, including Atom or BBEdit\textregistered.\par

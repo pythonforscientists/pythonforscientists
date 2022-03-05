@@ -1,0 +1,214 @@
+\chapter*{Labs}
+\markboth{\MakeUppercase{Labs}}{\MakeUppercase{Labs}}
+This chapter contains labs and rubrics for each lab. Your instructor might assign certain labs to you and not others.\par
+Any modifications that your instructor makes should take precedence over the lab provided here. You should take care to follow your course's style guide, if your instructor has one. This style guide should give you important information regarding naming conventions, line spacing, whitespace, and other notes like these. Remember to follow your course's style guide!
+\section*{Lab 1: Error Messages}
+\subsection*{Description}
+An important part of programming is being able to see how your changes change the behavior of the program. For this exercise, you'll be deliberately making errors and figuring out what lines of code result in these issues.
+\subsection*{Task}
+Begin with the following code. Confirm that it works correctly.
+\begin{lstlisting}[style=pippython]
+import pandas as pd
+def main():
+    ser = pd.Series()
+    n_ethereum = int()
+    value_per_coin = float()
+    total_value = float()
+    n_ethereum = int(input("Enter the number of Ethereum in wallet."))
+    print('You entered: ' + str(n_ethereum) + '\n')
+    
+    value_per_coin = float(input("Enter the dollar value of one Ethereum."))
+    print('You entered: ' + str(value_per_coin) + '\n')
+    
+    total_value = value_per_coin * n_ethereum
+    print('Total value in wallet is ' + str(total_value) + ' dollars.')
+    
+    ser[0] = total_value
+
+if __name__ == "__main__":
+    main()
+\end{lstlisting}
+Attempt the following tasks. In between each task, revert your program back to its original state.
+\begin{itemize}
+    \item Put an extra space in between \verb|pandas| and \verb|as| in line 1.
+    \item Remove \verb|as pd| from line 1.
+    \item Remove the opening quote from line 7 inside of the \verb|input| function.
+    \item Replace the opening quote on line 7 with a single quote.
+    \item Remove the backslash \verb|\| on line 8.
+    \item Remove the \verb|[0]| on line 16.
+    \item Remove the underscores \verb|_| on line 18.
+\end{itemize}
+For each task, you will report on what happened and why you think that happened.
+\subsection*{Turn In}
+You will submit a lab writeup in a Jupyter Notebook. Your lab writeup should contain the following sections.
+\begin{itemize}
+    \item Introduction: What were you given? What was the purpose of the lab?
+    \item Code Description: What does the code (as given to you) do when it is executed?
+    \item Tasks: What did each of the items for the list of tasks do? What happened when you made the change as directed? Why do you think that happened?
+    \item Conclusion: What did you learn during this lab?
+\end{itemize}
+
+\section*{Lab 2: Payroll Calculation}
+\subsection*{Description}
+An employee is paid at a rate of \$20.68 per hour for the first 40 hours worked in a week. Any hours over that are paid at the overtime rate of one and one half times that. From the worker’s gross pay, 6\% is withheld for social security tax, 14\% is withheld for federal income tax, 6\% is withheld for state income tax, and \$12 per week is withheld for union dues. If the worker has three or more dependents, then an additional \$35 is withheld to cover the extra cost of health insurance beyond what the employer pays.\par
+Your job will be to write a program that calculates the values above, given the hours worked and the number of dependents.
+
+\subsection*{Task}
+Write a program that will prompt the user for the following information.
+\begin{itemize}
+    \item The number of hours worked in a week
+    \item The number of dependents
+\end{itemize}
+The program will then output the worker's gross pay, each deduction amount, and the net take-home pay for the week. Write your program so that it allows the calculation to be repeated as often as the user wishes.\par
+All decimal point numbers that represent money must be outputted with two digits after the decimal point - no more and no less. For example, print 2.50 instead of 2.5.
+
+\subsection*{Turn In}
+You will submit a lab writeup in a Jupyter Notebook. Your lab writeup should contain the following sections.
+\begin{itemize}
+    \item Introduction: What is the program supposed to do? If you were provided with any code, where did it come from?
+    \item Code Description: In your head, break down your program into logical sections. Then, write a subheading for each of your code's sections, include the code (in a code block) what it does, and why you included it.
+    \item Issues: Did you experience any issues while writing this lab? If so, what issues did you run into? If not, what are some issues that you could foresee another student making, and how did you avoid these issues? If you were creating this lab, how would you change or improve it?
+    \item Completed Program: Include one big code block that contains your program in its entirety.
+    \item Test Runs: Provide the entire output from your program when you ran it using the trial data from below.
+    \item Conclusion: What did you learn during this lab? How did you apply some of the skills that you've learned to this lab?
+\end{itemize}
+
+\subsection*{Trial Data}
+\begin{tabular}{lll}
+\hline
+Trial & Hours & Dependents \\
+\hline
+1     & 15    & 1          \\
+2     & 40    & 4          \\
+3     & 53    & 3          \\
+4     & 2     & 5          \\
+\hline
+\end{tabular}
+
+\subsection*{Sample Output}
+This sample output is provided to guide you to your solution. You should follow the instructions provided to include all of the functionality that is shown below.
+\begin{lstlisting}[style=none]
+This program will ask you how many hours you worked, and calculate your
+taxes, dues, gross pay, and net pay.
+
+How many hours did you work? 20
+How many dependents do you have? 1
+
+Regular hours: 20.00 (at $16.68 an hour)
+Overtime hours: 0.00 (at $25.02 an hour)
+Total hours: 20.00
+Gross pay is $333.60
+Social Security tax: $20.02
+Federal taxes: $46.70
+State taxes: $16.68
+Union Dues: $10.00
+Total Deductions: $93.40
+Net Pay: $240.20.
+
+Would you like to calculate another week's pay? (y or n) y
+
+How many hours did you work? 48
+How many dependents do you have? 4
+
+Regular hours: 40.00 (at $16.68 an hour)
+Overtime hours: 8.00 (at $25.02 an hour)
+Total hours: 48.00
+Gross pay is $867.36
+Social Security tax: $52.04
+Federal taxes: $121.43
+State taxes: $43.37
+Union Dues: $10.00
+Family Health Insurance: $35.00 (additional insurance premiums for your family)
+Total Deductions: $261.84
+Net Pay: $605.52.
+
+Would you like to calculate another week's pay? (y or n) y
+
+How many hours did you work? 3
+How many dependents do you have? 4
+
+Regular hours: 3.00 (at $16.68 an hour)
+Overtime hours: 0.00 (at $25.02 an hour)
+Total hours: 3.00
+
+Gross pay is $50.04
+Social Security tax: $3.00
+Federal taxes: $7.01
+State taxes: $2.50
+Union Dues: $10.00
+Family Health Insurance: $35.00 (additional insurance premiums for your family)
+Total Deductions: $57.51
+
+Your dues and insurance obligations outstripped your pay by $-7.47.
+
+Would you like to calculate another week's pay? (y or n) n
+
+Thank you for using this program.
+\end{lstlisting}
+
+\subsection*{Grading Table}
+\begin{tabular}{|l|l|}
+\hline
+    Requirement & Possible Points \\ \hline
+    Correct output on required trial data & 60 \\ \hline
+    \makecell[l]{Dollar amounts have the right float value\\(2 decimal places)} & 10 \\ \hline
+    Appropriate code formatting, good use of whitespace & 5 \\ \hline
+    Meaningful variable names & 5 \\ \hline
+    Descriptive comments at the top & 5 \\ \hline
+    Descriptive comments to label sections & 5 \\ \hline
+    Jupyter Notebook is constructed well and with care & 10 \\ \hline
+    \textbf{Total} & \textbf{100} \\ \hline
+\end{tabular}
+
+\section*{Lab 3: Bad Programmer!}
+
+\subsection*{Description}
+For many programming projects in the real world, you'll be using or working with code that someone else wrote, rather than writing code from scratch. A good programmer will be able to intelligently break down someone else's code, and if you can read someone else's bad code, it'll be a piece of cake to read someone else's good code.
+
+For this lab, you will be writing using terrible programming practices, then you'll be trying to decipher someone else's program, who has also used terrible programming practices.
+
+\subsection*{Task}
+For this lab, you will need a partner.
+
+On your own (without your partner), write a program that takes a student's name, year (as an integer), major(s), minor(s), and dormitory. Optional: make the majors and minors multiple choice questions. You can write this in any programming language you'd like as long as it's Python 3.6. Then, print a summary of that student using the format: Your name is [name] and you are a [year]. Your major(s) is in/are [major1] and your minor(s) is in/are [minor1 and minor2]. You live in [dormitory].
+
+Your program should correctly choose whether to use the term "major" or "majors," "minor" or "minors," "is" or "are," and whether you need to use commas or an "and" for multiple majors or minors.
+
+Now, here's the kicker. You know what good programming practices are. Now, break every good programming practice you can without actually breaking valid syntax. That means that your program should properly execute, but it shouldn't be readable by a human. Use bad indentation practices (without breaking Python), bad/nonexistent comments, confoundingly constructed if/then statements and loops, the wrong data structures, obfuscation, complexion and anything else to make your program difficult to read. The only thing you can't do is hide a file. All of your script must fall in one file. If anyone except for you can read your program, you have not done a good job.
+
+Trade programs with your partner. You should've left them with a horrible mess that is virtually unusable. Your partner's job is simple: comment the code that you wrote, and write a summary of the code that you wrote, all without asking you any questions. This summary should contain things like what datatypes are being used for what variables, the logical flow of the program (like where decisions are being made), and how this code might be fixed (though you don't actually have to fix it).
+
+\subsection*{Turn In}
+You will submit this program inside of a Jupyter Notebook. You should include both your's and your partner's script (unmodified) inside of code blocks. You should also include your partner's commented and annotated script, as well as your best summary of their code.
+
+\subsection*{Trial Data}
+\small{\begin{tabular}{llllll}
+\hline
+Trial & Name & Year & Majors & Minors & Dormitory \\
+\hline
+1     & Alice Alexander & Sophomore & Economics & Statistics & Pless Hall \\
+\hline
+2     & Ben Loch & Junior & \makecell[l]{Env. Science} & & \makecell[l]{McAlester\\Apartment} \\
+\hline
+3     & Sam Williams & Senior & \makecell[l]{Biology,\\Chemistry} & \makecell[l]{Computer\\Science} & \makecell[l]{Raphael\\Dormitory} \\
+\hline
+\end{tabular}}
+
+\subsection*{Grading Table}
+\begin{tabular}{|l|l|}
+\hline
+    Requirement & Possible Points \\ \hline
+    Correct output on required trial data on your script & 20 \\ \hline
+    Inappropriate code formatting,\\bad use of whitespace in your script & 30 \\ \hline
+    Poor variable names in your script & 5 \\ \hline
+    Poor commenting or no comments,\\other challenges to readability in your script & 5 \\ \hline
+    Excellent commenting of partner's code & 10 \\ \hline
+    Correct description and interpretation of partner's code & 20 \\ \hline
+    Jupyter Notebook is constructed well and with care & 10 \\
+    \hline
+    \textbf{Total} & \textbf{100} \\ \hline
+\end{tabular}
+
+Note: This means that you will \textit{receive} points for writing bad (but syntactically correct) code yourself \textit{and} for properly analyzing and breaking down your partner's bad code.
+
+\section*{Lab 4: }

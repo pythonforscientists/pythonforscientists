@@ -1,0 +1,202 @@
+\chapter{Development Basics}
+\section{Introduction to Python}
+\subsection{A Brief History of Python}
+Most people assume that the creator of Python was perhaps referencing his favorite reptile when creating a name for the language, but Python's creator, Guido van Rossum, actually named the language after his favorite comedy group, Monty Python. In fact, take a look at the official Python release documentation and you'll find "something completely different," often a chunk of a Monty Python script or a notable quote. While most languages use \textit{foo} and \textit{bar} for their metasynctatic variables, Python's documentation uses \textit{spam} and \textit{eggs} instead.\cprotect\footnote{"Metasynctatic variables" is just a fancy term for placeholders. For example, in a Python for loop, documentation will use \verb|for spam in eggs| instead of \verb|for foo in bar|.} Because of this, when you're reading documentation, it's useful to recognize what metasynctatic variables are being used and how. This will come with experience, we promise!\par
+Python was originally derived from the ABC programming languages, but it had much larger feature support and easier syntax, which made it more accessible to more programmers. Python has undergone two major revisions since its original conception. Python 1 was the original Python, written in the 80s by van Rossum. Later, it was picked up by the programming community and embraced for its great utility as a rapid prototyping language and easy-to-learn syntax with relative power, and Python 2 was born in 2000. Python 2 introduced many great features, like Unicode support (yes, you can use emojis in your Python code, since they're valid Unicode characters!) and better garbage collection, which improved memory performance in long-running scripts. Finally, Python 3 was released in 2008, but much to the dismay of existing Python programmers, its syntax was not backwards compatible with Python 2, meaning that all of the Python 2 scripts had to be rewritten for the new Python 3 syntax. With Python 2's end-of-life in early 2020, Python 3 became the default for anyone learning to program in Python, including you!
+While Python had its own influences, it also played roles in the development of new languages, including JavaScript, Ruby, and Swift.\par
+\subsection{Characteristics of Python Scripts}
+Python scripts have several characteristics about them that make them identifiable in the sea of source code. The first (and most eyecatching) when looking at files is the filename extension. Python scripts always end in .py. So, a script might be named \verb|myScript.py| in order to be recognized as a valid Python script by the interpreter. However, .py is not the only extension used in Python. .pyi files contain Python information, such as PEP 484 hints (such as those for your classes). You typically won't see .pyi files except at the highest levels of Python programming, since most programmers opt to put their code hints inline with the code.
+I (sort of) lied when I said that Python was an interpreted language and that it wasn't possible to compile or choose to compile Python code. In reality, you can, but no one actually does, since it's much easier to share the original source code. However, they do have some advantages. .pyc files are compiled Python scripts, and they are created when a module or another Python script is imported into your Python script. The interpreter will "compile" the bytecode of the imported module so that the translation from source code to object code of this static code (you almost never edit another module, unlike your own code) only has to be done once. You can run compiled Python, but it's quite difficult and not of much use. If you see these files, just ignore them.\par
+Python embraces 19 key principles for development in its language, which was written by Tim Peters in 1999. We'll go through most of these principles in passing throughout this text, but if you'd like to read the entire thing (it's not actually that long), you can type the following into the interactive Python interpreter or into a Python script and execute it.
+\begin{lstlisting}[style=pippython]
+import this
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+The Zen of Python, by Tim Peters
+
+Beautiful is better than ugly.
+Explicit is better than implicit.
+Simple is better than complex.
+Complex is better than complicated.
+Flat is better than nested.
+Sparse is better than dense.
+Readability counts.
+Special cases aren't special enough to break the rules.
+Although practicality beats purity.
+Errors should never pass silently.
+Unless explicitly silenced.
+In the face of ambiguity, refuse the temptation to guess.
+There should be one-- and preferably only one --obvious way to do it.
+Although that way may not be obvious at first unless you're Dutch.
+Now is better than never.
+Although never is often better than *right* now.
+If the implementation is hard to explain, it's a bad idea.
+If the implementation is easy to explain, it may be a good idea.
+Namespaces are one honking great idea -- let's do more of those!
+\end{lstlisting}
+We won't cover some of these for the rest of this book, so here's the explanation to those right now.\par
+\begin{itemize}
+    \item {\textbf{There should be one-- and preferably only one --obvious way to do it.} Programming is one of those disciplines where there isn't just one way to solve a problem. However, there's often a "good" way to solve a problem and a "bad" way to solve a problem. If it feels plainly wrong, think about what you're doing.}
+    \item {\textbf{Although that way may not be obvious at first unless you're Dutch.} Python's creator Guido van Rossum was Dutch, and Peters is \textit{probably} making a tongue-in-cheek jab at Larry Wall (who isn't Dutch) for creating Perl, where there are often many "good" ways to do the same task.}
+\end{itemize}
+Some of these these tenets of Python programming extend to other languages, while others do not. 
+\subsection{Layout of a Simple Python Script}
+The general form of a simple Python script is given below. As far as the Python interpreter is concerned, the \newterm[line breaks]{whitespace!line breaks} and \newterm[spacing]{whitespace!spacing} between individual keywords doesn't really matter. However, we'll get to why you should care in Chapter 4.3. This is a part of programming known as \newterm[whitespace]{whitespace}.\par
+Each line contains either nothing (a blank line) or a \newterm[statement]{statement}. A statement is just an instruction that is followed by the computer. If you have programmed in a different language, you might be used to ending lines with semicolons. However, Python does not have any special character to end its lines with. Because Python is an interpreted language, it is executed line-by-line. Comparatively speaking, compiled languages execute as one long string of statements separated by semicolons. If you try to end a line with a semicolon as you would in Java, C++ or C\#, you will end up with a syntax error.\par
+\begin{lstlisting}[style=pippython]
+import module1
+import module2
+
+def function1(arg1, arg2):
+  Variable_Declarations
+  
+  Statement_1
+  Statement_2
+  ...
+  Statement_Last
+  
+  return something
+
+def function2(arg1):
+  Variable_Declarations
+  
+  Statement_1
+  ...
+  return somethingElse
+
+Main_Statement_1
+Main_Statement_2
+\end{lstlisting}
+The first two lines are called \verb|import| \newterm[statements]{statement}, and they tell the interpreter about certain extra modules that are used in your program. This is incredibly useful, since a lot of code already exists for a lot of complicated stuff, like math functions, data science, graphics, or web scraping, so you don't have to write these from scratch. We'll see how to use modules when we begin to work with files and in data science.\par
+You should follow your instructor's directions on where to place your \verb|import| statements. Most instructors have you place all of your \verb|import| statements at the very beginning of your program. This means that you don't have to question what modules you have imported without having to search for all of them, useful in extremely long scripts. It also means that you can use anything in any of the modules without having to figure out where in the script you imported the module, since modules can only be used \textit{after} they have been imported.\par
+Next, we have function definitions. Don't worry exactly about what a function. We'll cover the subtleties of functions in Chapter 7.1. We mark the beginning of the function using the colon and what is inside of the function using indentation.\par
+After our functions, we have the main part of the program. This is where we can refer to functions that are in modules that we have imported or those which we created ourselves. This is also where we'll control the basic flow of the program.\par
+As your programs become more and more sophisticated, they will also deviate more and more from this basic structure. Advanced programs can span across different files and folders. However, we need to start somewhere, and for our purposes, dealing with single files is perfectly adequate.\par
+\section{The Tools}
+Like a builder might use a hammer, a screwdriver, and a wrench, a programmer has some tools at their disposal. We use these tools to debug our code and turn it into instructions that our computer can understand.\par
+Aside from the computer itself, all of our tools are in the digital world, but they're very powerful. Let's take a look at some of these tools.\par
+The first and foremost is called an IDE, or integrated development environment. That's just a fancy way of saying a place where you can write and run code that you write. repl.it, Google\textregistered Colaboratory, Apple\textregistered Xcode and Microsoft\textregistered Visual Studio are all IDEs. IDEs can be broken down into two fundamental components: a text editor and a compiler.\par
+A text editor is pretty simple. It's a place where you can edit plain text. If you're on a Mac, you can use Apple\textregistered Textedit, and if you're on PC, you can use Notepad. Don’t confuse these with software packages like Microsoft Word, Google Sheets, or Apple Pages. These are actually word processors, and they store data in binary files. You can also download different text editors, like BBEdit\textregistered for Mac, Atom for Mac, PC and Linux, or Notepad++ for PC and Linux, and they all have their own strengths and weaknesses. There's also text editors that can run in the terminal, like vim, emacs, and nano.\par
+A compiler is a little bit more complicated. We code in Python, but computers can't natively understand Python. Python would be what developers call "source code", and it's almost always human readable, but not machine readable.\footnote{There are some source code languages that aren't human readable, like BrainF, but these are very much exceptions. These languages typically exist only as novelties.} When we want to run a bit of our source code, we need to translate it into something that our computers can understand. This happens in two stages. The first stage converts our source code into assembly code, instructions that the computer can then break down. Assembly code is only readable to the trained eye, and is difficult to think about intuitively. The second stage breaks code down to machine code, or the 1's and 0's that the computer can understand, but that isn't human-readable.\par
+All of that seems a little bit abstract still, so let’s look at how that code looks in real life, if we were to open the files as a plain text file.\par
+First, let’s examine a sample Python script:\par
+\begin{lstlisting}[style=pippython]
+i = 0
+while True:
+  print(i)
+  i += 1
+\end{lstlisting}
+With a little bit of sleuthing and some Python-to-English conversion, we can interpret this script as a program that will count up from 0 to infinity (or until the computer runs out of memory) and print the result.\par
+Now, let's look a look at what the assembly code for this will be. It's sloppy, but the trained eye might be able to break this down.\par
+\begin{lstlisting}
+    i: DB 0
+    .loop:
+      MOV i, eax
+      ADD eax, 1
+      PSH eax
+      CALL printf
+      POP eax
+      JMP .loop
+\end{lstlisting}
+This makes perfect sense to the computer, even if you don't understand it. (On a side note, take a computer architecture class to understand what this code is!)\par
+\funtext{Fun Fact}{The game \textit{Prince of Persia} (1989) was written entirely in assembly code, a near-superhuman feat given the amount of detail in the game!}
+One of the most important things to understand about computers is, they're not magic. It's not a mysterious black box, and as much as we'd like to think that they operate using magic blue smoke, that's not really the case. You can do as little or as much as you want with them, but they can do a lot for you. Have fun on your programming journeys! It will be difficult, but rewarding!
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapters 2.1 and 2.2. 
+\begin{Exercise}
+    \Question{What placeholder words do Python's documentation use?}
+    \Question{Does Python support emojis?}
+    \Question{What version of Python is this book written for (and subsequently what you will be coding in)?}
+    \Question{Are Python 2 and 3 interchangeable?}
+\end{Exercise}
+\begin{Exercise}
+    \Question{What are some file extensions that you might find in a Python script?}
+    \Question{What file extension will a regular Python script have?}
+    \Question{What line of code can you run to get the Zen of Python in your Python shell?}
+\end{Exercise}
+\begin{Exercise}
+    \Question{What is the difference between a statement and spacing?}
+    \Question{Does Python execute code line-by-line or are Python statements executed separated by semicolons?}
+    \Question{If your course has a style guide, where should you put your import statements according to that style guide?}
+\end{Exercise}
+\begin{Exercise}
+    \Question{What kind of code do we, as programmers, typically write: source code, assembly code, or binary code?}
+    \Question{What kind of code can a computer understand natively: source code, assembly code, or binary code?}
+    \Question{What kind of code is used to create binary code: source code or assembly code?}
+\end{Exercise}
+\begin{Exercise}
+    \Question{What is the difference between a text editor, a compiler, and an IDE?}
+    \Question{Look at your course's syllabus. Are you using a text editor, a compiler, an IDE, or some combination of these? If it is a combination, what is the combination?}
+\end{Exercise}
+\begin{Exercise}
+    \textit{(No wrong answers!)}
+    \Question{Why are you choosing to learn how to program?}
+    \Question{How familiar are you with computers in general (regardless of programming experience)?}
+    \Question{Do you know any other programming languages? If so, which ones?}
+\end{Exercise}
+
+\section{Hardware and Software}
+\subsection{Hardware}
+If you've become captured by the world of computer hardware, it's easy to get dazzled by the latest and greatest processors from companies like Intel, Advanced Micro Devices (AMD), Nvidia, Qualcomm, or Apple. These processors are designed on the cutting edge of silicon manufacturing, and to mere mortals, they seem impossible to understand. But, the heart of every computer (aside from quantum computers - that's a whole other beast), the same basic mechanics are hard at work.\par
+So, what does a computer actually do? Well, here's your 50,000-foot overview. There are entire courses dedicated to the inner workings of computer, such as computer architecture or system design courses, but this should give you a very basic understanding of how a processor works. We'll only cover the basic central processing unit (CPU) and a little portion of the random access memory (RAM) in this text. But what are those things? The CPU is responsible for, well, processing. It takes instructions from programs that you or someone else has written and it simply executes the instructions in that program. Likewise, the function of RAM is very simple: it's to store data that the CPU is working on.\par
+At its very core, the CPU carries out something called the fetch-execute (sometimes also referred to as the fetch-decode-execute) cycle. To run this cycle, we need four basic components in our processor: a clock, a counter, an instruction register, and an accumulator. We'll also need direct access to our memory, that RAM from above.\par
+This fetch-execute cycle is run every time the clock tells it to. When you see processors referred to by their clock speed, this is that number, measured in Hertz. Modern processors run at billions of times per second, or in gigahertz, but for now, we're going to slow it way down to one clock tick per sentence (or so). With each tick of this clock, the processor is going to do one of three things: fetch new instructions from the memory, decode the instructions that it just fetched, or execute the instructions that it just decoded.
+The instructions and the results from any evaluations are stored in memory. Each chunk of data, whether it's an instruction or some data chunk, is allotted its own \newterm[memory space]{memory!space} within the random access memory. This memory space, in theory, is not allowed to be touched by any other process.\footnote{We say "in theory" here, since there is such an attack known as a buffer overflow attack, where a process can overwrite memory that it shouldn't have access to with malicious code. There are also other attacks that can provide unauthorized access to a memory space that shouldn't be exposed.}\par
+\newterm[Memory]{memory} is where the instructions and data that the processor is working on (or is about to work on) is stored. There are different types of memory in a computer. \newterm[Primary memory]{memory!primary} holds data that the processor is working on. It is volatile, which means that if the computer loses power, the data in the memory is gone. DRAM, or dynamic random access memory, is a type of primary memory. \newterm[Secondary memory]{memory!secondary} holds data that can be loaded straight into primary memory for the processor to use. It is non-volatile, which means that the data persists across sessions. If the computer loses power, the data on the memory medium is not lost. Secondary memory is traditionally thought of as "hot storage," meaning that the data on the storage medium can be accessed immediately when it is requested. Secondary memory includes hard disk drives and solid-state drives. \newterm[Tertiary memory]{memory!tertiary} is storage that is stored outside of the main computer. Tertiary memory includes CDs, DVDs, external hard drives, USB flash drives, or external storage arrays. Like secondary memory, it is non-volatile. However, unlike secondary memory, if you need access to it, you need to explicitly connect it to the computer that is requesting data on it. In essence, you can't access the data on a USB flash drive without plugging it in first. Tertiary memory is traditionally thought of as "cold storage." If hot storage is analogous to a food dish under a heat lamp ready to eat, cold storage's analogy is the food in the freezer that needs to be prepared before it can be served.\par
+As humans, we use \newterm[human interface devices]{human interface devices}, or \newterm[HIDs]{human interface devices!HIDs}. HIDs include input and output devices. An \newterm[input device]{input device} is simply any device that allows a user to communicate information \textit{to} the computer. These include simple electronic switches, like buttons, all the way up to complex input devices, like keyboards, mice, or webcams. Not all input devices are HIDs, though. Environmental sensors, like humidity sensors or thermistors (a resistor that predictably changes resistance via thermal energy), are also input devices, but these are not HIDs.\par
+There are also output devices. These are most commonly thought of as monitors, but monitors aren't the only type of output device. Seven-figure displays, lights, or relays (electronically controlled switches) can all be output devices.\par
+Input and output devices work in conjunction with each other. For example, you might have a simple computer that turns on a light when the temperature exceeds 40\textdegree C. A thermistor is the input device, and the light is the output device. On your computer, your keyboard and mouse (or trackpad) are the input devices, and the monitor is the output device.\par
+On modern desktop computers, such as your Mac or PC, the communication between the hardware and the software is controlled by the \newterm[firmware]{firmware}. Your computer has something called the \newterm[basic input/output system]{basic input/output system}, or BIOS for short. The BIOS is a set of instructions in firmware which control the input and output operations of your computer. When you press the power button on your computer, it's your BIOS's job to instruct the computer's hardware on what exactly to do. In the last decade or so, there's been a move to more extensive BIOS interfaces using the Unified Extensible Firmware Interface, or UEFI. You can use the UEFI to edit the BIOS firmware settings.\par
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 2.3.1. 
+\begin{Exercise}
+    \Question{What does CPU stand for?}
+    \Question{What does RAM stand for?}
+    \Question{What is the CPU responsible for doing?}
+    \Question{What is the RAM responsible for doing?}
+\end{Exercise}
+\begin{Exercise}
+    \Question{What is the difference between volatile and non-volatile memory?}
+    \Question{Think about a USB flash drive that you can store files on. Is this volatile or non-volatile memory? Why?}
+\end{Exercise}    
+\begin{Exercise}
+    \Question{How is RAM different from ordinary non-volatile, secondary, or tertiary storage?}
+    \Question{What is a memory space?}
+    \Question{How is a memory space different from RAM?}
+    \Question{Can a program be run from ordinary non-volatile, secondary, or tertiary storage mediums? Why or why not?}
+\end{Exercise}
+\subsection{Software}
+As you might expect, you'll be writing \newterm[software]{software} in an introductory programming course. More advanced programming courses might have you cover \newterm[firmware]{firmware}, but for your purposes, you are only concerned with software. Programmers write software using \newterm[programming languages]{programming languages}. However, the term "programming language" is pretty broad; different languages operate at different \textbf{\textit{levels}}, with \newterm[high-level languages]{programming languages!high-level} being the most popular in recent years. High-level languages are the most akin to human languages, and they are designed to be easy for humans to write and understand. Comparatively speaking, \newterm[low-level languages]{programming languages!low-level} are much closer to what a computer can understand. Python, C, C++, C\#, Java, Swift, and Objective-C are all high-level languages. Assembly language (that really tough stuff to read from chapter 2.1) or machine code (the 1's and 0's themselves that a computer processor can directly interpret) is considered a low-level language.\par
+However, computers can only read binary: the 1's and 0's that make up a software program. So, how can we convert the command \verb|print('Hello, World!')| into a bunch of 1's and 0's that our processor can execute? We have to convert the code into something that the computer can read. There are two main schools for converting code into machine code: \newterm[interpretation]{interpretation} and \newterm[compilation]{compilation}. Both code interpreters and code compilers operate do the same thing (convert high-level language code into machine code), but how and when they make that conversion differs greatly. Since both types of conversion begin with code and end with a different kind of code, we need some new terms to refer to what kind of code is what. \newterm[Source code]{source code} is the high-level language code that you write in Python, C, C++, C\#, Swift, or any other common programming language. After the conversion is made, the computer will produce \newterm[object code]{object code}, which is directly executable by the computer. You can open a source code file in a text editor, but you cannot natively execute it. Conversely, you can execute an object code file, but you cannot natively open it in a text editor. The decision to make the code an interpreted language or a compiled language happens when the language itself is being designed; you cannot choose which you'd like.\par
+\newterm[Interpreted languages]{interpretation} are translated into object code while the actual code is being executed. As the program is being run, the computer is interpreting the code, line-by-line. This means that you don't have to wait for the code to be translated into your executable binary file, but it also incurs a performance penalty on the code's execution, since each line needs to be interpreted as it is needed. Interpretation, while perhaps insignificant on a small project, could add up to seconds or even minutes on a large project.\par
+Conversely, \newterm[compiled languages]{compilation} are translated into object code before any code is actually executed. Before your program can even run, it needs to be converted into a binary executable (\newterm[object code]{object code}) that can then be run. When you're ready to run your code, your computer will compile the code, then run the compiled code, not the source code. It means that it takes longer to get the compiled code (as the entire source code file or files are compiled), but that once the code is compiled, it's much faster than an interpreted language, since the computer's not trying to compile the instruction and execute the instruction, too, only execute the instruction. \par
+Python is an interpreted language. For your purposes, the execution time between an interpreted and a compiled language do not matter nearly as much as writing good code in the first place. Both will seem nearly instantaneous to mere mortal humans like you or me.\par
+
+\section{How to Program}
+\subsection{A New Type of Problem}
+The challenge of programming computers tends to be a mental block. Programming computers comes very easily to some people and is quite difficult for others. No matter who you are, programming teaches you how to solve problems a \textit{different} way. This new way isn't necessarily a \textit{better} way to solve problems, though. The method that you learn on how to solve programming challenges will probably be different from someone else's, so it's tough to say exactly what new things you'll learn on exactly how you solve problems, but you will learn: about programming, about how you think, about problem solving\par
+There seems to be a misconception that programmers know everything about the languages that they program in, but that's just not true. Programmers tend to know the most common syntax for the tasks that they do with the programming language that they use, but it's just unrealistic to assume that every programmer knows every single module. You'll probably end up having to do some research in the Python documentation, as well as any of the modules that you choose to use. Even experienced programmers have to consult documentation, so there's certainly no shame in doing so yourself. The documentation has been made available by the language designers to help you, and you should use it.\par
+Besides, there's also Internet forums like StackOverflow. A word of warning: these forums are notoriously harsh, and the experienced users seem to believe that they're right and everyone else's solution is dead wrong. We wouldn't recommend trying to ask a question on StackOverflow unless you need a good dose of shame in your life, but you can certainly try to find help from answers to questions that others have already asked. Whatever you do, don't just copy and paste solutions that you find from the Internet. Not only will you not learn the basic syntax of how to program, but it may constitute an academic integrity infraction. Plus, stealing code just isn't cool.\par
+\subsection{The Power of Pseudocode}
+When most newbie programmers start a project, they choose to jump right into the code and start the actual act of programming straight away. This is not a good idea for many reasons, only one of which is that it lets you write very, very bad code.\par
+Instead, you should be ready to write \newterm[pseudocode]{pseudocode}. Pseudocode, as its name suggests, is code-like writing that doesn't follow all of the same syntax as real Python. After you write your pseudocode, you can "translate" it to Python or whatever programming language that you are using.\par
+Psuedocode can take several different forms: fake code, napkin drawings, flowcharts, diagramming, and so many other forms. There's no specific syntax that you have to follow when you write your pseudocode. You could write the same Python script in many different ways in pseudocode. For example, here's a Python script. Don't worry, you don't have to understand what this code does now.
+\begin{lstlisting}[style=pippython]
+name = None
+name = str(input("What is your name?"))
+print("Your name is", name)
+\end{lstlisting}
+This might not all make sense to you now, but here's a way to write this as pseudocode.
+\begin{lstlisting}[style=none]
+Empty variable called name
+Fill name with user input as a string
+Output "Your name is" and the name var
+\end{lstlisting}
+Here's another way.
+\begin{lstlisting}[style=none]
+variable name as Nonetype
+output "What is your name"
+name < user input
+output concatenated str "Your name is" + name
+\end{lstlisting}
+This is only one type of pseudocode. Remember that pseudocode can also be flowcharts and diagrams. When your projects get more complicated, you should be comfortable with writing your algorithms out on paper. It will help you understand the nuances of your algorithms, and you can then convert that into code much easier.\par

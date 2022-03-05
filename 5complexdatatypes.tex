@@ -1,0 +1,391 @@
+\chapter{Complex Datatypes}
+It may seem strange that we aren't covering complex \index{datatype}datatypes right next to simple datatypes, but it's for a reason: knowing how to use simple datatypes and basic Python functionality is key to understanding and utilizing these complex datatypes.\par
+Python has four complex datatypes that are available for you to use out-of-the-box: \index{datatype!list}lists, \index{datatype!dictionary}dictionaries, \index{datatype!tuple}tuples, and \index{datatype!set}sets. We will go over all four types, but we will spend most of our focus on lists and dictionaries.\par
+It's also possible for us to make our own complex datatypes, and we'll do that when we cover classes in Chapter 7.
+\section{Lists}
+Let's imagine for a moment: you want to process the statistics for each rider on your favorite pro cycling teams. Sure, you could create variables for name, functional threshold power (FTP), peak power, and watts per kilogram for every rider. What might this look like?\footnote{Readers should note that this data is fabricated. Do not use these figures in your code.}\par
+\begin{lstlisting}[style=pippython]
+ath1name = "Peter Sagan"
+ath1ftp = 470
+ath1peak = 1230
+ath1wpk = 6.7
+ath2name = "Caleb Ewan"
+ath2ftp = 471
+ath2peak = 1903
+ath2wpk = 7.0
+\end{lstlisting}
+Here we run into an inherent problem with individual variables: it gets really messy, really fast. It'd be really easy to spend all day making individual variables for every single rider. Well, there's a better way: lists. Lists are one of the \newterm[complex datatypes]{complex datatypes} in Python, and they allow us to store multiple pieces of individual data in a single data structure.\par
+You can think of a list as a sequence of individual pieces of data. Instead of storing our data as individual variables, we can store all of the names in one list, all of the FTP data in a different list, all of the peak power figures in a third list, and all of the watts per kilogram measurements in a fourth list. Let's look at how to create these lists and get the data out of them.\par
+\subsection{Creating Lists}
+Creating lists isn't a particularly difficult task, and the same general structure applies as when declaring and initializing a variable. Let's use the same data as above, but expand on it a little bit. For these examples, we'll use five athletes. If we were to write each of these as individual variables, we'd have 20 variables, but instead, we can store all of the data we need in just four variable.\par
+Lists are stored in variables, just like individual values. We even use the same assignment operator \verb|=|. The only thing that's different is the form of the data that we're putting into our variable. In Python, we create lists using square brackets \verb|[]| to denote the start and end of the list and commas \verb|,| to delimit each of the elements in the list. Consider the following code.\footnote{Again, all of the data has been fabricated.}\par
+\begin{lstlisting}[style=pippython]
+names = ["Peter Sagan",
+    "Caleb Ewan",
+    "Mathieu Van Der Poel",
+    "Chris Froome",
+    "Mark Cavendish"]
+ftps = [470, 471, 460, 480, 465]
+peaks = [1230, 1903, 1653, 1403, 1109]
+wpks = [6.7, 7.0, 6.7, 6.3, 6.2]
+\end{lstlisting}
+As you can see, we're adding elements to our lists just as we would assign individual values to a variable. We use the same syntax to indicate a string (double quotes) or float (decimal points).\par
+\warningtext{Common pitfall: comma placement}{When writing out a list of strings, it is surprisingly easy to accidentally put your commas inside of your strings instead of outside, as the former is common in English writing. If you do put a comma inside of a string, there is nothing to delimit the two strings, so Python won't be able to store the string and your program will likely crash.}
+If your code isn't working, you might want to double-check that you've placed your commas correctly. The following code has just one misplaced comma that will prevent the code from running properly.\par
+\begin{lstlisting}[style=pippython]
+names = ["Peter Sagan,"
+    "Caleb Ewan",
+    "Mathieu Van Der Poel",
+    "Chris Froome",
+    "Mark Cavendish"]
+\end{lstlisting}
+It's also possible to mix the datatypes that go in your lists. For example, we could also structure our data by creating one variable for each athlete, as shown here.
+\begin{lstlisting}[style=pippython]
+saganData = ["Peter Sagan", 470, 1230, 6.7]
+ewanData = ["Caleb Ewan", 471, 1903, 7.0]
+vanDerPoelData = ["Mathieu Van Der Poel", 460, 1653, 6.7]
+froomeData = ["Chris Froome", 480, 1403, 6.3]
+cavendishData = ["Mark Cavendish", 465, 1109, 6.2]
+\end{lstlisting}
+When you're writing your own programs, there isn't necessarily a "right" and a "wrong" way to represent your data, but you should consider what kind of problem you're trying to solve and construct your variables around that. There are certainly "worse" and "better" ways to represent data. If you were trying to create a program that calculated average stats for all of the athletes on a team, then the first model might work better. It's a lot easier to grab all of the elements of just one array, rather than having to iterate through each of the variables for each athlete. However, if you were trying to create a program that showed all of the data for a certain athlete, then the second model would be easier to work with. It would be a lot easier than grabbing one bit of data from a bunch of variables.
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 5.1.
+\begin{Exercise}
+    \Question{In your own words, describe what a list is.}
+    \Question{What advantages do lists offer over simpler datatypes?}
+    \Question{What drawbacks to lists have compared to their simpler counterparts?}
+\end{Exercise}
+\begin{Exercise}
+    \Question{Provide an example of a list with all of the same datatype from earlier in this chapter.}
+    \Question{For the list that you chose, what datatypes are in the list?}
+    \Question{Can you put multiple datatypes into one list? If so, provide an example of this from earlier in this chapter. If not, provide the error message that Python generates.}
+\end{Exercise}
+\begin{Exercise}
+    \Question{What characters are used to enclose a list in Python?}
+    \Question{What separates each of the elements in a Python list?}
+\end{Exercise}
+\begin{Exercise}
+    \Question{Write a Python list that has the names of five of your professors or instructors and put the list into a variable called \verb|instructors|.}
+    \Question{Write a Python list that has five breeds of dogs and put the list into a variable called \verb|dogs|.}
+    \Question{Write a Python list that has the names of four cities and put the list into a variable called \verb|cities|.}
+    \Question{Write a Python list that has the number of stories of three residence halls on your campus and put the list into a variable called \verb|resHallHeights|. Follow the line with a comment with the name of the residence halls, but do not store the names in the actual list.}
+\end{Exercise}
+\subsection{Accessing Data Inside of Lists}
+Now that we've created our list, it's probable that we'd want to access some data inside of that list.\par
+In the past, when we stored individual elements to a variable, we could just call that variable to get its contents, such as shown here.
+\begin{lstlisting}[style=pippython]
+ath4name = "Chris Froome"
+print(ath4name)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+Chris Froome
+\end{lstlisting}
+There's nothing special about the code that we just saw. But, what if we tried to print a list?\par
+\begin{lstlisting}[style=pippython]
+froomeData = ["Chris Froome", 480, 1403, 6.3]
+print(froomeData)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+['Chris Froome', 480, 1403, 6.3]
+\end{lstlisting}
+Python very helpfully prints everything in the list. It can't read our mind and figure out that we only want the name, or the first element of the vector.\footnote{The term "list" is a term very specific to Python. In other languages, the more commonly used term is "vector." If you see the term "vector," understand it to mean what a Python list is.}\footnote{There is a difference between arrays and vectors, namely that arrays are assigned a specific length in memory when they are declared, while vectors can be expanded and shrunken at will. Since Python does not differentiate between arrays and vectors, we will not cover their differences in depth in this book, but you'll find more detail in a book on a language with memory management, such as C++.} Instead, we need to instruct Python to only give us a certain \newterm[element]{datatype!list!element} in the list. An element is one individual chunk of data in a list.\par
+\boxtext{Why the quotes?}{Observe in the above list how Chris Froome is printed surrounded by single quotes. This is because we are mixing our datatypes in a list, and Python wants to make sure that we know that this is a string. If you see quotes surrounding a list element, you should automatically consider it to be a string element. There is no such differentiation, however, between integers and floats.}\par
+\boxtext{Typecasting a list versus list element}{Recall how we \indexterm{typecast} variables in chapter 4.6. We can also typecast elements of a list. Simply refer to the variable that the list is in, along with the element index. Remember to not typecast the entire list if you're only trying to typecast an element in a list.}
+We can tell Python to give us the $n$th element in a list, where $n$ is the index of the element in the list, starting at 0. You can think of the $n$th element in a list as you would think of an element in a sequence in calculus. The $n$th element of the Fibonacci sequence $F$ could be denoted as $F_{n}$, where $n$ is the element of the sequence. In this case, instead of sequences, we're looking at lists, and instead of numbers, any type of data can be represented. Let's look at our Chris Froome list in a table, along with the \indexterm{index}\footnote{In this book, we refer to the plural of "index" as "indices." However, you may also see "indexes" written in documentation or in other textbooks.} numbers.\par
+\vspace{5mm}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+Index & 0              & 1   & 2    & 3   \\
+\hline
+Data  & \verb|"Chris Froome"| & \verb|480| & \verb|1403| & \verb|6.3|\\
+\hline
+\end{tabular}\par
+\vspace{5mm}
+\warningtext{Indices start at zero}{Remember, in Python, indices start at 0, not at 1!}\par
+If we wanted to get the name, then we could ask Python to give us the 0th element of the array. In Python, we do this using square brackets, just not in the same way that we used to initialize the array. Instead, we can write the name of the variable that has the data in it, followed by square brackets with the index number of the element of the array. Don't add an extra space in between the variable name and the square brackets with the index number.\par
+\begin{lstlisting}[style=pippython]
+froomeData = ["Chris Froome", 480, 1403, 6.3]
+print(froomeData[0])
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+Chris Froome
+\end{lstlisting}
+Since we're printing a specific element of the array, it prints without the square brackets, commas, or any quotation marks around strings.\par
+It's very easy for beginning programmers to forget that arrays start at zero in almost every programming language.\footnote{Arrays start at one in Matlab for some ungodly reason, but it is very much the exception.} If you're having issues getting a specific element of a list, you should double-check that your index number is correct.\par
+Just like how we've accessed an element in a list, we can also change that item's value. Changing the value of an element of a list is just like changing an individual variable. However, instead of referring to the variable as a whole, you should only refer to the specific index of data that is to be overwritten. For example, say I got Chris Froome's FTP incorrect: it should be changed to 483. I know that the index of the FTP in the \verb|froomeData| list is at location 1, so I can get the old value easily.
+\begin{lstlisting}[style=pippython]
+print(froomeData[1])
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+480
+\end{lstlisting}
+We can also edit that value as if we were editing a regular variable.
+\begin{lstlisting}[style=pippython]
+froomeData[1] = 483
+print(froomeData[1])
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+483
+\end{lstlisting}
+It might also be helpful to know how many elements are in the list. Python can provide this via the \verb|len()| function, which lets us know the length of the list. \verb|len()| takes one argument, the name of a list, and it returns an integer with the number of elements in the list. Let's say that we forgot how many athletes were in the \verb|names| list. We could use the following to print the length of the list.\par
+\begin{lstlisting}[style=pippython]
+print(len(names))
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+5
+\end{lstlisting}
+The return value of the \verb|len()| function is just a regular integer.\par
+\subsection{Appending to Lists}
+Down the line, it's possible that you'd want to append to a list. Appending an element means that you are adding that new element to the end of an existing list. In order to append to a list, your list must already exist.\par
+Let's go back to the original example of lists. It is provided below, for your convenience.
+\begin{lstlisting}[style=pippython]
+names = ["Peter Sagan",
+    "Caleb Ewan",
+    "Mathieu Van Der Poel",
+    "Chris Froome",
+    "Mark Cavendish"]
+ftps = [470, 471, 460, 480, 465]
+peaks = [1230, 1903, 1653, 1403, 1109]
+wpks = [6.7, 7.0, 6.7, 6.3, 6.2]
+\end{lstlisting}\footnote{For reference, FTP (functional threshold power), peak power, and WPK (watts per kilogram) are real units for measuring cycling performance, even if the actual measurements are made up. They represent the power that a cyclist can put out.}
+Using this code, imagine that we wanted to add another athlete, Tadej Poga\v{c}ar. We could reinitialize all of the lists with the new data, but that's an awful lot of work for something so trivial. Thankfully, Python has a much easier way: the \verb|append()| method. \verb|append()| only takes one argument: the element that is to be appended to the end of the existing list. Instead of passing in the list to append to as an argument, we will instead use a \newterm[method]{functions!method} on the list itself. A method is a way of manipulating a data structure, like a list.\par
+The syntax to add an element to a list is as follows.\par
+\begin{lstlisting}[style=pippython]
+names.append("Tadej Pogacar")
+ftps.append(466)
+peaks.append(1369)
+wpks.append(6.5)
+\end{lstlisting}
+Since we are using a method on a data structure (the structure is a list), we will put the name of the method after the name of the data structure itself, separated by a period. We can then pass any arguments that we need to pass into to the method inside of the parentheses. Do not confuse methods with functions. They are similar, but they aren't exactly the same. We'll get to those differences in chapter 7.3.\par
+What if we want to add multiple pieces of data to an existing list? Let's say that we had two lists, one for male and one for female athletes, but we needed to combine these lists into one. We can use the \verb|extend()| method. \verb|extend()| takes one argument, another list.\footnote{You can also pass in a tuple or a set, but these are topics that we won't cover in depth in this book.} Consider the following code, which creates two lists of names, one for males and one for females, then combines them into one list.
+\begin{lstlisting}[style=pippython]
+maleNames = ["Peter Sagan",
+    "Caleb Ewan",
+    "Mathieu Van Der Poel",
+    "Chris Froome",
+    "Mark Cavendish"]
+femaleNames = ["Hannah Barnes",
+    "Ella Harris",
+    "Jessica Pratt",
+    "Ellen van Dijk",
+    "Katie Hall"]
+allNames = maleNames
+allNames.extend(femaleNames)
+\end{lstlisting}
+We begin by creating our two lists as normal. Then, we can put our list of male names into a new list called \verb|allNames|. We can then extend the \verb|allNames| list using the list of female names. After this, \verb|allNames| has all of the athlete names.\par
+\warningtext{Append Versus Extend}{If you attempt to use the append method to append a list to another list, you'll end up creating a nested list, not adding the components of the list to the other list. If you attempt to use the extend method to add a single item to a list, you'll end up with an error, since the extend method expects a list as its argument.}
+Just as we have appended to a list, we can also remove items from an existing array. We can do this either by name or by index number. Let's say that we wanted to remove Mark Cavendish from the \verb|allNames| list. We know that his index number is 4 (remember, indices start at 0) and that his entry is \verb|"Mark Cavendish"|, and we can use either to remove the element.\par
+If we wanted to remove by name, we can use the \verb|remove()| method. We can pass in the exact data that we want to remove as whatever datatype the data is stored as at that list location. That is, if the data is an integer, we can pass an integer into the \verb|remove()| method. However, we know that the entry is a string, so we'll pass in a string literal.
+\begin{lstlisting}[style=pippython]
+allNames.remove("Mark Cavendish")
+\end{lstlisting}
+We can also remove by index by using the \verb|pop()| method. The \verb|pop()| method can only take an integer, the index number of the element.
+\begin{lstlisting}[style=pippython]
+allNames.pop(4)
+\end{lstlisting}
+If you do not specify an argument for \verb|pop()|, Python will remove the last element of the array.\par
+Finally, we can clear all of the elements of a list. Clearing the elements only clears the contents; it does not remove the list itself. The list only has no content. We do this using the \verb|clear()| method. \verb|clear()| takes no arguments.
+\begin{lstlisting}[style=pippython]
+maleNames.clear()
+\end{lstlisting}
+\subsubsection*{Exercise Questions}
+\begin{Exercise}
+    \Question{Where do indices start in Python lists?}
+    \Question{Lists contain multiple objects. What is the formal name for these individual objects?}
+    \Question{If you wanted to access the $n$th element of a list, what index number would you give Python in terms of $n$?}
+\end{Exercise}
+\begin{Exercise}
+Consider the \verb|instructors| list that you made in chapter 5.1.1.
+    \Question{How long is the list? Give the Python code that gave you how long the list is.}
+    \Question{What is the third element of that list? Give the Python code that gave you the third element. Remember, indices start at 0 in Python, so make sure you're getting the third element, not the fourth element!}
+    \Question{Add two new professors or instructors to the \verb|instructors| list. What code did you use? Also give the new length of the list, along with the code that you used to get the length of the list.}
+    \Question{Print the \verb|instructors| list. Then, remove the third professor or instructor from the \verb|instructors| list by the value of the element (rather than the index). What code did you use?}
+    \Question{Without printing the list again, remove the element with index number 4 (not the fourth) from the \verb|instructors| list using the index number (rather than the element value). What code did you use?}
+\end{Exercise}
+\begin{Exercise}
+Consider the \verb|cities| list that you made in chapter 5.1.1.
+    \Question{Change the third element (careful about the what the index number is!) to "Berlin" (it's okay if you already have Berlin in your list, we'll just add it again). Provide your code.}
+    \Question{Run the following in the Python interpreter: \verb|cities[2]|. What is the output?}
+    \Question{Clear all of the elements from the \verb|cities| list, then print the list. What is the code that you used to clear the elements from the list? What is the output?}
+    \Question{Now, what datatype is \verb|cities|: list, list of strings, or \indexterm{Nonetype}?}
+\end{Exercise}
+
+\section{Dictionaries}
+Lists are just one way of storing multiple pieces of data. There are also dictionaries, and they operate in a fundamentally different ways compared to lists.\par
+\subsection{Lists Versus Dictionaries}
+While lists and dictionaries might appear similar on the surface, each has their own positives and negatives. The underlying concept of each data structure is different, for one. When we took a look at lists and how to get certain elements from lists, we saw that we could draw a table with our index and the data at that index location. Comparatively speaking, dictionaries use a key instead of an index. While lists store data as a sequence of data, lists are stored in key-data pairs. The keys in dictionaries are like sub-variable names, and they describe a specific piece of data within the larger dictionary.\par
+Another way to think of dictionaries in Python is to compare them to real dictionaries with words and definitions. In a word dictionary, the words are sorted in some logical manner (alphabetically) and the accompanying data (the definition) is stored alongside the words. In Python, the words are the keys and the definitions are the data.\par
+\subsection{Creating Dictionaries}
+Just like creating a list is like declaring a variable, creating a dictionary is like creating a list.\par
+Let's take a look at how we could represent the data in the second model of lists in chapter 5.1. The data is provided here again.
+\begin{lstlisting}[style=pippython]
+saganData = ["Peter Sagan", 470, 1230, 6.7]
+ewanData = ["Caleb Ewan", 471, 1903, 7.0]
+vanDerPoelData = ["Mathieu Van Der Poel", 460, 1653, 6.7]
+froomeData = ["Chris Froome", 480, 1403, 6.3]
+cavendishData = ["Mark Cavendish", 465, 1109, 6.2]
+\end{lstlisting}
+At first glance, the name makes sense, but what are the numbers next to the names? We might be able to remember, but it'd be a lot easier if everything was labeled. This is the perfect opportunity to use a dictionary. We could represent the above data as shown in this code.
+\begin{lstlisting}[style=pippython]
+saganData = {
+    "name": "Peter Sagan",
+    "ftp": 470,
+    "peak": 1230,
+    "wpk": 6.7
+}
+ewanData = {
+    "name": "Caleb Ewan",
+    "ftp": 471,
+    "peak": 1903,
+    "wpk": 7.0
+}
+vanDerPoelData = {
+    "name": "Mathieu Van Der Poel",
+    "ftp": 460,
+    "peak": 1653,
+    "wpk": 6.7
+}
+froomeData = {
+    "name": "Chris Froome",
+    "ftp": 480,
+    "peak": 1403,
+    "wpk": 6.3
+}
+cavendishData = {
+    "name": "Mark Cavendish",
+    "ftp": 465,
+    "peak": 1109,
+    "wpk": 6.2
+}
+\end{lstlisting}
+To create a dictionary (or five), surround the contents of each dictionary with curly braces \verb|{}|. Specify the key first, in quotes, as it is a string literal. Delimit the key and the data using a colon \verb|:|, then enter the data that should occupy that key. Separate individual lines with commas \verb|,|. It seems complicated, but with enough time, it's actually pretty simple.\par
+As you can see, you can use the same key names in multiple different variables. However, you cannot use the same key name within one dictionary. For example, the following code is not syntactically correct, even though the values are different.
+\begin{lstlisting}[style=pippython]
+saganData = {
+    "name": "Peter Sagan",
+    "ftp": 470,
+    "peak": 1230,
+    "wpk": 6.7
+    "wpk": 6.9
+}
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+SyntaxError: invalid syntax
+\end{lstlisting}
+However, we could use the following dictionary, which is syntactically correct.
+\begin{lstlisting}[style=pippython]
+saganData = {
+    "name": "Peter Sagan",
+    "ftp": 470,
+    "peak": 1230,
+    "wpk1": 6.7
+    "wpk2": 6.9
+}
+\end{lstlisting}
+\subsection{Accessing Data Inside of Dictionaries}
+Accessing data inside of dictionaries is remarkably similar to how we access data inside of lists. We even use the same characters!\par
+When accessing data inside of a dictionary, we still use the square brackets \verb|[]| that we used to access data from lists, but what goes inside of those brackets is different. In lists, we put the index number of the element of the array. However, we don't have an index number in a dictionary. Instead, we can use the element's key to get its value. Since we're using a string literal, we need to put the key's name inside of quotes. Consider the following code.\par
+\begin{lstlisting}[style=pippython]
+froomeData = {
+    "name": "Chris Froome",
+    "ftp": 480,
+    "peak": 1403,
+    "wpk": 6.3
+}
+print(froomeData["ftp"])
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+480
+\end{lstlisting}
+If you've forgotten what you named your keys, you can also pull up a list of keys for any given dictionary by using the \verb|keys()| method, as shown below.
+\begin{lstlisting}[style=pippython]
+print(froomeData.keys())
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+dict_keys(['name', 'ftp', 'peak', 'wpk'])
+\end{lstlisting}
+Python will return the name of all of the keys as a list.\par
+\subsection{Appending to Dictionaries}
+Appending to dictionaries is an inevitable part of programming as you become more familiar with the tools of the language. You'll never be able to store all the data in your variable initialization, so we'll need to know how to append.\par
+Unlike lists, we don't have a simple method to append a new key to a dictionary, like \verb|append()|. Instead, we can append items by simply defining a new key and data pair for the dictionary. Let's say that we wanted to add an updated FTP value for Chris Froome in a key called \verb|updatedFTP|.
+\begin{lstlisting}[style=pippython]
+froomeData = {
+    "name": "Chris Froome",
+    "ftp": 480,
+    "peak": 1403,
+    "wpk": 6.3
+}
+froomeData["updatedFTP"] = 485
+print(froomeData.keys())
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+dict_keys(['name', 'ftp', 'peak', 'wpk', 'updatedFTP'])
+\end{lstlisting}
+As we can see, there is a new key named \verb|updatedFTP|. We can then use this key as we would any other.\par
+However, dictionaries are not method-less. In order to modify existing data, we can use the \verb|update()| method. \verb|update()| takes one argument, a dictionary with new data. Let's say that we wanted to change Chris Froome's FTP, since it was wrong; instead of 480, it should be 483. We can use \verb|update()| to pass in a dictionary specifying the key that should be changed and the value that it should be changed to.\par
+\begin{lstlisting}[style=pippython]
+froomeData = {
+    "name": "Chris Froome",
+    "ftp": 480,
+    "peak": 1403,
+    "wpk": 6.3
+}
+froomeData.update({"ftp": 483})
+\end{lstlisting}
+The brackets and braces might look confusing, but break it down and it becomes quite simple. The outer parentheses \verb|()| are for the \verb|update()| method, and they specify arguments for that method. The curly braces \verb|{}| are for the dictionary, and they specify that the data being passed in is a dictionary and what the contents of that dictionary are.\par
+Of note is that if you attempt to run the \verb|update()| method on a dictionary that doesn't already have that key, Python will create the key and populate it with the data that you specify. You can then use this key as if you had created it by using the first method of appending to a dictionary.
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 5.2
+\begin{Exercise}
+    \Question{What is a dictionary?}
+    \Question{What are the differences between Python lists and dictionaries?}
+    \Question{Lists store data in [?]-[?] pairs, whereas dictionaries store data in [?]-[?] pairs. (Fill in the blanks)}
+    \Question{Suppose you wanted to store the names of all of the NHL teams. Would you use a list or a dictionary? Why?}
+\end{Exercise}
+\begin{Exercise}
+    \Question{Consider a potential dictionary named \verb|falcons| that would hold team data from the Atlanta Falcons NFL team. What are some key names that this dictionary might have?}
+    \Question{Consider a potential dictionary that would hold information on one of the dorms on your campus. What might you name the dictionary? What are some key names that this dictionary might have?}
+\end{Exercise}
+\begin{Exercise}
+    \Question{Create a new dictionary inside of a variable named \verb|eagles|. Add four keys: \verb|code|, \verb|city|, \verb|wins|, and \verb|winrate|. Initialize all of the keys to a \indexterm{Nonetype}.}
+    \Question{In the \verb|eagles| dictionary, change the \verb|code| value to a string \verb|PHI|.}
+    \Question{In the \verb|eagles| dictionary, change the \verb|city| value to a string \verb|Philadelphia|.}
+    \Question{In the \verb|eagles| dictionary, change the \verb|wins| value to an integer \verb|4|.}
+    \Question{The Eagles played 16 games, of which they won four, tied one, and lost eleven. Use Python to calculate the win percentage. Win percentage is calculated using the following formula: ($2 \times \text{wins} + \text{ties}) / (2 \times \text{total games played}) \times 100$. Put the value in the \verb|eagles| dictionary in the \verb|winrate| key as a float. Try to do this in a single line.}
+\end{Exercise}
+
+\section{Tuples}
+\newterm[Tuples]{datatype!tuple} are most often used to pass data between different data structures, which we'll cover in Chapter 7. You may have heard of tuples in precalculus, calculus, linear algebra, or some other mathematics course, where the definition of a tuple is a sequence of $n$ elements, where $n$ is some non-negative integer. Tuples, by definition, are ordered (given that they are a sequence), and they must be finite.\par
+For example, $(2, 3, 4, 5, 6)$ is a valid mathematical tuple. It has a $n=5$, which is greater than zero and is finite. The size of this tuple is immutable - this is a 5-tuple, and it will always be a 5-tuple.\par
+\boxtext{Tuple Notation}{If you haven't worked with tuples before, $n$-tuple notation is used to give the size of the tuple. A 5-tuple means that the tuple has 5 elements in it.}
+Tuples are very similar in Python. Like a mathematical tuple, a tuple must have a size greater than 0 and must be finite. Unlike mathematical tuples, tuples can have different datatypes in them. Like in a list, you can mix booleans, integers, floats, and strings in a single tuple. You can also refer to tuple elements by their index number using square brackets, just like in lists. However, you cannot make a tuple larger or smaller after you create its size. If you create a 3-tuple, your tuple size is limited to 3. Tuples are also immutable. Once you create a tuple, you cannot change its value.\par
+Consider the following tuple.\par
+\begin{lstlisting}[style=pippython]
+leafygreens = ("Romaine Lettuce", "Iceberg Lettuce", "Arugula")
+\end{lstlisting}
+We could refer to the second element (iceberg lettuce) by its index number 1.
+\warningtext{Indices start at zero}{Indices start at 0 in Python!}
+\begin{lstlisting}[style=pippython]
+print(leafygreens[1])
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+Iceberg Lettuce
+\end{lstlisting}
+However, we cannot redefine the second element to be Butterhead Lettuce.\par
+\begin{lstlisting}[style=pippython]
+# NOT CORRECT
+leafygreens[1] = "Butterhead Lettuce"
+\end{lstlisting}
+If I want to change an element in the tuple, I need to reinitialize the entire tuple variable.\par
+\begin{lstlisting}
+leafygreens = ("Romaine Lettuce", "Butterhead Lettuce", "Arugula")
+print(leafygreens[1])
+\end{lstlisting}
+\begin{lstlisting}
+Butterhead Lettuce
+\end{lstlisting}
+If we want to store data, it is almost always more practical to use a list or a dictionary. However, there are still some cases where we would want to use a tuple: when we are interacting with functions. When we want to call a function and pass specified arguments to that function, we should use a tuple, since a tuple is of a fixed length and is immutable. In this use case, we will almost never see the tuple placed into a variable, but rather given as a tuple literal. Because of their limited use case, you probably won't want to use a tuple unless you see it in library documentation for some module that you're using. We wanted to introduce the concept of tuples to you regardless, since they do exist.
+
+\section{Sets}
+\newterm[Sets]{datatype!set} are the simplest of the complex datatypes, so if you understand lists, dictionaries, and tuples, you already understand a set.\par
+In mathematics, sets are simply a collection of elements. There are no orders, sequences, or indices. Sets also cannot contain duplicate entries. Any duplicate entries will be ignored, since in a set, all that matters is whether an element is present in the set or not. This means that the set ${2, 3, 4}$ and ${2, 3, 4, 3}$ are the same, since the values 2, 3, and 4 are in both sets. In mathematics, we write sets inside of curly braces: ${2, 3, 4, 5, 6}$.\par

@@ -1,0 +1,79 @@
+\chapter*{End Matter}
+\markboth{\MakeUppercase{End Matter}}{\MakeUppercase{End Matter}}
+\section*{Conclusion}
+With this book, you have only started to scratch the surface of what is possible with Python. It is an incredibly versatile and powerful programming language with many features that will prove useful to you as you embark further on your programming journey. Furthermore, it prepares you to learn other programming languages. If you decide to pick up a language like C++, Swift, JavaScript, PHP, or any other language, you'll immediately begin to notice similarities. Sure, the syntax is different, but the ideas and structures that exist in Python also exist in nearly every other programming language. Now that you know what a variable is, what the datatypes are, how a function works, and other concepts like these, you are well equipped to adapt this knowledge to new languages: a function in C++ fundamentally does the same thing as a Python function, even though they might look different.\par
+Programming is useful for other reasons, too. For one, it teaches you how to be a critical thinker and problem solver. With your programming mindset, you have become tuned to hunting down and fixing issues and developing cohesive solutions to complicated problems, and those skills are increasingly important in our modern age of information. Even if you don't choose to continue programming formally, consider continuing to work on these skills, and consider using programming as a means to achieve great things.
+\section*{Further Projects}
+As mentioned, we have only scratched the surface of Python's immense capabilities. Here are some projects to try and exercise your newfound Python skills, as well as some new things to explore.
+\begin{itemize}
+    \item Code a Tic-Tac-Toe game in the Python console. You'll have to figure out how to make your program interactive.
+    \item Learn how to use Turtle. Turtle is a graphics library that allows you to draw using Python.
+    \item Learn how to use Tkinter (after Turtle). Tkinter will allow you to develop desktop applications using Python.
+    \item Learn how to use Flask. Flask is a web-server designed for Python, and it'll allow you to flex your new HTML and CSS skills.
+    \item Code a Towers of Hanoi simulation. This is a great way to learn how to use recursion.
+    \item Learn JavaScript or R. All are interpreted languages (like Python), but they use a different syntax. Each of these languages have advantages and disadvantages, but either will make you a better programmer and problem solver.
+    \item Learn Java, C, C++, C\#, Swift, or Objective-C. All are compiled languages and they use a similar syntax, but they have some advantages over Python. Learning either will make you a much better programmer.
+\end{itemize}
+\section*{Sample Style Guide}
+This sample style guide is provided to you as a student or instructor as a framework for your own style guide.
+
+Use descriptive names, even if it increases line length slightly. count is more descriptive than c.
+
+In general, avoid using single character variable names, since they are often difficult to follow and read. Never use the characters ‘l’ (lowercase letter el), ‘O’ (uppercase letter oh), ‘I’ (uppercase letter eye), ‘1’ (number one), or ‘0’ (number zero) as single character variable names. Avoid using ‘L’ (uppercase letter el) when possible. In some fonts, these characters are indistinguishable from the numerals one and zero.
+
+\subsection*{Capitalization Conventions}
+\begin{itemize}
+    \item Variables and objects: camelCase (\verb|count|, \verb|numRuns|)
+    \item Functions: snake\_case (\verb|sum|, \verb|sum_of|, \verb|get_result|)
+    \item Classes: CapCase (\verb|GameScore|, \verb|Runs|)
+    \item Constants: ALLCAPS (\verb|PI|, \verb|FIELDLENGTH|)
+\end{itemize}
+\subsection*{Whitespace}
+Use whitespace wisely. Remember, whitespace takes the form of both horizontal whitespace (spaces and indentation) and vertical whitespace (blank lines). Both too much and too little whitespace make your source code difficult to read.
+
+Leave one space around initializations and boolean operators.
+
+\begin{lstlisting}[style=pippython]
+runs = 1 # Good
+if (runs >= 10): # Good
+runs=3 # Bad
+\end{lstlisting}
+
+Observe how the equal sign in line 1 is surrounded by spaces. This is an example of space around initialization.
+
+Also observe how the greater than/equal to sign in line 2 is surrounded by spaces without a space between components of the boolean operator. This ensures that the syntax is correct for the entire boolean operator (the \verb|>=| is one unit, not a separate \verb|>| and \verb|=|) while still providing adequate whitespace. This is an example of space around a boolean operator.
+
+Also leave space before and after comment demarcations, as shown in lines 1-3. The comment demarcation in Python is a \verb|#|, and there is a space before and after.
+
+Leave an extra space between function arguments. Do not leave an extra space before or after function parentheses.
+
+\begin{lstlisting}[style=pippython]
+atlRuns = GetRuns('ATL') # Good
+ariWins = GetWins('ARI', 'away') # Good
+ 
+bosRuns = GetRuns( 'BOS' ) # Bad, too much space around args
+chiWins = GetWins( 'CHI', 'home' ) # Bad, too much space around args
+dalWins = GetWins('DAL','away') # Bad, no space between args
+\end{lstlisting}
+
+\subsection*{Indentation}
+
+In connection with whitespace, make sure you follow indentation conventions for your language. Python enforces indentation, so make sure you use consistent indentation.
+
+Indent using one tab, which should indent two spaces.
+
+Indent anything nested, including function contents, logic statement bodies, loops, and nested objects (mainly arrays, lists, and dictionaries).
+
+Do not put a space before a colon in a conditional or logic statement.
+
+\begin{lstlisting}[style=pippython]
+if (numRuns > 3): # Good
+  print("More than three runs!") # Good, two spaces of indentation
+else : # Bad
+   print("Not more than three runs.") # Bad, inconsistent indentation (3 spaces)
+\end{lstlisting}
+
+Soft-wrap lines in your editor, not by manually splitting a line into multiple lines. Not everyone's editor window size and font size is the same as yours. 
+
+\section*{Errata}
+No errata exist for the previous edition.

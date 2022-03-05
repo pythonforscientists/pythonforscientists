@@ -1,0 +1,1160 @@
+\chapter{General Python Programming}
+\section{Basic Operations}
+\subsection{Printing to the Console}
+A console application is one that operates entirely in the terminal. By itself, it has no graphical user interface, or GUI. GUIs can be built on-top of console applications, and the console can be hidden, but even in this case, in the background, the console is hard at work logging the events of your program. Try it! If you're on a Mac, open the Console app. It looks complicated, but at its base, it's very simple. It's just logging messages that are being sent to it by the system. Windows and Linux don't traditionally have anything similar, since both operate on a process model (individual applications are responsible for tracking their console messages), rather than a sandbox model (the host tracks console messages from all different applications).\par
+The most basic function of Python is being able to print to the console. For the most part, when we're working with Python, we're going to be working with console applications, so it's vitally important that we know how to track the progress of our programs by using the \verb|print()| function.\par
+In most Python IDEs, there's a dedicated console for your program. This is where all of the input and output happens in a console program, and for all intents and purposes, it's your only way to interact with your code.\footnote{Okay, technically, you could also interact with console applications using physical interfaces, like sensors and motors, but we won't cover these here.} So, how do we print to the console? It's really simple, actually! The \verb|print()| function allows us to print whatever is inside of the parentheses. When you write something inside of the parentheses, this is called \textbf{\textit{passing in}} an \newterm[argument]{functions!arguments}. We'll get to what this exactly means when we talk about functions in chapter 7.1.\par
+\verb|print()| only requires one argument: what you actually want to print. It looks like this:
+\begin{lstlisting}[style=pippython]
+print("Hello, World!")
+\end{lstlisting}
+\begin{lstlisting}
+Hello, World!
+\end{lstlisting}
+In the above example, observe how because we're printing a string, we need to use quotes. However, as noted in chapter 3.4, we could also write the code as follows, with single quotes:
+\begin{lstlisting}[style=pippython]
+print('Hello, World!')
+\end{lstlisting}
+\begin{lstlisting}
+Hello, World!
+\end{lstlisting}
+The print function can accept multiple arguments, or things inside of the parentheses. We pass in multiple arguments by writing them inside of the parentheses, and we distinguish between these arguments using commas. The most common reason to pass in multiple arguments is to concatenate two or more things. \newterm[Concatenation]{concatenation} is the act of linking two or more things together in a chain. Consider the following example:
+\begin{lstlisting}[style=pippython]
+print('Hello,', 'World!')
+\end{lstlisting}
+\begin{lstlisting}
+Hello, World!
+\end{lstlisting}
+This would print the exact same thing as the previous two examples in the terminal. The only difference is that they're separated by a comma. When concatenating two elements together, Python's default behavior is to add an extra space, which is why the above example would print the exact same result as the first two examples. In fact, if we tried to put an extra space inside of our strings that we were passing in, we'd end up with a double-space.
+\begin{lstlisting}[style=pippython]
+print('Hello, ', 'World!')
+\end{lstlisting}
+\begin{lstlisting}
+Hello,  World!
+\end{lstlisting}
+It's subtle, but in the output, there's an extra space between the comma: \verb|Hello,_World!| versus \verb|Hello,__World!|.\par
+We can change this default behavior by adding in another argument: \verb|sep=""|. The \verb|sep| argument specifies how each element that is to be concatenated should be separated, and it should equate to a string. This string can be empty, or it can be full of stuff. Consider the following examples:
+\begin{lstlisting}[style=pippython]
+print('Hello,', 'World!', sep="")
+\end{lstlisting}
+\begin{lstlisting}
+Hello,World!
+\end{lstlisting}
+\begin{lstlisting}[style=pippython]
+print('Hello,', 'World!', sep="CATS RULE")
+\end{lstlisting}
+\begin{lstlisting}
+Hello,CATS RULEWorld!
+\end{lstlisting}
+There's one more common argument to pass into the \verb|print()| function:\verb|end=""|. The \verb|end| argument specifies what the end of the line should look like, and it brings up another topic: \newterm[escape characters]{escape characters} or \newterm[escape sequences]{escape characters}.\par
+Every language needs some way to represent non-printing characters, such as new lines, carriage returns, or tabs. Most languages use a standard based off of the backslash character, including Python. \par
+%\begin{table}[]
+\vspace{5mm}
+\begin{tabular}{|l|l|}
+\hline
+Escape Sequence    & Meaning                \\
+\hline
+\verb|\n|          & New line               \\
+\hline
+\verb|\r|          & carriage Return        \\
+\hline
+\verb|\t|          & Horizontal Tab         \\
+\hline
+\verb|\v|          & Vertical Tab           \\
+\hline
+\verb|\'|          & Single Quote           \\
+\hline
+\verb|\"|          & Double Quote           \\
+\hline
+\verb|\\|          & Backslash Literal      \\
+\hline
+\end{tabular}\par
+\vspace{5mm}
+%\end{table}
+\newterm[Escape characters]{escape characters} allow you to print special characters that otherwise couldn't be represented. While these aren't all of the escape characters available in Python, these are the most commonly used ones.\par
+\boxtext{ANSI Escape Characters}{These escape characters are shared between nearly every programming language, and they are standardized by the American National Standards Institute, or ANSI.}\par
+\warningtext{Escape characters aren't recognized everywhere}{In most plaintext strings, escape characters are recognized. However, in a parsed setting, your escape characters might not be escaped, or the parser might even recognize the escape characters as escape characters and deliberately pass them through! For example, the \textbackslash n escape sequence doesn't exist in HTML, so trying to use the \textbackslash n escape sequence in HTML will print a literal \textbackslash n. Always double-check your work when using escape characters.}
+The \verb|\n| escape character will add a newline character to wherever it is placed in the string literal. It is commonly used in conjunction with the carriage return character, or \verb|\r|, since not all operating systems respect either \verb|\n| or \verb|\r|, but putting both in requires all operating systems to do either one.\par
+\begin{lstlisting}[style=pippython]
+print("Hello,\n\rWorld!")
+\end{lstlisting}
+\begin{lstlisting}
+Hello,
+World!
+\end{lstlisting}
+The \verb|\t| and \verb|\v| characters add a horizontal and a vertical tab, respectively. It is used to vertically or horizontally align text in the console, just as you would in a word processor document. If you're not familiar with how tabs work, you can think of the screen as a grid, where each of the cells is several characters wide. A horizontal tab character will move everything after the tab character to the next cell, and it will continue to stack new cells.\par
+\begin{lstlisting}[style=pippython]
+print("Hello,\tWorld!")
+\end{lstlisting}
+\begin{lstlisting}
+Hello,   World!
+\end{lstlisting}
+\begin{lstlisting}[style=pippython]
+print("Hello,\vWorld!")
+\end{lstlisting}
+\begin{lstlisting}
+Hello,
+   World!
+\end{lstlisting}
+You can also escape quotes inside of quotes by using the backslash, or the escape character. Using the escape character will force Python to evaluate the string literally, rather than trying to parse anything that comes after the backslash.\par
+\begin{lstlisting}[style=pippython]
+print("Hello, \"World!\"")
+\end{lstlisting}
+\begin{lstlisting}
+Hello, "World!"
+\end{lstlisting}
+But what if we need to print an actual backslash? Well, then we need to escape our escape character. We can use double backslashes \verb|\\|, and here's what it means: the first backslash does what it always does and tells the interpreter that we need to prepare to evaluate an escape character; the second backslash tells the interpreter that we're actually trying to output a backslash.
+\begin{lstlisting}[style=pippython]
+print("\\")
+\end{lstlisting}
+\begin{lstlisting}
+\
+\end{lstlisting}
+Now, we can use our escape characters to customize the end behavior of a Python print function. Just like \verb|sep|, we can pass in \verb|end| as an argument.
+\begin{lstlisting}[style=pippython]
+print("Hello, World!", end="\n")
+print("Hello, Python!", end="")
+\end{lstlisting}
+\begin{lstlisting}
+Hello, World!
+Hello, Python!
+\end{lstlisting}
+The ANSI standard specifies that a stray backslash (just a \verb|\| by itself) or an undefined escape sequence (say, \verb|\z|, which isn't a valid escape sequence) have undefined behavior. This means that depending on which interpreter you are using (and even which version of the same interpreter you are using), your interpreter could do what its authors found convenient. This means that two different interpreters will do two different things when presented with an undefined or stray escape sequence. Instead, you should only use the escape sequences that are defined by ANSI, which are provided above.
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 4.1.
+\begin{Exercise}
+    \Question{What is the console?}
+    \Question{What is the function name to output to the console?}
+    \Question{What goes inside of the parentheses?}
+    \Question{Name two arguments that you could pass to the console output function.}
+\end{Exercise}
+\begin{Exercise}
+    \Question{Write some code to print the following string on one line, without specifying the end of the line: Hello, Python}
+    \Question{Write some code to print "Hello", then "Python" by concatenation, but with no space in between.}
+    \Question{Write some code to print "Python" and end the line with a tab, rather than a newline and carriage return.}
+\end{Exercise}
+\begin{Exercise}
+    Are the following \verb|print()| statements syntactically correct? Why or why not?
+    \Question{\verb|print Hello, World!|}
+    \Question{\verb|print "Hello, World!"|}
+    \Question{\verb|print(Hello, World!)|}
+    \Question{\verb|print("Hello, World!"|}
+    \Question{\verb|print("Hello, "Dottie!""|}
+    \Question{\verb|print('Hello, World!'|}
+    \Question{\verb|print('Hello, "Dottie!"')|}
+    \Question{\verb|print('Hello, World!")|}
+\end{Exercise}
+
+\section{Variables}
+We've alluded to storing data a lot already, but how do we actually do this? Well, we use variables. Just like in algebra, variables in Python can be represented by lots of different things, and they can represent a lot of other things.\par
+We'll use variables to store nearly everything in Python. They're the best way to store the state of something while you're working on it, track how many times you've run through a loop (we'll get there later), store user information, and so many other things. In fact, variables are foundational to every single programming language.\par
+All data that is worked on in variables is stored in memory when you're running a Python script. When you declare a new variable, your variable is assigned a memory address in the computer's RAM. You can do anything you want with that memory space\index{memory!space}, including filling it with data or editing the data that's inside of it. For a review on what a memory space is, refer to chapter 2.2.\par
+Since all of your variables are stored in memory, they can only persist while the program itself is running. After your program is terminated, the memory space is marked as free by the operating system, meaning that any other program is now free to overwrite that memory. \par
+\subsection{Declaration and Initialization}
+There are two steps to creating a new variable in Python: declaration and initialization. \newterm[Declaration]{variable!declaration} means that you are telling Python that you are going to create a new variable. \newterm[Initialization]{variable!initialization} is the process of putting some initial data into that variable that can then be manipulated later. Initializing a variable doesn't necessarily mean that you cannot change the variable's value later.\footnote{The exception to this is if you decide to use constant values, or consts. You might set a constant for the value of Pi or for the force of gravity. Constants cannot be changed after initialization.} Declaration and initialization are typically done on the same line of code. By using a single equal sign \verb|=|, we can initialize and declare a variable in one fell swoop. Python will do its best to figure out what kind of variable it is, depending on what kind of information you give it. Consider the following code.\par
+\begin{lstlisting}[style=pippython]
+cashValue = 3.39
+accountHolder = "Stinky Pete"
+isBroke = True
+kitties = 390
+\end{lstlisting}
+This code is declaring four new variables: \verb|cashValue|, \verb|accountHolder|, \verb|isBroke|, and \verb|kitties|. Each of these variables is being initialized to a different type. \verb|cashValue| is being initialized to the value \verb|3.39|, which would be stored as a float. Likewise, \verb|accountHolder| is being initialized to the value \verb|"Stinky Pete"|, which is a string. \verb|isBroke| is being initialized to the \indexterm{Boolean} value \verb|True|. Note that \verb|kitties| is being initialized to 390, and Python will try to store this value as an integer, since there isn't a decimal point. If we wanted to force Python to store \verb|kitties| as a float, we could just add a \verb|.0| to the end of the initialization value:\par
+\begin{lstlisting}[style=pippython]
+kitties = 390.0
+\end{lstlisting}
+When declaring or updating the value of a variable, the name of the variable always goes to the left side of the equal sign. You can think of a variable statement as putting the thing on the right side of the equal sign into the variable on the left side of the equal sign. So, the following code is syntactically correct:
+\begin{lstlisting}[style=pippython]
+accountHolder = "Stinky Pete"
+\end{lstlisting}
+But the following code is not syntactically correct.
+\begin{lstlisting}[style=pippython]
+"Stinky Pete" = accountHolder # WRONG
+\end{lstlisting}
+In the above examples, can you guess what the variables are describing? Probably. The variable names \verb|cashValue|, \verb|accountHolder|, and \verb|isBroke| explain what information the variables hold pretty well. However, the variable \verb|kitties| doesn't really make sense. Is this how many kitties I have? Is it my love or hatred of cats on a scale from 1 to 1000? We don't really know. In programming (not just in Python), it is critically important that you get into the good habit of declaring good variable names. Be descriptive, but concise. A better variable name might be \verb|numKitties|.\par
+There are several rules that you MUST follow when making new Python variables. Failing to follow these rules will result in syntax errors:
+\begin{itemize}
+    \item A variable name must start with a letter or the underscore character \verb|_|
+    \item A variable name cannot start with a number
+    \item A variable name can only contain alphanumeric characters and underscores (A-Z, a-z, 0-9, and \_)
+    \item Variable names are case-sensitive: \verb|age|, \verb|Age|, and \verb|AGE| are three different variables
+    \item Variable names cannot be reserved words in Python, such as \verb|print|
+\end{itemize}
+Now is also a good time to go over naming conventions. There are several different naming conventions that you might see while programming. It doesn't terribly matter, but whichever convention you go with, you should stick with it throughout the entire project.\par
+\begin{itemize}
+    \item snake\_case is written with underscores in between each word. In Python, snake case is typically used for package or modules that must be longer than one word. Avoid using snake case when possible.
+    \item flatcase is written with no spaces and no additional capitalization. In Python, flatcase is typically used for methods and functions. However, you may find it easier to use camelcase.
+    \item lowercaseCamelCase is written with the first word in all lowercase and all following words capitalized. In Python, lowercase camel case is typically used for variable names.
+    \item UppercaseCamelCase is written with all of the words capitalized. In Python, uppercase camel case is typically used for method names.
+    \item ALLCAPS is written with all letters capitalized. In Python, all caps case is typically used for constants.
+    \item train-case is written with dashes in between each word. Python doesn't typically use train-case.
+    \item sArCaSmCaSe Is UsEd To InDiCaTe ExTrEmE sArCaSm.\footnote{ThE pOwEr To UsE SaRcAsMcAsE cOmEs WiTh GrEaT rEsPoNsiBiLiTy. UsE iT wIsElY.}
+\end{itemize}
+When using camel case, capitalize all letters of abbreviations (e.g. \verb|HTTPSServer| instead of \verb|HttpsServer|). Always avoid naming this with \verb|O| (easily confused with \verb|0|) or \verb|I| (easily confused with \verb|1| or \verb|L|). \par
+It is possible to declare a new variable without initializing it, but you must declare a variable before initializing it. If you don't know what type of variable will be, but you know that you'll need a variable, you can initialize to something called the \newterm[Nonetype]{Nonetype}. To do so, simply set the initialization to \verb|None|. This is the practical equivalent to declaring without initializing.\footnote{Other languages have no Nonetype, since they support direct declaration without initialization. For example, in C++, you could run the line 'int age;', which would declare the 'age' variable without initializing it with anything.} Consider the following code.\par
+\begin{lstlisting}[style=pippython]
+emptyVar = None
+print(type(emptyVar))
+\end{lstlisting}
+\begin{lstlisting}
+<class 'NoneType'>
+\end{lstlisting}
+In general, you should always try to initialize your variables, even if it's just to \verb|0| (if it's an integer), \verb|0.0| (if it's a float), or \verb|""| (if it's a string). If it's a \indexterm{Boolean} variable, you can initialize it to \verb|True| or \verb|False|, depending on what makes sense.\par
+\boxtext{Initialize to type variables}{Initializing your variables helps you determine what datatype they should be, since Python is a weakly-typed language. As you become more experienced with Python datatypes, you should be able to instantly determine a datatype just by looking at the variable's first initialization. Therefore, it's worth learning the datatypes by heart - it'll come in handy later!}
+We've talked about variables, but there's a specific type of variable in Python called a constant.\footnote{Yes, in math, variables and constants are different concepts, but in Python, a constant is a subset of the variable.} The difference between a regular variable and a constant is that a constant \textit{cannot} be changed after initialization. To mark a constant, you should name it in all caps. It might be useful to use constants to store data that you know will never change, such as a conversion factor or a mathematical constant, like $\pi$ or $e$.\par
+\begin{lstlisting}[style=pippython]
+PI = 3.1415
+E = 2.71
+GRAVITY = 9.8
+\end{lstlisting}
+\warningtext{Changing Constants}{Some languages, like Python, treat constants and variables in the same way, meaning that it is possible to change the value of a constant (although you shouldn't!) Other languages essentially lock away the constant once it is declared as a constant. In these languages, after the first constant initialization, the interpreter or compiler will throw an error or warning if you try to reinitialize a constant.}
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 4.2. 
+\begin{Exercise}
+    \Question{When you create a variable, where is it stored: primary, secondary, or tertiary memory?}
+    \Question{What are the two steps for creating a variable?}
+    \Question{Can you do those two steps in one line, or must they be done in two lines?}
+    \Question{What character should you use to initialize a variable?}
+\end{Exercise}
+\begin{Exercise}
+    \Question{What is the difference between a datatype and a variable?}
+    \Question{What datatype can a variable be?}
+\end{Exercise}
+\begin{Exercise}
+    What is a good variable name for the following pieces of data? What type of variable would Python probably initialize it to? Provide an example of how Python would store that data. For example, if you came up with a variable named \verb|numCookies| that was an integer, then an example of the data might be \verb|5|.
+    \Question{The name of your favorite sports team}
+    \Question{What home stadium your team plays at (or home city)}
+    \Question{The number of wins your team got}
+    \Question{Whether your team qualified for the championship playoffs or not}
+    \Question{The total number of matches or games your team played}
+    \Question{The height of your favorite player on that team in meters}
+    \Question{The average weight of the athletes on that team in kilograms}
+    \Question{The number of players on the team}
+    \Question{Whether the team is sponsored or not}
+\end{Exercise}
+\begin{Exercise}
+    Are the following variables syntactically correct for Python? Why or why not?
+    \Question{\verb|pointsReceived|}
+    \Question{\verb|PointsReceived|}
+    \Question{\verb|10DayPointsReceived|}
+    \Question{\verb|_pointsReceived|}
+    \Question{\verb|_PointsReceived|}
+\end{Exercise}
+\begin{Exercise}
+    \Question{Consider the variables \verb|pointsReceived| and \verb|PointsReceived|. Are these variables interchangable? Why or why not?}
+    \Question{Consider the variables \verb|_pointsReceived| and \verb|pointsReceived|. Are these variables interchangable? Why or why not?}
+\end{Exercise}
+\subsection{Referring to Variables}
+Now that you've created variables, it'd also be really handy to get the value of those variables down the line. Being able to refer to variables means that you can get and change their value.\par
+The way in which you refer to an existing variable will depend on the manner in which you need to refer to it. In most cases, it is possible to simply refer to a variable by name. For example, let's declare a new variable as a string, then print the contents of that variable.
+\begin{lstlisting}[style=pippython]
+stringToPrint = "Python is cool!"
+print(stringToPrint)
+\end{lstlisting}
+\begin{lstlisting}
+Python is cool!
+\end{lstlisting}
+Observe how we are \textit{not} using any quotation marks inside of our print statement. This is because we are not actually printing "stringToPrint," but rather, we are printing the string literal that is stored as a value of the variable \verb|stringToPrint|.\par
+Recall how we created a variable and filled with something. The process of creating the variable was called the declaration, and the "filling" was called the initialization. We can also reinitialize a variable by simply overwriting the contents of the memory space that the variable uses. We need not redeclare the variable, since it already exists. Attempting to redeclare an existing variable will result in a syntax error. Consider the following code.\par
+\begin{lstlisting}[style=pippython]
+string1 = "Python is cool!"
+print(string1)
+string1 = "Python is rad!"
+print(string1)
+\end{lstlisting}
+\begin{lstlisting}
+Python is cool!
+Python is rad!
+\end{lstlisting}
+In this code sample, we are printing the same variable \verb|string1| twice. However, we also observe that the output changes. This is because we're reinitializing the variable in the third line using \verb|string1 = "Python is rad!"|. Because of this, we will get a different result when we try to print the same variable.\par
+The same can also be said for variables that have non-string contents. For example, consider the following code.\par
+\begin{lstlisting}[style=pippython]
+int1 = 5
+print(str(int1))
+int1 = 7
+print(str(int1))
+\end{lstlisting}
+\begin{lstlisting}
+5
+7
+\end{lstlisting}
+Since we're changing the contents of the variable, the second print statement is simply getting the updated variable value.\footnote{For now, ignore the str() function. This is typecasting the integer into a string so that it can be printed by the print() function. We'll cover typecasting in chapter 4.6.}\par
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 4.2.2.
+\begin{Exercise}
+    \Question{Define a new variable \verb|name| and initialize it to your name.}
+    \Question{Now, print "Your name is: " and concatenate it with the \verb|name| variable in the print statement.}
+\end{Exercise}
+\begin{Exercise}
+    \Question{Using your variable naming rules, create a new variable that would describe the name of a building on your college campus. Initialize it to the name of a building on your college campus.}
+    \Question{Create a new variable that describes the discipline of that building (math, history, psychology, English, etc.) and initialize it to that value.}
+    \Question{Write a print statement that will print "\_\_\_ is a \_\_\_ building." Fill the first blank with the variable for your building's name, and fill the second blank with the variable for the discipline of that building. Use string concatenation to print all of the variables from the same print statement.}
+\end{Exercise}
+
+\subsection{Handling User Input}
+It's also possible that you'll want your user to input something on the keyboard so that you can evaluate it in your program. The ability to input text is a very useful. For now, we're only going to focus on taking in text. We'll cover how to turn that text into numbers, like integers and floats, in chapter 4.6 on typecasting.\par
+On the console, the function to take in user input is quite aptly named \verb|input()|. \verb|input()| must always be preceded by a variable and the variable assignment operator; it cannot stand on its own like \verb|print()| can. Consider the following example code.\par
+\begin{lstlisting}[style=pippython]
+print("What is your name?", end = " ")
+name = input()
+print("Your name is ", name, ".", sep="")
+\end{lstlisting}
+\begin{lstlisting}
+What is your name? Stinky Pete
+Your name is Stinky Pete.
+\end{lstlisting}
+When you run this code, your program will prompt you for your name. You can then type directly into the console using your keyboard. When you press Enter, the contents that you typed are put into the variable \verb|name| as a string. The last line then prints some string literals and your name.\par
+When using \verb|input()|, it doesn't matter whether you input only letters or only numbers. The \verb|input()| function will always return the input as a string. You can, however, typecast a variable as some other datatype. See chapter 4.6 on typecasting.\par
+The \verb|input()| function can take one argument, a string to prompt the user. You can either pass in a variable which is of type string or just use a string literal. So, the following code is logically the same as the previous example.\par
+\begin{lstlisting}[style=pippython]
+name = input("What is your name?")
+print("Your name is ", name, ".", sep="")
+\end{lstlisting}
+\begin{lstlisting}
+What is your name? Stinky Pete
+Your name is Stinky Pete.
+\end{lstlisting}
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapters 4.2.3. 
+\begin{Exercise}
+    \Question{Is it possible to use the \verb|input()| function standalone (that is, without an variable and assignment operator)? Why or why not?}
+    \Question{What happens when you try to use the \verb|input()| function standalone? If you receive an error, what kind of error is it?}
+\end{Exercise}
+\begin{Exercise}
+    \Question{Create a new variable \verb|age| and initialize it to the Nonetype. See chapter 4.2.1 for a review on the Nonetype.}
+    \Question{Use the \verb|input()| function to ask for the user's age and put the result into the \verb|age|.}
+    \Question{Print the datatype of \verb|age|. What datatype is it? Why is this so? (Hint: to print the datatype of a variable, you can print the \verb|type(variableName)|.)}
+\end{Exercise}
+\begin{Exercise}
+    \Question{Create a new variable \verb|color| and initialize it to be an empty string.}
+    \Question{Write an \verb|input()| statement that prompts the user for their favorite color and puts the result in the \verb|color| variable.}
+    \Question{Write a single print statement that prints the user's favorite color and compliments their color choice.}
+    \Question{Write another \verb|input| statement that prompts the user for their least favorite color and overwrites the contents of the \verb|color| variable.}
+    \Question{Write another single print statement that prints the user's least favorite color and tells them that you agree the color looks bad.}
+\end{Exercise}
+
+\section{Whitespace}
+Whitespace is a crucial component of every programming language, and using whitespace correctly is very important. Different languages handle whitespace differently, but you should know how to correctly format your code, regardless of which language you're writing code in.\par
+\subsection{Why is Whitespace Important?}
+Donald Knuth once said, "Programs are meant to be read by humans and only incidentally for computers to execute." As programmers, it is in your best interest to make your code readable. More readable code means that you can understand it, find problems faster, and others can catch onto your programming style quickly and understand your code swiftly. Messy code is difficult to read. Even if your instructor does not require you to or does not penalize for incorrect whitespace, it is still an important skill.\par
+Python requires that you use the right indentation when using code blocks, such as loops or conditional logic, as you'll see in chapter 6. Other languages use curly braces \verb|{}| to denote groups of code that should run when certain conditions are met. Regardless, there are some rules that you should follow when writing code, especially around comparison operators and assignment operators.\par
+Consider the following code, which uses poor or inconsistent whitespace.\par
+\begin{lstlisting}[style=pippython]
+if(a>0):
+  print(a)
+else:
+   if(a <10):
+    print(a)
+   else:
+     print( "a is negative or greater than 10")
+\end{lstlisting}
+This code is fairly sloppy. Sure it's readable, but keep in mind that this is only a short snippit of code. If our code was hundreds of lines long, it's easy to see how small indentation errors could add up, resulting in trouble finding where the beginnings and ends of functions are, where your loops are controlled, among other things.\par
+Instead, we could fix our code as follows.\par
+\begin{lstlisting}[style=pippython]
+if (a > 0):
+  print(a)
+else:
+  if (a < 10):
+    print(a)
+  else:
+    print("a is negative or greater than 10")
+\end{lstlisting}
+Observe how this code uses consistent whitespace patterns for all of its indentation. One indentation is, in this case, always two spaces. Indentation doesn't always need to be two spaces. It could just as easily be four or eight spaces, or a tab character.\par
+Regardless of which whitespace rules you choose to follow and those you choose to ignore, think about how your decisions will affect the readability of the code. \par
+Whitespace is also vertical. You can generally put empty lines at logical breaks in the code, such as between loops, functions, or if/else statements. Consider the following code.\par
+\begin{lstlisting}[style=pippython]
+def function1(arg1, arg2):
+  return arg1 + arg2
+def function2(arg1, arg2):
+  return arg1 * arg2
+def function3(arg1, arg2):
+  return arg1 // arg2
+\end{lstlisting}
+You don't need to understand exactly what this code does, but while it does have good horizontal whitespace, we could improve its vertical whitespace by adding extra empty lines. Compare the previous example to the following code.\par
+\begin{lstlisting}[style=pippython]
+def function1(arg1, arg2):
+  return arg1 + arg2
+
+def function2(arg1, arg2):
+  return arg1 * arg2
+
+def function3(arg1, arg2):
+  return arg1 // arg2
+\end{lstlisting}
+Breaking apart each of these logical blocks by adding extra empty lines doesn't affect the functionality of the software, but it does make it a lot easier to read. It's easier to see where the block starts and where it ends.
+\subsection{Common Whitespace Patterns}
+There are several whitespace patterns that are used in programming, especially in Python. In general, follow the following rules.\par
+\begin{itemize}
+    \item The assignment operator \verb|=| should always be surrounded by one space on either side. For example, use \verb|cats = 10| instead of \verb|cats=10|.
+    \item The comparison operators (\verb|==|, \verb|!=|, \verb|<|, \verb|>|, \verb|<=|, and \verb|>=|) should always be surrounded by one space on either side. For example, use \verb|cats >= 10| instead of \verb|cats>=10|.
+    \item Sometimes, functions (both calls and definitions) should have a space between the function name and the parentheses with arguments. For example, \verb|func (arg)| instead of \verb|func(arg)|. This book does not use this style of notation.
+    \item Use the same indentation standard throughout your entire project. This is non-negotiable. Which standard you use is up to you, but stay consistent. You can use 2 spaces, 4 spaces, 8 spaces, tab, 2 tabs, or something else that conveys indentation, as long as you're consistent.
+    \item Avoid splitting individual lines into two different lines if it would disrupt the flow of the software. Instead, turn on the soft wrap functionality in your text editor.
+\end{itemize}
+Different computers and different text editors have different standards for how they'll treat spaces between brackets and braces and how they write tabs in, so when you change computers, you should double-check what the tab settings are for that computer, as you might need to change them.\par
+Soft wrap is a really handy viewing mode that you can use in your text editor, and we mentioned it above. But what is it? Soft wrap allows your editor to wrap lines that are too long for one line into the next line without affecting any functionality of your source code and without changing of the line numbers. When you write in a standard word processor like Microsoft Word or Google Docs, you've actually already used soft wrap. Notice how as you type, when you approach the end of the line, your word processor makes a new line for you without you having to explicitly hit the carriage return key. The same thing can be done in your text editor or IDE, and the option is typically found under the View options as Soft wrap or Toggle Soft Wrap. In advanced text editors, there are three options: soft wrap, hard wrap, and no wrap. Most text editors only use soft wrap and no wrap. The difference between a soft wrap and a hard wrap is that soft wrapping will add your extra line without breaking any words (it breaks on spaces) whereas a hard wrap will add your extra line wherever the end of the line is (it breaks on characters.\par
+You can play around with which whitespace rules you'd like to use and which you will ignore. The important thing is that you try to stay organized and that you are consistent throughout your entire source code file or project.\par
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapters 4.3.1 and 4.3.2.
+\begin{Exercise}
+    \Question{What is whitespace?}
+    \Question{What directions does whitespace apply: horizontal, vertical, or horizontal \textit{and} vertical?}
+    \Question{Why is whitespace so important?}
+    \Question{Does your course instructor or grader penalize for improper whitespace? If so, what is the penalty?}
+\end{Exercise}
+\begin{Exercise}
+    Open your text editor or IDE. Use it to answer the following questions. You may also need to open a source code file.
+    \Question{What does the soft-wrap option do? Where is it?}
+    \Question{Where is the option to change the tab setting, if you have an option to do so? What is it currently set to: 2 spaces, 4 spaces, 8 spaces, 1 tab, 2 tabs, or something else?}
+    \Question{Do all text editors or IDEs use the same default indentation or wrap settings?}
+\end{Exercise}
+\begin{Exercise}
+    \Question{What should surround the assignment operator to achieve good whitespace?}
+    \Question{What should surround a comparison operator for good whitespace?}
+    \Question{Should you put an extra space in between two characters in a comparison operator (\verb|!=| versus \verb|! =|)?}
+    \Question{Is it okay to change the indentation standard or whitespace pattern in the middle of a project? When is it okay to, if ever?}
+    \Question{If you had a really long line that was wider than your text editor window, what should you do?}
+\end{Exercise}
+\begin{Exercise}
+    \Question{Teamwork is an important part of programming. Say you're working on a team with several people. One of your team members doesn't put a space between functions and arguments, while another does. What can you do rectify this situation? Should you just ignore it and let people do what they want if it will make good code? Why or why not?}
+    \Question{Sometimes, you'll need to use someone else's computer, including their text editor in the way that it was set up. What are some things you might want to check before starting to work on your project on that computer?}
+\end{Exercise}
+\begin{Exercise}
+Fix the following lines of code by correcting the whitespace errors. What did you fix, and why did you choose to make that fix? If there are no errors, say so.
+\Question{
+\begin{lstlisting}[style=pippython]
+if(var!=3):
+\end{lstlisting}
+}
+\Question{
+\begin{lstlisting}[style=pippython]
+print("x is the smallest")
+\end{lstlisting}
+}
+\Question{
+\begin{lstlisting}[style=pippython]
+def addFour (inputVal):
+\end{lstlisting}
+}
+\Question{
+\begin{lstlisting}[style=pippython]
+def addFour (inputVal):
+  # Do something
+def addFive (inputVal):
+  # Do something
+\end{lstlisting}
+}
+\end{Exercise}
+\section{Comments}
+Comments are a critical part of any program, even if they don't contribute to the actual functionality of your code. Just like how whitespace is so important, your comments are the key for you being able to understand your code. Talk to any experienced programmer, and they'll have stories of how they spent all night working on a chunk of code, then forgot what it meant or how it worked the very next day and had to rewrite the entire chunk of code.\par
+While you don't need to comment every single print statement, commenting with enough detail that others can understand your code is a good habit to get into.\par
+\subsection{Line Comments}
+The most common type of comment is a line comment. A line comment can either take an entire line (no code is executed on that line) or it can take the latter half of a line.\par
+The symbol for a line comment is a pound sign (hash sign or octothorp) \verb|#|. On a line, everything before the pound sign is evaluated and executed, and everything after the pound sign is ignored by the interpreter. Consider the following chunk of code.\par
+\begin{lstlisting}[style=pippython]
+print("Hello, Python!") # This is a comment, and it won't execute
+# This line also won't execute anything
+\end{lstlisting}
+\begin{lstlisting}
+Hello, Python!
+\end{lstlisting}
+You can use line comments to describe a line of code as shown above. They're also handy if you're testing out different lines of code and you want to only evaluate certain lines. You can also stack pound signs. Consider the following chunk of code.\par
+\begin{lstlisting}[style=pippython]
+####### Example #######
+print("This line will execute.") # Known and working
+#print("This line won't execute.') # Perhaps not working
+# Another full line comment
+\end{lstlisting}
+\begin{lstlisting}
+This line will execute.
+\end{lstlisting}
+Instead of having to delete lines of code that might or might not work, you can just comment them out until you're absolutely sure that you don't need them. They won't evaluate or execute until the pound sign before them is removed.\par
+\subsection{Block Comments}
+If you need to comment out a large chunk of code, you can use a block comment. Block comments are handy at the beginning of your document, since they allow you to put a lot of non-code text in one place. You'll often see block comments used to describe what a file does, display a license agreement, or just to prevent a block of code from executing.\par
+By using a block comment, you can avoid writing (and later removing) a lot of pound signs before each line that you don't want to execute. To use a block comment, simply put three quotation marks at the beginning of the section you want to comment out, then put three matching quotation marks at the end of the section you want to comment out. The quotation marks must be on their own line.\par
+Consider the following chunk of code.\par
+\begin{lstlisting}[style=pippython]
+"""
+This is a block comment.
+None of the code inside of these marks will execute.
+This is great for writing long prose.
+"""
+print("But this code will execute.")
+\end{lstlisting}
+\begin{lstlisting}
+But this code will execute.
+\end{lstlisting}
+Note that none of the commented lines have pound signs at the beginning of them. Since they're enclosed by the quotation marks, none of these lines will execute.\par
+The following code is not syntactically correct. Remember that the quotation marks must be on their own line.\par
+\begin{lstlisting}[style=pippython]
+"""This is a bad block comment.
+This will result in an error."""
+\end{lstlisting}
+Block comments are a powerful tool, and they can be used to test parts of your code without having to write pound signs before every single line. For example, consider the following code.\par
+\begin{lstlisting}[style=pippython]
+print("This code will execute.")
+"""
+print("But this code won't execute.")
+print("That's good, because there's a lot of these lines.")
+#print("Yay!")
+"""
+print("So will this line of code.")
+\end{lstlisting}
+\begin{lstlisting}
+This code will execute.
+So will this line of code.
+\end{lstlisting}
+Also note that some IDEs and text editors might color your block comments differently from your line comments. This is nothing to be worried about.
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapters 4.4.1 and 4.4.2.
+\begin{Exercise}
+    \Question{What are some reasons to write comments?}
+    \Question{How can you mark a line comment in Python?}
+    \Question{How can you mark a block comment in Python?}
+\end{Exercise}
+\begin{Exercise}
+    \Question{Are the marks for line comments the same as in Perl? If not, what is the symbol or symbol combination?}
+    \Question{Are the marks for line comments the same as in C++ or C\#? If not, what is the symbol or symbol combination?}
+    \Question{Are the marks for block comments the same as in Swift? If not, what is the symbol or symbol combination?}
+    \Question{Are the marks for block comments the same as in HTML? If not, what is the symbol or symbol combination?}
+\end{Exercise}
+\begin{Exercise}
+    \Question{Where can a line comment be placed? Is it possible to end a line comment?}
+    \Question{Where can a block comment be placed? How must the quotation marks be written out, or can they just be written anywhere to begin the comment?}
+\end{Exercise}
+\begin{Exercise}
+    Using what you know about Python, write a comment for the following blocks of code. If you want to put multiple comments in, specify in between which line numbers you would put those comments (e.g., before line 1, between lines 3 and 4). If you're not sure what the code does, make your best guess (imagine that it's your code that you need to explain to someone else), but be descriptive.
+    \Question{
+    \begin{lstlisting}[style=pippython]
+result = input("What is your grade?")
+    \end{lstlisting}
+    }
+    \Question{
+    \begin{lstlisting}[style=pippython]
+print("The result is: ", end = "")
+print(str(result * 4))
+    \end{lstlisting}
+    }
+    \Question{
+    \begin{lstlisting}[style=pippython]
+tax = input("What was your latest in taxes? ")
+deductible = input("What was your latest insurance deductible rate? ")
+print("Here's some information we calculated: ")
+    \end{lstlisting}
+    }
+\end{Exercise}
+\section{Errors}
+Errors are an inevitable part of programming, but it's a critical skill to understand how to read errors and what kind of errors you might get. Being able to understand the error messages that you get means that you'll be able to resolve them much faster.\par
+\subsection{Logical Versus Syntactical Errors}
+There are two major types of errors: \newterm[logical errors]{errors!logical} and \newterm[syntactical errors]{errors!syntax}. You've seen the term "syntactical error" thrown around previously in this book, but what do they actually mean?\par
+A \newterm[syntax error]{errors!syntax} is an error that results from incorrectly written code. Syntax errors can occur from things as simple as wrong indentation or mismatched quotation marks to memory leaks and segmentation faults. Conversely, a \newterm[logical error]{errors!logical} is an error that results from valid code that doesn't do what was expected of it. Logical errors are much tougher to catch, since as the code is running, it would appear that everything's working correctly, even though there's an issue with something that you wrote.\par
+Consider the following code. Can you spot the error? (Hint, it's in line 1.)
+\begin{lstlisting}[style=pippython]
+fahrenheit = int(input("Input a temperature in degrees Fahrenheit'))
+celsius = (fahrenheit - 32) * (5 / 9)
+print("That's ", celsius, " degrees celsius!", sep = "")
+\end{lstlisting}
+This is an example of a syntax error. If you tried to write this exact code in your IDE and run it, you'd get an error on line 1. The interpreter sees an opening quotation mark, but it can't find a matching closing quotation mark, so it throws an error instead. In this case, it's clear that there's an issue, since our interpreter throws the error:
+\begin{lstlisting}[style=none]
+SyntaxError: EOL while scanning string literal
+\end{lstlisting}
+Our IDE also gives us hints with the coloring of the text. In this text, strings are colored red, so the fact that we see red coloring on line 2 means that we never closed the string on line 1.
+There are several default error types, of which \verb|SyntaxError| is one. Some of the other types of errors are as follows.
+\begin{itemize}
+    \item \verb|AssertionError|: raised when an assertion fails
+    \item \verb|AttributeError|: raised when an attribute reference or attribute assignment in a function fails; if the object doesn't support attribute references or assignments, Python will raise a \verb|TypeError| instead
+    \item \verb|EOFError|: raised when the \verb|input()| function reaches the end of a file or hits the end-of-file condition without reading any data
+    \item \verb|ImportError|: raised when the \verb|import| statement has trouble trying to load a module or when you try to load a module that doesn't exist
+    \item \verb|ModuleNotFoundError|: raised when you try to load a module that doesn't exist
+    \item \verb|IndexError|: raised when a sequence subscript, like in a list or dictionary, is out of range; we will go over indices in sequences in Chapter 5
+    \item \verb|KeyError|: raised when a dictionary key is not found in a set of existing keys; we will go over keys in dictionaries in Chapter 5
+    \item \verb|KeyboardInterrupt|: not strictly an error, but raised when program execution is halted after the user hits the interrupt key (normally \verb|Control-C| or \verb|Delete|)
+    \item \verb|MemoryError|: raised when an operation runs out of memory but the situation might be able to be rescued by deleting some objects
+    \item \verb|NameError|: raised when a locall or global name (variable) is not found
+    \item \verb|OSError|: raised when the host operating system (like Windows, MacOS, or Linux) encounters a system-related error in response to a Python request, including I/O failures like "file not found" or "disk full" errors
+    \item \verb|OverflowError|: raised when an \indexterm{arithmetic} operation is too large to be represented
+    \item \verb|RecursionError|: raised when the maximum recursion depth is exceeded
+    \item \verb|RuntimeError|: the catch-all for when an error is encountered that doesn't fall into any other error category
+    \item \verb|SyntaxError|: raised when the Python parser encounters a syntax error
+    \item \verb|IndentationError|: raised when indentation is incorrect
+    \item \verb|TypeError|: raised when an operation or function is applied to an object of inappropriate type
+    \item \verb|ValueError|: raised when an operation or function receives an argument that has the right type but inappropriate value
+    \item \verb|ZeroDivisionError|: raised when trying use division or modulo with a divisor of zero
+\end{itemize}
+There are plenty of other errors that you could encounter, including ones that are not defined by Python itself.\par
+Now, consider the following code. Can you spot the error? (Hint, it's in line 2.)
+\begin{lstlisting}[style=pippython]
+fahrenheit = int(input("Input a temperature in degrees Fahrenheit"))
+celsius = (fahrenheit - 32) * (6 / 9)
+print("That's ", celsius, " degrees celsius!", sep = "")
+\end{lstlisting}
+In this case, the interpreter won't throw an error. Everything is \textit{syntactically} correct, even though things aren't \textit{logically} correct. This is an example of a \newterm[logical error]{errors!logical}. The conversion factor from Fahrenheit to Celsius is not correct; the conversion factor should be $5/9$, not $6/9$. If we attempt to run this code, we would see that 50 degrees Fahrenheit is supposedly 12 degrees Celsius; it's supposed to be 10 degrees Celsius.\par
+It's important to be diligent when writing code. If your code is longer, you should make sure to put in ample comments to let yourself know where things might go wrong, and don't be afraid to break out your calculator and double-check your answers.\par
+There's also a note to be made about errors versus warnings. Errors are syntactical issues with the execution of your program. If you encounter an error when executing your code, this means that your code is syntactically incorrect, and the Python interpreter is unable to recover from your error. Encountering an error will halt the execution of your code and you'll end up with an error code. However, sometimes, we make mistakes without realizing that we've made mistakes. These mistakes don't really affect the functionality of the code, but they're also not best programming practice. In this case, Python will give you a warning. If an error is getting expelled from school, a warning is more of a slap on the wrist for misbehaving. However, you shouldn't disregard warnings as "not important," even though they aren't \textit{technically} wrong. For one, if you have a warning, it means that something's wrong, and faulty code is never good. Just like error messages, you can interpret warning messages and fix the issues that are causing them. Never just ignore a warning message. You should at least acknowledge why that warning is occurring and deal with it in some way, even if that solution is to leave a comment indicating why the warning doesn't apply to your code.\par
+\warningtext{Don't ignore warnings}{We've said it before, and we'll say it again: never just ignore a warning. They could be giving you some very valuable information (including potential syntax or logical errors)!}
+Warning messages can occur for all sorts of reasons, including out-of-date packages, missing functions that aren't called, possible indentation errors, or many other things.
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapters 4.5.1.
+\begin{Exercise}
+    \Question{Name three different types of errors that you might receive in Python.}
+    \Question{For each of the three errors that you encountered in part (1), write lines of code that will result in the error.}
+    \Question{For each of the three errors that you created in part (2), give the error code that you received and what the error code tells you.}
+\end{Exercise}
+\begin{Exercise}
+    Examine the following error message.
+    \begin{lstlisting}[style=none]
+File "<stdin>", line 1
+    input("What is your name')
+                            ^
+SyntaxError: EOL while scanning string literal
+    \end{lstlisting}
+    \Question{What type of error is this?}
+    \Question{What, generally, does this error type indicate?}
+    \Question{What is the error message?}
+\end{Exercise}
+\subsection{Debugging}
+There are many, many types of errors that you might experience while programming, and being able to understand what those errors are is key to remedying them. Error messages contain useful information, and you shouldn't dismiss their importance.\par
+Error codes will typically contain certain bits of information, including the file that the error is occurring in, the line number of the error, the line itself, where in the line the error is occurring, and some error code. Let's take a look at a few errors to figure out what errors look like.\par
+Consider the following code.
+\begin{lstlisting}[style=pippython]
+# This is some code that won't run quite right
+# Line 3 is a print statement
+print('What\'s your name?")
+\end{lstlisting}
+Here's the error that this code threw.\par
+\begin{lstlisting}[style=none]
+File "main.py", line 3
+  print('What\'s your name?")
+                           ^
+SyntaxError: EOL while scanning string literal
+\end{lstlisting}
+In the first line of the error, the interpreter is offering some important information. Firstly, it's telling us that this error is occurring in the "main.py" file. This is especially important if you're working with multiple files for just one program, which can happen quite easily if you're working with classes. The interpreter is telling us that on line 3, there's an error. Next, the interpreter is copying the offending line so that we can get a glimpse of what might be causing the error. On the next line, the interpreter is trying to point out where in the line it thinks the error is coming from. Depending on the type of error, the interpreter might be close or right on the issue, and other times, it'll put the carot at the end of the line if it can't figure it out. Lastly, the interpreter will give you the error code.\par
+These error codes can be quite difficult to decipher, but there's two parts to the error: the classification of the error and the actual error code. In this case, the error class is a \verb|SyntaxError| and the error code is an\\ \verb|EOL while scanning string literal| error.\par
+Let's look at another syntax error.\par
+\begin{lstlisting}[style=pippython]
+name = input('What is your name?\n')
+print('Hi, ', userName, sep="")
+\end{lstlisting}
+Here's the output of this code.\par
+\begin{lstlisting}[style=none]
+What is your name?
+Stinky Pete
+Traceback (most recent call last):
+  File "main.py", line 2, in <module>
+    print('Hi, ', userName, sep="")
+NameError: name 'userName' is not defined
+\end{lstlisting}
+Let's break down this output. The first line of the output is working as we expect it to. The \verb|input()| is printing a prompt for our user, which is showing up. The second line of the output is what our user entered. However, on the third line, we see a \verb|Traceback|, with the most recent call listed last. If you had a chain of errors, which typically occurs when you're using functions, classes, or modules, the root of these errors would show up so that you can trace back the issue. Next, we see the filename (main.py) and the line number that the error is occurring in. Next, the interpreter is giving us the offending line of code, but it doesn't have a clue where the error is, so it doesn't even try to point out where it thinks the error is. Lastly, it gave us the error class and the error code. The error class is \verb|NameError|, which might occur if there's an unspecified variable or object that's being called. Sure enough, the error code indicates that \verb|'userName'| is not defined. This code's author accidentally wrote the wrong variable name in the print statement. If we replace \verb|userName| with \verb|name|, the code runs properly.\par
+In the process of programming, you'll probably run into errors that you haven't seen before, such as \verb|TypeError|s, \verb|IndexError|s, \verb|ImportError|s, \verb|KeyError|s, or \verb|ModuleNotFoundError|s. Before you paste the error code into a search engine (really, we don't recommend this), you should take a close look at the error to figure out why it might be occurring. Chances are, it's a pretty simple fix. If you can't figure out why the error code is occurring, you can try to search keywords from the error, especially if the error is occurring because of some variable name.\par
+You may also get something called a traceback, especially if your error has been caused by a chain of events (like a function call). Don't worry about understanding how chains of events are formed (this is called data structures, which we'll cover in Chapter 7). As its name suggests, a traceback provides breadcrumbs for you to find the origin of the error. The first breadcrumb will fall on the line of code that caused the execution error. The second breadcrumb will give you the line of code that caused the first breadcrumb's error. The third breadcrumb will give you the line of code that caused the second breadcrumb's error, and so on. Python \textit{could} just give you the line of code that caused the exact error, but it often doesn't reveal deeper problems that will help you diagnose a problem. The error may occur anywhere between the first and last breadcrumb, but as you get better at reading a traceback error log, you'll also get better at reading exactly where an error occurred.\cprotect\footnote{Read this footnote after you've read Chapter 7.1 on functions, since we'll give you some more information on tracebacks that rely on knowledge from that chapter. Tracebacks are commonly found when you have a function that called another function. For example, let's say you had a function called \verb|double()| that was responsible for doubling an integer or a float. Then, later in the code, you called \verb|double("spot")|. Obviously, "spot" is not an integer nor a float, and this will result in a syntax error. However, the act of calling \verb|double("spot")| is not inherently syntactically invalid: the act of multiplying "spot" by two is invalid. If Python only gave us the line of code that failed, we'd only get a line saying that \verb|double("spot")| failed, but not why it failed or why "spot" is an invalid argument. However, the traceback would give us the following information: the line \verb|double("spot")| failed in the function \verb|double()| because the \verb|double()| function encountered a TypeError. Along with this information, the traceback will also give us line numbers for each line of code the error occurred and which file it's in.}\par
+\boxtext{How far to traceback?}{When examining a traceback, you will almost \textit{never} need to go beyond the code that you wrote. If your traceback goes beyond your code and into a module or library that you imported (like Pandas), your immediate suspicion should be something that you wrote. The only exception to this is if you know that there's something wrong with the library that the library developers need to fix - in this case, you'll provide the library developers with your full traceback so they can see what line of code caused the library to fail. Never give a traceback to a developer unless you are certain that the error was caused by an error in the library (out of respect for their time and effort) and they ask for the traceback to prove that whatever you ran is what caused the library to fail. Giving a traceback to a developer because your code might be wrong and blaming it on the developer isn't a good look. (It's actually pretty rude.)}
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapters 4.5.1 and 4.5.2.
+\begin{Exercise}
+    \Question{Name three different types of errors that you might receive in Python.}
+    \Question{For each of the three errors that you encountered in part (1), write lines of code that will result in the error.}
+    \Question{For each of the three errors that you created in part (2), give the error code that you received and what the error code tells you.}
+\end{Exercise}
+\begin{Exercise}
+    Examine the following error message.
+    \begin{lstlisting}[style=none]
+File "<stdin>", line 1
+    input("What is your name')
+                            ^
+SyntaxError: EOL while scanning string literal
+    \end{lstlisting}
+    \Question{What type of error is this?}
+    \Question{What, generally, does this error type indicate?}
+    \Question{What is the error message?}
+\end{Exercise}
+\subsection{Handling Errors On the Fly}
+Sometimes, you'll need to deploy code where things might happen to your precious code. Someone might put in something that wasn't expected, and you need a way to handle those errors that might pop up. In fact, just as you tried to resolve errors in the previous section, you can also raise your own exceptions. Thankfully, Python has a simple way of handling these errors on the fly. This is colloquially known as try-catch.\par
+There is a base block in Python called the \verb|try| block. It must always be paired with the \verb|except| block. Python will attempt to run all of the code inside of the \verb|try| block. If it succeeds, then the code in the exception block is not run. If there is an issue in your \verb|try| block, then Python will stop trying to execute the code in the \verb|try| block and will instead run the code in the \verb|except| block. For this reason, you should make doubly sure that the code in your exception block will always be syntactically correct, otherwise it will cause program termination.\par
+In Python, we can indicate that something is inside of something else by using a colon and indentation. We can't just make anything into a parent block, but \verb|try| and \verb|except| are things that are.\par
+Consider the following block of code. Assume that \verb|x| has not been previously initialized to any value.\par
+\begin{lstlisting}[style=pippython]
+print(x)
+\end{lstlisting}
+Based on what we've already seen, this will result in a \verb|NameError|. However, we can deal with this error by using a \verb|try...except| set.
+\begin{lstlisting}[style=pippython]
+try:
+  print(x)
+except:
+  print("Something went wrong.")
+\end{lstlisting}
+\begin{lstlisting}
+Something went wrong.
+\end{lstlisting}
+If we had something outside of the exception block, the program would continue to run. For example, consider the following code.
+\begin{lstlisting}[style=pippython]
+try:
+  print(x)
+except:
+  print("Something went wrong.")
+print("All done!")
+\end{lstlisting}
+\begin{lstlisting}
+Something went wrong.
+All done!
+\end{lstlisting}
+Since the \verb|print("All done!")| is outside of the exception block because of its indentation, it is run regardless of the results of the \verb|try...except| blocks.\par
+We can also throw different exceptions depending on the type of error that we get. For example, consider the following block of code.
+\begin{lstlisting}[style=pippython]
+try:
+  print(x)
+except NameError:
+  print("X isn't defined!")
+except:
+  print("Something else went wrong!")
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+X isn't defined!
+\end{lstlisting}
+We anticipated that we might get a \verb|NameError|, so we set aside a special exception block just for \verb|NameError|s. We could do the same for different kinds of errors by stacking our exception blocks.\par
+\begin{lstlisting}[style=pippython]
+try:
+  print(x)
+except TypeError:
+  print("X is of the wrong type!")
+except NameError:
+  print("X isn't defined!")
+except:
+  print("Something else went wrong!")
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+X isn't defined!
+\end{lstlisting}
+You can also throw your own exceptions. To throw your own exceptions, you can use \verb|raise|. You can either define what kind of error to raise and what the error code is. You can also make a general exception by using the \verb|Exception| error class.\par
+Consider the following code.
+\begin{lstlisting}[style=pippython]
+x = "hello"
+if not type(x) is int:
+  raise Exception ("Only integers allowed")
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+File "main.py", line 3, in <module>
+  raise Exception("Only integers allowed")
+  
+Exception: Only integers allowed
+\end{lstlisting}
+You don't have to understand exactly what this code does, but do pay attention to the exception. This code tests if the variable \verb|x| is an integer. If it isn't, then it'll throw a generic exception. We can also throw a \verb|TypeError|, since we could generally classify this as a datatype error. Consider the following code.\par
+\begin{lstlisting}[style=pippython]
+x = "hello"
+if not type(x) is int:
+  raise TypeError ("Only integers allowed")
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+File "main.py", line 3, in <module>
+  raise TypeError ("Only integers allowed")
+
+TypeError: Only integers allowed
+\end{lstlisting}
+There is one final block that you can include in a try-except block in Python: \verb|finally|. The \verb|finally| block runs regardless of whether the code in the \verb|try| block successfully executed or not. Most of the time, developers just skip the \verb|finally| block, since the code that falls outside of the \verb|except| block runs anyways. However, this can still be useful for explicitly running something.\par
+This is massively useful if you plan on throwing a lot of errors and you'd like them to be remotely organized.\par
+The careful and controlled use of exception handling is generally classified under graceful failure. Graceful failure is the ability for a system to fail without crashing or even self-recovering. The mode of recovery might include restarting, giving a warning, or bypassing that portion of the script.
+\boxtext{Why is graceful failure important?}{Why is graceful failure such an important tool in the developer's toolbox? Let's try something: if you're on Windows, open the Event Viewer, then go to Windows Logs, then to System Logs; if you're on macOS, open the Console; if you're on Linux, use the command "tail -f /var/log/syslog".\footnote{If you're new to Linux, here's the breakdown of this command: the "tail" keyword gets the last ten lines of a file, and the -f flag enables the filestreaming mode so you can see when the file is written to by the system in real time. The /var/log directory holds most of the logs on most Linux systems, and the syslog file holds almost all system-related messages (except for authentication messages).} Then (on Windows and macOS), change the filters to show errors or faults. Now, just wait. Every entry that shows up is a place that your entire operating system could have just crashed if that error weren't handled gracefully. Thanks to the careful programming of the operating system designers, we don't have to worry about these errors crippling our ability to use our computers!}
+\funtext{Scammers love the logs!}{Tech support scammers love using the logs to convince people that their computer has serious issues. In reality, these errors have been handled gracefully by the operating system, but seeing "error" or "critical" on the screen looks scary! We now know that these \textit{would} have been critical issues only if they were not gracefully handled. Now, you know just how innocuous these supposedly serious issues are!}
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 4.5.3.
+\begin{Exercise}
+    \Question{What are the keywords used for a try-catch block in Python?}
+\end{Exercise}
+\begin{Exercise}
+    \Question{If an exception is thrown, where can one get the exception message from? That is, let's say we wanted to handle the exception gracefully, but we still wanted to know what the error was before we continue. Where is the message located, and how can we view it? Provide either theory or a working example.}
+\end{Exercise}
+\begin{Exercise}
+    \Question{What is an exception error class?}
+    \Question{Provide five examples of possible exception error classes.}
+    \Question{Is it possible to make your own exception error class?}
+\end{Exercise}
+
+\section{Typecasting}
+Typecasting is an important part of dealing with data. Sure, we've talked about typecasting in previous chapters, but what actually is it, and how can we use it?\par
+Recall the material that you learned in Chapter 3, on the basic datatypes in Python. We know how to use Booleans, integers, floats, and strings, but it'd also be really handy to be able to convert between different datatypes. This is the essence of typecasting. Some of the functionality in Python and some functions can only accept certain types of data, so typecasting allows us to have the exact type of data needed to execute these operations.\par
+Let's look at one of the most common functions that you'll use in Python: the \verb|input()| function. We know that \verb|input()| can take one argument, but what does it spit out?\par
+A little bit of sleuthing in the Python documentation reveals that \verb|input()| always returns a string. Consider the following code. Assume that the variable \verb|price| has not been declared or initialized already.
+\begin{lstlisting}[style=pippython]
+price = input("Input the total price of your groceries as a decimal:")
+print(price)
+\end{lstlisting}
+What datatype would \verb|price| be? No matter what kind of data we try to input in our program, \verb|price| will always be a string, since that's the datatype that \verb|input()| will always insert into the variable that it is being assigned to.\par
+This would be great if we could always work with strings, but this just isn't the case. For example, \indexterm{arithmetic} operations, which we'll cover in chapter 4.8, require us to use an integer or a float, not a string.\par
+As you can probably guess, this is where typecasting comes in. We can try to typecast our input into the datatypes that we need so that we can perform our basic \indexterm{arithmetic} operations. Consider the following code. Assume that the variable \verb|price| has not been declared or initialized already. It's okay if you don't understand what's going on in the third line yet.\par
+\begin{lstlisting}[style=pippython]
+price = input("Input the total price of your groceries as a decimal:")
+price = float(price)
+tax = price * 0.08
+print("You need an extra \$", tax, " for tax, sep = "")
+\end{lstlisting}
+This program expands on our previous program by calculating our tax. It multiplies the float variable \verb|total| by a given tax rate, 8\%. However, I'd like to draw your attention to the second line:\par
+\begin{lstlisting}[style=pippython]
+price = float(price)
+\end{lstlisting}
+We can see that we're using a previously declared and initialized variable \verb|price| and we're reinitializing the variable's value to the typecasted value of the original variable.\par
+In line 1, \verb|price| was declared a string, since it was assigned a string by the \verb|input()| function.\par Then, in line 2, we typecast that string into a float and replaced the value of the original string with the new float. In line 3, we did some arithmetic on our float and put the result into the variable \verb|tax|. We don't need to typecast \verb|tax|, since the value of \verb|price * 0.08| is already a float. Finally, in line 4, we're printing a string literal using string concatenation.\par
+We can also typecast variables to different datatypes. The functions are as described here.\par
+\vspace{5mm}
+\begin{tabular}{|l|l|}
+\hline
+Function Name     & What It Does                         \\
+\hline
+\verb|int(arg)|   & Typecasts \verb|arg| into an integer \\
+\hline
+\verb|float(arg)| & Typecasts \verb|arg| into a float    \\
+\hline
+\verb|str(arg)|   & Typecasts \verb|arg| into a string   \\
+\hline
+\end{tabular}
+\vspace{5mm}\par
+In the above table, the argument can be any type of variable: a Boolean, integer, float, or string. However, it's worth noting that while you \textit{could} pass any datatype into your typecasting function, not all \verb|variables| can be passed in. For example, consider the following example.
+\begin{lstlisting}[style=pippython]
+cat = input("Input your favorite type of cat: ")
+cat = int(cat)
+print(cat)
+\end{lstlisting}
+This would almost certainly not work, since we can't typecast "tabby" or "Jellicle" to an integer. In this case, you'll probably end up with a \verb|TypeError| letting you know that your typecast attempt is invalid.\par
+You can handle these errors in all manner of different ways, such as those described in chapter 4.5.3. Using this, you can let your user know that they need to input their data according to a certain format.\par
+Let's say that you were writing a program that attempted to calculate the amount of tax that someone would pay on their groceries. You know that you'll need to typecast into a float, but your user might input something that isn't typecastable, like \verb|$45.97| instead of just \verb|45.97|. So, you could write the following block instead to catch the exception and prompt the user again.\par
+Again, assume that \verb|price| and \verb|tax| are undeclared and uninitialized.\par
+\begin{lstlisting}[style=pippython]
+price = 0.0
+while price == 0.0:
+  try:
+    price = input("Input the total price of your groceries as a 
+    decimal:")
+    price = float(price)
+  except TypeError:
+    print("Not a decimal: did you add a dollar sign by accident?")
+  except:
+    print("Something went wrong.")
+tax = price * 0.08
+print("You need an extra \$", tax, " for tax, sep = "")
+\end{lstlisting}
+We'll get to what the \verb|while| is in chapter 6.3, but the gist of the code is, Python will declare a new variable \verb|price| to be 0.0. As long as the price is 0.0, Python will assume that the user hasn't inputted a valid price and will keep prompting the user until they enter a valid price that can be typecast into a float. Then, it can carry on with the rest of the program.\par
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 4.6.
+\begin{Exercise}
+    \Question{What is typecasting?}
+    \Question{What are the basic datatypes in Python that can be typecast?}
+    \Question{Why might one want to typecast?}
+\end{Exercise}
+\begin{Exercise}
+    \Question{What is the syntax to typecast an integer into a string?}
+    \Question{What is the syntax to typecast a string into an integer?}
+    \Question{What is the syntax to typecast an integer into a float?}
+\end{Exercise}
+\begin{Exercise}
+Write the applicable code to typecast the following variables into a string. If typecasting cannot be performed or is not applicable to the variable, explain why.
+    \Question{\verb|v = 3|}
+    \Question{\verb|cats = "Tabby"|}
+    \Question{\verb|isBlue = True|}
+    \Question{\verb|r2 = 3.2209|}
+\end{Exercise}
+\begin{Exercise}
+Write the applicable code to typecast the following variables into an integer. If typecasting cannot be performed or is not applicable to the variable, explain why.
+    \Question{\verb|v = 3|}
+    \Question{\verb|cats = 5.0|}
+    \Question{\verb|n = "three"|}
+    \Question{\verb|k = 9.003|}
+\end{Exercise}
+\begin{Exercise}
+    \Question{Provide an example for why you would want to typecast a string into an integer.}
+    \Question{Provide an example for why you would want to typecast an integer into a string.}
+\end{Exercise}
+\section{F-strings}
+Beginning in Python 3.6, Python included something called a \newterm[f-string]{f-string}.\footnote{The ability to use f-strings should be in standard Python after version 3.6, but some interpreters don't respect f-strings, instead printing literally or even erroring out because of a non-escaped special character (a curly brace). Your instructor should be able to tell you whether the interpreter that you are using supports f-strings to avoid immense frustration!} F-strings allow you to print two or more things, one of which as a variable, without explicitly concatenating. Essentially, f-strings create areas with placeholder objects without having to close your string quotes, typecast, or add a concatenation operator.\par
+The fundamental parts of a f-string are the literal and the variable. The literal portion of the f-string is printed just as any other string is. As a review, this is a string literal printed.
+\begin{lstlisting}[style=pippython]
+print("The cat is orange.")
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+The cat is orange.
+\end{lstlisting}
+Traditionally, if we wanted to print the variable \verb|color|, we would need to do this.
+\begin{lstlisting}[style=pippython]
+color = "orange"
+print("The cat is " + color + ".", sep = "")
+\end{lstlisting}
+\begin{lstlisting}
+The cat is orange.
+\end{lstlisting}
+This should look familiar. We still have a string literal portion ("The cat is "), a variable ("orange"), and another string literal ("."). However, we could use a f-string to avoid having to close our quotes out at all. To do this, we can simply enclose our variable inside of curly braces \verb|{}|. The curly braces tell Python that the contents of the curly brace are actually a variable, and we want Python to take that variable instead of the literal string.\par
+The above example, as a f-string, looks like this.
+\begin{lstlisting}[style=pippython]
+color = "orange"
+print(f'The cat is {color}.')
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+The cat is orange.
+\end{lstlisting}
+We're not actually concatenating here, so we don't need the \verb|sep| argument to dictate what the separator value should be between concatenated objects. Instead, we can build our separation right into our f-string.\par
+In the above f-string, take note of the following. The f-string is predicated with a \verb|f|. This tells Python that we want to use a f-string, rather than a traditional string. Next, there is no space between the \verb|f| and the opening quote \verb|'|. Putting a space between the \verb|f| and the opening quote \verb|'| is not syntactically correct. Finally, our variable \verb|color| is only enclosed in curly braces inside of our f-string.\par
+If we had a non-string value in a variable, like an integer or float, we cannot just print that value. As a review, we end up with a \verb|TypeError|.
+\begin{lstlisting}[style=pippython]
+print("The value is " + 1)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+TypeError: can only concatenate str (not "int") to str
+\end{lstlisting}
+To correct this, we must typecast our integer, then print the typecasted value.
+\begin{lstlisting}[style=pippython]
+print("The value is " + str(1))
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+The value is 1
+\end{lstlisting}
+In a f-string, we do not need to typecast a non-string variable. Typecasting is implicitly done at runtime to any non-string values, meaning that we can simply call the object.\par
+\begin{lstlisting}[style=pippython]
+value = 1
+print(type(value))
+print(f'The value is {value}')
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+<class 'int'>
+The value is 1
+\end{lstlisting}
+Observe how we never typecasted \verb|value|. The type of \verb|value| is still an integer when we print it in our f-string. However, it is implicitly typecast to a string before being printed, meaning that we never need to explicitly typecast the value.\par
+F-strings are a great way to increase the readability of your code. They decrease the amount of extra symbols, since we don't need to explicitly concatenate, typecast, or close our string to still call a variable inside of a string.
+\section{Statements and Expressions Review}
+So far, we've learnt of several different statements and expressions. From variable declaration and initialization to function calls, you've already learned how to use statements. Let's look at some other types of statements that you'll run into, especially as your programming skills grow.\par
+Firstly, let's review the assignment operator \verb|=|. The assignment operator is used to assign a value to a variable. For example, consider the following code.\par
+\begin{lstlisting}[style=pippython]
+cats = "tabby cat"
+\end{lstlisting}
+We can also use a function on the right side of an assignment operator, as long as that function produces something (return something). For example, consider the following code.\par
+\begin{lstlisting}[style=pippython]
+cats = input("Input your favorite cat: ")
+\end{lstlisting}
+However, if the function doesn't produce something, then Python will create a syntax error. The only way to prevent this from happening is to handle the exception; using exception handling, you can assign the Nonetype to the variable. For example, consider the following code.\par
+\begin{lstlisting}[style=pippython]
+cats = print("tabby cat")
+\end{lstlisting}
+This code will result in a syntax error, since the \verb|print()| function can take arguments, but cannot return anything back.\par
+We've also seen standalone statements, such as the \verb|print()| function. Statements like these don't use any operators, such as \verb|=|. If you try to use an assignment operator with a standalone statement, you'll end up with a syntax error, since this is not syntactically correct, according to Python.\par
+Lastly, we've seen the block format, where certain code routines are run as part of another block of code. Most recently, we've seen this used in try...except blocks. To denote that a code routine should run as a part of another line of code, like \verb|try| or \verb|except|, we should use an indentation. The exact style of indentation isn't terribly important, so you could use two spaces, four spaces, a tab, or two tabs, but according to our whitespace rules, it's important to be consistent with whichever style we choose to use.\par
+For example, this chunk of code will run a try...except. The underscores represent spaces.\footnote{This code is not technically correct: the underscore might cause some interpreters to misinterpret the purpose of the underscore. Avoid using more than one underscore unless you have a very good reason to do so.}
+\begin{lstlisting}[style=pippython]
+# DO NOT RUN
+try:
+__price = input("Input a price: ")
+__price = float(price)
+except:
+__print("That's not a valid price.")
+\end{lstlisting}
+This chunk of code will also run the same code, even though it uses more spaces. The important thing is that we're consistent with how many spaces we choose to use.
+\begin{lstlisting}[style=pippython]
+# DO NOT RUN
+try:
+____price = input("Input a price: ")
+____price = float(price)
+except:
+____print("That's not a valid price.")
+\end{lstlisting}
+Again, assume that the underscores represent spaces. This application of indentation will become more apparent and necessary in later chapters, such as when we move onto loops and control structures.\par
+\section{Arithmetic Operations}
+Now that we know how to get numbers into Python, it'd be really handy to learn what we can do with these numbers.\par
+Python allows us to perform basic \indexterm{arithmetic} operations, as the title of this chapter might suggest. Python provides seven primitive arithmetic operations:\par
+\vspace{5mm}
+\begin{tabular}{|l|l|}
+\hline
+Operation & Description      \\
+\hline
+\verb|+|  & Addition         \\
+\hline
+\verb|-|  & Subtraction      \\
+\hline
+\verb|*|  & Multiplication   \\
+\hline
+\verb|**| & Exponentiation   \\
+\hline
+\verb|/|  & Division         \\
+\hline
+\verb|//| & Integer Division \\
+\hline
+\verb|%| & Modulo           \\
+\hline
+\end{tabular}\par
+\vspace{5mm}
+You've probably seen at least four of these operations in elementary school, but perhaps you haven't seen all of them, and that's okay. In Python, we need to write our code line-by-line, so it would be difficult to write things like exponents on a single line without confusing characters with other commonly used reserved characters. This is why we need to use these seemingly arbitrary symbols or symbol combinations.\par
+Firstly, let's discuss where you might use these symbols. In programming (not just in Python), \indexterm{arithmetic} operations are typically run next to an assignment operator \verb|=|, so that their result can be assigned to a variable. Consider the following code.
+\begin{lstlisting}[style=pippython]
+seven = 2 + 5
+\end{lstlisting}
+Observe how the variable name is on the left side and the value is on the right side. Recall how the assignment operator must always be used in this manner, with the variable name on the left and the value to be assigned to that variable on the right.\par
+This is especially important in programming, since we do things that mathematicians might become very confused by. Consider the following:\par
+$$
+x = 2 + 4
+$$
+This is a mathematically correct equation. We're taking some value on the right side and putting it into the variable $x$. Now, consider the following in a mathematical context:\par
+$$
+x = x + 2
+$$
+This doesn't make much sense, and in fact, it is wrong mathematically. There is no case where $x$ and $x + 2$ can be the same. However, this is perfectly okay in Python. Consider the following in a programming context:\par
+\begin{lstlisting}[style=pippython]
+x = 5
+x = x + 2
+\end{lstlisting}
+In this case, we're initializing the value of the variable \verb|x| to be 5, then we're adding 2 to the value of \verb|x|. Even though this is not \textit{mathematically} correct, this is correct in \textit{programming}. However, it's worth noting that the following is \textit{not} syntactically correct:\par
+\begin{lstlisting}[style=pippython]
+x = 5 
+x + 2 = x # WRONG
+\end{lstlisting}
+As we saw in chapter 4.2, our variable needs to be the only thing on the left side. Again, this might be mathematically correct, but it's incorrect in Python.\par
+\begin{lstlisting}[style=pippython]
+2 + 4 = x # WRONG
+\end{lstlisting}
+is not the same as 
+$$
+2 + 4 = x.
+$$
+Now, let's talk about the \indexterm{arithmetic} symbols. First, the \verb|+| symbol is for addition. As you saw above, you need to put one thing to the left and one thing to the right of the addition operator. However, you could also stack multiple addition operators in Python. For example, consider the following.\par
+\begin{lstlisting}[style=pippython]
+x = 2 + 3 + 4
+print(x)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+9
+\end{lstlisting}
+In this case, Python will evaluate your expression from left to right. So, in the above example, the interpreter would add 2 + 3, then add 4 to the result.\par
+Likewise, we can use \verb|-| to subtract. You need to put one thing to the left and one thing to the right of the subtraction operator, just like in addition. If you second number is larger than your first number, the result will be stored as a negative number.\par
+\begin{lstlisting}[style=pippython]
+y = 5 - 7
+print(y)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+-2
+\end{lstlisting}
+The \verb|*| operator multiplies the first number by the second number. Python will respect the polarity of numbers, just as you were taught in math class.\par
+\begin{lstlisting}[style=pippython]
+z = -3 * -5
+print(z)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+15
+\end{lstlisting}
+How can Python know the difference between a negative number and the subtraction operator? For one, the negation operator must come with something on the left and the right, whereas a negative number can only have something on the right (nothing on the left). Secondly, negative numbers must be written with no space between the negation symbol and the number itself as shown. Even with our whitespace rules, this is considered common practice.\par
+The last of our common operators is the division operator, or \verb|/|. The division operator can take two elements, one before and one after. If the number that results from the division is not an integer, the result will be stored as a floating point number.\par
+\begin{lstlisting}[style=pippython]
+a = 15 / 5
+print(a)
+b = 16 / 5
+print(b)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+3
+3.2
+\end{lstlisting}
+That covers the last of the four common operators. However, there are some operators that are very useful for programmers. One of these operators is the \newterm[exponentiation operator]{arithmetic!exponents}. This operator is written as two asterisks with no space in between in Python: \verb|**|.\footnote{Not all languages use two asterisks. Other languages use a carot or require a separate function for exponentiation.} Putting a space in between will confuse your Python interpreter. The number that comes before the operator will be treated as the base and the number that comes after will be treated as the exponent. So, take a look at the following code.\par
+\begin{lstlisting}[style=pippython]
+c = 2 ** 4
+print(c)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+16
+\end{lstlisting}
+This is the same as the following, mathematically.
+$$
+c = 2^4
+$$
+\warningtext{\string^ Versus **}{Python is one of the few languages that use ** to indicate exponentiation. Most languages use the carot \string^. So, instead of 2**4, we would write 2\string^4 instead.}
+Another operator that's very useful is the \newterm[integer division]{arithmetic!integer division} operator. Similar to the exponentiation operator, the integer division operator is written as two forward-slashes with no space in between in Python: \verb|//|. Integer division is similar to regular division, but the result is only the whole number portion of the result; everything after the decimal point, including the decimal point, is dropped.\par
+\begin{lstlisting}[style=pippython]
+b = 16 / 2
+print(b)
+d = 16 // 2
+print(d)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+3.2
+3
+\end{lstlisting}
+As its name suggests, integer division returns an integer, never a float, unlike regular division.\par
+Quite the inverse of integer division, the last operator is the \newterm[modulo]{arithmetic!modulo}. The modulo operator is represented with a percent sign \verb|%|. While integer division returns the whole number portion of the division as an integer, the module returns the remainder portion of the division as an integer, without the leading decimal point.\par
+\begin{lstlisting}[style=pippython]
+b = 16 / 2
+print(b)
+d = 16 // 2
+print(d)
+e = 16 % 2
+print(e)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+3.2
+3
+2
+\end{lstlisting}
+It's also possible to combine different operations in one line. Python respects the order of operations, and it groups its operations in a fairly standard way, with the exception of the integer division and modulo, which aren't a part of the standard order of operations.\par
+As a review, PEMDAS stands for Parentheses, Exponents, Multiplication, Division, Addition, and Subtraction. In Python, all parentheses are evaluated first. If there are multiple operations in a parentheses, it will evaluate them according to the order of operations, but if all of the operations fall in the same category, it will evaluate left to right. Python allows the nesting of parentheses, just like in regular math.\par
+\boxtext{Order of Operations}{Python respects the order of operations. Not all programming languages do, though!}
+Consider the following line.
+\begin{lstlisting}[style=pippython]
+print(1 + 2 * (3 + (2+2)))
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+15
+\end{lstlisting}
+In the above example, Python will evaluate the innermost parentheses first $2 + 2 = 4$, then the outer parentheses $3 + 4 = 7$. If there are multiple parentheses at the same depth, then Python evaluates by the most inner depth, from left to right.\par
+\begin{lstlisting}[style=pippython]
+print(1 + 2 * ((1 + 2) + (2+2)))
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+15
+\end{lstlisting}
+The above code will evaluate the $1 + 2 = 3$ first, then $2 + 2 = 4$, then use those results to evaluate $3 + 4 = 7$.
+Next, Python will evaluate all exponents. All exponents are evaluated from left to right.\par
+Next, Python will evaluate multiplication, division, integer division, and modulo, from left to right. It doesn't matter which operation comes first within this class of operations, all are evaluated from left to right.\par
+\begin{lstlisting}[style=pippython]
+print(2 * 2 / 8 * 4)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+2.0
+\end{lstlisting}
+In this example, Python will evaluate the first $2 * 2 = 4$, since it's the first evaluation of the expression. Next, Python will evaluate $4 / 8 = 0.5$, then $0.5 * 4 = 2.0$. Since the division result in the second step results in a float, the entire result is printed as a float.\par
+Lastly, Python will evaluate any addition or subtraction, from left to right. Like multiplication, division, integer division, and modulo, it doesn't matter whether an addition or subtraction operator comes first. Both are evaluated at the same priority level.\par
+\begin{lstlisting}[style=pippython]
+print(2 + 4 - 3 + 8)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+11
+\end{lstlisting}
+Since all of the operations in the above example fall in the same class (addition and subtraction), the entire expression is evaluated from left to right: first $2 + 4$, then $6 - 3$, then $3 + 8$.\par
+If the code were as follows, then it would be evaluated differently.\par
+\begin{lstlisting}[style=pippython]
+print(2 + 4 * 3 + 8)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+22
+\end{lstlisting}
+Since there's a higher priority operation (multiplication), this will be evaluated first: $4 * 3 = 12$. Then, since the remaining operations are of the same priority, they are evaluated from left to right: $2 + 12 = 14$, then $14 + 8 = 22$.\par
+If you're ever unsure of which operation will be evaluated first, you should use a pair of parentheses to dictate which operation is run first. As mentioned above, nested parentheses are ordered by depth, with the deepest being evaluated first.
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 4.8.
+\begin{Exercise}
+    \Question{How many primitive arithmetic operations exist in Python?}
+    \Question{Write out all of the arithmetic operations that Python offers.}
+\end{Exercise}
+\begin{Exercise}
+Consider the following code snips. Are they syntactically correct? Why or why not?
+    \Question{\verb|x = x + 9|}
+    \Question{\verb|x = x + x + 6|}
+    \Question{\verb|x + 9 = x|}
+\end{Exercise}
+\begin{Exercise}
+    \Question{Say you wanted to write a negative number. Do you have to do anything special to make Python understand that you want a negative number instead of a subtraction arithmetic operation?}
+    \Question{Does Python respect the order of operations?}
+    \Question{Write a line of Python code to prove that Python respects or does not respect the order of operations, including what the answer \textit{should} be and the output that Python \textit{actually} gives you.}
+\end{Exercise}
+\begin{Exercise}
+Write the applicable code to evaluate the following lines in Python. Imagine that you are typing directly into the Python interpreter as a calculator. That means there's no need to put the result into a variable.
+    \Question{Two plus two}
+    \Question{Four plus three plus nine}
+    \Question{Eight subtracted from ten}
+    \Question{Negative seven times positive four}
+    \Question{Twenty divided by four}
+    \Question{Twenty divided by three, with a decimal remainder}
+    \Question{Twenty divided by three, with no remainder}
+    \Question{The remainder portion of eight divided by three, with no leading decimal point}
+    \Question{Eight squared}
+    \Question{Eight cubed}
+    \Question{Eight to the eighth power}
+    \Question{Eight plus three, three minus two, and four times seven, all multiplied together}
+\end{Exercise}

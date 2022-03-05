@@ -1,0 +1,313 @@
+\chapter{Data Analysis with Pandas}
+In all honesty, Python makes a bad web development language and an even worse desktop development language\footnote{This is not a fact, the author just really hates Python for desktop and web development.}. However, one of Python's biggest strengths is in scientific computing and in statistics. If you've used R before, you'll find that Python isn't that much different. In fact, both R and Python are built on the C programming language! It does use a different set of packages, but you'll find that with a little bit of statistical translation, you can do everything that you could do with a dedicated statistics programming language, such as R or SAS.\par
+
+\section{Pandas are Not Bears}
+While R has much of its functionality baked right into Base-R (as a dedicated statistics language), Python requires you to load in the appropriate libraries. The hands-down most popular library is Pandas, and it's an incredibly powerful package that's appropriate for all sorts of data analysis. There are many other packages out there that are actually built on Pandas, like NumPy (pronounced Num-Pie, \textit{not num-pee}), TensorFlow, Scikit-Learn, Matplotlib, Seaborn, and many others. Much of the inner workings of economics services are built using Pandas, too, like Robinhood, Quandl, Morningstar, and Google Finance.\par
+\funtext{Pandas's Etymology}{Pandas actually stands for something: Python ANalysis for DAta. it was originally created for financial research by Wes McKinney at AQR Capital Management.}
+Take your mind back to chapter 8, when we were working with a new library called \verb|csv|. Well, like \verb|csv|, Pandas is also a library. In fact, we can use the same import statement as we used with \verb|csv|.
+\begin{lstlisting}[style=pippython]
+import pandas
+\end{lstlisting}
+However, when you look at most code that uses Pandas, you'll notice that it's \newterm[aliased]{alias}. That means that the library name \verb|pandas| has been assigned a nickname \verb|pd| that can be used to reference library methods at any point in that script. The common \verb|pandas| alias is \verb|pd|, and we can create a library alias by using the Python keyword \verb|as|.
+\begin{lstlisting}[style=pippython]
+import pandas as pd
+\end{lstlisting}
+Now, we can access the \verb|pandas| method by using \verb|pd|. For example, instead of typing out \verb|pandas.DataFrame()|, we can just call \verb|pd.DataFrame()|.\par
+\warningtext{Use pd, not something else}{Avoid creating a different alias for pandas than "pd", which has become the default alias. Using a different alias may cause confusion in readers.}
+ 
+\boxtext{Aliases With Other Libraries}{Other libraries have well-known aliases\index{alias}, too. "numpy" is aliased "np", "scikit-learn" is aliased "sk", and "BeautifulSoup4" is aliased "bs4".}
+\section{New Datatypes}
+Learning how to use Pandas means that you need to learn how to use two new datatypes: the series and the dataframe. These datatypes were built expressly for the purposes of data analysis while using Pandas, and they build upon the initial structure of the dictionary and the list.\par
+These datatypes are only available when you use Pandas, so make sure you import the Pandas library before trying to instantiate a new series or dataframe.
+\section{Series}
+\newterm[Series]{Pandas!series} aren't used nearly as much as dataframes are in Python data analysis. Series are most akin to lists in Python, but they differ in the way that the data is stored and the methods that are available to use. However, it is possible to typecast from a Python list to a Pandas series and vice-versa.\par
+That being said, series are still important to cover, as they are the fundamental building blocks of dataframes, which we'll cover in the next section. Cast your mind back to when we looked at lists. A list might look like the following.
+\begin{lstlisting}[style=pippython]
+var1 = [56, 52, 38, 62]
+\end{lstlisting}
+If we look at the type of this list, we see that it's a type list.
+\begin{lstlisting}[style=pippython]
+type(var1)
+\end{lstlisting}
+\begin{lstlisting}
+<class 'list'>
+\end{lstlisting}
+Now, let's make this Python list into a Pandas series. Remember, a list looks like a series.\par
+\begin{lstlisting}[style=pippython]
+var1 = pd.Series(var1)
+type(var1)
+\end{lstlisting}
+\begin{lstlisting}
+<class 'pandas.core.series.Series'>
+\end{lstlisting}
+We have actually typecast the \verb|var1| object from a Python list into a Pandas series. Observe how both series and lists are one-dimensional. However, what makes series special is how their indices are inherent and modifiable.\par
+To make this list, we used the Pandas \verb|Series| method. Because \verb|Series| is in the Pandas class, we need to call \verb|Series| as a method on Pandas, but as shown, we're using its alias \verb|pd| instead of typing out \verb|pandas|. We could just as easily type out the full class as \verb|pandas| instead of \verb|pd|.
+\begin{lstlisting}[style=pippython]
+var1 = pandas.Series(var1)
+\end{lstlisting}
+However, since the \verb|pd| moniker is so well known, we'll just use its alias.\par
+In order to make a series, we will always use the \verb|Series| method from the Pandas class. If we wanted to create an empty series, we would just pass nothing into the method.
+\begin{lstlisting}[style=pippython]
+emptySeries = pd.Series()
+\end{lstlisting}
+\verb|emptySeries| is of type series, but it has nothing in this series. We can also pass in a single list, as we did above.
+\begin{lstlisting}[style=pippython]
+var2 = pd.Series([122, 139, 185, 115])
+\end{lstlisting}\par
+\boxtext{Variables Versus Literals}{Notice how in var1, we passed in a variable with a list, while in var2, we passed in a list literal. As long as the datatype is correct, Python will make the series.}
+If we tried to print the list before we typecast \verb|var1|, we would end up with something like this.
+\begin{lstlisting}
+[56, 52, 63, 38]
+\end{lstlisting}
+It prints just like any other list, complete with square brackets and commas. However, when we print our series, we see something a little bit different.
+\begin{lstlisting}[style=pippython]
+print(var1)
+\end{lstlisting}
+\begin{lstlisting}
+0    56
+1    52
+2    63
+3    38
+dtype: int64
+\end{lstlisting}
+In our second column, we see the values that we typecast from our list into our series, but in the first column, we also see index values, starting at zero. Using this index, we can actually extract data from the series just as we did when we were working with lists. We will use square brackets to indicate which index we want.
+\begin{lstlisting}[style=pippython]
+print(var1[1])
+\end{lstlisting}
+\begin{lstlisting}
+52
+\end{lstlisting}\par
+\boxtext{Indices start at zero}{Reminder: indices still start at zero, even in Pandas series!}\par
+We could also create our own indices for a series. Recall how we made our \verb|var1| series. We passed in a list only. In order to create an index, we can also pass in the argument \verb|index|, which should be of type \verb|list|.\par
+\begin{lstlisting}[style=pippython]
+var3 = pd.Series([3, 2, 2, 3], index = ['a', 'b', 'c', 'd'])
+\end{lstlisting}
+Now, if we attempt to look at \verb|var3|, we'll notice how it still has our values in the second column, but the first column has the index that we specified as a list.\par
+\begin{lstlisting}
+a    3
+b    2
+c    2
+d    3
+dtype: int64
+\end{lstlisting}
+\verb|a|, \verb|b|, \verb|c|, and \verb|d| became our index instead of the default \verb|1|, \verb|2|, \verb|3|, and \verb|4|.\par
+\warningtext{Check your indices!}{Make sure that your index has the same number of elements as the data that you are putting into the array. If your indices are mismatched, you will end up with a syntax error.}
+Getting data out of a series with an explicitly set index is similar to how we get data out of a dictionary. We still use square brackets, and we put the index that we defined. For example, if I wanted the \verb|c|'th element of the \verb|var3| series, I could just refer to the \verb|c|'th element as a string.\par
+\begin{lstlisting}[style=pippython]
+print(var3['c'])
+\end{lstlisting}
+\begin{lstlisting}
+2
+\end{lstlisting}
+Because \verb|c| is of type string, we had to put our index into our square brackets inside of quotes, similar to how we need to put keys of a dictionary into quotes.\par
+After learning how to change the index, you may have realized that a series can act like both a list \textit{or} a dictionary! If not, now you know. When we referenced our series without an explicit index, we could just refer to a series element by that index number.
+\begin{lstlisting}[style=pippython]
+print(var1[1])
+\end{lstlisting}
+\begin{lstlisting}
+52
+\end{lstlisting}
+However, when we refer to a series with an explicit index, we refer to a series element by that index value that we set.
+\begin{lstlisting}[style=pippython]
+print(var3['d'])
+\end{lstlisting}
+\begin{lstlisting}
+3
+\end{lstlisting}
+Let's look at a more concrete example. Consider this list which has been typecast to a series.
+\begin{lstlisting}[style=pippython]
+speeds = pd.Series([84, 93, 66, 89, 58, 59])
+\end{lstlisting}
+If we wanted to refer to the $n$'th element of the \verb|speeds| series, we would just refer to the index number as $n$.
+\begin{lstlisting}[style=pippython]
+print(speeds[n])
+\end{lstlisting}
+Now, let's consider a list which has been typecast to a series, but which has an explicit index.
+\begin{lstlisting}[style=pippython]
+agility = pd.Series([90, 90, 96, 86], index = ['Cristiano Ronaldo', 'Lionel Messi', 'Neymar', 'Luis Suarez'])
+\end{lstlisting}
+In order to get any of the data out of the \verb|agility| series, we need to know the indices or we need to just print the entire series.
+\begin{lstlisting}[style=pippython]
+print(agility)
+print(agility['Neymar'])
+\end{lstlisting}
+\begin{lstlisting}
+Cristiano Ronaldo    90
+Lionel Messi         90
+Neymar               96
+Luis Suarez          86
+dtype: int64
+96
+\end{lstlisting}
+If we didn't want to create a dictionary-like series as two distinct lists (one list with the data, one list with the indices), we can actually pass in a dictionary into the \verb|Series| method and leave out the \verb|index| argument altogether. Consider the following dictionary.
+\begin{lstlisting}[style=pippython]
+composure = {'Cristiano Ronaldo': 86,
+            'Lionel Messi': 94,
+            'Neymar': 80,
+            'Luis Suarez': 84}
+\end{lstlisting}
+If we pass this dictionary into the \verb|Series| method, Pandas will typecast the dictionary into a series using the keys as the index and the values as the data.
+\begin{lstlisting}[style=pippython]
+composure = pd.Series(composure)
+print(composure)
+\end{lstlisting}
+\begin{lstlisting}
+Cristiano Ronaldo    86
+Lionel Messi         94
+Neymar               80
+Luis Suarez          84
+dtype: int64
+\end{lstlisting}
+Just like in a dictionary and like above, we can refer to a data value in this series by its index (the equivalent to a key in a dictionary, if a index were a string).
+\begin{lstlisting}[style=pippython]
+print(composure['Lionel Messi'])
+\end{lstlisting}
+\begin{lstlisting}
+94
+\end{lstlisting}
+By now, you should have also noticed that when we print a full series, we also have a little line at the bottom that starts with \verb|dtype|. This tells us the type of data that is in our series. If all of the datatypes in a series are the same, the \verb|dtype| will represent that. Pandas tries to store data in the simplest method possible, just like Python. So, if you pass it in an integer, it'll try to store that value as an integer, rather than a float.\par
+Like a list, we can mix our datatypes between each element in a series. You can mix floats with integers, strings with floats, booleans with strings, and every other combination out there. However, when we mix datatypes, the \verb|dtype| that is shown somehow has to represent all of the data. Because of this mixed data, Pandas will just return a datatype of "object." However, Pandas will maintain the datatype in that series element, meaning that filling an element with a string will keep it a string, even if the \verb|dtype| of the entire series is listed as \verb|object|.
+\begin{lstlisting}[style=pippython]
+mixeddtype = pd.Series(['spinach', 48, 9.1])
+print(mixeddtype)
+print(type(mixeddtype))
+print(mixeddtype[0], mixeddtype[1], mixeddtype[2])
+print(type(mixeddtype[0]), type(mixeddtype[1]), type(mixeddtype[2]))
+\end{lstlisting}
+\begin{lstlisting}
+0    spinach
+1         48
+2        9.1
+dtype: object
+<class 'pandas.core.series.Series'>
+spinach 48 9.1
+<class 'str'> <class 'int'> <class 'float'>
+\end{lstlisting}
+Observe how in the first output (where we print the entire series), we see that the \verb|dtype| is of type \verb|object|. This means that the elements inside of our series are mixed. However, the complex datatype is still a series. Just how we grabbed data out of our series before, we can do the same by referring to individual elements by index number. We can also print the datatypes of individual elements by using the \verb|type| function, where we see that all of the datatypes that we initially gave Python are maintained (string, integer, and float). 
+
+\section{Dataframes}
+Now that we've seen series, we can begin to explore dataframes. A dataframe is yet another complex datatype, but it is among the most powerful of complex datatypes out there because of its flexibility and the sheer number of methods that exist to manipulate that data.\par
+Most data comes to data scientists as a CSV file. Whether it's been cleaned or not, they tend to follow the same form.\par
+\vspace{5mm}
+\begin{tabular}{|l|l|l|l|}
+\hline
+id & var1 & var2 & var3 \\
+\hline
+1  & 56   & 122  & 3    \\
+\hline
+2  & 52   & 139  & 2    \\
+\hline
+3  & 38   & 185  & 2    \\
+\hline
+4  & 62   & 115  & 3    \\
+\hline
+\end{tabular}\par
+\vspace{5mm}
+The general form behind most datasets is that you have some ID to keep track of your entries and a set of variables that hold the data for each entry. This wouldn't really fit neatly into any preexisting data structure, and while we could probably write our own class to handle this data, we don't have to, since Pandas comes with its own data structure that was designed to hold CSVs and other datasets: the Pandas \newterm[dataframe]{Pandas!dataframe}.\par
+A dataframe is made up of Pandas series (hence why we covered those first). Each column of a dataframe is composed of a single Pandas series, and the process of putting series side-by-side in a certain order creates a dataframe. However, there are two major things to note: because a dataframe is a composite structure, you cannot edit the index of one column without altering the index of all of the columns, and the column names do not correspond to variables as they do in a pure series. This means that in the above series, we cannot simply call the \verb|var1| series independently of the dataframe. We instead need to call the column as a part of the dataframe.\par
+You can think of a dataframe as a data structure that emulates the format of a two-dimensional spreadsheet. If you are familiar with other programming languages such as C++ or C\#, then you can associate the dataframe with a two-dimensional array.\par
+Pandas dataframes require you to use a certain data format in order for the data to be read and associated properly. When you import your data, you should set it up with your individual variables on row 1 and each of your trials or data entries indexed at column 1. This will allow Python to determine the datatype of an entire column. On the surface, this seems trivial, but making sure that your data is formatted correctly before you import it will mean that you'll be able to analyze it in a somewhat standard manner.\par
+If your data isn't stored in the format that you required but there is some standardization to the format of the data, then consider using your already-known standard file reading and writing skills to read the file into memory, then rewrite it in the format that you require.\par
+\subsection{Getting Data}
+The most common operation that you'll be doing with a Pandas dataframe is retrieving data. There are a few ways to retrieve this data: we can retrieve the entire dataset as a dataframe, typecast it to another type, or just get a subset of the data. For this section, we will cover two ways of getting data: entering it naively, and importing it from a CSV. We'll also briefly cover pickles.
+\phantomsection
+\subsubsection{Making a Dataframe Naively}
+Let's say that you want to create a new, empty dataframe, then put data into that empty dataframe. You might have several lists that you want to turn into a dataframe, or you might be reading data in from an input/output device that needs stored in a dataframe.\par
+Pandas allows us to create a dataframe by calling the \verb|.DataFrame()| method in the Pandas library, and by default, it returns an empty Pandas dataframe.
+\begin{lstlisting}[style=pippython]
+df = pd.DataFrame()
+type(df)
+print(df)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+pandas.core.frame.DataFrame
+Empty DataFrame
+Columns: []
+Index: []
+\end{lstlisting}
+As you might have inferred, this is not that dissimilar for how we might have created an empty list or dictionary by calling the \verb|list()| or \verb|dict()| functions in Python. When we first create an empty dataframe, it is assigned no size in either the row or column direction. That means that, strictly speaking, it is a zero-dimensional object.\par
+The way dataframes are structured make them conducive to adding rows over columns, just like how when we make a spreadsheet in Microsoft Excel or Google Sheets, we will create the columns, then fill rows with different data. Because of this, it is much easier to define the column-wise dimension of your dataframe than the row-wise dimension when we create the dataframe in the first place. We can do this by passing a list type into the \verb|columns| argument of the \verb|DataFrame()| method. This will tell Pandas to create columns with the names of the elements in the list that you passed in. It won't tell Pandas anything about the datatypes, but at least we'll have our column-wise dimensions for our dataframe.\par
+For example, let's create a dataframe for some ice hockey data with the column names \verb|name|, \verb|goals|, and \verb|toi|, which will stand for player name, number of goals scored, and the amount of time on the ice that they've spent, respectively. We know what our columns names will be, so we can pass these in as elements of a list into the \verb|columns| argument.\par
+\begin{lstlisting}[style=pippython]
+hockey = pd.DataFrame(columns = ["name", "goals", "toi"])
+print(hockey)
+\end{lstlisting}
+\begin{lstlisting}[style=pippython]
+Empty DataFrame
+Columns: [name, goals, toi]
+Index: []
+\end{lstlisting}
+\warningtext{Check your commas!}{Just a reminder to check the positions of your commas. This is just a regular list, and since we're passing in strings, our commas must fall outside of the string, otherwise Python will consider the comma to be part of the string with no demarcation between elements, which will result in a syntax error.}
+Our dataframe is still empty because there isn't any data in the row-wise dimension, but we now see that we have three columns when we print out the dataframe.
+\subsubsection{Reading a CSV}
+Pandas has its own method for reading in a comma-separated values, or CSV, file. Using the Pandas method will allow you to put the data directly into a Pandas dataframe, rather than having to shoehorn it into a Python datatype, then typecast it to a Pandas dataframe.\par
+\boxtext{Save time, use a package!}{Pandas is so well universally utilized at this point that there is almost certainly a package out there for the type of data that you want to import, whether it's a R dataset (.rda or .rds), Excel worksheet (.xls or .xlsx), or OpenDocument spreadsheet (.ods). If your data is not in an easy-to-read binary file (as opposed to a plaintext file, like a CSV or TSV (tab separated values) file, consider finding a library in Pip to open the file for you and put the values into a Pandas dataframe.}
+The built-in Pandas method for reading a CSV file is \verb|.read_csv()|, and it returns a Pandas dataframe. The default arguments for the \verb|read_csv()| method are to read a CSV file that was created from a Microsoft Excel, Libreoffice Calc, or Google Sheets file. All three pieces of software create CSV files that adhere to some form of "typical" (although there is no standard for CSV files). For example, some CSV files may use different demarcations for strings, cells, headers, and any number of other changes.
+\begin{itemize}
+    \item The separator default is a comma \verb|,|, though some software separates cells using a tab (in the case of TSV files), period, or some other character.
+    \item The header default is to infer whether there is one. Pandas will look at the datatypes of the potential column and evaluate what datatype it is compared to the datatype of the potential header. If the datatypes match with the header, it will infer that you have no header, but if all of your header row is all strings, Pandas will likely infer that you do have a header.
+    \item Pandas will assume that you have no indexing column and it will make its own for you.
+\end{itemize}
+Because these are the default arguments for the \verb|read_csv()| method, we don't need to explicitly set these arguments when we use the method. In fact, we only need to pass in one argument: the actual CSV file itself.\par
+Because this is a required argument, we don't even need to specify the position of the argument in the method call. We can instead just pass in the location of the file as a string in the first position of the method call. Let's say that my file was called \verb|skaters.csv| and it was located in the current working directory. We could just run the following line to put \verb|skaters.csv| into a dataframe called \verb|skaters|, then print the head of the \verb|skaters| dataframe.\par
+\begin{lstlisting}[style=pippython]
+skaters = pd.read_csv("skaters.csv")
+print(skaters.head())
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+   rank           player   playerid  ... foloss  fopct
+0     1    Calen Addison  addisca01  ...      0    0.0
+1     2  Andrew Agozzino  agozzan01  ...      2   33.3
+2     3       Jack Ahcan  ahcanja01  ...      0    0.0
+3     4    Sebastian Aho    ahose01  ...    268   52.7
+4     5    Sebastian Aho    ahose02  ...      0    0.0
+
+[5 rows x 62 columns]
+\end{lstlisting}
+\boxtext{Where am I?}{To find what your current working directory is, you can just run the pwd command in the Python shell. pwd stands for "print working directory."}
+\boxtext{Getting Data in Subdirectories}{If your CSV file is in a subdirectory of your current working directory, you can just use slashes to indicate subdirectories. For example, if skaters.csv were a file inside of the data directory, which was inside inside of nhlskaters, which was inside of Downloads, and Downloads was my current working directory, I could just pass in "nhlskaters/data/skaters.csv"}
+\boxtext{From the Top}{Sometimes, it's easier to just give the entire file string. On Unix-like systems, this is easy: just preface the first directory with /. Your home directory is located in /home/yourname/. On Windows, start with C:/ instead. Your home directory is located in C:/Users/yourname/.}
+\subsubsection{Reading a Pickle}
+Pickles are a method of storing a data in non-volatile memory that represent an entire Pandas object. When a Pandas object is pickled, it is stored and recalled exactly the same at the time of pickling. Consider some of the ways that we can fail to read a CSV file. If the data were created with tabs instead of commas, it would be possible to read the data incorrectly. Plus, we can't tell Pandas that the first column is an index, meaning that anyone that imports the data down the line might create a new index, thus breaking your code. A pickle avoids these problems by storing the object as a whole, including indices, column names, and other metadata. This data is read when someone attempts to read the pickle, and the process of reading the pickle recreates the object exactly as it existed from whoever wrote the picklefile.
+Essentially, writing a pickle freezes an object in time, and anyone who uses that pickle down the line will get that object exactly as it stood when it was frozen.
+\subsection{Adding Data}
+Consider the table presented in section 10.2: it looks like a table! With that view comes the advantage that we can index this table by rows and columns.\par
+\boxtext{Recall}{We first saw numerical indexing when we looked at lists. Remember that in Python (and in Pandas), indices start at 0, not at 1!}
+\subsection{Removing Data}
+Other times, you'll want to permanently remove data. When we want to remove data, we need to choose exactly which data we want to remove, and this is called data selection or data location. Pandas has its own dedicated methods for data selection, including \verb|.at|, \verb|.iat|, \verb|.loc|, and \verb|.iloc|. Once you know how to select the cell that you want, it's much easier to remove that data, and it also helps you manipulate dataframes in general.
+\subsection{Modifying Data}
+When we work with data, we often have a need to change individual cells. Perhaps the data is incorrect or the type was created incorrectly (for example, it's a string instead of a float). This is where dataframe data modification comes into play.
+\subsection{Transforming Data}
+What if we don't want to edit just one column, but we'd rather change the entire shape of the data? This is called \newterm[data transformation]{data transformation}.\footnote{Note that the term "transformation" means something different here than it does in traditional statistics. While in statistics, transformation means to alter a variable to change its value by using some function (like taking the square root) in order to fit some assumption (like normality), we take "transformation" to mean changing the shape of how the data are represented in the dataframe.}
+
+\section{Cleaning Up Data}
+One of the major strengths of Python is its ability to clean data. The very structure of Python means that it's great at very program-oriented tasks, such as procedurally cleaning and sorting data.\par
+The simplest of data cleansing tasks is \newterm[data normalization]{data normalization}. Normalization is the process of making all of the data of a certain variable into a similar form. For example, if you had a variable called "age" that contained both integer and floating point values, then you might want to normalize the data so that all of the data is an integer (if you only care about the integer value of the age) or so that all of the data is a float (if you need more specificity).\par
+Data normalization can clarify confusing things in your data. Let's go back to our "age" variable. Let's say you had the value \verb|7| as one of the values. Does this mean 7 years exactly or some time between 7 and 8 years? Rather, we could specify that the value should be \verb|7.0| - this much more clearly indicates that we're looking at exactly 7 years, not the latter.\par
+\section{Calculating Summary Statistics}
+This book isn't really designed to be a statistics book, but what we can do is go over some basic statistics concepts and apply them to our Pandas and Python skills. If you want to do more with statistics, you should go take a statistics course.\par
+\warningtext{This is not a stats book!}{This textbook is not a statistics book. This is a Python programming book. We cannot possibly cover all of the details of these statistical tests and models in this one chapter - there are entire textbooks dedicated to this topic. Rather, this book should help you translate your skills in R, SAS, or SPSS to Python.}
+\section{Basic Hypothesis Tests with statsmodels}
+\warningtext{This is not a stats book!}{This textbook is not a statistics book. This is a Python programming book. We cannot possibly cover all of the details of these statistical tests and models in this one chapter - there are entire textbooks dedicated to this topic.}
+Alone, Pandas and Python make quite the deadly duo, but add in statsmodels and scipy and you've got yourself a Triforce of Stats! The statsmodels library adds many statistical tests that can be used to evaluate a dataset. Again, this isn't a statstics book, so we won't delve into the theory and details of the tests, but we can cover what the tests do and how to run the tests in R. For more detail, we recommend you check out the OpenIntro Statistics textbook (or just take a statistics class!).\par
+We'll cover three statistical tests: the Z-test for proportions, the T-test for differences in means, and the Kruskal-Wallis test for differences in medians.
+\subsection{Z-Test for Proportions}
+To run a Z-test for proportions, we can use the \verb|proportions_ztest()| method in the \verb|proportion| module in the statsmodels library.\par
+The purpose of the Z-test for proportions is to determine whether the proportions between two groups are the same. For example, suppose we wanted to test the idea that out of a sample of 50 men and 50 women, the proportion of men whose favorite Pok\'emon is Pikachu is the same as the proportion of women whose favorite Pok\'emon is Pikachu.
+\subsection{T-Test for Differences in Means}
+To run a T-test for differences in means, we can use the \verb|ttest_ind()| method in the \verb|weightstats| module in the statsmodels library.
+\subsection{Kruskal-Wallis Rank Test for Differences in Medians}
+To run the Kruskal-Wallis test for differences in medians, we can use the \verb|kruskal()| method in the \verb|stats| module in the scipy library.
+\section{Building Basic Models}
+\warningtext{This is not a stats book!}{This textbook is not a statistics book. This is a Python programming book. We cannot possibly cover all of the details of these statistical tests and models in this one chapter - there are entire textbooks dedicated to this topic.}
+A big part of statistics is models. Statisticians use models to evaluate their data all the time, and it's something that Python and Pandas are quite good at doing.\par
+For this book, we'll cover two models: the simple linear regression model, and the logistic regression model.\par
+In order to understand why we're doing any of this, we must first understand what a model is. Consider a dataset with a few columns. One of these columns is our response variable, and the other columns are our indicator variables. If we just look at this one dataset, we know the data that was collected, but how does this generalize? That is, how can we make a prediction for our response variable given a new situation? This generalization is called a model.\par
+As a more concrete example, consider a dataset of 25 high-school age soccer players in a specific league. We might have the variables  speed, agility, age, and goals. Given the data, we can build a simple linear model to predict how many goals a player might score given their speed, agility, and age. This allows us to generalize the dataset (with its real data) to the entire league of, say 200 player, even though they might not have been sampled (assuming that our dataset is representative of the league).\footnote{This is a dramatic simplification of the process of making a model. You should refer to a statistician for more details.}
+\subsection{Simple Linear Regression}
+\subsection{Logistic Regression}
+\section{Basic Graphs with Matplotlib}
+\warningtext{This is not a stats book!}{This textbook is not a statistics book. This is a Python programming book. We cannot possibly cover all of the details of these statistical tests and models in this one chapter - there are entire textbooks dedicated to this topic.}
+The most glamorous part of statistics is probably the graphs. So far, almost everything that we've done has been done in the console, and while it's great for data density, it doesn't look great if we're being perfectly honest. However, we're about to leave the realm of the console and start to play with a new library: Matplotlib. This library will introduce us to tools that will open windows with graphs, since trying to view graphs in a terminal just isn't fun.\par
+\funtext{Matplotlib's Etymology}{Matplotlib was derived from MATLAB as a library for Python designed to look like MATLAB. It stands for MATlab PLOTting LIBrary (think: mat-plot-lib).}
+Matplotlib is an incredibly complex and powerful library that allows you to create plots that are both static and animated! However, we'll only be looking at static plots.

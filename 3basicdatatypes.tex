@@ -1,0 +1,144 @@
+\chapter{Basic Datatypes}
+Everything in programming circulates around data. Whether we want to store, print, evaluate, manipulate, or do something else to a chunk of data, we need to be able to express that data in some way.\par
+Python provides us with several ways to describe data. If you have experience with other programming languages, this will be very familiar. Before we even get to storing or manipulating data, we need to know how Python will treat our data.\par
+In this chapter, we'll go over the basic \newterm[datatypes]{datatype} that exist in Python 3. Many of these datatypes exist in other languages, too. However, we won't see a lot of code here, as we're only going over the datatypes themselves.\par
+A datatype, as its name would suggest, is the type of data that is being referred to. Let's say you wanted people to fill in a form. Some of the fields on that form would be alphabetical letters, like a name or email address. Other fields would be numbers, like age, height, or weight. Yet others would be binary options, like whether someone has taken a course before, where the only options are \textit{yes} and \textit{no}. Letters, numbers, and binary options are all datatypes, and in programming they have formal names.
+\section{Strong and Weak Typing}
+Variable typing (we'll get to what a variable is later) is an important part of programming. Some languages are strongly typed, while others are weakly typed. \newterm[Strongly typed]{strongly typed} languages require their author to specify what kind of data is being stored or manipulated, and the type of data that is being stored in a specific memory space cannot be changed. The reason for this has to do with the size allotted for the memory space. More detailed data requires more space to store. If the author wants to change the datatype down the line, the language typically (but not always) requires the author to explicitly \newterm[typecast]{typecast} the data. Typecasting is the process of changing the datatype that some chunk of data is described as. We'll examine how the allotment for each of these data types changes when we look at the difference between integers and floats.\par
+Conversely, \newterm[weakly typed]{weakly typed} languages do not require their author to specify what kind of data is being stored. Most languages will attempt to store the data in the smallest datatype possible and can typecast on the fly, meaning that the author can simply imply that the data should be of a different type and the language will adapt to that new language.\par
+Python is a weakly typed language. As you'll see in later sections, it's possible to explicitly typecast some data (especially when you're trying to output that data), but you can also typecast on the fly when addressing data in defined memory locations.\par
+Weakly typed languages, despite their name, sound like a pipe dream! They allow the programmer to just program without having to worry about how that data is being stored! Woah, slow down there, bucko! Not so fast: weakly typed languages have some serious implications for both the programmers who use them and for the program's users. Experienced programmers really like it when things are explicit. Remember, we control everything that the computer does, but sometimes, what the computer does is unexpected, and a shocking number of issues stem from mis-cast data if the programmer didn't know what kind of data they were dealing with. Plus, while it seems like a hassle to explicitly define your datatypes, any student who's taken an introductory programming course can tell you that knowing your datatypes becomes like knowing the back of your hand - it becomes second nature! So, it's worth committing the different datatypes to memory, as you'll use them a lot!\par
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 3.1.
+\begin{Exercise}
+    \Question{What are some of the advantages of a strongly typed language?}
+    \Question{What are some of the disadvantages of a strongly typed language?}
+    \Question{What are some of the advantages of a weakly typed language?}
+    \Question{What are some of the disadvantages of a weakly typed language?}
+\end{Exercise}
+\begin{Exercise}
+    \Question{What is the difference between strongly and weakly typed languages?}
+    \Question{Can you typecast data with weakly typed languages?}
+    \Question{What kind of language is Python: strongly or weakly typed?}
+\end{Exercise}
+\section{Booleans}
+The most primitive data in every single programming language is the \newterm[Boolean]{Boolean} datatype. A Boolean represents either a true or a false. These values are stored in memory as a 1 or a 0. As such, it only requires one bit to store an entire Boolean.\footnote{Technically speaking, it takes more than just one bit to store a Boolean value, since you also need to track the name of what thing that Boolean is telling the state of. However, the actual Boolean value itself only takes one bit to store.} This makes Booleans extremely fast to work with. It doesn't take as many processor cycles to work with a Boolean variable as it does to work with more complex datatypes.\par
+In Python, the state of a Boolean is case-sensitive. When you write out a Boolean value in Python, the first letter is always capitalized. So, you would write Boolean values like this:
+\begin{lstlisting}[style=pippython]
+while (True):
+  ...
+\end{lstlisting}
+\begin{lstlisting}[style=pippython]
+variable = False
+\end{lstlisting}
+
+If you try to write a Boolean value with all lowercase letters, Python cannot evaluate your program, and it will crash.\par
+Python requires the first letter of all Boolean values to be capitalized, but this is not exclusive to Python, nor are other languages syntactically bound like this. For example, Java, C++, and C\# use all lowercase letters, \verb|true| or \verb|false|, while PHP uses all uppercase letters, \verb|TRUE| or \verb|FALSE|.\footnote{PHP is a very funky language, and while the official documentation states you should use all-caps, it's not technically required. There are many, many faults and issues with PHP, but it's not a topic for this book.} You don't need to get bogged down with how each language deals with Boolean states, only the language that you're actively working with. However, if you do read code in other languages, you shouldn't assume that it's wrong just because a Boolean value isn't capitalized. That might be the correct syntax for that language, and you should always check that language's documentation.\par
+\funtext{Dates are Bools?}{"Why...why...why...if activeSpray...if not actively spraying and the duration isn't equal to zero, spray duration is equal to the duration input..."\par"Is it because spray start time is a Boolean instead of a...?"\par*claps* "Lesson learned here, if you want to store time, don't use a Boolean!"
+\\\hspace*{\fill} - William Osman (October 2018)\footnote{\href{https://youtu.be/JwU4VwZLGL4?t=437}{https://youtu.be/JwU4VwZLGL4?t=437}}}\par
+There are several ways that the term \textit{Boolean} gets used in programming. In general, it can be used in three different ways: as a statement to set a variable value:
+
+\begin{lstlisting}[style=pippython]
+active = False
+\end{lstlisting}
+
+In a comparison expression (in the below expression, \verb|laps < 10| would evaluate to \verb|True| or \verb|False|):
+
+\begin{lstlisting}[style=pippython]
+while (laps < 10):
+  ...
+\end{lstlisting}
+
+Or as a control mechanism:
+
+\begin{lstlisting}[style=pippython]
+while (True):
+  ...
+\end{lstlisting}
+
+You don't need to understand the distinction between these three uses, especially since we haven't covered control logic or variables yet, but you should be aware that you might see the term \textit{Boolean} used in several different ways.\par
+Programmers sometimes refer to Boolean values as "bools." If you hear the term "bool," it's referring to a Boolean value.
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 3.2. 
+\begin{Exercise}
+    \Question{What states can a Boolean hold?}
+    \Question{How does Python mandate that you write out these states in code?}
+    \Question{At a very basic level, how is a \verb|True| value stored in memory? Only consider the value itself; ignore the memory address.}
+\end{Exercise}
+\begin{Exercise}
+    \Question{Do some research: How are Booleans written out in Matlab code?}
+    \Question{Do some research: How are Booleans written out in JavaScript code?}
+    \Question{Do some research: How are Booleans written out in C++ code?}
+    \Question{Do some research: How are Booleans written out in Swift code?}
+\end{Exercise}
+
+\section{Numbers}
+Booleans alone are very difficult to work with, especially if you want to store anything other than true or false. Let's be honest, as great and as simple as Booleans are, they're not the right tool for a lot of jobs. Next, we're going to cover two ways to represent numbers in Python.
+\subsection{Integers}
+Think back to your algebra class. Remember when you had to classify counting numbers from integers and integers from decimals? No? That's okay, let's jog your memory.\par
+An integer is simply a whole number, including zero and negative numbers. \verb|5| is an integer, and so are \verb|13|, \verb|0|, and \verb|-51|. When writing integers in Python, always remember to include the number and the number only. No symbols (other than the negative symbol \verb|-|) are accepted in an integer value. Trying to put another character in will result in a syntax error.\par
+Integers in Python have a limited size. Since they need to be stored in a defined and limited memory space, they are assigned 32 bits. This equates to a range of -2147483648 to 2147483647. This is really, really big, but sometimes, it isn't big enough, so Python has another secret type called the \verb|long| integer. Long integers have an infinite capacity. Since Python is a weakly typed language, it can detect if your integer is too large for a standard 32-bit integer space and automatically upgrade the datatype to a long integer.\footnote{Python's method of dealing with values too large for the datatype can handle is only one way of handling this. Other languages may require you to explicitly typecast to a different variable type altogether, such as a double, that has the capacity for the data that the programmer is trying to store.} Neat!\par
+Note that some languages have the ability to convert a numerical value into an unsigned value, meaning that the range stays the same, but instead of the range being from $-x$ to $x$, the range is from $x$ to $2x$. Python 3, due to its unlimited long integer size, does not support unsigned numerical values.\par
+\boxtext{What's that L doing?}{Sometimes, you might see an integer printed with a L at the end of it in the environment viewer of your IDE, like 3018L. L stands for long, but functionally, it's the same as an integer in Python 3. 3018L really just means the integer in long form 3018.}
+Sometimes, programmers refer to integers as "ints." If you hear the term "int," it's referring to an integer.\par
+\boxtext{Different integers?}{Depending on the version of the Python interpreter and what is returning the type, calling for the type of integer variable might give you "int32" or "int64" instead of just "int." Python will automatically typecast from int32 to int64 if your value is too large, so for your purposes, you only need to know that both int32 and int64 represent integer values.}
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 3.3.1. 
+\begin{Exercise}
+    \Question{What states can an integer hold?}
+    \Question{Give three examples of integers.}
+    \Question{How can you refer to an integer in speech, when talking with other programmers?}
+\end{Exercise}
+\begin{Exercise}
+    \Question{Does Python support unsigned integers? If it does, why does it support unsigned integers? If not, why doesn't it need to support unsigned integers?}
+    \Question{Do some research: What is a programming language that supports unsigned integers?}
+\end{Exercise}
+\begin{Exercise}
+    \Question{What is the difference between a regular integer and a long integer?}
+    \Question{Do you need to worry about whether a value is an integer or a long integer in Python? Why or why not?}
+\end{Exercise}
+\subsection{Floats}
+But what if we need to use decimal points? This would be handy for many reasons, such as storing a money value, a precise mass, or many other things. An integer doesn't support decimal points, so instead, we can use a \newterm[float]{float} or a \newterm[floating-point value]{floating-point}. In strongly-typed languages, floats are typically stored in 64-bits instead of 8- or 16-bits, meaning that if used to store whole numbers, they support much larger ranges, while still being able to hold decimal values. In this spirit, Python 3 uses the term \textit{float} to mean any number that isn't an integer, that would ordinarily be "too large" for an integer.\par
+Like integers, floats can be negative. So, \verb|3.5| is a float, but so is \verb|78.38323526| and \verb|-635.5465|. If a number has a decimal point, Python will automatically assume that it should store the value as a float.\par
+At this point, it begs the question, why should we use integers at all? Well, floats take dramatically more memory to hold. For a more concrete example, check out \href{https://processing.org/examples/integersfloats.html}{this demonstration}.\footnote{\href{https://processing.org/examples/integersfloats.html}{https://processing.org/examples/integersfloats.html}} The top line represents a big loop with an integer, and the bottom line represents the same loop, but with the execution time penalty of a floating point value. The faster line is taking less time, computationally, to evaluate the next position of compared to the slower line.\par
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapters 3.3.1 and 3.3.2. 
+\begin{Exercise}
+    \Question{What states can a float hold?}
+    \Question{Give three examples of floats.}
+    \Question{How is a float different from an integer?}
+\end{Exercise}
+\begin{Exercise}
+    \Question{Why shouldn't we use floats for everything?}
+    \Question{Provide three examples where we should use floats over integers.}
+    \Question{Provide three examples where we should use integers over floats.}
+\end{Exercise}
+\section{Strings}
+What if we want to represent anything other than a true/false value or a number, like text? Well, we have one last datatype at our disposal: the string. Why do we call it a "string?" Imagine that you had alphabet soup and you picked out the "alphabet" part. If you got a piece of twine and put your alphabet on the twine in a particular order, you are representing some information as a string of letters. In computer science terms, we refer to individual letters as \newterm[chars]{characters!chars} or \newterm[characters]{characters} and to specific combinations of chars as \newterm[strings]{datatype!string}.\par
+In Python, strings are represented using quotation marks or single quotes. Python doesn't care whether you use either, as long as you're consistent. In Python, the following lines are syntactically valid strings:
+\begin{lstlisting}[style=pippython]
+"Aunt Jacky went up the hill."
+'Aunt Jacky went up the hill.'
+\end{lstlisting}
+However, the following lines is not syntactically correct, since the opening and closing quotes don't exactly match for each string:
+\begin{lstlisting}[style=pippython]
+"Aunt Jacky went up the hill.'
+'Aunt Jacky went up the hill."
+\end{lstlisting}
+You can always typecast an integer or float into a string, but you can't always typecast a string into an integer or a float. We'll get into exactly how typecasting works in Python in chapter 4.6. For now, let's just cover the basics of what can and cannot be typecast.\par
+Let's say that you calculated the sum of two integers using Python and you now want to display this result to your user. You need to be able to display this newly created integer, but the \verb|print()| function only accepts strings. Instead, we need to typecast our integer into a string. We can't do any arithmetic (covered in chapter 4.8) on a string, but we can print it.\par
+Likewise, it's possible that we'll need to accept some user input. However, all of our standard mechanisms for accepting user input in the console only accepts strings, not only numbers. But what if we want our user to enter the price of something? Instead, we can accept our input as a string, then typecast it to a float. Again, we'll see exactly how to do this in chapter 4.6.\par
+You may see the term \newterm[string literal]{datatype!string!literal}. This means a string that is literally spelled out, such as the ones that are described above. This is in contrast to dynamically created strings, such as those that are generated directly by Python code. If you write single or double quotes, then you are creating a string literal.\par
+It's also worth mentioning that some word processors create something called "smart quotes," which angle the quotation mark based on where they fall in relation to the words around them (for clean opening and closing quotes). Smart quotes are NOT compatible with Python code, so if you paste in code from Word documents or Google Docs documents, be careful that your quotation marks are not smart quotes!\par
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapters 3.4. 
+\begin{Exercise}
+    \Question{What states can a string hold?}
+    \Question{Give three examples of strings, syntactically marked up for Python (include any symbols that denote a string).}
+    \Question{Where does the term "string" come from?}
+\end{Exercise}
+\begin{Exercise}
+    \Question{Can a string hold data that could also be stored by a float? Justify your answer.}
+    \Question{Can a float hold data that could also be stored by a string? Justify your answer.}
+    \Question{Why wouldn't we just store everything as a string in Python? Explain your answer.}
+\end{Exercise}

@@ -1,0 +1,563 @@
+\chapter{Conditional Logic and Loops}
+Being able to use conditional logic and applying that logic to control the flow of your programs is an important part of programs. If there's something that computers are really good at doing, it's doing things procedurally, and loops and conditional logic are the first step to this procedural approach to computing.\par
+\section{Comparison Operators and Boolean Expressions}
+In order to understand how to use conditional logic, we need to first understand how to test conditions. The very basics of condition testing is understanding how to use comparison operators. You've used comparison operators before in math. You know, the $=$, $<$, $>$, $\leq$, $\geq$ and $\neq$ symbols?\par
+The symbols in computer science are fairly standard, but they're different than mathematical symbols. For one, the equal sign \verb|=| is already reserved for the assignment operator, and for two, we don't even have half of these keys on our keyboards! Instead, programmers use programming comparison operators. The mathematical equivalents and descriptions are provided below.\par
+\vspace{5mm}
+\begin{tabular}{|l|l|l|}
+\hline
+Operator  & Math Equivalent & Description              \\
+\hline
+\verb|==| & $=$             & Equal to                 \\
+\hline
+\verb|!=| & $\neq$          & Not equal to             \\
+\hline
+\verb|<|  & $<$             & Less than                \\
+\hline
+\verb|>|  & $>$             & Greater than             \\
+\hline
+\verb|<=| & $\leq$          & Less than or equal to    \\
+\hline
+\verb|>=| & $\geq$          & Greater than or equal to \\
+\hline
+\end{tabular}\par
+\vspace{5mm}
+We can use these symbols to test Boolean expressions in our conditional logic statements.\par
+\warningtext{Variables Versus Expressions}{Do not confuse Boolean variables with Boolean expressions. They are not the same thing. A Boolean variable holds a value of type Boolean. A Boolean expression tests a condition and evaluates to true or false.}
+Using our comparison operators, we can test conditions in Python. Before we get to the actual \verb|if| statements, it's important that we understand how to use these comparison operators and how they evaluate.\par
+In Python, we typically use comparison operators to compare either two variables, a variable and a literal, a function result and a literal, or a function result and a variable. Let's start with the most basic (but slightly contrived) example: comparing two literals. Consider the following Boolean expression.\par
+\begin{lstlisting}[style=pippython]
+4 > 3
+\end{lstlisting}
+This expression can either evaluate to \verb|True| or \verb|False|. To manually evaluate how the Boolean expression will evaluate, we can ask the question: is this statement correct? Only consider whether the full statement is correct, not a part of the statement.\par
+In the above example, we can ask the question: is 4 greater than 3? Yes, it is! Therefore, the expression will evaluate to \verb|True|.\par
+Here's another example.
+\begin{lstlisting}[style=pippython]
+5 != 6
+\end{lstlisting}
+We know that the \verb|!=| is the not-equal-to comparison operator, so our question should be: is 5 not equal to 6? Yes, so the expression will evaluate to \verb|True|. Here's one that might be confusing.\par
+\begin{lstlisting}[style=pippython]
+5 != 5
+\end{lstlisting}
+Again, we're using the not-equal-to comparison operator, so the question should be: is 5 not equal to 5? No, so the expression will evaluate to \verb|False|.\par
+If you want to test multiple things at once, you can also do that in Python. There are two main ways to test multiple things in programming: "and" and "or". Using "and" requires that all of the Boolean expressions evaluate to \verb|True| in order for the entire compound Boolean expression to evaluate to \verb|True|. The "or" only requires that one of the Boolean expressions evaluates to \verb|True| in order for the entire compound Boolean expression to evaluate to \verb|True|.\par
+In Python, we can denote the "and" by writing \verb|and|. Similarly, we can denote the "or" by writing \verb|or|. When writing a compound Boolean expression, you can stack multiple single Boolean expressions on top of each other, as shown here.\footnote{Python is relatively special in that it uses the keywords "and" and "or". Most other languages use the symbols \&\& (two ampersands) to mean "and" and $\vert \vert$ (two vertical pipes) to mean "or."}\par
+\begin{lstlisting}[style=pippython]
+5 != 6 and 6 != 7
+\end{lstlisting}
+The statement shown would evaluate to \verb|True|, since both of the single Boolean expressions would evaluate to \verb|True|: yes, 5 is not equal to 6, and 6 is not equal to 7. You can also use more than two Boolean expressions.\par
+\begin{lstlisting}[style=pippython]
+5 != 6 and 7 != 7 and 8 == 8
+\end{lstlisting}
+In this case, the compound Boolean expression would evaluate to False, since the second condition \verb|7 != 7| evaluates to \verb|False|, so the entire expression evaluates to \verb|False|.\par
+It is also possible to combine \verb|and| and \verb#or#. Consider the following expression.
+\begin{lstlisting}[style=pippython]
+5 != 6 and 7 != 7 or 5 != 6 and 2 != 3
+\end{lstlisting}
+If we evaluate the first half of the compound Boolean expression, we can see that this would evaluate to \verb|False|. However, the second half of the Boolean expression would evaluate to \verb|True|, since both of the conditions are \verb|True|. The two sides of the expression are separated by a \verb#or#, so only one side needs to evaluate to \verb|True| for the entire thing to evaluate to \verb|True|. Essentially, when you use \verb|and|, only one condition needs to be false for the whole thing to evaluate to \verb|False|. When you use \verb#or#, only one condition needs to be true for the whole thing to evaluate to \verb|True|.\par
+Note that some languages have an additional operator called the strict equality operator, represented by three equal signs \verb|===|. In a strict equality, not only must the values that are being compared match, but so must the datatype.\par
+In JavaScript, another programming language that has the strict equality operator, you can see how the strict equality can change the result of the Boolean expression.\footnote{In Javascript, double forward-slashes indicate a comment, not integer division.}
+\begin{lstlisting}
+0 == '0'  // TRUE
+0 === '0'  // FALSE
+0 == ''  // TRUE
+0 === '0' // FALSE
+\end{lstlisting}
+Because the datatypes don't match exactly (the first item is an integer, the second is a string), JavaScript is evaluating a strict equality to be false, even though loose equalities might evaluate to true (in the first line, JavaScript is actually typecasting the string into an integer in order to test it).\par
+While this seems useful, Python does not support the strict equality. The closest thing to this in Python is a combination of Boolean expression tests:
+\begin{lstlisting}[style=pippython]
+a == b and type(a) == type(b)
+\end{lstlisting}
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 6.1.
+\begin{Exercise}
+    \Question{What is a comparison operator?}
+    \Question{What can a Boolean expression evaluate to?}
+    \Question{List the six comparison operators in Python and what they indicate.}
+\end{Exercise}
+\begin{Exercise}
+What do the following Boolean expressions equate to in Python?
+    \Question{\verb|4 > 3|}
+    \Question{\verb|4 >= 4|}
+    \Question{\verb|4 > 4|}
+    \Question{\verb|"Python" == "Is Awesome"|}
+    \Question{\verb|4 < 3|}
+    \Question{\verb|"4" == 4|}
+    \Question{\verb|int("4") == 4|}
+    \Question{\verb|4 != 4|}
+    \Question{\verb|4 != 5|}
+\end{Exercise}
+\begin{Exercise}
+Write the following Boolean expressions with the correct Python syntax.
+    \Question{4 is equal to 8}
+    \Question{4 is not equal to 9}
+    \Question{The variable \verb|k| is less than 3 or greater than or equal to 5}
+    \Question{The variable \verb|m| is greater than 3 and less than 20}
+    \Question{The variable \verb|p| is greater than 3 or less than 0 but is not exactly 1}
+\end{Exercise}
+\section{If, Else, and Else If Statements}
+It's one thing to just run lines of code sequentially, but one of the biggest strengths of computers is being able to make decisions based on empirical data. Using conditional logic and Boolean expressions, computers can run different pieces of code depending on whether some condition is met or not. This is the basis of the \verb|if|, \verb|else|, and \verb|elif| (else if) tools in Python.\par
+The most primitive type of conditional logic is the humble \verb|if| statement. The \verb|if| statement allows you to test a condition and execute a chunk of code based on the outcome of that test. Being comfortable with how \verb|if| statements work will make learning how to use loops much easier, as the control mechanism in loops is essentially another \verb|if| statement.\par
+Recall how we used indentation in chapter 4.5.3. In that chapter, we used colons and indentation to indicate which portions of code were a part of which block. The same structure is used for all of the conditional logic and loop blocks, too. Let's take a look at some code.\par
+\begin{lstlisting}[style=pippython]
+a = 5
+b = 7
+if (a < b):
+  print ("a is less than b")
+\end{lstlisting}
+\begin{lstlisting}
+a is less than b
+\end{lstlisting}
+Let's break down this chunk of code. In the first two lines, we're defining and initializing two integer variables, \verb|a| and \verb|b|. Then, we're creating an \verb|if| statement. We can read this \verb|if| statement as meaning "if \verb|a| is less than \verb|b|, then execute this chunk of code." In an \verb|if| statement, Python will evaluate the Boolean expression inside of the parentheses. If the Boolean expression evaluates to \verb|True|, then the code inside of the \verb|if| statement is run. If the Boolean expression evaluates to \verb|False|, then the code inside of the \verb|if| statement will not run at all. Instead, Python will skip the contents of the \verb|if| statement and resume running the code that is no longer indented.\par
+We can see how this works here.\par
+\begin{lstlisting}[style=pippython]
+c = 7
+d = 6
+if (c < d):
+  print ("c is less than d")
+print ("This is outside of the if statement")
+\end{lstlisting}
+\begin{lstlisting}
+This is outside of the if statement
+\end{lstlisting}
+How can we tell that the code outside of the \verb|if| statement will run? Notice how the second print statement (\verb|print("This is|...) is not indented at the same level as the first print statement (\verb|print("a is less|...).\par
+If the Boolean expression evaluates to \verb|True|, then the code inside of the \verb|if| statement will run, then Python will resume any code outside of the \verb|if| statement. Take a look at the following code.\par
+\begin{lstlisting}[style=pippython]
+a = 5
+b = 7
+if (a < b):
+  print ("a is less than b")
+print ("This is outside of the if statement")
+\end{lstlisting}
+\begin{lstlisting}
+a is less than b
+This is outside of the if statement
+\end{lstlisting}
+The \verb|if| statement can only dictate whether the code inside of the statement can run. It cannot affect anything outside of the \verb|if| statement.\par
+We can also tell Python to test a condition, then run a certain chunk of code if the condition evaluates to \verb|True| or another chunk of code if the condition evaluates to \verb|False|. In Python, we do this using the \verb|if| and \verb|else| statements. As their names suggest, \verb|if| will test the condition, and like we've seen, we must provide it with a Boolean expression to test. The \verb|else| statement will handle the code that's run if the \verb|if| statement evaluates to \verb|False|. Unlike the \verb|if| statement, the \verb|else| statement cannot take anything else. Let's take a look at some code.\par
+\begin{lstlisting}[style=pippython]
+a = 5
+b = 7
+if (a < b):
+  print ("a is less than b")
+else:
+  print ("b is less than a")
+\end{lstlisting}
+\begin{lstlisting}
+a is less than b
+\end{lstlisting}
+\begin{lstlisting}[style=pippython]
+c = 7
+d = 6
+if (c < d):
+  print ("c is less than d")
+else:
+  print ("d is less than c")
+\end{lstlisting}
+\begin{lstlisting}
+d is less than c
+\end{lstlisting}
+In the first example, the Boolean expression in the \verb|if| statement evaluates to \verb|True|, so the code inside of the \verb|if| statement is executed. The code inside of the \verb|else| statement is ignored. Similarly, in the second example, the Boolean expression in the \verb|if| statement evaluates to \verb|False|, so the code inside of the \verb|if| statement is ignored and the code inside of the \verb|else| statement is executed.\par
+But, what if we want to test more than just one condition with only two possible execution cases? Python has one additional tool for this exact case: the \verb|elif| statement. \verb|elif| is short for "else if," and it can go in between the \verb|if| statement and the \verb|else| statement. Like the \verb|if| statement, you need to provide a Boolean expression to be evaluated as part of the \verb|elif|. Take a look at the following chunk of code.\par
+\begin{lstlisting}[style=pippython]
+x = 3
+y = 2
+z = 5
+if (z < x and z < y):
+  print ("z is the smallest")
+elif (y < x and y < z):
+  print ("y is the smallest")
+else:
+  print ("x is the smallest")
+\end{lstlisting}
+\begin{lstlisting}
+y is the smallest
+\end{lstlisting}
+This code looks complicated, but let's break it down. First, we're declaring three variables, \verb|x|, \verb|y|, and \verb|z|. Each of these variables is being initialized to a unique integer value. Next, we're testing if \verb|z| is the smallest of the three variables by comparing it to both \verb|x| and \verb|y|. If it is the smallest, then we can print that it's the smallest and exit the group of \verb|if|/\verb|else| statements. If it's not, then we can test a second condition: if \verb|y| is the smallest. If it is, then we can print that it's the smallest and exit the group of \verb|if|/\verb|else| statements. Otherwise, \verb|x| must be the smallest variable.\par
+If we wanted to test more than just two, we can add multiple \verb|elif| statements. In fact, we can use as many \verb|elif| statements as we need to test all of the conditions that we need. Take a look at the following code, which works similarly to the previous example, but compares four numbers.\par
+\begin{lstlisting}[style=pippython]
+x = 3
+y = 2
+a = 1
+z = 5
+if (z < x and z < y and z < a):
+  print ("z is the smallest")
+elif (y < x and y < a and y < z):
+  print ("y is the smallest")
+elif (a < x and a < y and a < z):
+  print ("a is the smallest")
+else:
+  print ("z is the smallest")
+\end{lstlisting}
+\begin{lstlisting}
+a is the smallest
+\end{lstlisting}
+In this example, we're using two \verb|elif| statements inside of our \verb|if|/\verb|else| statement group. Because these \verb|elif| statements are written in between the \verb|if| and \verb|else| statements, they will be evaluated within this \verb|if|/\verb|else| statement group. In fact, it is syntactically illegal to have an \verb|elif| statement outside of the \verb|if|/\verb|else| statement group. The following code is not syntactically valid.\par
+\begin{lstlisting}[style=pippython]
+# WRONG
+x = 3
+y = 2
+z = 5
+if (z < x and z < y):
+  print ("z is the smallest")
+else:
+  print ("x is the smallest")
+elif (y < x and y < z):
+  print ("y is the smallest")
+\end{lstlisting}
+\begin{lstlisting}
+SyntaxError: invalid syntax
+\end{lstlisting}
+Remember that within your \verb|if|/\verb|else| statement group, the \verb|else| statement must be the last thing that's introduced into the group. You can think of it as the "catch all" in the group. You can have as many \verb|elif| statements as you need, but your \verb|else| statement must be the last thing.\par
+We can also test whether an element is present inside of a complex datatype as covered in Chapter 5. We can directly test whether an element is in a list, tuple, or set.\par
+\boxtext{Math Minded?}{Mathematically, we can represent this using the set membership symbol $\in$. If we were to ask whether $i$ is in the set {2, 3, 4}, we could represent this as $i \in {2, 3, 4}$ mathematically or "i in {2, 3, 4}" in Python.}
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 6.2.
+\begin{Exercise}
+    \Question{What are the three new keywords discussed in this section?}
+    \Question{How does Python tell what is inside of a block?}
+    \Question{What does Python use to determine whether a block should be run?}
+    \Question{Where must an \verb|elif| block be placed?}
+\end{Exercise}
+\begin{Exercise}
+    \Question{Create an \verb|if| statement that executes the code inside of it if the \verb|numDogs| variable is greater  than or equal to 5.}
+    \Question{Create an \verb|if| statement that executes the code inside of it if the \verb|cats| variable is exactly equivalent to the string \verb|"orange tabby"|.}
+    \Question{Create an \verb|if| statement that executes the code inside of it if the \verb|isDone| variable is exactly equivalent to \verb|False|.}
+\end{Exercise}
+\begin{Exercise}
+For this exercise, consider the \verb|if| statement that tests whether the \verb|numDogs| variable is greater than or equal to 5.
+    \Question{Inside of the initial \verb|if| statement, create a print statement that outputs the following string: \verb|We have more than five dogs!|}
+    \Question{Create an \verb|elif| statement that tests whether the \verb|numDogs| variable is less than or equal to 3. Inside of this \verb|elif| statement, create a print statement that outputs the following string: \verb|We have less than three dogs.|.}
+    \Question{Create a final \verb|else| statement that outputs the following string and explain why this would execute in context of the other \verb|if| and \verb|elif| statements: \verb|We have exactly four dogs.|.}
+\end{Exercise}
+\begin{Exercise}
+For this exercise, consider the \verb|if| statement that tests whether the \verb|cats| variable is exactly equivalent to the string \verb|"orange tabby"|.
+    \Question{Inside of the initial \verb|if| statement, create a print statement that outputs the following string: \verb|The tabby cat is orange!|.}
+    \Question{Create an \verb|elif| statement that tests whether the \verb|cats| variable is exactly equivalent to the string \verb|"grey tabby"| and if so, outputs the following string: \verb|The tabby cat is grey!|.}
+    \Question{Create an \verb|elif| statement that tests whether the \verb|cats| variable is exactly equivalent to the string \verb|"brown tabby"| and if so, outputs the following string: \verb|The tabby cat is brown!|.}
+    \Question{Create a final \verb|else| statement that outputs the following string and explains why this would execute in context of the other \verb|if| and \verb|elif| statements: \verb|"The tabby cat is something else"|.}
+\end{Exercise}
+\begin{Exercise}
+Write a short script that asks the user to input a number from 1 to 100. Test whether that number is between 1 and 100, then tell the user whether the number is greater than 50, or less than or equal to 50.
+\end{Exercise}
+\begin{Exercise}
+Cast your mind back to when we covered arithmetic. Write the Boolean expressions to evaluate the following. Write some code to prove your Boolean expressions, and for each, test the following values for \verb|i|, \verb|j|, and \verb|k|: 39, 43, 44, 50.
+    \Question{Whether the variable \verb|i| is divisible by 5.}
+    \Question{Whether the variable \verb|j| is a multiple of 4.}
+    \Question{Whether the variable \verb|k| is a divisor of 3.}
+\end{Exercise}
+\section{For Loops}
+Another important component of programming procedurally is the \verb|for| loop. A \verb|for| loop allows you execute a chunk of code a defined number of times.\par
+A \verb|for| loop will execute exactly as many times as you specify it should run. \verb|for| loops operate through iteration, typically through numbers, though they can also iterate through complex data structures, like lists or dictionaries. Whether you pass in an integer literal or a variable, the principle between a \verb|for| loop is the same. When writing a \verb|for| loop, you need to provide three things: a starting point, an ending point, and the amount to iterate by for each run of the loop.\par
+The simplest way to get started with \verb|for| loops is with integer literal values. In Python, we need to introduce another function: the \verb|range()| function. \verb|range()| can take one, two, or three arguments, and each will provide additional functionality; it returns a list of numbers.\par
+Let's take a look at what \verb|range()| can produce. If we pass it only one argument, Python will assume that the list should start at 0 and be as long as you specified in that argument. That is, the list will span in intervals of 1 from $[0, n-1]$. Remember that counting starts at zero in Python!\par
+\begin{lstlisting}[style=pippython]
+range(5)
+\end{lstlisting}
+This range function would produce the list \verb|[0, 1, 2, 3, 4]|. If we pass in two arguments, then we can specify the beginning and the end of the list. Counting will begin exactly at the first number and end at one less than the second number that you specify, just like if you had only specified one argument, except if the first argument was 0. In fact, when you only pass one argument, Python assumes that the first argument \textit{is} 0! Take a look at the following code.\par
+\begin{lstlisting}[style=pippython]
+range(2, 6)
+\end{lstlisting}
+This range function would produce the list \verb|[2, 3, 4, 5]|. Notice how there are as many elements in the array as $b - a$, where $b$ is the second argument and $a$ is the first element.\par
+If you do not provide a third argument, the second argument must be larger than the first argument, since the iteration direction goes up. But, what if we wanted to produce a list that counted down? Well, we could provide a third argument, the iterator. The iterator will tell Python how large the steps should be and in which direction the steps should go while generating the list. The third argument can be a positive or negative integer.\par
+\begin{lstlisting}[style=pippython]
+range(2, 6, 2)
+\end{lstlisting}
+This range function would produce the list \verb|[2, 4]|. Notice how the range of the list is the exact same as in the previous range example with two arguments. However, since we've specified that the third argument as 2, Python will only use every other element from the previous array. If we had specified the third element as 3, Python would only use every third element from the previous array.\par
+If your third argument is positive, then your second element must be greater than your first element. If your third argument is negative, then your second element must be less than your first element. Consider the following code and the lists that they would produce.\par
+\begin{lstlisting}[style=pippython]
+range(6, 2, -1)
+\end{lstlisting}
+This would produce the list \verb|[6, 5, 4, 3]|.\par
+\begin{lstlisting}[style=pippython]
+range(6, 2, -2)
+\end{lstlisting}
+This would produce the list \verb|[6, 4]|.\par
+Now that we can use the \verb|range()| function, we can apply it to our \verb|for| loops. \verb|for| loops always contain two keywords (\verb|for| and \verb|in| and two additional components (an iterator variable and something to iterate through). The general form of a \verb|for| loop is as follows:
+\begin{lstlisting}
+for variable in list:
+  # code to be run
+\end{lstlisting}
+Let's break down this \verb|for| loop. The first thing in this statement is the keyword: \verb|for| lets Python know that we want to use a for loop. The next thing is a variable declaration. We need this variable to keep track of how many times we've run the loop. For this, just name the variable name that you want to use. Python will declare a new variable named whatever you specified, so it must follow all of our variable naming rules. The type of the variable depends on the last element inside of your loop definition, which we'll get to later. Next is another keyword that lets us know that the variable that we just declared will be iterating inside of something else. The last thing is the list that we'll be iterating through. You can also use the \verb|variable| inside of the loop. Take a look at the following loop:\par
+\begin{lstlisting}[style=pippython]
+for i in range(5):
+  print(i)
+\end{lstlisting}
+\begin{lstlisting}
+0
+1
+2
+3
+4
+\end{lstlisting}
+In this loop, we can see that we're using \verb|i| as the variable that we're using to iterate through this loop. We can then generate a list using our \verb|range()|, and according to the \verb|range()| function documentation, we know that the list that we're using is \verb|[0, 1, 2, 3, 4]|. Since we're using the \verb|range()| function, the variable type of \verb|i| (our iterator variable) will be an \verb|int|. Lastly, inside of the for loop, we are printing the iterator variable with each iteration of the loop.\par
+This is the most common way to run a loop a specified number of times. This is really useful if you know exactly how many times you'll need to run a loop. For example, say you're writing a program that calculates the average of four numerical grades from 0 to 100. While you could write four \verb|input()| statements that put the values that the user inputs into a specific variable, we could also use a \verb|for| loop. This would allow us to put the value that the user inputs into a list of our naming. We could do this as shown in the following sample code.\par
+\begin{lstlisting}[style=pippython]
+grades = [0, 0, 0, 0] # declare a new variable of type list
+for i in range(4):
+  grades[i] = int(
+      input("Input grade number " + str(i + 1) + " of 4: ")
+      )
+average = (grades[0] + grades[1] + grades[2] + grades[3]) / 4
+print("Average is ", str(average))
+\end{lstlisting}
+Again, we can break this code down line-by-line. In line 1 (\verb|grades = [0|...), we're declaring a new variable as a list with four integers in it. Next, we're creating a \verb|for| loop that will iterate through another list of integers \verb|[0, 1, 2, 3]|, which has been created by our \verb|range()| function. The current loop iteration number is stored in the variable \verb|i|, which is an integer, as decided by the list from the \verb|range()| function. Reminder: the iteration variable (like \verb|i|) will take on whatever datatype the iteration list is. Inside of our \verb|for| loop, we're using the \verb|input()| function to take in four scores. We know that the \verb|input()| function will always return a string, so we're also \indexterm{typecast}ing the value of the user input into an integer before storing it in the \verb|grades| list. You'll also notice in the \verb|input()| function that we're asking the user for score number \verb|i + 1|, instead of \verb|i|. Again, remember that indices in Python start at 0, not 1. If we asked for \verb|i|, we'd be asking the user for score 0, 1, 2, and 3, instead of the more reasonable request of 1, 2, 3, and 4. Finally, we're using some arithmetic to calculate the average of the scores that our user gave us, storing it in the new variable \verb|average|, and printing \verb|average|. Because our division operation would almost certainly cause us to end up with a decimal, \verb|average| will probably be a float. If the average just happens to be a whole number, then Python will use the integer datatype. \par
+So far, we've only used the \verb|range()| function to produce a list of integers that would be iterated over in our \verb|for| loop. However, notice how we've always referred to the result of the \verb|range()| function as a \textit{list}. So, can we also just pass in a list as our iterator for a \verb|for| loop? Yes, we can! Python allows us to iterate through a list, whether we use a list literal or a variable that contains a list. We also mentioned above that the iterator variable would take on the datatype of the iteration list, and here's where we can put that to use.\par
+Let's try to create two \verb|for| loops, one using the \verb|range()| function and one with a list literal filled with integers.\par
+\begin{lstlisting}[style=pippython]
+for i in range(4):
+  print (i)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+0
+1
+2
+3
+\end{lstlisting}
+\begin{lstlisting}[style=pippython]
+for i in [0, 1, 2, 3]:
+  print (i)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+0
+1
+2
+3
+\end{lstlisting}
+If it wasn't clear what \verb|range()| was doing before, it should be clear now: \verb|range()| is creating a list, and it's a shortcut to writing out each element that we want to print. This is really useful if you need to iterate a bunch of times (100, 1000, or even more!). \par
+However, we're not limited to passing in integers in our lists. We can also pass in other datatypes, including floats and strings.\par
+\begin{lstlisting}[style=pippython]
+for i in ["Ronaldo", "Messi", "Neymar"]:
+  print (i)
+\end{lstlisting}
+\begin{lstlisting}
+Ronaldo
+Messi
+Neymar
+\end{lstlisting}
+\begin{lstlisting}[style=pippython]
+for i in [1.34, 2.71, 3.14]:
+  print (i)
+\end{lstlisting}
+\begin{lstlisting}
+1.34
+2.71
+3.14
+\end{lstlisting}
+In the first example, we're iterating through three strings, and in the second example, we're iterating through three floats. Both of these are being passed in as list literals, but there's nothing preventing us from passing in a variable with a list in it.\par
+\begin{lstlisting}[style=pippython]
+cities = ["New York", "Atlanta", "Columbus"]
+for i in cities:
+  print (i)
+\end{lstlisting}
+\begin{lstlisting}
+New York
+Atlanta
+Columbus
+\end{lstlisting}
+When iterating through an explicitly defined list (whether it's a list literal or a variable with a list), Python will always loop through the list according to the index number in ascending order. It won't sort by alphabetical order or string length, and you'll need to do some extra computing if you want your Python script to do such.
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 6.3.
+\begin{Exercise}
+Consider the following for loop declarations. Are they syntactically correct? Why or why not?
+    \Question{\verb|for i in range(5):|}
+    \Question{\verb|for i in range(1, 5):|}
+    \Question{\verb|for i in range(1, 6, 2):|}
+    \Question{\verb|for i in 5:|}
+    \Question{\verb|for (i in range(5)):|}
+    \Question{\verb|for (i in 5):|}
+    \Question{\verb|for i in [1, 3, 4, 6]|}
+    \Question{\verb|for i in [1, 2, 3, 4]|}
+    \Question{\verb|for i in ["1", "2", "3", "4"]|}
+    \Question{\verb|for i in ["apple", "strawberry", "banana"]|}
+    \Question{\verb|for i in fruits| where \verb|fruits| is a variable with the list of strings: \verb|["apple", "strawberry", "banana"]|}
+\end{Exercise}
+\begin{Exercise}
+    \Question{Using exactly two lines of code, write a loop that prints the following lines:\\\verb|pear|\\\verb|papaya|\\\verb|pomelo|\\\verb|grape|}
+    \Question{Using exactly two lines of code, print the numbers from 1 to 100.}
+    \Question{Using exactly two lines of code and the variable \verb|a| as the iterator in your loop, print $a$ asterisks, with each set of $a$ asterisks on their own line, with the shortest line being just one asterisk and the longest line being ten asterisks. It should look like this:\\\verb|*|\\\verb|**|\\\verb|***|\\\verb|****|\\\verb|*****|\\\verb|******|\\\verb|*******|\\\verb|********|\\\verb|*********|\\\verb|**********|}
+\end{Exercise}
+\section{While Loops}
+The last major loop structure is the \verb|while| loop. Compared to a \verb|for| loop, a \verb|while| loop is much more simple: it tests a condition and executes the code inside of that statement if the test is true and skips the code if not. \verb|for| loops are really great at doing something a specified number of times, but \verb|while| loops are really good at doing something either something a specified number of times or an indeterminate number of times. Let's look at both of these.\par
+The easiest way to look at a \verb|while| loop is as a different kind of iterative loop. However, while a \verb|for| loop iterates using a list, \verb|while| loops iterate using a condition. For example, we could set a variable \verb|run| to start at 0, and each time the loop runs, the value of \verb|run| is increased by 1. Then, we could set the condition of our \verb|while| loop to be while \verb|run| is less than 100. Let's take a look at this code in practice.\par
+\begin{lstlisting}[style=pippython]
+run = 0
+while (run < 100):
+  print(run)
+  run = run + 1
+\end{lstlisting}
+\begin{lstlisting}
+0
+1
+2
+...
+97
+98
+99
+\end{lstlisting}
+As you can see, this code runs exactly 100 times, starting at 0 and ending at 99. Once \verb|run| is equal to 100, the condition is no longer met, so the code inside of the \verb|while| loop is no longer run. If we wanted to print a different range of numbers, we can just change the \verb|run| variable initialization and the condition of our \verb|while| loop. If we wanted to print from 1 to 100 instead of 0 to 99, we could run the following code instead.\par
+\begin{lstlisting}[style=pippython]
+run = 1
+while (run < 101):
+  print(run)
+  run = run + 1
+\end{lstlisting}
+\begin{lstlisting}
+1
+2
+3
+...
+98
+99
+100
+\end{lstlisting}
+Similarly, if we wanted to change how much \verb|run| increased with each iteration of our \verb|while| loop, we could change the last line in the while loop.\par
+\begin{lstlisting}[style=pippython]
+run = 0
+while (run < 101):
+  print(run)
+  run = run + 2
+\end{lstlisting}
+\begin{lstlisting}
+0
+2
+4
+...
+96
+98
+100
+\end{lstlisting}
+In each iteration of our \verb|while| loop, we're increasing the value of \verb|run| by 2 instead of 1, which ends up giving us all of the even numbers.\par
+As you can see, to change the value of \verb|run|, we've been writing that the value of the variable should be the value of the variable itself plus some other number: \verb|run = run + n|, where \verb|n| is the number to increase by. Since increasing (or decreasing) the value of a variable by 1 is such a common practice across so many different applications, Python actually has a built-in mechanism for this exact purpose.\par
+\begin{lstlisting}[style=pippython]
+run = 0
+while (run < 100):
+  print(run)
+  run += 1
+\end{lstlisting}
+In Python, we can replace the regular assignment operator \verb|=| with a different combination of symbols to do arithmetic: \verb|+=| or \verb|-=|. The first will add the value of whatever is on the right side of the to the variable on the left, while the latter will subtract. The most typical combination is \verb|variable += 1| to add 1 to the variable (equivalent to \verb|variable = variable + 1|), but you don't have to use 1. \verb|variable += 2| (equivalent to \verb|variable = variable + 2|) or \verb|variable -= 1| (equivalent to \verb|variable = variable - 1|) are both syntactically correct.\footnote{Python's method of adding and subtracting one from a variable is just one way of doing it. Other languages, like C++, C\#, Java, and JavaScript use double plus signs ++ or double negative signs -- instead (variable++ or variable- -). This is equivalent to variable += 1 or variable -= 1 in Python.}\par
+However, it's more likely that you'll be using a \verb|while| loop for something other than iteration; otherwise, why would we have \verb|for| loops? As its name suggests, \verb|while| loops are great at testing conditions. It'd be a more realistic use case to test whether a specific variable is a certain value to determine if a certain chunk of code should be run again. We can use this property of \verb|while| loops to take in an indeterminate number of variables. For example, consider the example from the \verb|for| loop section where we took in four scores and computed the average. What if we didn't know how many scores the user needed to input? We could use a while loop to just keep taking in new scores until the user inputs something specific. Take a look at the following chunk of code.\par
+\begin{lstlisting}[style=pippython]
+grades = []
+newGrade = 0
+while (newGrade != -1):
+  newGrade = int(input("Input another grade or -1 to stop: "))
+  if (newGrade != -1):
+    grades.append(newGrade)
+average = sum(grades) / len(grades)
+print("The average is", str(average))
+\end{lstlisting}
+Let's break this code down line-by-line. In the first two lines, we're creating two new variables: \verb|grades|, which is an empty list, and \verb|newGrade|, which is an integer. Next, we're creating a \verb|while| loop. We know that a grade can never be negative, so we can let our user know to use -1 to stop asking for new scores. Next, we are having our user input the new grade and are putting that value into the variable \verb|newGrade|. Then, we're testing whether \verb|newGrade| is our special -1 value to figure out whether we should add the \verb|newGrade| to the \verb|grades| list, as we don't want to add the \verb|-1| value itself. This code will continue asking the user to input another grade until they enter a -1 value. Finally, it will calculate the sum of the grades list divided by the length of the grades list, then print the result.\par
+It's also worth mentioning that it's possible to create an infinite loop in Python. Infinite loops can be dangerous, since they can take up all of the processor cycles and make halting execution difficult. The difficulty of this is has to do with the specific Python interpreter that you're using, but it's a good idea to just not chance things. For example, the following example creates an infinite loop.\par
+\begin{lstlisting}[style=pippython]
+while True:
+  print ("Hello, World!")
+\end{lstlisting}
+\begin{lstlisting}
+Hello, World!
+Hello, World!
+Hello, World!
+...
+\end{lstlisting}
+This code has nothing to ever turn the condition false, so this loop will run forever (or more specifically, until the program runs out of memory). Avoid writing infinite loops unless you have a really, really good reason to!\par
+\warningtext{Infinite Loop Detection}{Some IDEs have the ability to detect an unintentional infinite loop which is uncontrollable, and they'll insert special interrupts in order to help you halt the script. However, many IDEs do not have this functionality, so don't rely on your IDE to help you halt an infinite loop.}\par
+\funtext{Copy and Pasting}{"I was interviewing for a bunch of positions, and I was terrible at coding back then. Like, absolutely terrible. And they wanted me to write a function where, if there were a hundred lockers, write a function to go through each one and check something. So I wrote a function, but it was just for locker 1. And they asked me how I would repeat this a hundred times. Now, the right answer is to just write a loop, a for loop for a hundred times. And I said, 'just copy and paste it! Just copy and paste it a hundred times!'...I didn't get the job."\\\hspace*{\fill} - Jeremy Wang (aka Disguised Toast, June 2020)\footnote{\href{https://youtu.be/oiNPgJmtzVI?t=84}{https://youtube.com/watch?v=oiNPgJmtzVI\&t=84}}}\par
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 6.4.
+\begin{Exercise}
+    \Question{What is the difference between a for loop and a while loop?}
+    \Question{If a condition is never met in a while loop, what will happen?}
+\end{Exercise}
+\begin{Exercise}
+    \Question{Write an example of an infinite while loop.}
+    \Question{Write an example of an infinite for loop. Consider what needs to happen for an infinite loop to occur and replicate this in a for loop.}
+\end{Exercise}
+\begin{Exercise}
+Create a small script that asks the user for a sequence of numbers over and over again, until they put a negative number (like -1). Store all of the results in a list with the variable name \verb|numbers|. The end list should look something like \verb|numbers = [33, 48, 9, 6, 83]|.
+\end{Exercise}
+\section{Scope}
+One important concept that's difficult for many introductory programming students to grasp is scope. Scope allows us to keep our variables restricted to a certain block, and being able to effectively use scope to write clean code is an essential skill in higher levels of programming. Misusing scope or not knowing how it works is the source of a lot of frustration, and at worst, it can cause some pretty serious security issues.\par
+Consider the following code.\par
+\begin{lstlisting}[style=pippython]
+# MARKER A
+for i in range(5):
+  # MARKER B
+  print (i)
+# MARKER C
+\end{lstlisting}
+We can tell what this code will do, but direct your attention to the markers in each of the comments. Where can we access the variable \verb|i|? We know that we can't use it at marker A, since the variable hasn't even been declared yet. We know that we can use it inside of the \verb|for| loop, though; we've seen this done plenty before. But what about marker C? In fact, we \textit{cannot} use \verb|i| here, since it is outside of the \newterm[scope]{functions!scope} of where the variable was first declared.\par
+Scope dictates where we can use a variable. In Python, a variable can be used at the level it was declared at and anywhere deeper, but never outside, unless it has been declared to be a \newterm[global variable]{functions!scope!global}. This means that if you were to use a nested \verb|for| loop inside of an \verb|if| statement, you could use the iterator variable only inside of the \verb|for| loop, not just anywhere in the \verb|if| statement. However, if we declared a variable inside of the \verb|if| statement, it can be used anywhere inside of the \verb|if| statement, including inside of the nested \verb|for| loop. Consider the following code.\par
+\begin{lstlisting}[style=pippython]
+a = 1
+if a > 5:
+  b = 7
+  while (c < 10):
+    c = 3
+    c += 1
+\end{lstlisting}
+In the above code, we can use \verb|a| anywhere inside of the program. We can use \verb|b| anywhere inside of the \verb|if| statement, but not outside of that specific \verb|if| statement. We can use \verb|c| only within the \verb|while| loop.\par
+Furthermore, if two statements are at the same level, they cannot share variables.\par
+\begin{lstlisting}[style=pippython]
+while (a < 10):
+  print(a)
+  a += 1
+while (b < 15):
+  print(b)
+  b += 3
+\end{lstlisting}
+In the above example, \verb|a| can only be used within the first \verb|while| loop, and \verb|b| can only be used within the second \verb|while| loop. Attempting to use a variable outside of scope may result in a \verb|NameError|, as the variable doesn't technically exist outside of its own scope.\par
+\warningtext{Reinitialization Warning}{Variables are \textit{not} destroyed once execution moves beyond the loop, conditional, function, or class, even if they are not accessible. If you want to re-run the block from scratch, you \textit{must} reinitialize them to what their starting values should be.}
+Another topic to discuss is the global variable: what if we want to be able to use a variable anywhere within our code? We can use a global variable instead of a local variable. Global variables can be accessed from within any class, including those in different files. You can simply make a global variable by declaring it in the outermost scope level, as shown here.\par
+\begin{lstlisting}[style=pippython]
+a = 0
+while (a < 10):
+  ...
+\end{lstlisting}
+Let's say that you define a variable in the outermost scope level, as shown above. Then, inside of a function (covered in the next chapter), you want to use the exact same variable and memory space. You can use the \verb|global| keyword to specify that Python should reference the exact same memory space that the variable label points to.\par
+\begin{lstlisting}[style=pippython]
+a = 0
+def someFunction():
+  global a
+  # do something
+  ...
+\end{lstlisting}
+In the above function, the scope of \verb|a| is accessible inside of the function, and its value is the exact same as outside of the function. This doesn't terribly matter for loops and conditional logic, but it does for classes and functions.
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 6.5.
+\begin{Exercise}
+    \Question{In your own words, define scope.}
+    \Question{If a variable is "out of scope," what does that mean?}
+    \Question{If you try to call a variable that is out of scope, what type of error might Python throw?}
+\end{Exercise}
+\begin{Exercise}
+    \Question{What is global scope?}
+    \Question{What are some advantages of global scope?}
+    \Question{What are some disadvantages of global scope?}
+\end{Exercise}
+\begin{Exercise}
+For this exercise, consider the following code.
+\begin{lstlisting}[style=pippython]
+# MARKER A
+i = input("Input a number")
+# MARKER B
+if (i > 5):
+    # MARKER C
+    print(i)
+else:
+    # MARKER D
+    if (i == 5):
+        # MARKER E
+        k = True
+    else:
+        # MARKER F
+        k = False
+\end{lstlisting}
+    \Question{At marker A, what variables are accessible, if any?}
+    \Question{At marker B, what variables are accessible, if any?}
+    \Question{At marker C, what variables are accessible, if any?}
+    \Question{At marker D, what variables are accessible, if any?}
+    \Question{At marker E, what variables are accessible, if any?}
+    \Question{At marker F, what variables are accessible, if any?}
+    \Question{Consider the variable \verb|i|. Is \verb|i| globally scoped? Why or why not?}
+    \Question{Consider the variable \verb|k|. Is \verb|k| globally scoped? Why or why not?}
+\end{Exercise}

@@ -1,0 +1,217 @@
+\chapter{Python Data Structures}
+Data structures are absolutely mandatory to using any programming language effectively. So far, all of our programs have been operating in a very linear matter: our program starts at the top, and it ends at the bottom. Now, we're going to examine some ways that Python can run that aren't linear. In the beginning, it will almost certainly feel useless. Why would we jump around when we can just write the code in the main body of the program? However, trust us, it'll come in handy down the road, and when applied correctly, both classes and functions can save a lot of time when writing complex programs.\par
+\section{Functions}
+Functions can seem somewhat useless. After all, if we wanted to run the same code, we could just copy and paste it! However, this isn't terribly efficient, and there's something to be said about code cleanliness that makes it easier to read. Functions can keep you from writing the same code over and over again. Think back to loops. Sure, we \textit{could} just copy and paste a certain chunk of code to be run 100 times, but that's a lot of code for something that can be done with literally just one extra line of code. Functions can save you a lot of time when programming by allowing you to essentially reference another chunk of code with a single line of code.\par
+The easiest way to think of functions in programming is as functions in algebra. When you first learned about mathematical functions, you were probably told that something goes in and something (probably different) comes out. For example, let's look at the function $y = 2x$. This is pretty simple: the input value $x$ is multiplied by 2, and the output is $y$. If you put in the value 0, then you'll get 0 out, but if you put in anything else, it will be different. The input 4 will yield the output 8. The input 6 will yield the input 12. The input $a$ will yield the output $2a$.\par
+Let's consider a more complex function: $y = 2x + 3z - 9$. In this function, we have two coefficients (2 and 3, next to the $x$ and $z$, respectively), a constant (9), and an output ($y$). If we give the values 5 for $x$ and 42 for $z$, we get an output of 125 ($125 = 2 \times 5 + 3 \times 42 - 9$). We could also set a preemptive value for $x$ or $y$, if the user doesn't tell us what $x$ or $z$ should be, like 0. So if we gave only the value 5 for $x$, then we can assume that $z$ should be 0, so we would get an output of 1 ($1 = 2 \times 5 + 3 \times 0 - 9$).\par
+Programming functions aren't that dissimilar in principle, but their inner functionality is a little bit more complicated than Algebra I functions. In programming, a function can, but doesn't always have to, take something in. Similarly, a programming function can, but doesn't always, have an output. Unlike math functions, functions in Python do need to have their own unique names.\par
+\subsection{Function Definition}
+Now that we know what functions are, how can we create them?\par
+At their most simple, functions consist of four things: the function name, the arguments, the operations, and the return. Remember in chapter 4.1 how we talked about arguments? Now, we're actually going to use functions and those argument things! In programming, your \newterm[arguments]{function!arguments} are the function's inputs. You can pass in as many arguments as you'll need to construct your function and do what you need. Some functions take in one argument, while others might take in up to 10 or 15 arguments. Going back to our math function, this would be having multiple variables opposite your output. For example, consider the quadratic equation, which takes in three variables.\par
+$$
+x = \frac{-b \pm \sqrt{b^{2} - 4 \times a \times c}}{2 \times a}
+$$
+In Python, $a$, $b$, and $c$ would be referred to as arguments. You should make a mental note that parentheses \verb|()| are almost always associated with arguments of a function.\par
+Similarly, the $x$ in the quadratic equation above would be the output. In programming, the output of a function is called the \newterm[return value]{functions!return}. It's important that you don't confuse your \textit{return} with the \verb|print()| function. In the past, when we've referred to "output," it's typically meant that we were printing something to the console. However, now we're using "output" to mean something different. It's possible to return a value from a function without printing it.\par
+In Python, we need to give each of our functions a name. Giving our functions a name allows us to refer to the functions later. In programming, we typically name our functions using alphabetical characters only, in camel-case. It is unusual to see a function named using symbols, such as dashes or underscores. Like variables, it's important that your functions are named something concise yet descriptive. Use your experience in naming variables to create good function names!\par
+The contents of a function can manipulate any of the variables passed in as arguments. Inside of the function, any of the variables that you listed as arguments have already been declared and initialized, so you can just start using them!\par
+Let's look at a function definition. In this function, we're going to calculate $x$ from the quadratic formula, as shown above.\par
+\begin{lstlisting}[style=pippython]
+def quadraticFormula(pol, a, b, c):
+  negB = b * -1
+  top = 0
+  if (pol == "plus"):
+    top = negB + sqrt(b**2 - 4 * a * c)
+  elif (pol == "minus"):
+    top = negB - sqrt(b**2 - 4 * a * c)
+  bottom = 2 * a
+  x = top / bottom
+  return x
+\end{lstlisting}
+Notice how the first thing in this function is \verb|def|. This lets Python know that we'd like to define a new function. The \verb|def| is short for \textit{definition}, and writing it lets Python know that the next thing is the function's name, followed by the arguments. Our function \verb|quadraticFormula| takes four arguments: the polarity of the top plus/minus (\verb|pol|), $a$ (\verb|a|), $b$ (\verb|b|), and $c$ (\verb|c|). Inside of the function, we're creating a new variable that can't be accessed outside of the function \verb|negB|, which is the negative value of the argument \verb|b|. Next, our function calculates the top and the bottom of the function. The top uses the polarity argument to determine whether we should add or subtract the square root. Finally, we divide the top by the bottom and return that value. This function doesn't print anything on its own. Instead, its result needs to be printed by the function call, which we'll get to in the next section.\par
+This is also the perfect opportunity to examine how we can use functions inside of other functions. Take a look at the lines that compute \verb|top|. Inside, we see that most of the line is just simple arithmetic, but there's also another function call: \verb|sqrt()|. \verb|sqrt()| is a function in Python that calculates the square root, and we're able to use this function inside of our own function. In Python, we can actually use any function inside of our own functions, including other functions that we've made ourselves. It's even possible to call your own function in a technique called recursion, although this is a technique out of the scope of this book.\par
+You can also see in the above code that we're returning \verb|x|, which is a float or an integer. However, we don't need to just return a number; we can return any type of data that we want to, including strings, Boolean values, or compound datatypes, like lists and dictionaries. Let's look at a slightly simpler function that takes in a list as an argument and returns a simple Boolean variable. This function will test whether the list is longer or shorter than 10 elements. If it's longer than 10 elements, it will return \verb|True|, otherwise it will return \verb|False|.
+\begin{lstlisting}[style=pippython]
+def isLongerThan10(listToTest):
+  if (len(listToTest) > 10):
+    return True
+  else:
+    return False
+\end{lstlisting}
+In the previous example, we can see that our function name is \verb|isLongerThan10| and that it takes one argument \verb|listToTest|. Inside of the function, we see that we're using the variable \verb|listToTest| that came as one of our arguments. We don't need to declare or initialize this variable, as it is an argument to the function that already has a value. Within our function, we're running an \verb|if| statement to determine whether we should return \verb|True| or \verb|False|.\par
+When we return a variable from a function, we need to put the return value into a variable in our function call. We'll see how to do this when we learn about function calls in the next section.\par
+Functions that return something are called \newterm[returning functions]{functions!return}. It is also possible to create a function that doesn't return anything. Functions that don't return anything are called \newterm[void functions]{functions!void}. When writing a void function, you don't need to specify any return value. The function can still take arguments, but it doesn't have any output. For example, say you wanted to write a function that printed out an ASCII cow.\footnote{Reminder: Watch out for backslashes - you need to escape backslashes by adding another backslash to print just one. Why? Think about what \textbackslash n does.}\par
+\begin{lstlisting}
+          (__)
+          (oo)
+   /-------\/
+  / |     ||
+ *  ||----||
+    ^^    ^^
+\end{lstlisting}
+We could write each print statement out, line-by-line, every time you wanted to print out a cow. This would take some time, though, if we wanted to be able to print out a cow whenever we wanted to. Instead, we could write a void function that prints a cow, but that doesn't return anything. Again, remember that the \verb|print()| function and the return value from a function are two different things.\par
+\begin{lstlisting}[style=pippython]
+def cow():
+  print("          (__)")
+  print("          (oo)")
+  print("   /-------\\/")
+  print("  / |     ||")
+  print(" *  ||----||")
+  print("    ^^    ^^")
+\end{lstlisting}
+In the above example, there's not a single \verb|return| statement like we've seen in the previous examples that return floats, integers, or Boolean values. Instead, calling this function will just run the code inside of the function, literally printing a cow to the console.\par
+Void functions can also take arguments. Our previous example was named \verb|cow()|, and it only printed a cow, but we could create another function named \verb|animals()| that printed one of three animals, which would be passed in as an argument of type string.\par
+\begin{lstlisting}[style=pippython]
+def animals(animal):
+    if (animal == "cow"):
+        print ("          (__)")
+        print ("          (oo)")
+        print ("   /-------\\/")
+        print ("  / |     ||")
+        print (" *  ||----||")
+        print ("    ^^    ^^")
+    elif (animal == "pig"):
+        print ("    n..n")
+        print ("e___(oo)")
+        print ("(____)")
+        print ("//  \\\\")
+    elif (animal == "fox"):
+        print ("|\\_/|,,_____,~~`")
+        print ("(.\".)~~     )`~))")
+        print (" \\o/\\ /---~\\\\ ~))")
+        print ("   _//    _// ~)")
+    else:
+        print ("Please use argument \"cow\", \"pig\" or \"fox\".")
+\end{lstlisting}
+As you can see, the \verb|animals()| function takes in one argument \verb|animal|. Again, this function has no return type; it's a void function, even though it takes in an argument.\par
+\subsection{Function Calls}
+Calling functions is even easier than making them. In fact, you've already called plenty of functions as you've been writing code! Whenever you use \verb|print()|, \verb|input()|, or anything else with parentheses, you're actually calling functions that are already built into Python!\par
+You can also call your own functions, once you've written them. Our first example of a void function printed a cow. We can call this function, just like we called the \verb|input()| function without any arguments, since \verb|cow()| takes no arguments.\par
+\begin{lstlisting}[style=pippython]
+cow()
+\end{lstlisting}
+\begin{lstlisting}
+          (__)
+          (oo)
+   /-------\/ - moo
+  / |     ||
+ *  ||----||
+    ^^    ^^
+\end{lstlisting}
+Above, we also created a new function called \verb|animals()|, which takes in an argument \verb|animal|, which can be either "cow", "pig", or "fox". To call this function, we can just write our function, along with the required argument. For example, for us to print a fox, we can call \verb|animals("fox")|.
+\begin{lstlisting}[style=pippython]
+animals("fox")
+\end{lstlisting}
+\begin{lstlisting}
+                           |\_/|,,_____,~~`
+                           (.".)~~     )`~))
+ring-ding-ding-ding-ding  - \o/\ /---~\\ ~))
+                              _//    _// ~)
+\end{lstlisting}
+In this function, we're not returning anything, so we don't need to put the contents of the function return value into a variable. But, what if we are returning something? In this case, we need to do something with the return value. We can either pass it into another function, such as \verb|print()|, or we can put its result into a variable for later use.\par
+Consider the following function, which finds the y-value, given a slope, a x-intercept, and a x-value.\par
+\begin{lstlisting}[style=pippython]
+def linear(m, x, b):
+  result = m * x + b
+  return result
+\end{lstlisting}
+We can then call this function, passing in the three arguments specified and either printing them (using them in another function) or storing their result in a variable, since the function does return something.
+\begin{lstlisting}[style=pippython]
+print(linear(7, 4, 4))
+print(linear(3, 6, 8))
+result1 = linear(3, 9, 2)
+result2 = linear(6, 2, 2)
+\end{lstlisting}
+\begin{lstlisting}
+32
+26
+\end{lstlisting}
+Observe how because the \verb|linear()| function returns something, we must do something with that returned value. However, with the \verb|cow()| or \verb|animals()| function, we cannot do anything except call the function, since it does not return any value. In fact, trying to print or put the result of a void function is syntactically incorrect.\par
+\begin{lstlisting}[style=pippython]
+# INCORRECT!
+print(cow())
+# CORRECT
+cow()
+# INCORRECT
+linear(7, 4, 4)
+# CORRECT
+print(linear(7, 4, 4))
+\end{lstlisting}
+Some IDEs also have the ability to gather special bits of information from your function definition that can be useful in larger projects. This is typically done inside of a block comment just after the function definition. You should consult with your IDE's developer to learn how your IDE can help you with your function declarations.\par
+In Anaconda Spyder, the comment format is as follows. You can have Spyder automatically generate the format of the block comment by typing your opening quotes directly after the function definition.\footnote{Anaconda Spyder refers to arguments as "parameters". Again, consult your IDE's developer to learn how it refers to arguments and return values.}\par
+\begin{lstlisting}[style=pippython]
+def calculateGrades(grade):
+    """
+    Calculates the grades of a student and returns the average.
+
+    Parameters
+    ----------
+    grade : list of integers
+        A list of exam scores to be averaged.
+
+    Returns
+    -------
+    result : float
+        The average score of all scores in the list.
+
+    """
+    result = sum(grade) / len(grade)
+    return result
+\end{lstlisting}
+While this is a block comment and the Python interpreter won't use anything inside of it, it's easier for you to read. As a bonus, any time you click on a function call in your code and press Ctrl/Cmd + I, Anaconda will show you exactly what arguments you need to pass in its integrated help window! This feature and its specific functionality is specific to Spyder.\footnote{As of Spyder v.4.1.4}\par
+Other IDEs might handle the block comment slightly differently. repl.it, a popular online IDE, doesn't prepopulate your block comment with anything, but it will show anything in your block comment if you hover over the function call, so this is a great place to put what this function does, what its arguments are, and what it returns. A simple template is provided for you here, if your IDE doesn't provide you with one.\par
+\begin{lstlisting}[style=pippython]
+"""
+Description: Write a description here for what your function does.
+Arguments:
+  arg1: (int) Description of the argument
+  arg2: (string) Description of the argument
+Returns:
+  returnVar: (float) Description of what the function returns
+"""
+\end{lstlisting}
+If your IDE supports a specific template, it will auto-generate it once you create your block comment after your function definition. So, you can simply define a block comment as the first line of your function. If it is supported, it will be created for you. Otherwise, you can just paste in the template that works the best for you.\par
+Like whitespace, it's a good idea to get into the habit of always writing a detailed block comment for each of your functions, including what the function does, what its arguments are, and what it returns. Regardless of what template you use, make sure that you're descriptive in your code.\par
+\section{Classes}
+\footnote{If you haven't grasped the concept and application of functions yet, stop reading here. Go understand functions first, otherwise classes won't make any sense. It's okay.}Learning how to effectively use classes will prepare to practice a discipline of programming known as \newterm[object-oriented programming]{object-oriented programming} or \newterm[OOP]{object-oriented programming}. Object-oriented programming falls under the idea of programming composition, and it hinges on the idea that objects can contain other objects. That means that you could put a box inside of another box. Not only could you put a smaller box inside of a bigger box, you could put multiple smaller boxes inside of the larger box. The key behind object-oriented programming is that it allows us to store information together, rather than parsimoniously.\par
+Consider how the leap from individual variables to complex datatypes, like dictionaries, enhanced our ability to communicate clearly while writing less code. Further object orientation helps the code's reader understand not only that the information is together, but that they are related. The goal is to help us represent simple information unambiguously and simply.\par
+Let's consider how we could store a three-part date with year, month, and day. We could try to store this as a string, but there are lots of different ways to represent a date in a string.
+\begin{lstlisting}[style=pippython]
+"1980-01-02"
+"1980/1/2"
+"1/2/80"
+\end{lstlisting}
+To alleviate this, we could store it in three separate variables.
+\begin{lstlisting}[style=pippython]
+year = 1970
+month = 1
+day = 2
+\end{lstlisting}
+However, this requires us to use two more variables than just storing the information in a single string. We could even try to use a dictionary, but we run into the same representation issue.
+\begin{lstlisting}[style=pippython]
+date1 = {"year": 1980, "month": 1, "day": 2}
+date2 = {"year": 1980, "month": "January", "day": 2}
+\end{lstlisting}
+Strictly speaking, both of these are correct, but only one would be valid unless we managed to code in every single option. This is where classes come in.
+\subsection{Class Definitions}
+Defining a class is the first step of using classes, and it looks shockingly similar to working with functions. Let's take a look at a function definition first:\par
+\begin{lstlisting}[style=pippython]
+def yint (m, x, b):
+\end{lstlisting}
+Now, let's look at a class definition that has the above function definition.\par
+\begin{lstlisting}[style=pippython]
+class graphing:
+   def yint (m, x, b):
+\end{lstlisting}
+As you can see, the process of defining classes is remarkably similar to that of functions.
+\subsection{Class Calls}
+Being able to call your class methods is important to actually being able to use those functions.
+\subsection{Class Methods}
+We've used the term "method" already, but what exactly is it?
+\section{Functions Versus Methods}
+Now that we know what a class method is, how exactly is it different from a regular old function? Sure, on the surface, they look the exact same and they even use the exact same definition syntax!
+\section{Structures (Optional)}
+There's a concept in other programming languages known as structures, or structs. Structs are another way of structuring data compared to classes, but unfortunately, Python doesn't natively support structs. However, we can still go over what a struct is so that should you choose to pick up a new programming language down the line, you can understand how that code works.\par
+Let's say that you wanted to store a date. There's several ways that we could store this date. We could make an entire class called \verb|date|, but this seems kind of wasteful and somewhat backwards. It's a lot of code for something so simple. Likewise, we could store our year, month and date in individual variables, but this seems kind of messy and like it could cause readability issues. Instead, we can make a struct. A struct is like a combination of data that can be accessed as a single datatype, but without the overhead of a class.\par
+In performance oriented languages, like C++, C\#, Swift, or Java, structs are better than classes, since they require less memory to store and the runtime doesn't need to use all of the features of a class. In our previous example, we could make a \verb|date| struct that had three elements: year, month, and day. We can then call the entire struct to get all of its data or get specific pieces of data out of this struct by using our period notation.\par
+Python is not a performance oriented language. It has a lot of overhead, especially as an interpreter-driven language, so the performance advantages of a dedicated struct data structure don't really apply to it.\par
