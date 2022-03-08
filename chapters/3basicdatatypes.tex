@@ -2,7 +2,8 @@
 Everything in programming circulates around data. Whether we want to store, print, evaluate, manipulate, or do something else to a chunk of data, we need to be able to express that data in some way.\par
 Python provides us with several ways to describe data. If you have experience with other programming languages, this will be very familiar. Before we even get to storing or manipulating data, we need to know how Python will treat our data.\par
 In this chapter, we'll go over the basic \newterm[datatypes]{datatype} that exist in Python 3. Many of these datatypes exist in other languages, too. However, we won't see a lot of code here, as we're only going over the datatypes themselves.\par
-A datatype, as its name would suggest, is the type of data that is being referred to. Let's say you wanted people to fill in a form. Some of the fields on that form would be alphabetical letters, like a name or email address. Other fields would be numbers, like age, height, or weight. Yet others would be binary options, like whether someone has taken a course before, where the only options are \textit{yes} and \textit{no}. Letters, numbers, and binary options are all datatypes, and in programming they have formal names.
+A datatype, as its name would suggest, is the type of data that is being referred to. Let's say you wanted people to fill in a form. Some of the fields on that form would be alphabetical letters, like a name or email address. Other fields would be numbers, like age, height, or weight. Yet others would be binary options, like whether someone has taken a course before, where the only options are \textit{yes} and \textit{no}. Letters, numbers, and binary options are all datatypes, and in programming they have formal names.\par
+\warningtext{Know your datatypes!}{You should learn these datatypes by heart and be able to recognize the datatype of an object instantly. Not being able to do so will make programming in Python or any other language much more difficult.}
 \section{Strong and Weak Typing}
 Variable typing (we'll get to what a variable is later) is an important part of programming. Some languages are strongly typed, while others are weakly typed. \newterm[Strongly typed]{strongly typed} languages require their author to specify what kind of data is being stored or manipulated, and the type of data that is being stored in a specific memory space cannot be changed. The reason for this has to do with the size allotted for the memory space. More detailed data requires more space to store. If the author wants to change the datatype down the line, the language typically (but not always) requires the author to explicitly \newterm[typecast]{typecast} the data. Typecasting is the process of changing the datatype that some chunk of data is described as. We'll examine how the allotment for each of these data types changes when we look at the difference between integers and floats.\par
 Conversely, \newterm[weakly typed]{weakly typed} languages do not require their author to specify what kind of data is being stored. Most languages will attempt to store the data in the smallest datatype possible and can typecast on the fly, meaning that the author can simply imply that the data should be of a different type and the language will adapt to that new language.\par
@@ -130,6 +131,8 @@ Let's say that you calculated the sum of two integers using Python and you now w
 Likewise, it's possible that we'll need to accept some user input. However, all of our standard mechanisms for accepting user input in the console only accepts strings, not only numbers. But what if we want our user to enter the price of something? Instead, we can accept our input as a string, then typecast it to a float. Again, we'll see exactly how to do this in chapter 4.6.\par
 You may see the term \newterm[string literal]{datatype!string!literal}. This means a string that is literally spelled out, such as the ones that are described above. This is in contrast to dynamically created strings, such as those that are generated directly by Python code. If you write single or double quotes, then you are creating a string literal.\par
 It's also worth mentioning that some word processors create something called "smart quotes," which angle the quotation mark based on where they fall in relation to the words around them (for clean opening and closing quotes). Smart quotes are NOT compatible with Python code, so if you paste in code from Word documents or Google Docs documents, be careful that your quotation marks are not smart quotes!\par
+\warningtext{Common pitfall: Smart Quotes}{Is the string or code that you copied and pasted not working? Check whether the quotes are actually smart quotes!}
+\boxtext{Smart quotes and character maps}{Smart quotes are not the same as regular quotation marks. Smart quotes are actually angled inward or outward. The ALT code for a straight double quote is ALT+34 and straight single quote is ALT+39, while angled single quotes are ALT+0145 and ALT+0146 and angled double quotes are ALT+0147 and ALT+0148. This means that they are actually different \textit{characters} altogether, which leads to syntax errors, since Python is only looking for ALT+34 and ALT+39 for string demarcations.}
 \subsubsection*{Exercise Questions}
 These exercise questions cover chapters 3.4. 
 \begin{Exercise}
@@ -138,7 +141,25 @@ These exercise questions cover chapters 3.4.
     \Question{Where does the term "string" come from?}
 \end{Exercise}
 \begin{Exercise}
+    \Question{What characters do you use to enclose a string? Are they interchangable?}
+    \Question{Let's say you copied a string from a Microsoft Word document. Why might your quotes not be syntactically correct?}
+\end{Exercise}
+\begin{Exercise}
     \Question{Can a string hold data that could also be stored by a float? Justify your answer.}
     \Question{Can a float hold data that could also be stored by a string? Justify your answer.}
     \Question{Why wouldn't we just store everything as a string in Python? Explain your answer.}
+\end{Exercise}
+\begin{Exercise}
+    \Question{You should now have all of the basic datatypes. List them here.}
+    \Question{What is the difference between each of the datatypes that you listed?}
+\end{Exercise}
+\begin{Exercise}
+Identify the datatype of the following objects from the list of datatypes that you created in the last exercise. What gave it away?
+    \Question{\verb|4|}
+    \Question{\verb|3.14|}
+    \Question{\verb|"cat"|}
+    \Question{\verb|'dog'|}
+    \Question{\verb|'4'|}
+    \Question{\verb|"'bread'"| (single quotes inside of a set of double quotes)}
+    \Question{\verb|'"banana"'| (double quotes inside of a set of single quotes)}
 \end{Exercise}

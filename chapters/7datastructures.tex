@@ -173,7 +173,7 @@ Returns:
 If your IDE supports a specific template, it will auto-generate it once you create your block comment after your function definition. So, you can simply define a block comment as the first line of your function. If it is supported, it will be created for you. Otherwise, you can just paste in the template that works the best for you.\par
 Like whitespace, it's a good idea to get into the habit of always writing a detailed block comment for each of your functions, including what the function does, what its arguments are, and what it returns. Regardless of what template you use, make sure that you're descriptive in your code.\par
 \section{Classes}
-\footnote{If you haven't grasped the concept and application of functions yet, stop reading here. Go understand functions first, otherwise classes won't make any sense. It's okay.}Learning how to effectively use classes will prepare to practice a discipline of programming known as \newterm[object-oriented programming]{object-oriented programming} or \newterm[OOP]{object-oriented programming}. Object-oriented programming falls under the idea of programming composition, and it hinges on the idea that objects can contain other objects. That means that you could put a box inside of another box. Not only could you put a smaller box inside of a bigger box, you could put multiple smaller boxes inside of the larger box. The key behind object-oriented programming is that it allows us to store information together, rather than parsimoniously.\par
+\warningtext{Do you understand functions?}{If you haven't grasped the concept and application of functions yet, stop reading here. Make sure that you understand functions first, otherwise classes won't make any sense. Learning classes represents a significant jump in abstraction, so knowing how functions work is crucial to approaching classes.}Learning how to effectively use classes will prepare to practice a discipline of programming known as \newterm[object-oriented programming]{object-oriented programming} or \newterm[OOP]{object-oriented programming}. Object-oriented programming falls under the idea of programming composition, and it hinges on the idea that objects can contain other objects. That means that you could put a box inside of another box. Not only could you put a smaller box inside of a bigger box, you could put multiple smaller boxes inside of the larger box. The key behind object-oriented programming is that it allows us to store information together, rather than parsimoniously.\par
 Consider how the leap from individual variables to complex datatypes, like dictionaries, enhanced our ability to communicate clearly while writing less code. Further object orientation helps the code's reader understand not only that the information is together, but that they are related. The goal is to help us represent simple information unambiguously and simply.\par
 Let's consider how we could store a three-part date with year, month, and day. We could try to store this as a string, but there are lots of different ways to represent a date in a string.
 \begin{lstlisting}[style=pippython]
@@ -193,23 +193,116 @@ date1 = {"year": 1980, "month": 1, "day": 2}
 date2 = {"year": 1980, "month": "January", "day": 2}
 \end{lstlisting}
 Strictly speaking, both of these are correct, but only one would be valid unless we managed to code in every single option. This is where classes come in.
-\subsection{Class Definitions}
-Defining a class is the first step of using classes, and it looks shockingly similar to working with functions. Let's take a look at a function definition first:\par
+\subsection{Class Definitions and Calls}
+Defining a class is the first step of using classes, and it looks shockingly similar to working with functions. Let's take a look at a function definition first. This function calculates a lacrosse faceoff specialist's faceoff win percentage, which is calculated as $n_\text{faceoff wins} / (n_\text{faceoff wins} + n_\text{faceoff losses})$ or $n_\text{faceoff wins}/n_\text{total faceoffs}$.\par
 \begin{lstlisting}[style=pippython]
-def yint (m, x, b):
+def fopct(fowins, folosses):
+	"""
+	Calculates faceoff win percentage.
+	
+	Parameters
+	----------
+	fowins : int
+		Number of faceoffs won.
+
+	folosses : int
+		Number of faceoffs lost.
+
+	Returns
+	-------
+	float
+		The faceoff percentage from 0 to 1.
+	"""
+	
+	if (fowins + folosses) == 0:
+		return 0.0
+	else:
+		return float(fowins / (fowins + folosses))
 \end{lstlisting}
 Now, let's look at a class definition that has the above function definition.\par
 \begin{lstlisting}[style=pippython]
-class graphing:
-   def yint (m, x, b):
+class Player:
+	"""
+	A player on a lacrosse team.
+	"""
+
+	def fopct(self):
+		"""
+		Calculates faceoff win percentage.
+		
+		Returns
+		-------
+		float
+			The faceoff percentage from 0 to 1.
+		"""
+		
+		if (self.fowins + self.folosses) == 0:
+			return 0.0
+		else:
+			return float(self.fowins / (self.fowins + self.folosses))
 \end{lstlisting}
-As you can see, the process of defining classes is remarkably similar to that of functions.
-\subsection{Class Calls}
-Being able to call your class methods is important to actually being able to use those functions.
+As you can see, the process of defining classes is remarkably similar to that of functions. We have a keyword (\verb|class|) followed by the name of the class (in this case, \verb|Player|). More importantly, though, we have actually created a new datatype: the \verb|Player| datatype. That's right: creating a class effectively creates a datatype that you can then use much more extensively. Let's say that we were tabulating lots of athlete information; the \verb|Player| datatype that we just created can help us arrange our data within our script much more tidily.\par
+Consider the \verb|Player| class above. We can actually create a new object of type \verb|Player| by simply calling the object.\par
+\begin{lstlisting}[style=pippython]
+ratlisc01 = Player()
+\end{lstlisting}
+Now, we have an object called \verb|ratlisc01| that we can assign attributes to. \newterm[Attributes]{class!attribute} are characteristics of an object that store information about that object. You can think of an attribute as a variable inside of a variable. For example, the \verb|ratlisc01| object might have some attributes \verb|name|, \verb|gamesplayed|, and \verb|groundballs| that are specific to the player Scott Ratliff.
+\begin{lstlisting}[style=pippython]
+ratlisc01.name = 'Scott Ratliff'
+ratlisc01.gamesplayed = 9
+ratlisc01.groundballs = 19
+\end{lstlisting}
+Since we initialized the \verb|name| attribute for the \verb|ratlisc01| object, we can now call it as if it were a regular variable.
+\begin{lstlisting}[style=pippython]
+print(ratlisc01.name)
+\end{lstlisting}
+\begin{lstlisting}[style=pippython]
+Scott Ratliff
+\end{lstlisting}
+The ability to put information inside of classes will allow you to abstract out your programming. By hiding the really gritty stuff and covering it with a tidy facade (essentially what classes allow you to do), you can write incredibly clean and efficient code. More importantly, if we're consistent with our attribute names, it will allow us to get the data for similar objects easily. If we know that we're always creating an attribute \verb|Player.name|, then we know that we can find the player's name in that attribute for an object of type \verb|Player|.
 \subsection{Class Methods}
-We've used the term "method" already, but what exactly is it?
+You might be thinking to yourself now, "how is this any different from a dictionary?" Well, we can get information on the objects that we create using the \newterm[methods]{class!method} that we write. A class method is a function that is specific to an object and that can access data within that object. For example, in the \verb|Players| class, we have a method called \verb|fopct| which calculates the faceoff win percentage based on faceoff wins and faceoff losses. Let's use that now. First, let's make a new object called \verb|nardejo01| that takes the \verb|Player| class.\par
+\begin{lstlisting}[style=pippython]
+nardejo01 = Player()
+\end{lstlisting}
+Now, let's give the object some attributes.\par
+\begin{lstlisting}[style=pippython]
+nardejo01.name = 'Joe Nardella'
+nardejo01.gamesplayed = 9
+nardejo01.groundballs = 66
+nardejo01.fowins = 127
+nardejo01.folosses = 94
+\end{lstlisting}
+If we wanted to get Joe Nardella's faceoff percentage, we already have his win and loss figures in the object with his information. They're in the \verb|fowins| and \verb|folosses| attributes inside of the \verb|nardejo01| object, so all we need to do is call the method on his object.
+\begin{lstlisting}[style=pippython]
+print(nardejo01.fopct())
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+0.5746606334841629
+\end{lstlisting}
+Notice how we didn't need to pass in the \verb|fowins| or \verb|folosses| attributes to the \verb|nardejo01| object. The class method pulls that information from the attribute that we assigned. But how did we tell the method that we wanted to be able to access attributes inside of that method? Take a careful look at the arguments that we passed the method definition.\par
+\begin{lstlisting}[style=pippython]
+# DO NOT RUN
+class Player:
+	def fopct(self):
+\end{lstlisting}
+Instead of giving the method individual arguments, we are instead giving the method access to the entire object and letting the method pick and choose attributes from that object. When we refer to a specific object inside of a method call, we use the \verb|self| keyword. That tells Python that we don't just want \textit{any} player. We specifically want \textit{Joe Nardella}'s faceoff data when we call \verb|fopct()| on the \verb|nardejo01| object. In this situation, \verb|self| is a reflection of the \verb|nardejo01| object within a class object call. More broadly, \verb|self| represents the specific object that the method is being called on.\par
+So, if we make a new object for Conor Gaffney, we could call the same \verb|fopct()| on his object representation, and the \verb|fopct()| method would take \textit{his} faceoff attributes.
+\begin{lstlisting}[style=pippython]
+gaffnco01 = Player()
+gaffnco01.name = "Conor Gaffney"
+gaffnco01.fowins = 9
+gaffnco01.folosses = 14
+print(gaffnco01.fopct())
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+0.391304347826087
+\end{lstlisting}
+When we call \verb|fopct()| on the \verb|gaffnco01| object, \verb|self| is a reflection of \verb|gaffnco01|, and the returned value represents \verb|gaffnco01|'s faceoff percentage.
 \section{Functions Versus Methods}
-Now that we know what a class method is, how exactly is it different from a regular old function? Sure, on the surface, they look the exact same and they even use the exact same definition syntax!
+Now that we know what a class method is, how exactly is it different from a regular old function? Sure, on the surface, they look the exact same and they even use the exact same definition syntax! The key to a method is that it is enclosed in a class and that it operates using class attributes as opposed to naive arguments. This means that for many of your class methods, you will never need to include anything other than \verb|self| as an argument, since you'll only ever be accessing class attributes inside of your method. 
+\section{Security Types (Optional)}
+In other programming language classes, there is a concept known as security types. The security type of an object attribute is a measure of how accessible it is to the layer above it. In general, there are three security types: public, private, and undefined. Some languages don't have undefined security types, like C++ or C\#. Other languages do have undefined security types, like Java. The purpose of a private security type is to prevent a programmer from inadvertently modifying or accessing the attribute using naive code methods. \textbf{Private attributes are not inaccessible with the right methods}, only harder to get to. In languages with security types, the programmer typically writes a bridge between a private and a public attribute.
 \section{Structures (Optional)}
 There's a concept in other programming languages known as structures, or structs. Structs are another way of structuring data compared to classes, but unfortunately, Python doesn't natively support structs. However, we can still go over what a struct is so that should you choose to pick up a new programming language down the line, you can understand how that code works.\par
 Let's say that you wanted to store a date. There's several ways that we could store this date. We could make an entire class called \verb|date|, but this seems kind of wasteful and somewhat backwards. It's a lot of code for something so simple. Likewise, we could store our year, month and date in individual variables, but this seems kind of messy and like it could cause readability issues. Instead, we can make a struct. A struct is like a combination of data that can be accessed as a single datatype, but without the overhead of a class.\par

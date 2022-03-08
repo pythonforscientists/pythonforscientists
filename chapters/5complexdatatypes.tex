@@ -349,7 +349,7 @@ These exercise questions cover chapter 5.2
 \begin{Exercise}
     \Question{Create a new dictionary inside of a variable named \verb|eagles|. Add four keys: \verb|code|, \verb|city|, \verb|wins|, and \verb|winrate|. Initialize all of the keys to a \indexterm{Nonetype}.}
     \Question{In the \verb|eagles| dictionary, change the \verb|code| value to a string \verb|PHI|.}
-    \Question{In the \verb|eagles| dictionary, change the \verb|city| value to a string \verb|Philadelphia|.}
+    \Question{In the \verb|eagles| dictionary, change the \verb|city| value to a string\\ \verb|Philadelphia|.}
     \Question{In the \verb|eagles| dictionary, change the \verb|wins| value to an integer \verb|4|.}
     \Question{The Eagles played 16 games, of which they won four, tied one, and lost eleven. Use Python to calculate the win percentage. Win percentage is calculated using the following formula: ($2 \times \text{wins} + \text{ties}) / (2 \times \text{total games played}) \times 100$. Put the value in the \verb|eagles| dictionary in the \verb|winrate| key as a float. Try to do this in a single line.}
 \end{Exercise}
@@ -377,7 +377,7 @@ However, we cannot redefine the second element to be Butterhead Lettuce.\par
 leafygreens[1] = "Butterhead Lettuce"
 \end{lstlisting}
 If I want to change an element in the tuple, I need to reinitialize the entire tuple variable.\par
-\begin{lstlisting}
+\begin{lstlisting}[style=pippython]
 leafygreens = ("Romaine Lettuce", "Butterhead Lettuce", "Arugula")
 print(leafygreens[1])
 \end{lstlisting}

@@ -114,7 +114,7 @@
 \newcommand{\bookprinttitle}{Python for\\Scientists}
 \newcommand{\booksubtitle}{Introduction to Python for Scientific Computing}
 \newcommand{\booklicense}{MIT License}
-\newcommand{\bookversion}{0.1.9023}
+\newcommand{\bookversion}{0.1.9024}
 
 \author{Sejin Kim}
 % Author subtitle could be a university or a geographical location, for example
@@ -146,7 +146,7 @@
 \textbf{\fontfamily{qcs}\fontsize{48}{54}\selectfont \bookprinttitle\\}
 
 % Draw a line 4pt high
-\par\noindent\rule{\textwidth}{4pt}\\
+\par\noindent\rule{0.95\textwidth}{4pt}\\
 
 % Subtitle
 % Shaded box from left to right. Text node is midway (centered).
@@ -311,16 +311,24 @@ Version Number: \bookversion
 Version Number: \bookversion\\
 License: \booklicense\\
 Citation: The suggested BibTeX entry is as follows.
-\begin{lstlisting}[style=none]
-@book{scientificpython,
-    title = {Python for Scientists, version 0.1.9022},
-    author = {Kim, Sejin},
-    edition = {Zeroth},
-    year = {2022},
-    address = {Gambier},
-}
-\end{lstlisting}
 
+\vspace{5mm}
+
+{\fontfamily{qcr}\selectfont
+@book\{scientificpython,
+
+    title = \{Python for Scientists, version \bookversion\},
+
+    author = \{Kim, Sejin\},
+
+    edition = \{Zeroth\},
+
+    year = \{2022\},
+
+    address = \{Gambier\},
+
+\}
+}
 \end{flushleft}
 \end{titlepage}
 \restoregeometry

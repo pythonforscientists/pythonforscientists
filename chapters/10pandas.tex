@@ -1,14 +1,14 @@
-\chapter{Data Analysis with Pandas}
-In all honesty, Python makes a bad web development language and an even worse desktop development language\footnote{This is not a fact, the author just really hates Python for desktop and web development.}. However, one of Python's biggest strengths is in scientific computing and in statistics. If you've used R before, you'll find that Python isn't that much different. In fact, both R and Python are built on the C programming language! It does use a different set of packages, but you'll find that with a little bit of statistical translation, you can do everything that you could do with a dedicated statistics programming language, such as R or SAS.\par
+\chapter{Data Analysis with \indexterm{Pandas}}
+In all honesty, Python makes a bad web development language and an even worse desktop development language.\footnote{This is not a fact, the author just really hates Python for desktop and web development.} However, one of Python's biggest strengths is in scientific computing and in statistics. If you've used R before, you'll find that Python isn't that much different. In fact, both R and Python are built on the C programming language! It does use a different set of packages, but you'll find that with a little bit of statistical translation, you can do everything that you could do with a dedicated statistics programming language, such as R or SAS.\par
 
-\section{Pandas are Not Bears}
-While R has much of its functionality baked right into Base-R (as a dedicated statistics language), Python requires you to load in the appropriate libraries. The hands-down most popular library is Pandas, and it's an incredibly powerful package that's appropriate for all sorts of data analysis. There are many other packages out there that are actually built on Pandas, like NumPy (pronounced Num-Pie, \textit{not num-pee}), TensorFlow, Scikit-Learn, Matplotlib, Seaborn, and many others. Much of the inner workings of economics services are built using Pandas, too, like Robinhood, Quandl, Morningstar, and Google Finance.\par
-\funtext{Pandas's Etymology}{Pandas actually stands for something: Python ANalysis for DAta. it was originally created for financial research by Wes McKinney at AQR Capital Management.}
-Take your mind back to chapter 8, when we were working with a new library called \verb|csv|. Well, like \verb|csv|, Pandas is also a library. In fact, we can use the same import statement as we used with \verb|csv|.
+\section{\indexterm{Pandas} are Not Bears}
+While R has much of its functionality baked right into Base-R (as a dedicated statistics language), Python requires you to load in the appropriate libraries. The hands-down most popular library is \newterm{Pandas}{Pandas}, and it's an incredibly powerful package that's appropriate for all sorts of data analysis. There are many other packages out there that are actually built on \indexterm{Pandas}, like \newterm{NumPy}{NumPy} (pronounced Num-Pie, \textit{not num-pee}), TensorFlow, Scikit-Learn, Matplotlib, Seaborn, and many others. Much of the inner workings of economics services are built using \indexterm{Pandas}, too, like Robinhood, Quandl, Morningstar, and Google Finance.\par
+\funtext{\indexterm{Pandas}'s Etymology}{\indexterm{Pandas} actually stands for something: Python ANalysis for DAta. it was originally created for financial research by Wes McKinney at AQR Capital Management.}
+Take your mind back to chapter 8, when we were working with a new library called \verb|csv|. Well, like \verb|csv|, \indexterm{Pandas} is also a library. In fact, we can use the same import statement as we used with \verb|csv|.
 \begin{lstlisting}[style=pippython]
 import pandas
 \end{lstlisting}
-However, when you look at most code that uses Pandas, you'll notice that it's \newterm[aliased]{alias}. That means that the library name \verb|pandas| has been assigned a nickname \verb|pd| that can be used to reference library methods at any point in that script. The common \verb|pandas| alias is \verb|pd|, and we can create a library alias by using the Python keyword \verb|as|.
+However, when you look at most code that uses \indexterm{Pandas}, you'll notice that it's \newterm[aliased]{alias}. That means that the library name \verb|pandas| has been assigned a nickname \verb|pd| that can be used to reference library methods at any point in that script. The common \verb|pandas| alias is \verb|pd|, and we can create a library alias by using the Python keyword \verb|as|.
 \begin{lstlisting}[style=pippython]
 import pandas as pd
 \end{lstlisting}
@@ -17,11 +17,11 @@ Now, we can access the \verb|pandas| method by using \verb|pd|. For example, ins
  
 \boxtext{Aliases With Other Libraries}{Other libraries have well-known aliases\index{alias}, too. "numpy" is aliased "np", "scikit-learn" is aliased "sk", and "BeautifulSoup4" is aliased "bs4".}
 \section{New Datatypes}
-Learning how to use Pandas means that you need to learn how to use two new datatypes: the series and the dataframe. These datatypes were built expressly for the purposes of data analysis while using Pandas, and they build upon the initial structure of the dictionary and the list.\par
-These datatypes are only available when you use Pandas, so make sure you import the Pandas library before trying to instantiate a new series or dataframe.
+Learning how to use \indexterm{Pandas} means that you need to learn how to use two new datatypes: the Series\index{Pandas!series} and the new DataFrame\index{Pandas!dataframe}. These datatypes were built expressly for the purposes of data analysis while using \indexterm{Pandas}, and they build upon the initial structure of the dictionary and the list.\par
+These datatypes are only available when you use \indexterm{Pandas}, so make sure you import the \indexterm{Pandas} library before trying to instantiate a new series\index{Pandas!series} or dataframe\index{Pandas!dataframe}.
 \section{Series}
-\newterm[Series]{Pandas!series} aren't used nearly as much as dataframes are in Python data analysis. Series are most akin to lists in Python, but they differ in the way that the data is stored and the methods that are available to use. However, it is possible to typecast from a Python list to a Pandas series and vice-versa.\par
-That being said, series are still important to cover, as they are the fundamental building blocks of dataframes, which we'll cover in the next section. Cast your mind back to when we looked at lists. A list might look like the following.
+\newterm[Series]{Pandas!series\index{Pandas!series}} aren't used nearly as much as dataframes are in Python data analysis. Series are most akin to lists in Python, but they differ in the way that the data is stored and the methods that are available to use. However, it is possible to typecast from a Python list to a \indexterm{Pandas} series\index{Pandas!series} and vice-versa.\par
+That being said, series\index{Pandas!series} are still important to cover, as they are the fundamental building blocks of dataframes, which we'll cover in the next section. Cast your mind back to when we looked at lists. A list might look like the following.
 \begin{lstlisting}[style=pippython]
 var1 = [56, 52, 38, 62]
 \end{lstlisting}
@@ -32,34 +32,34 @@ type(var1)
 \begin{lstlisting}
 <class 'list'>
 \end{lstlisting}
-Now, let's make this Python list into a Pandas series. Remember, a list looks like a series.\par
+Now, let's make this Python list into a \indexterm{Pandas} series\index{Pandas!series}. Remember, a list looks like a series\index{Pandas!series}.\par
 \begin{lstlisting}[style=pippython]
 var1 = pd.Series(var1)
 type(var1)
 \end{lstlisting}
 \begin{lstlisting}
-<class 'pandas.core.series.Series'>
+<class 'pandas.core.series\index{Pandas!series}.Series'>
 \end{lstlisting}
-We have actually typecast the \verb|var1| object from a Python list into a Pandas series. Observe how both series and lists are one-dimensional. However, what makes series special is how their indices are inherent and modifiable.\par
-To make this list, we used the Pandas \verb|Series| method. Because \verb|Series| is in the Pandas class, we need to call \verb|Series| as a method on Pandas, but as shown, we're using its alias \verb|pd| instead of typing out \verb|pandas|. We could just as easily type out the full class as \verb|pandas| instead of \verb|pd|.
+We have actually typecast the \verb|var1| object from a Python list into a \indexterm{Pandas} series\index{Pandas!series}. Observe how both series\index{Pandas!series} and lists are one-dimensional. However, what makes series\index{Pandas!series} special is how their indices are inherent and modifiable.\par
+To make this list, we used the \indexterm{Pandas} \verb|Series| method. Because \verb|Series| is in the \indexterm{Pandas} class, we need to call \verb|Series| as a method on \indexterm{Pandas}, but as shown, we're using its alias \verb|pd| instead of typing out \verb|pandas|. We could just as easily type out the full class as \verb|pandas| instead of \verb|pd|.
 \begin{lstlisting}[style=pippython]
 var1 = pandas.Series(var1)
 \end{lstlisting}
 However, since the \verb|pd| moniker is so well known, we'll just use its alias.\par
-In order to make a series, we will always use the \verb|Series| method from the Pandas class. If we wanted to create an empty series, we would just pass nothing into the method.
+In order to make a series\index{Pandas!series}, we will always use the \verb|Series| method from the \indexterm{Pandas} class. If we wanted to create an empty series\index{Pandas!series}, we would just pass nothing into the method.
 \begin{lstlisting}[style=pippython]
 emptySeries = pd.Series()
 \end{lstlisting}
-\verb|emptySeries| is of type series, but it has nothing in this series. We can also pass in a single list, as we did above.
+\verb|emptySeries| is of type series\index{Pandas!series}, but it has nothing in this series\index{Pandas!series}. We can also pass in a single list, as we did above.
 \begin{lstlisting}[style=pippython]
 var2 = pd.Series([122, 139, 185, 115])
 \end{lstlisting}\par
-\boxtext{Variables Versus Literals}{Notice how in var1, we passed in a variable with a list, while in var2, we passed in a list literal. As long as the datatype is correct, Python will make the series.}
+\boxtext{Variables Versus Literals}{Notice how in var1, we passed in a variable with a list, while in var2, we passed in a list literal. As long as the datatype is correct, Python will make the series\index{Pandas!series}.}
 If we tried to print the list before we typecast \verb|var1|, we would end up with something like this.
 \begin{lstlisting}
 [56, 52, 63, 38]
 \end{lstlisting}
-It prints just like any other list, complete with square brackets and commas. However, when we print our series, we see something a little bit different.
+It prints just like any other list, complete with square brackets and commas. However, when we print our series\index{Pandas!series}, we see something a little bit different.
 \begin{lstlisting}[style=pippython]
 print(var1)
 \end{lstlisting}
@@ -70,15 +70,15 @@ print(var1)
 3    38
 dtype: int64
 \end{lstlisting}
-In our second column, we see the values that we typecast from our list into our series, but in the first column, we also see index values, starting at zero. Using this index, we can actually extract data from the series just as we did when we were working with lists. We will use square brackets to indicate which index we want.
+In our second column, we see the values that we typecast from our list into our series\index{Pandas!series}, but in the first column, we also see index values, starting at zero. Using this index, we can actually extract data from the series\index{Pandas!series} just as we did when we were working with lists. We will use square brackets to indicate which index we want.
 \begin{lstlisting}[style=pippython]
 print(var1[1])
 \end{lstlisting}
 \begin{lstlisting}
 52
 \end{lstlisting}\par
-\boxtext{Indices start at zero}{Reminder: indices still start at zero, even in Pandas series!}\par
-We could also create our own indices for a series. Recall how we made our \verb|var1| series. We passed in a list only. In order to create an index, we can also pass in the argument \verb|index|, which should be of type \verb|list|.\par
+\boxtext{Indices start at zero}{Reminder: indices still start at zero, even in \indexterm{Pandas} series\index{Pandas!series}!}\par
+We could also create our own indices for a series\index{Pandas!series}. Recall how we made our \verb|var1| series\index{Pandas!series}. We passed in a list only. In order to create an index, we can also pass in the argument \verb|index|, which should be of type \verb|list|.\par
 \begin{lstlisting}[style=pippython]
 var3 = pd.Series([3, 2, 2, 3], index = ['a', 'b', 'c', 'd'])
 \end{lstlisting}
@@ -92,7 +92,7 @@ dtype: int64
 \end{lstlisting}
 \verb|a|, \verb|b|, \verb|c|, and \verb|d| became our index instead of the default \verb|1|, \verb|2|, \verb|3|, and \verb|4|.\par
 \warningtext{Check your indices!}{Make sure that your index has the same number of elements as the data that you are putting into the array. If your indices are mismatched, you will end up with a syntax error.}
-Getting data out of a series with an explicitly set index is similar to how we get data out of a dictionary. We still use square brackets, and we put the index that we defined. For example, if I wanted the \verb|c|'th element of the \verb|var3| series, I could just refer to the \verb|c|'th element as a string.\par
+Getting data out of a series\index{Pandas!series} with an explicitly set index is similar to how we get data out of a dictionary. We still use square brackets, and we put the index that we defined. For example, if I wanted the \verb|c|'th element of the \verb|var3| series\index{Pandas!series}, I could just refer to the \verb|c|'th element as a string.\par
 \begin{lstlisting}[style=pippython]
 print(var3['c'])
 \end{lstlisting}
@@ -100,33 +100,33 @@ print(var3['c'])
 2
 \end{lstlisting}
 Because \verb|c| is of type string, we had to put our index into our square brackets inside of quotes, similar to how we need to put keys of a dictionary into quotes.\par
-After learning how to change the index, you may have realized that a series can act like both a list \textit{or} a dictionary! If not, now you know. When we referenced our series without an explicit index, we could just refer to a series element by that index number.
+After learning how to change the index, you may have realized that a series\index{Pandas!series} can act like both a list \textit{or} a dictionary! If not, now you know. When we referenced our series\index{Pandas!series} without an explicit index, we could just refer to a series\index{Pandas!series} element by that index number.
 \begin{lstlisting}[style=pippython]
 print(var1[1])
 \end{lstlisting}
 \begin{lstlisting}
 52
 \end{lstlisting}
-However, when we refer to a series with an explicit index, we refer to a series element by that index value that we set.
+However, when we refer to a series\index{Pandas!series} with an explicit index, we refer to a series\index{Pandas!series} element by that index value that we set.
 \begin{lstlisting}[style=pippython]
 print(var3['d'])
 \end{lstlisting}
 \begin{lstlisting}
 3
 \end{lstlisting}
-Let's look at a more concrete example. Consider this list which has been typecast to a series.
+Let's look at a more concrete example. Consider this list which has been typecast to a series\index{Pandas!series}.
 \begin{lstlisting}[style=pippython]
 speeds = pd.Series([84, 93, 66, 89, 58, 59])
 \end{lstlisting}
-If we wanted to refer to the $n$'th element of the \verb|speeds| series, we would just refer to the index number as $n$.
+If we wanted to refer to the $n$'th element of the \verb|speeds| series\index{Pandas!series}, we would just refer to the index number as $n$.
 \begin{lstlisting}[style=pippython]
 print(speeds[n])
 \end{lstlisting}
-Now, let's consider a list which has been typecast to a series, but which has an explicit index.
+Now, let's consider a list which has been typecast to a series\index{Pandas!series}, but which has an explicit index.
 \begin{lstlisting}[style=pippython]
 agility = pd.Series([90, 90, 96, 86], index = ['Cristiano Ronaldo', 'Lionel Messi', 'Neymar', 'Luis Suarez'])
 \end{lstlisting}
-In order to get any of the data out of the \verb|agility| series, we need to know the indices or we need to just print the entire series.
+In order to get any of the data out of the \verb|agility| series\index{Pandas!series}, we need to know the indices or we need to just print the entire series\index{Pandas!series}.
 \begin{lstlisting}[style=pippython]
 print(agility)
 print(agility['Neymar'])
@@ -139,14 +139,14 @@ Luis Suarez          86
 dtype: int64
 96
 \end{lstlisting}
-If we didn't want to create a dictionary-like series as two distinct lists (one list with the data, one list with the indices), we can actually pass in a dictionary into the \verb|Series| method and leave out the \verb|index| argument altogether. Consider the following dictionary.
+If we didn't want to create a dictionary-like series\index{Pandas!series} as two distinct lists (one list with the data, one list with the indices), we can actually pass in a dictionary into the \verb|Series| method and leave out the \verb|index| argument altogether. Consider the following dictionary.
 \begin{lstlisting}[style=pippython]
 composure = {'Cristiano Ronaldo': 86,
             'Lionel Messi': 94,
             'Neymar': 80,
             'Luis Suarez': 84}
 \end{lstlisting}
-If we pass this dictionary into the \verb|Series| method, Pandas will typecast the dictionary into a series using the keys as the index and the values as the data.
+If we pass this dictionary into the \verb|Series| method, \indexterm{Pandas} will typecast the dictionary into a series\index{Pandas!series} using the keys as the index and the values as the data.
 \begin{lstlisting}[style=pippython]
 composure = pd.Series(composure)
 print(composure)
@@ -158,15 +158,15 @@ Neymar               80
 Luis Suarez          84
 dtype: int64
 \end{lstlisting}
-Just like in a dictionary and like above, we can refer to a data value in this series by its index (the equivalent to a key in a dictionary, if a index were a string).
+Just like in a dictionary and like above, we can refer to a data value in this series\index{Pandas!series} by its index (the equivalent to a key in a dictionary, if a index were a string).
 \begin{lstlisting}[style=pippython]
 print(composure['Lionel Messi'])
 \end{lstlisting}
 \begin{lstlisting}
 94
 \end{lstlisting}
-By now, you should have also noticed that when we print a full series, we also have a little line at the bottom that starts with \verb|dtype|. This tells us the type of data that is in our series. If all of the datatypes in a series are the same, the \verb|dtype| will represent that. Pandas tries to store data in the simplest method possible, just like Python. So, if you pass it in an integer, it'll try to store that value as an integer, rather than a float.\par
-Like a list, we can mix our datatypes between each element in a series. You can mix floats with integers, strings with floats, booleans with strings, and every other combination out there. However, when we mix datatypes, the \verb|dtype| that is shown somehow has to represent all of the data. Because of this mixed data, Pandas will just return a datatype of "object." However, Pandas will maintain the datatype in that series element, meaning that filling an element with a string will keep it a string, even if the \verb|dtype| of the entire series is listed as \verb|object|.
+By now, you should have also noticed that when we print a full series\index{Pandas!series}, we also have a little line at the bottom that starts with \verb|dtype|. This tells us the type of data that is in our series\index{Pandas!series}. If all of the datatypes in a series\index{Pandas!series} are the same, the \verb|dtype| will represent that. \indexterm{Pandas} tries to store data in the simplest method possible, just like Python. So, if you pass it in an integer, it'll try to store that value as an integer, rather than a float.\par
+Like a list, we can mix our datatypes between each element in a series\index{Pandas!series}. You can mix floats with integers, strings with floats, booleans with strings, and every other combination out there. However, when we mix datatypes, the \verb|dtype| that is shown somehow has to represent all of the data. Because of this mixed data, \indexterm{Pandas} will just return a datatype of "object." However, \indexterm{Pandas} will maintain the datatype in that series\index{Pandas!series} element, meaning that filling an element with a string will keep it a string, even if the \verb|dtype| of the entire series\index{Pandas!series} is listed as \verb|object|.
 \begin{lstlisting}[style=pippython]
 mixeddtype = pd.Series(['spinach', 48, 9.1])
 print(mixeddtype)
@@ -179,14 +179,81 @@ print(type(mixeddtype[0]), type(mixeddtype[1]), type(mixeddtype[2]))
 1         48
 2        9.1
 dtype: object
-<class 'pandas.core.series.Series'>
+<class 'pandas.core.series\index{Pandas!series}.Series'>
 spinach 48 9.1
 <class 'str'> <class 'int'> <class 'float'>
 \end{lstlisting}
-Observe how in the first output (where we print the entire series), we see that the \verb|dtype| is of type \verb|object|. This means that the elements inside of our series are mixed. However, the complex datatype is still a series. Just how we grabbed data out of our series before, we can do the same by referring to individual elements by index number. We can also print the datatypes of individual elements by using the \verb|type| function, where we see that all of the datatypes that we initially gave Python are maintained (string, integer, and float). 
+Observe how in the first output (where we print the entire series\index{Pandas!series}), we see that the \verb|dtype| is of type \verb|object|. This means that the elements inside of our series\index{Pandas!series} are mixed. However, the complex datatype is still a series\index{Pandas!series}. Just how we grabbed data out of our series\index{Pandas!series} before, we can do the same by referring to individual elements by index number. We can also print the datatypes of individual elements by using the \verb|type| function, where we see that all of the datatypes that we initially gave Python are maintained (string, integer, and float).\par
+What if we want to add a single element to a series\index{Pandas!series}? On the surface, this seems like an easy enough topic. We've already seen an \verb|concat()| method used for lists, so it must not be too different, right? \indexterm{Pandas} actually has an \verb|concat()| method for the \verb|Series| class that will add an object of type \verb|Series| to an existing series\index{Pandas!series}. However, there is a key difference in the way that the \verb|list.concat()| works and the way the \verb|Series.concat()| method works. When we called the lists's \verb|append()| method, we simply called the method on the list, which modified the list. However, the \indexterm{Pandas} series\index{Pandas!series} \verb|concat()| method does not inherently modify that series\index{Pandas!series} like the list method does. Instead, it only returns the modified list. If we want to save this modified list, we need to pass it into a variable. The most common way to do this is by passing the return of the appended series\index{Pandas!series} back into itself, which updates the value of that variable with the appended series\index{Pandas!series}.
+Consider the following list, which has three players on the Vancouver Canucks NHL team in the 2021-2022 season.\par
+\begin{lstlisting}[style=pippython]
+players = ["Justin Bailey", "Brock Boeser", "Madison Bowey"]
+players.concat("Guillaume Briseboise")
+print(players)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+['Justin Bailey', 'Brock Boeser', 'Madison Bowey', 'Guillaume Briseboise']
+\end{lstlisting}
+If we try to do the same with a \indexterm{Pandas} series\index{Pandas!series}, it won't work quite the same way.
+\begin{lstlisting}[style=pippython]
+players = pd.Series(["Justin Bailey", "Brock Boeser", "Madison Bowey"])
+players.concat("Guillaume Briseboise")
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+TypeError: cannot concatenate object of type '<class 'str'>'; only Series and DataFrame objs are valid
+\end{lstlisting}
+Above, we mentioned that the \verb|concat()| method on a Series will add an object of type \verb|Series| to an existing series\index{Pandas!series}, but we just tried to pass a string (\verb|"Guillaume Briseboise"|) into the \verb|concat()| method, causing a TypeError to be thrown. This is easy enough to remedy. We simply have to pass in "Guillaume Briseboise" as an element of a \indexterm{Pandas} series\index{Pandas!series}.
+\begin{lstlisting}[style=pippython]
+players = pd.Series(["Justin Bailey", "Brock Boeser", "Madison Bowey"])
+players.concat(pd.Series(["Guillaume Briseboise"]))
+\end{lstlisting}
+In this case, we are passing in a \indexterm{Pandas} series\index{Pandas!series} with one element ("Guillaume Briseboise") into the \verb|concat()| method. This is especially useful if we want to pass more than one element into our series\index{Pandas!series}. For example, consider the following.
+\begin{lstlisting}[style=pippython]
+players = pd.Series(["Justin Bailey", "Brock Boeser", "Madison Bowey"])
+players.concat(pd.Series(["Guillaume Briseboise", "Kyle Burroughs"]))
+\end{lstlisting}
+However, if we try to print the series\index{Pandas!series} in this state, it won't look quite right.
+\begin{lstlisting}[style=pippython]
+print(players)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+0    Justin Bailey
+1     Brock Boeser
+2    Madison Bowey
+dtype: object
+\end{lstlisting}
+Where are Guillaume and Kyle? Recall how we mentioned how only calling the \verb|concat()| method on the series\index{Pandas!series} object doesn't actually change the series\index{Pandas!series} object; it only returns a series\index{Pandas!series} object that has been modified. Instead, we need to put the returned series\index{Pandas!series} with the appended player names back into the \verb|players| series\index{Pandas!series}.
+\begin{lstlisting}[style=pippython]
+players = pd.Series(["Justin Bailey", "Brock Boeser", "Madison Bowey"])
+players = players.concat(pd.Series(["Guillaume Briseboise", "Kyle Burroughs"]), ignore_index = True)
+print(players)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+0           Justin Bailey
+1            Brock Boeser
+2           Madison Bowey
+3    Guillaume Briseboise
+4          Kyle Burroughs
+dtype: object
+\end{lstlisting}
+Recall how series\index{Pandas!series} can be indexed using a manual index. However, in this case, we never assigned a manual index when we created the series\index{Pandas!series}, hence why our \verb|players| object was assigned an auto-incrementing integer index, starting at 0. Because of this, we want \indexterm{Pandas} to ignore a possible manual index and continue to index the new row as it has indexed all of the other rows. We do this by passing in the \verb|ignore_index| argument in the \verb|concat()| method. The default is to use a null index, which we don't want, so we should specify that we want to ignore the index by setting the \verb|ignore_index| argument to \verb|True|.\par
+If we don't pass in the \verb|ignore_index| argument, \indexterm{Pandas} will restart the index numbering with the appended series\index{Pandas!series}.\par
+\begin{lstlisting}[style=pippython]
+players = pd.Series(["Justin Bailey", "Brock Boeser", "Madison Bowey"])
+players = players.concat(pd.Series(["Guillaume Briseboise", "Kyle Burroughs"]))
+print(players)
+\end{lstlsting}
+\begin{lstlisting}[style=none]
+0           Justin Bailey
+1            Brock Boeser
+2           Madison Bowey
+0    Guillaume Briseboise
+1          Kyle Burroughs
+dtype: object
+\end{lstlisting}
 
 \section{Dataframes}
-Now that we've seen series, we can begin to explore dataframes. A dataframe is yet another complex datatype, but it is among the most powerful of complex datatypes out there because of its flexibility and the sheer number of methods that exist to manipulate that data.\par
+Now that we've seen series\index{Pandas!series}, we can begin to explore dataframes. A dataframe\index{Pandas!dataframe} is yet another complex datatype, but it is among the most powerful of complex datatypes out there because of its flexibility and the sheer number of methods that exist to manipulate that data.\par
 Most data comes to data scientists as a CSV file. Whether it's been cleaned or not, they tend to follow the same form.\par
 \vspace{5mm}
 \begin{tabular}{|l|l|l|l|}
@@ -203,17 +270,17 @@ id & var1 & var2 & var3 \\
 \hline
 \end{tabular}\par
 \vspace{5mm}
-The general form behind most datasets is that you have some ID to keep track of your entries and a set of variables that hold the data for each entry. This wouldn't really fit neatly into any preexisting data structure, and while we could probably write our own class to handle this data, we don't have to, since Pandas comes with its own data structure that was designed to hold CSVs and other datasets: the Pandas \newterm[dataframe]{Pandas!dataframe}.\par
-A dataframe is made up of Pandas series (hence why we covered those first). Each column of a dataframe is composed of a single Pandas series, and the process of putting series side-by-side in a certain order creates a dataframe. However, there are two major things to note: because a dataframe is a composite structure, you cannot edit the index of one column without altering the index of all of the columns, and the column names do not correspond to variables as they do in a pure series. This means that in the above series, we cannot simply call the \verb|var1| series independently of the dataframe. We instead need to call the column as a part of the dataframe.\par
-You can think of a dataframe as a data structure that emulates the format of a two-dimensional spreadsheet. If you are familiar with other programming languages such as C++ or C\#, then you can associate the dataframe with a two-dimensional array.\par
-Pandas dataframes require you to use a certain data format in order for the data to be read and associated properly. When you import your data, you should set it up with your individual variables on row 1 and each of your trials or data entries indexed at column 1. This will allow Python to determine the datatype of an entire column. On the surface, this seems trivial, but making sure that your data is formatted correctly before you import it will mean that you'll be able to analyze it in a somewhat standard manner.\par
+The general form behind most datasets is that you have some ID to keep track of your entries and a set of variables that hold the data for each entry. This wouldn't really fit neatly into any preexisting data structure, and while we could probably write our own class to handle this data, we don't have to, since \indexterm{Pandas} comes with its own data structure that was designed to hold CSVs and other datasets: the \indexterm{Pandas} \newterm[dataframe\index{Pandas!dataframe}]{\indexterm{Pandas}!dataframe\index{Pandas!dataframe}}.\par
+A dataframe\index{Pandas!dataframe} is made up of \indexterm{Pandas} series\index{Pandas!series} (hence why we covered those first). Each column of a dataframe\index{Pandas!dataframe} is composed of a single \indexterm{Pandas} series\index{Pandas!series}, and the process of putting series\index{Pandas!series} side-by-side in a certain order creates a dataframe\index{Pandas!dataframe}. However, there are two major things to note: because a dataframe\index{Pandas!dataframe} is a composite structure, you cannot edit the index of one column without altering the index of all of the columns, and the column names do not correspond to variables as they do in a pure series\index{Pandas!series}. This means that in the above series\index{Pandas!series}, we cannot simply call the \verb|var1| series\index{Pandas!series} independently of the dataframe\index{Pandas!dataframe}. We instead need to call the column as a part of the dataframe\index{Pandas!dataframe}.\par
+You can think of a dataframe\index{Pandas!dataframe} as a data structure that emulates the format of a two-dimensional spreadsheet. If you are familiar with other programming languages such as C++ or C\#, then you can associate the dataframe\index{Pandas!dataframe} with a two-dimensional array.\par
+\indexterm{Pandas} dataframes require you to use a certain data format in order for the data to be read and associated properly. When you import your data, you should set it up with your individual variables on row 1 and each of your trials or data entries indexed at column 1. This will allow Python to determine the datatype of an entire column. On the surface, this seems trivial, but making sure that your data is formatted correctly before you import it will mean that you'll be able to analyze it in a somewhat standard manner.\par
 If your data isn't stored in the format that you required but there is some standardization to the format of the data, then consider using your already-known standard file reading and writing skills to read the file into memory, then rewrite it in the format that you require.\par
 \subsection{Getting Data}
-The most common operation that you'll be doing with a Pandas dataframe is retrieving data. There are a few ways to retrieve this data: we can retrieve the entire dataset as a dataframe, typecast it to another type, or just get a subset of the data. For this section, we will cover two ways of getting data: entering it naively, and importing it from a CSV. We'll also briefly cover pickles.
+The most common operation that you'll be doing with a \indexterm{Pandas} dataframe\index{Pandas!dataframe} is retrieving data. There are a few ways to retrieve this data: we can retrieve the entire dataset as a dataframe\index{Pandas!dataframe}, typecast it to another type, or just get a subset of the data. For this section, we will cover two ways of getting data: entering it naively, and importing it from a CSV. We'll also briefly cover pickles.
 \phantomsection
 \subsubsection{Making a Dataframe Naively}
-Let's say that you want to create a new, empty dataframe, then put data into that empty dataframe. You might have several lists that you want to turn into a dataframe, or you might be reading data in from an input/output device that needs stored in a dataframe.\par
-Pandas allows us to create a dataframe by calling the \verb|.DataFrame()| method in the Pandas library, and by default, it returns an empty Pandas dataframe.
+Let's say that you want to create a new, empty dataframe\index{Pandas!dataframe}, then put data into that empty dataframe\index{Pandas!dataframe}. You might have several lists that you want to turn into a dataframe\index{Pandas!dataframe}, or you might be reading data in from an input/output device that needs stored in a dataframe\index{Pandas!dataframe}.\par
+\indexterm{Pandas} allows us to create a dataframe\index{Pandas!dataframe} by calling the \verb|.DataFrame()| method in the \indexterm{Pandas} library, and by default, it returns an empty \indexterm{Pandas} dataframe\index{Pandas!dataframe}.
 \begin{lstlisting}[style=pippython]
 df = pd.DataFrame()
 type(df)
@@ -225,9 +292,9 @@ Empty DataFrame
 Columns: []
 Index: []
 \end{lstlisting}
-As you might have inferred, this is not that dissimilar for how we might have created an empty list or dictionary by calling the \verb|list()| or \verb|dict()| functions in Python. When we first create an empty dataframe, it is assigned no size in either the row or column direction. That means that, strictly speaking, it is a zero-dimensional object.\par
-The way dataframes are structured make them conducive to adding rows over columns, just like how when we make a spreadsheet in Microsoft Excel or Google Sheets, we will create the columns, then fill rows with different data. Because of this, it is much easier to define the column-wise dimension of your dataframe than the row-wise dimension when we create the dataframe in the first place. We can do this by passing a list type into the \verb|columns| argument of the \verb|DataFrame()| method. This will tell Pandas to create columns with the names of the elements in the list that you passed in. It won't tell Pandas anything about the datatypes, but at least we'll have our column-wise dimensions for our dataframe.\par
-For example, let's create a dataframe for some ice hockey data with the column names \verb|name|, \verb|goals|, and \verb|toi|, which will stand for player name, number of goals scored, and the amount of time on the ice that they've spent, respectively. We know what our columns names will be, so we can pass these in as elements of a list into the \verb|columns| argument.\par
+As you might have inferred, this is not that dissimilar for how we might have created an empty list or dictionary by calling the \verb|list()| or \verb|dict()| functions in Python. When we first create an empty dataframe\index{Pandas!dataframe}, it is assigned no size in either the row or column direction. That means that, strictly speaking, it is a zero-dimensional object.\par
+The way dataframes are structured make them conducive to adding rows over columns, just like how when we make a spreadsheet in Microsoft Excel or Google Sheets, we will create the columns, then fill rows with different data. Because of this, it is much easier to define the column-wise dimension of your dataframe\index{Pandas!dataframe} than the row-wise dimension when we create the dataframe\index{Pandas!dataframe} in the first place. We can do this by passing a list type into the \verb|columns| argument of the \verb|DataFrame()| method. This will tell \indexterm{Pandas} to create columns with the names of the elements in the list that you passed in. It won't tell \indexterm{Pandas} anything about the datatypes, but at least we'll have our column-wise dimensions for our dataframe\index{Pandas!dataframe}.\par
+For example, let's create a dataframe\index{Pandas!dataframe} for some ice hockey data with the column names \verb|name|, \verb|goals|, and \verb|toi|, which will stand for player name, number of goals scored, and the amount of time on the ice that they've spent, respectively. We know what our columns names will be, so we can pass these in as elements of a list into the \verb|columns| argument.\par
 \begin{lstlisting}[style=pippython]
 hockey = pd.DataFrame(columns = ["name", "goals", "toi"])
 print(hockey)
@@ -238,18 +305,18 @@ Columns: [name, goals, toi]
 Index: []
 \end{lstlisting}
 \warningtext{Check your commas!}{Just a reminder to check the positions of your commas. This is just a regular list, and since we're passing in strings, our commas must fall outside of the string, otherwise Python will consider the comma to be part of the string with no demarcation between elements, which will result in a syntax error.}
-Our dataframe is still empty because there isn't any data in the row-wise dimension, but we now see that we have three columns when we print out the dataframe.
+Our dataframe\index{Pandas!dataframe} is still empty because there isn't any data in the row-wise dimension, but we now see that we have three columns when we print out the dataframe\index{Pandas!dataframe}.
 \subsubsection{Reading a CSV}
-Pandas has its own method for reading in a comma-separated values, or CSV, file. Using the Pandas method will allow you to put the data directly into a Pandas dataframe, rather than having to shoehorn it into a Python datatype, then typecast it to a Pandas dataframe.\par
-\boxtext{Save time, use a package!}{Pandas is so well universally utilized at this point that there is almost certainly a package out there for the type of data that you want to import, whether it's a R dataset (.rda or .rds), Excel worksheet (.xls or .xlsx), or OpenDocument spreadsheet (.ods). If your data is not in an easy-to-read binary file (as opposed to a plaintext file, like a CSV or TSV (tab separated values) file, consider finding a library in Pip to open the file for you and put the values into a Pandas dataframe.}
-The built-in Pandas method for reading a CSV file is \verb|.read_csv()|, and it returns a Pandas dataframe. The default arguments for the \verb|read_csv()| method are to read a CSV file that was created from a Microsoft Excel, Libreoffice Calc, or Google Sheets file. All three pieces of software create CSV files that adhere to some form of "typical" (although there is no standard for CSV files). For example, some CSV files may use different demarcations for strings, cells, headers, and any number of other changes.
+\indexterm{Pandas} has its own method for reading in a comma-separated values, or CSV, file. Using the \indexterm{Pandas} method will allow you to put the data directly into a \indexterm{Pandas} dataframe\index{Pandas!dataframe}, rather than having to shoehorn it into a Python datatype, then typecast it to a \indexterm{Pandas} dataframe\index{Pandas!dataframe}.\par
+\boxtext{Save time, use a package!}{\indexterm{Pandas} is so well universally utilized at this point that there is almost certainly a package out there for the type of data that you want to import, whether it's a R dataset (.rda or .rds), Excel worksheet (.xls or .xlsx), or OpenDocument spreadsheet (.ods). If your data is not in an easy-to-read binary file (as opposed to a plaintext file, like a CSV or TSV (tab separated values) file, consider finding a library in Pip to open the file for you and put the values into a \indexterm{Pandas} dataframe\index{Pandas!dataframe}.}
+The built-in \indexterm{Pandas} method for reading a CSV file is \verb|.read_csv()|, and it returns a \indexterm{Pandas} dataframe\index{Pandas!dataframe}. The default arguments for the \verb|read_csv()| method are to read a CSV file that was created from a Microsoft Excel, Libreoffice Calc, or Google Sheets file. All three pieces of software create CSV files that adhere to some form of "typical" (although there is no standard for CSV files). For example, some CSV files may use different demarcations for strings, cells, headers, and any number of other changes.
 \begin{itemize}
     \item The separator default is a comma \verb|,|, though some software separates cells using a tab (in the case of TSV files), period, or some other character.
-    \item The header default is to infer whether there is one. Pandas will look at the datatypes of the potential column and evaluate what datatype it is compared to the datatype of the potential header. If the datatypes match with the header, it will infer that you have no header, but if all of your header row is all strings, Pandas will likely infer that you do have a header.
-    \item Pandas will assume that you have no indexing column and it will make its own for you.
+    \item The header default is to infer whether there is one. \indexterm{Pandas} will look at the datatypes of the potential column and evaluate what datatype it is compared to the datatype of the potential header. If the datatypes match with the header, it will infer that you have no header, but if all of your header row is all strings, \indexterm{Pandas} will likely infer that you do have a header.
+    \item \indexterm{Pandas} will assume that you have no indexing column and it will make its own for you.
 \end{itemize}
 Because these are the default arguments for the \verb|read_csv()| method, we don't need to explicitly set these arguments when we use the method. In fact, we only need to pass in one argument: the actual CSV file itself.\par
-Because this is a required argument, we don't even need to specify the position of the argument in the method call. We can instead just pass in the location of the file as a string in the first position of the method call. Let's say that my file was called \verb|skaters.csv| and it was located in the current working directory. We could just run the following line to put \verb|skaters.csv| into a dataframe called \verb|skaters|, then print the head of the \verb|skaters| dataframe.\par
+Because this is a required argument, we don't even need to specify the position of the argument in the method call. We can instead just pass in the location of the file as a string in the first position of the method call. Let's say that my file was called \verb|skaters.csv| and it was located in the current working directory. We could just run the following line to put \verb|skaters.csv| into a dataframe\index{Pandas!dataframe} called \verb|skaters|, then print the head of the \verb|skaters| dataframe\index{Pandas!dataframe}.\par
 \begin{lstlisting}[style=pippython]
 skaters = pd.read_csv("skaters.csv")
 print(skaters.head())
@@ -268,28 +335,207 @@ print(skaters.head())
 \boxtext{Getting Data in Subdirectories}{If your CSV file is in a subdirectory of your current working directory, you can just use slashes to indicate subdirectories. For example, if skaters.csv were a file inside of the data directory, which was inside inside of nhlskaters, which was inside of Downloads, and Downloads was my current working directory, I could just pass in "nhlskaters/data/skaters.csv"}
 \boxtext{From the Top}{Sometimes, it's easier to just give the entire file string. On Unix-like systems, this is easy: just preface the first directory with /. Your home directory is located in /home/yourname/. On Windows, start with C:/ instead. Your home directory is located in C:/Users/yourname/.}
 \subsubsection{Reading a Pickle}
-Pickles are a method of storing a data in non-volatile memory that represent an entire Pandas object. When a Pandas object is pickled, it is stored and recalled exactly the same at the time of pickling. Consider some of the ways that we can fail to read a CSV file. If the data were created with tabs instead of commas, it would be possible to read the data incorrectly. Plus, we can't tell Pandas that the first column is an index, meaning that anyone that imports the data down the line might create a new index, thus breaking your code. A pickle avoids these problems by storing the object as a whole, including indices, column names, and other metadata. This data is read when someone attempts to read the pickle, and the process of reading the pickle recreates the object exactly as it existed from whoever wrote the picklefile.
-Essentially, writing a pickle freezes an object in time, and anyone who uses that pickle down the line will get that object exactly as it stood when it was frozen.
+Pickles are a method of storing a data in non-volatile memory that represent an entire \indexterm{Pandas} object. When a \indexterm{Pandas} object is pickled, it is stored and recalled exactly the same at the time of pickling. Consider some of the ways that we can fail to read a CSV file. If the data were created with tabs instead of commas, it would be possible to read the data incorrectly. Plus, we can't tell \indexterm{Pandas} that the first column is an index, meaning that anyone that imports the data down the line might create a new index, thus breaking your code. A pickle avoids these problems by storing the object as a whole, including indices, column names, and other metadata. This data is read when someone attempts to read the pickle, and the process of reading the pickle recreates the object exactly as it existed from whoever wrote the picklefile.\par
+Essentially, writing a pickle freezes an object in time, and anyone who uses that pickle down the line will get that object exactly as it stood when it was frozen.\par
+We can read pickled files using the \verb|read_pickle()| method from the \verb|Pandas| class. Because we want to get our data exactly as it was left when it was pickled, the \verb|read_pickle()| method has many fewer options compared to \verb|read_csv()|. In fact, there's really only one argument that you'll ever use when reading a pickle, and that is where the pickle is located, which is passed in as a string.\par
+\begin{lstlisting}[style=pippython]
+skaters = pd.read_pickle("https://github.com/kim3-sudo/nhlskaters/blob/main/data/skaters.pkl?raw=true")
+\end{lstlisting}
 \subsection{Adding Data}
 Consider the table presented in section 10.2: it looks like a table! With that view comes the advantage that we can index this table by rows and columns.\par
-\boxtext{Recall}{We first saw numerical indexing when we looked at lists. Remember that in Python (and in Pandas), indices start at 0, not at 1!}
-\subsection{Removing Data}
-Other times, you'll want to permanently remove data. When we want to remove data, we need to choose exactly which data we want to remove, and this is called data selection or data location. Pandas has its own dedicated methods for data selection, including \verb|.at|, \verb|.iat|, \verb|.loc|, and \verb|.iloc|. Once you know how to select the cell that you want, it's much easier to remove that data, and it also helps you manipulate dataframes in general.
+\boxtext{Recall}{We first saw numerical indexing when we looked at lists. Remember that in Python (and in \indexterm{Pandas}), indices start at 0, not at 1!}
+We can add data in two directions: horizontally (adding a column) or vertically (adding a row), and these are done differently due to the way that dataframes are constructed. Remember, a \indexterm{Pandas} dataframe\index{Pandas!dataframe} is still a bunch of \indexterm{Pandas} series\index{Pandas!series} ordered next to each other.\par
+Consider the \verb|hockey.csv| dataset. It contains 31 hockey players on the NHL Anaheim Ducks team for the 2021-2022 season. It contains the following columns: player, role, position, gamesplayed, goals, assists, fowin, foloss. For this section, we will focus on this dataset.\par
+Let's start by importing this dataset. The data are located at\\ \href{https://github.com/kim3-sudo/pfs/raw/main/data/hockey.csv}{https://github.com/kim3-sudo/pfs/raw/main/data/hockey.csv} as a CSV file, so we can import it into Python as a \indexterm{Pandas} dataframe\index{Pandas!dataframe} by using the \verb|read_csv| method in \indexterm{Pandas}.\par
+\boxtext{URLs or local files?}{The read\_csv method in \indexterm{Pandas} supports reading from a URL or from a local filepath as its argument. So, if you don't want to download the file and read it as a local file, you can also just pass in the URL of the dataset as a raw CSV file to \indexterm{Pandas} and it will pull the dataset from the Internet.}
+We can read the CSV from the Internet using the \verb|read_csv| method. This CSV is formatted as most CSVs are, meaning that we don't need to pass any extra arguments into the \verb|read_csv| method: strings are in quotes, the delimiter is a comma, and there is a header.
+\begin{lstlisting}[style=pippython]
+hockey = pd.read_csv("https://github.com/kim3-sudo/pfs/raw/main/data/hockey.csv")
+print(hockey)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+                   player role ... fowin  foloss
+0            Simon Benoit  Def ... 0       0
+1             Sam Carrick  Off ... 89      90
+2             Max Comtois  Off ... 14      15
+3     Nicolas Deslauriers  Off ... 1       3
+4          Jamie Drysdale  Def ... 0       0
+5              Cam Fowler  Def ... 0       0
+6            Ryan Getzlaf  Off ... 418     357
+7             Derek Grant  Off ... 109     102
+8   Benoit-Olivier Groulx  Off ... 38      45
+9           Brendan Guhle  Def ... 0       0
+10          Adam Henrique  Off ... 73      55
+11              Max Jones  Off ... 1       1
+12          Bryce Kindopp  Off ... 0       1
+13          Jacob Larsson  Def ... 0       0
+14         Vinni Lettieri  Off ... 4       1
+15        Hampus Lindholm  Def ... 0       0
+16        Isac Lundestrom  Off ... 267     326
+17            Josh Mahura  Def ... 0       0
+18            Josh Manson  Def ... 0       0
+19         Mason Mctavish  Off ... 0       3
+20           Sonny Milano  Off ... 0       1
+21          Danny O'Regan  Off ... 8      10
+22           Greg Pateryn  Def ... 0       0
+23        Jacob Perreault  Off ... 0       0
+24         Rickard Rakell  Off ... 28      29
+25         Buddy Robinson  Off ... 0       5
+26      Kevin Shattenkirk  Def ... 0       0
+27      Jakob Silfverberg  Off ... 8      13
+28              Sam Steel  Off ... 123     128
+29             Troy Terry  Off ... 0       3
+30         Brayden Tracey  Off ... 0       0
+
+[31 rows x 8 columns]
+\end{lstlisting}
+When we print the data, we can see that the last player listed is Brayden Tracey, and we notice that the data are organized by the player's last name. The hockey buffs among you may have noticed one player's data is missing: Trevor Zegras.\footnote{This missing data is by design. Don't worry, Python and \indexterm{Pandas} did its job.} So, let's add a new row for Zegras's data. His data are provided below for your reference.\par
+\vspace{5mm}
+\begin{tabular}{|l|l|}
+\hline
+Column             & Value                  \\
+\hline
+\verb|player|      & \verb|"Trevor Zegras"| \\
+\hline
+\verb|role|        & \verb|"Off"|           \\
+\hline
+\verb|position|    & \verb|"C"|             \\
+\hline
+\verb|gamesplayed| & \verb|43|              \\
+\hline
+\verb|goals|       & \verb|12|              \\
+\hline
+\verb|assists|     & \verb|21|              \\
+\hline
+\verb|fowin|       & \verb|145|             \\
+\hline
+\verb|foloss|      & \verb|204|            \\
+\hline
+\end{tabular}\par
+\vspace{5mm}
+Consider how we adding data to lists. As it turns out, \indexterm{Pandas} has its own \verb|concat()| method for the \verb|DataFrame| class that will add an object of type \verb|dict| (a dictionary) to a \indexterm{Pandas} dataframe\index{Pandas!dataframe}, where the keys of the dictionary align with the column names in the dataframe\index{Pandas!dataframe}. So, let's make a dictionary with Zegras's data.
+\begin{lstlisting}[style=pippython]
+zegras = {
+	'player': ['Trevor Zegras'],
+	'role': ['Off'],
+	'position': ['C'],
+	'gamesplayed': [43],
+	'goals': [12],
+	'assists': [21],
+	'fowin': [145],
+	'foloss': [204]
+}
+\end{lstlisting}
+Observe how the values in our dictionary are actually lists. This is because the \verb|concat()| method allows us to add multiple rows. If Sebastian Aho were to join the Anaheim Ducks and we wanted to add him to our dataframe, we could put his data alongside Trevor Zegras's data.\par
+\begin{lstlisting}[style=pippython]
+# NOT RUN
+zegras = {
+	'player': ['Trevor Zegras', 'Sebastian Aho'],
+	'role': ['Off', 'Off'],
+	'position': ['C', 'F'],
+	'gamesplayed': [43, 43],
+	'goals': [12, 21],
+	'assists': [21, 27],
+	'fowin': [145, 299],
+	'foloss': [204, 268]
+}
+\end{lstlisting}
+For the sake of demonstration, we won't create the dictionary with Sebastian Aho, only the one with Trevor Zegras. Now that the \verb|zegras| object has Trevor's data, we can use the \verb|concat()| method to concat this dictionary to the \verb|hockey| dataframe\index{Pandas!dataframe}.\cprotect\footnote{Pandas also has a method called \verb|append()| for series and dataframes that uses different syntax from \verb|concat()|. The \verb|append()| method has been deprecated, so you should avoid using it and switch to using \verb|concat()|. You may still find documentation for \verb|append()| out in the wild, but official Pandas documentation has that \verb|append()| has been deprecated in bright red. Just because it works doesn't mean that you should use it.}\par
+The differences between the \verb|list.append()| and the \verb|Series.concat()| methods also exists for the \verb|DataFrame.concat()| method. Like when appending to a series\index{Pandas!series}, we need pass the return of the \verb|concat()| method back into the object.\cprotect\footnote{Assume that the \verb|zegras| dictionary object still exists here.}\par
+\begin{lstlisting}[style=pippython]
+hockey = pd.concat([hockey, pd.DataFrame(zegras)], ignore_index = True)
+print(hockey.tail())
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+27      Jakob Silfverberg  Off ... 8      13
+28              Sam Steel  Off ... 123     128
+29             Troy Terry  Off ... 0       3
+30         Brayden Tracey  Off ... 0       0
+31          Trevor Zegras  Off ... 145     204
+\end{lstlisting}
+Now that we put the return of the \verb|concat()| method into the \verb|hockey| object, \verb|hockey| was updated with the appended data and now has Trevor Zegras's data.\par
+Now, let's say that we wanted to calculate the faceoff percentage, which is calculated as $n_\text{faceoff wins}/(n_\text{faceoff wins} + n_\text{faceoff losses})$. We have the arithmetic skills to calculate this for any one player, but how can we make a new column called \verb|fopct| that has the faceoff percentage for that player?\par
+The naive method to add a new column is to assign a list to an empty column. So, let's make a list of everyone's faceoff percentage. We'll have to be careful when doing our division, since some of the players have never had a faceoff, so we would get a divide by zero error. We'll just assign their percentage to 0\% automatically.\par
+As you might have guessed, our best method for getting all of the data is to iterate over the rows of the dataframe\index{Pandas!dataframe}. However, iterating over a dataframe\index{Pandas!dataframe} isn't as simple as iterating over a list or a dictionary. The following, while it looks right, is not syntactically correct.\par
+\begin{lstlisting}[style=pippython]
+# DO NOT RUN
+for element in hockey:
+	print(hockey[element]["player"])
+\end{lstlisting}
+You'll end up with a \verb|KeyError|, since the dataframe\index{Pandas!dataframe}, by itself, is not iterable.\cprotect\footnote{Depending on \indexterm{Pandas} version, you may get a \verb|TypeError| instead, stating that the \verb|<class 'DataFrame'>| object is not iterable.} Instead, we have to turn our dataframe\index{Pandas!dataframe} into a series\index{Pandas!series} of series\index{Pandas!series}, which are iterable. Luckily for us, \indexterm{Pandas} comes with a method for doing so. This method can be called on dataframe\index{Pandas!dataframe} objects and is called \verb|iterrows()|. You will almost never need to pass any arguments into \verb|iterrows()|, but you need to know that \verb|iterrows()| actually returns two iteration objects: an index and a row. The index contains the index number as whatever datatype it is stored as (since indices in dataframes aren't necessarily numeric), while the row object is a series\index{Pandas!series} with the actual data.\par
+Let's consider our \verb|hockey| data once again.\cprotect\footnote{From here on out, we will assume that you have already added Trevor Zegras's data back into the \verb|hockey| dataframe\index{Pandas!dataframe}.} Using the \verb|iterrows()| method on the \verb|hockey| dataframe\index{Pandas!dataframe} object looks like this. In this example, we will just be printing all of the names.\par
+\begin{lstlisting}[style=pippython]
+for index, row in hockey.iterrows():
+	print(row["player"])
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+Simon Benoit
+Sam Carrick
+Max Comtois
+Nicolas Deslauriers
+Jamie Drysdale
+Cam Fowler
+Ryan Getzlaf
+Derek Grant
+Benoit-Olivier Groulx
+Brendan Guhle
+Adam Henrique
+Max Jones
+Bryce Kindopp
+Jacob Larsson
+Vinni Lettieri
+Hampus Lindholm
+Isac Lundestrom
+Josh Mahura
+Josh Manson
+Mason Mctavish
+Sonny Milano
+Danny O'Regan
+Greg Pateryn
+Jacob Perreault
+Rickard Rakell
+Buddy Robinson
+Kevin Shattenkirk
+Jakob Silfverberg
+Sam Steel
+Troy Terry
+Brayden Tracey
+Trevor Zegras
+\end{lstlisting}
+Now that we can iterate through a dataframe\index{Pandas!dataframe}, let's grab the \verb|fowin| and \verb|foloss| columns, calculate the faceoff win percentage, and put the result into a \indexterm{Pandas} series\index{Pandas!series} for us to add into our dataframe\index{Pandas!dataframe} later. Our series\index{Pandas!series} will use default indices.\par
+\begin{lstlisting}[style=pippython]
+fopct = pd.Series()
+for index, row in hockey.iterrows():
+	if row["fowin"] + row["foloss"] == 0:
+		fopct = pd.concat([fopct, pd.Series([0.0])], ignore_index = True)
+	else:
+		fopct = pd.concat([fopct, pd.Series([row["fowin"] / (row["fowin"] + row["foloss"])])], ignore_index = True)
+\end{lstlisting}
+Recall that we need to put an extra check for players who have never faced off (otherwise, we'll end up with a divide-by-zero error), hence the if statement. Now, we can add the series\index{Pandas!series} values to the dataframe\index{Pandas!dataframe} by assigning it to a new column in the dataframe\index{Pandas!dataframe}. To make a new column, we can simply call a nonexistent column, and \indexterm{Pandas} will make it on-demand.\par
+\begin{lstlisting}[style=pippython]
+hockey["fopct"] = fopct.values
+\end{lstlisting}
+Note how because we're adding a series\index{Pandas!series}, which is a compound datatype with some more abstraction than a list, we need to explicitly say that we want the values out of the \verb|fopct| series\index{Pandas!series} object. Remember, series\index{Pandas!series} have a lot more data than just a list, like an index. If we try to just put the series\index{Pandas!series} into a dataframe\index{Pandas!dataframe} column without saying that we want the values, we'll end up with a TypeError, since \indexterm{Pandas} won't know what part of the series\index{Pandas!series} we want to put into the dataframe\index{Pandas!dataframe} column.
+\subsection{Dropping Data}
+Other times, you'll want to remove data from the dataframe\index{Pandas!dataframe}. Maybe it's because the data isn't applicable to the work that we're doing, or it might just be that we don't need that data, so we can free up some of the memory that is being used to store that data and help Python run faster.\par
+Like when adding data, we have two options to remove data: removing a column or removing a row. \indexterm{Pandas} refers to removing a row or a column as \newterm[dropping]{Pandas!dataframe!drop} the row or column. The method for either is the same: \verb|drop()|.\par
+The \verb|drop()| method takes a special argument called \verb|axis| that tells Pandas whether you want to remove a column or a row, and like the \verb|concat()| method, it returns the modified dataframe without altering the original one unless you overwrite the original object with the modified data. The \verb|axis| argument can take either a 0 or a 1, which correspond to whether you want to remove a row or a column, respectively. You also need to tell Pandas what you actually want to remove, and this is done inside of the \verb|labels| argument, which can be passed as a tuple.\par
+
 \subsection{Modifying Data}
-When we work with data, we often have a need to change individual cells. Perhaps the data is incorrect or the type was created incorrectly (for example, it's a string instead of a float). This is where dataframe data modification comes into play.
+When we work with data, we often have a need to change individual cells. Perhaps the data is incorrect or the type was created incorrectly (for example, it's a string instead of a float). This is where dataframe\index{Pandas!dataframe} data modification comes into play. When we want to modify data, we need to choose exactly which data we want to remove, and this is called data selection or data location. \indexterm{Pandas} has its own dedicated methods for data selection, including \verb|.at|, \verb|.iat|, \verb|.loc|, and \verb|.iloc|. Once you know how to select the cell that you want, it's much easier to remove that data, and it also helps you manipulate dataframes in general.
 \subsection{Transforming Data}
-What if we don't want to edit just one column, but we'd rather change the entire shape of the data? This is called \newterm[data transformation]{data transformation}.\footnote{Note that the term "transformation" means something different here than it does in traditional statistics. While in statistics, transformation means to alter a variable to change its value by using some function (like taking the square root) in order to fit some assumption (like normality), we take "transformation" to mean changing the shape of how the data are represented in the dataframe.}
+What if we don't want to edit just one column, but we'd rather change the entire shape of the data? This is called \newterm[data transformation]{data transformation}.\footnote{Note that the term "transformation" means something different here than it does in traditional statistics. While in statistics, transformation means to alter a variable to change its value by using some function (like taking the square root) in order to fit some assumption (like normality), we take "transformation" to mean changing the shape of how the data are represented in the dataframe\index{Pandas!dataframe}.}
 
 \section{Cleaning Up Data}
 One of the major strengths of Python is its ability to clean data. The very structure of Python means that it's great at very program-oriented tasks, such as procedurally cleaning and sorting data.\par
 The simplest of data cleansing tasks is \newterm[data normalization]{data normalization}. Normalization is the process of making all of the data of a certain variable into a similar form. For example, if you had a variable called "age" that contained both integer and floating point values, then you might want to normalize the data so that all of the data is an integer (if you only care about the integer value of the age) or so that all of the data is a float (if you need more specificity).\par
 Data normalization can clarify confusing things in your data. Let's go back to our "age" variable. Let's say you had the value \verb|7| as one of the values. Does this mean 7 years exactly or some time between 7 and 8 years? Rather, we could specify that the value should be \verb|7.0| - this much more clearly indicates that we're looking at exactly 7 years, not the latter.\par
 \section{Calculating Summary Statistics}
-This book isn't really designed to be a statistics book, but what we can do is go over some basic statistics concepts and apply them to our Pandas and Python skills. If you want to do more with statistics, you should go take a statistics course.\par
+This book isn't really designed to be a statistics book, but what we can do is go over some basic statistics concepts and apply them to our \indexterm{Pandas} and Python skills. If you want to do more with statistics, you should go take a statistics course.\par
 \warningtext{This is not a stats book!}{This textbook is not a statistics book. This is a Python programming book. We cannot possibly cover all of the details of these statistical tests and models in this one chapter - there are entire textbooks dedicated to this topic. Rather, this book should help you translate your skills in R, SAS, or SPSS to Python.}
 \section{Basic Hypothesis Tests with statsmodels}
 \warningtext{This is not a stats book!}{This textbook is not a statistics book. This is a Python programming book. We cannot possibly cover all of the details of these statistical tests and models in this one chapter - there are entire textbooks dedicated to this topic.}
-Alone, Pandas and Python make quite the deadly duo, but add in statsmodels and scipy and you've got yourself a Triforce of Stats! The statsmodels library adds many statistical tests that can be used to evaluate a dataset. Again, this isn't a statstics book, so we won't delve into the theory and details of the tests, but we can cover what the tests do and how to run the tests in R. For more detail, we recommend you check out the OpenIntro Statistics textbook (or just take a statistics class!).\par
+Alone, \indexterm{Pandas} and Python make quite the deadly duo, but add in statsmodels and scipy and you've got yourself a Triforce of Stats! The statsmodels library adds many statistical tests that can be used to evaluate a dataset. Again, this isn't a statstics book, so we won't delve into the theory and details of the tests, but we can cover what the tests do and how to run the tests in R. For more detail, we recommend you check out the OpenIntro Statistics textbook (or just take a statistics class!).\par
 We'll cover three statistical tests: the Z-test for proportions, the T-test for differences in means, and the Kruskal-Wallis test for differences in medians.
 \subsection{Z-Test for Proportions}
 To run a Z-test for proportions, we can use the \verb|proportions_ztest()| method in the \verb|proportion| module in the statsmodels library.\par
@@ -300,7 +546,7 @@ To run a T-test for differences in means, we can use the \verb|ttest_ind()| meth
 To run the Kruskal-Wallis test for differences in medians, we can use the \verb|kruskal()| method in the \verb|stats| module in the scipy library.
 \section{Building Basic Models}
 \warningtext{This is not a stats book!}{This textbook is not a statistics book. This is a Python programming book. We cannot possibly cover all of the details of these statistical tests and models in this one chapter - there are entire textbooks dedicated to this topic.}
-A big part of statistics is models. Statisticians use models to evaluate their data all the time, and it's something that Python and Pandas are quite good at doing.\par
+A big part of statistics is models. Statisticians use models to evaluate their data all the time, and it's something that Python and \indexterm{Pandas} are quite good at doing.\par
 For this book, we'll cover two models: the simple linear regression model, and the logistic regression model.\par
 In order to understand why we're doing any of this, we must first understand what a model is. Consider a dataset with a few columns. One of these columns is our response variable, and the other columns are our indicator variables. If we just look at this one dataset, we know the data that was collected, but how does this generalize? That is, how can we make a prediction for our response variable given a new situation? This generalization is called a model.\par
 As a more concrete example, consider a dataset of 25 high-school age soccer players in a specific league. We might have the variables  speed, agility, age, and goals. Given the data, we can build a simple linear model to predict how many goals a player might score given their speed, agility, and age. This allows us to generalize the dataset (with its real data) to the entire league of, say 200 player, even though they might not have been sampled (assuming that our dataset is representative of the league).\footnote{This is a dramatic simplification of the process of making a model. You should refer to a statistician for more details.}
