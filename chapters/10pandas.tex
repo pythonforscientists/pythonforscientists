@@ -339,8 +339,11 @@ Pickles are a method of storing a data in non-volatile memory that represent an 
 Essentially, writing a pickle freezes an object in time, and anyone who uses that pickle down the line will get that object exactly as it stood when it was frozen.\par
 We can read pickled files using the \verb|read_pickle()| method from the \verb|Pandas| class. Because we want to get our data exactly as it was left when it was pickled, the \verb|read_pickle()| method has many fewer options compared to \verb|read_csv()|. In fact, there's really only one argument that you'll ever use when reading a pickle, and that is where the pickle is located, which is passed in as a string.\par
 \begin{lstlisting}[style=pippython]
-skaters = pd.read_pickle("https://github.com/kim3-sudo/nhlskaters/blob/main/data/skaters.pkl?raw=true")
+skaters = pd.read_pickle("https://github.com/pythonforscientists/data/blob/main/skaters.pkl?raw=true")
 \end{lstlisting}
+\subsection{Looking at Data}
+Before we can do anything with our data, we need to know what the data looks like. You could look at it in its raw form, but that doesn't really help us if we don't know that Python imported the data correctly. Luckily for us, Pandas comes with some methods that can help us get an idea of what the data looks like without necessarily giving us all of the beans.\par
+\boxtext{Why not all the data?}{Why would we want to only get a little bit of the data if we wanted to get the format of data? Why not get all of it? Consider a large dataset with hundreds of thousands or even millions of rows and dozens or hundreds of columns. It would be excruciating to print that entire dataset, so having the tools to print a subset of our data is critical.}
 \subsection{Adding Data}
 Consider the table presented in section 10.2: it looks like a table! With that view comes the advantage that we can index this table by rows and columns.\par
 \boxtext{Recall}{We first saw numerical indexing when we looked at lists. Remember that in Python (and in \indexterm{Pandas}), indices start at 0, not at 1!}
@@ -350,7 +353,7 @@ Let's start by importing this dataset. The data are located at\\ \href{https://g
 \boxtext{URLs or local files?}{The read\_csv method in \indexterm{Pandas} supports reading from a URL or from a local filepath as its argument. So, if you don't want to download the file and read it as a local file, you can also just pass in the URL of the dataset as a raw CSV file to \indexterm{Pandas} and it will pull the dataset from the Internet.}
 We can read the CSV from the Internet using the \verb|read_csv| method. This CSV is formatted as most CSVs are, meaning that we don't need to pass any extra arguments into the \verb|read_csv| method: strings are in quotes, the delimiter is a comma, and there is a header.
 \begin{lstlisting}[style=pippython]
-hockey = pd.read_csv("https://github.com/kim3-sudo/pfs/raw/main/data/hockey.csv")
+hockey = pd.read_csv("https://github.com/pythonforscientists/data/raw/main/hockey.csv")
 print(hockey)
 \end{lstlisting}
 \begin{lstlisting}[style=none]
@@ -515,11 +518,14 @@ Recall that we need to put an extra check for players who have never faced off (
 \begin{lstlisting}[style=pippython]
 hockey["fopct"] = fopct.values
 \end{lstlisting}
-Note how because we're adding a series\index{Pandas!series}, which is a compound datatype with some more abstraction than a list, we need to explicitly say that we want the values out of the \verb|fopct| series\index{Pandas!series} object. Remember, series\index{Pandas!series} have a lot more data than just a list, like an index. If we try to just put the series\index{Pandas!series} into a dataframe\index{Pandas!dataframe} column without saying that we want the values, we'll end up with a TypeError, since \indexterm{Pandas} won't know what part of the series\index{Pandas!series} we want to put into the dataframe\index{Pandas!dataframe} column.
+Note how because we're adding a series\index{Pandas!series}, which is a compound datatype with some more abstraction than a list, we need to explicitly say that we want the values out of the \verb|fopct| series\index{Pandas!series} object. Remember, series\index{Pandas!series} have a lot more data than just a list, like an index. If we try to just put the series\index{Pandas!series} into a dataframe\index{Pandas!dataframe} column without saying that we want the values, we'll end up with a TypeError, since \indexterm{Pandas} won't know what part of the series\index{Pandas!series} we want to put into the dataframe\index{Pandas!dataframe} column.\par
 \subsection{Dropping Data}
 Other times, you'll want to remove data from the dataframe\index{Pandas!dataframe}. Maybe it's because the data isn't applicable to the work that we're doing, or it might just be that we don't need that data, so we can free up some of the memory that is being used to store that data and help Python run faster.\par
 Like when adding data, we have two options to remove data: removing a column or removing a row. \indexterm{Pandas} refers to removing a row or a column as \newterm[dropping]{Pandas!dataframe!drop} the row or column. The method for either is the same: \verb|drop()|.\par
 The \verb|drop()| method takes a special argument called \verb|axis| that tells Pandas whether you want to remove a column or a row, and like the \verb|concat()| method, it returns the modified dataframe without altering the original one unless you overwrite the original object with the modified data. The \verb|axis| argument can take either a 0 or a 1, which correspond to whether you want to remove a row or a column, respectively. You also need to tell Pandas what you actually want to remove, and this is done inside of the \verb|labels| argument, which can be passed as a tuple.\par
+Let's take a look at how this works. We will continue to work with the \verb|hockey| dataset that we began using above.\cprotect\footnote{Again, assume that we still have Trevor Zegras's data in \verb|hockey|, as well as the added column \verb|fopct|.}\par
+Let's start by removing a row. We'll remove Simon Benoit from the data, who has index number 0.
+\boxtext{Heads and tails}{Recall how we can use the head and tail methods on a dataframe to print the first five rows in a dataframe.}
 
 \subsection{Modifying Data}
 When we work with data, we often have a need to change individual cells. Perhaps the data is incorrect or the type was created incorrectly (for example, it's a string instead of a float). This is where dataframe\index{Pandas!dataframe} data modification comes into play. When we want to modify data, we need to choose exactly which data we want to remove, and this is called data selection or data location. \indexterm{Pandas} has its own dedicated methods for data selection, including \verb|.at|, \verb|.iat|, \verb|.loc|, and \verb|.iloc|. Once you know how to select the cell that you want, it's much easier to remove that data, and it also helps you manipulate dataframes in general.
