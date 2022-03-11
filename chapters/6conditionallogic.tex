@@ -375,7 +375,7 @@ Consider the following for loop declarations. Are they syntactically correct? Wh
 \begin{Exercise}
     \Question{Using exactly two lines of code, write a loop that prints the following lines:\\\verb|pear|\\\verb|papaya|\\\verb|pomelo|\\\verb|grape|}
     \Question{Using exactly two lines of code, print the numbers from 1 to 100.}
-    \Question{Using exactly two lines of code and the variable \verb|a| as the iterator in your loop, print $a$ asterisks, with each set of $a$ asterisks on their own line, with the shortest line being just one asterisk and the longest line being ten asterisks. It should look like this:\\\verb|*|\\\verb|**|\\\verb|***|\\\verb|****|\\\verb|*****|\\\verb|******|\\\verb|*******|\\\verb|********|\\\verb|*********|\\\verb|**********|}
+    \Question{Using exactly two lines of code and the variable \verb|k| as the iterator in your loop, print $a$ asterisks, with each set of $k$ asterisks on their own line, with the shortest line being just one asterisk and the longest line being ten asterisks. It should look like this:\\\verb|*|\\\verb|**|\\\verb|***|\\\verb|****|\\\verb|*****|\\\verb|******|\\\verb|*******|\\\verb|********|\\\verb|*********|\\\verb|**********|}
 \end{Exercise}
 \section{While Loops}
 The last major loop structure is the \verb|while| loop. Compared to a \verb|for| loop, a \verb|while| loop is much more simple: it tests a condition and executes the code inside of that statement if the test is true and skips the code if not. \verb|for| loops are really great at doing something a specified number of times, but \verb|while| loops are really good at doing something either something a specified number of times or an indeterminate number of times. Let's look at both of these.\par
@@ -474,6 +474,9 @@ These exercise questions cover chapter 6.4.
 \end{Exercise}
 \begin{Exercise}
 Create a small script that asks the user for a sequence of numbers over and over again, until they put a negative number (like -1). Store all of the results in a list with the variable name \verb|numbers|. The end list should look something like \verb|numbers = [33, 48, 9, 6, 83]|.
+\end{Exercise}
+\begin{Exercise}
+Provide two examples of why you might want to create an example loop. For each example, provide a brief code snippit that demonstrates how you might use the infinite loop to your advantage, as well as how you would control the execution to make sure the loop stays controlled. In your code snippit, only provide the necessary lines to demonstrate the loop itself and how you intend on controlling the loop; everything else can just be a comment on what you would put there.
 \end{Exercise}
 \section{Scope}
 One important concept that's difficult for many introductory programming students to grasp is scope. Scope allows us to keep our variables restricted to a certain block, and being able to effectively use scope to write clean code is an essential skill in higher levels of programming. Misusing scope or not knowing how it works is the source of a lot of frustration, and at worst, it can cause some pretty serious security issues.\par

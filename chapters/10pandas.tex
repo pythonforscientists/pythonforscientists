@@ -16,6 +16,11 @@ Now, we can access the \verb|pandas| method by using \verb|pd|. For example, ins
 \warningtext{Use pd, not something else}{Avoid creating a different alias for pandas than "pd", which has become the default alias. Using a different alias may cause confusion in readers.}
  
 \boxtext{Aliases With Other Libraries}{Other libraries have well-known aliases\index{alias}, too. "numpy" is aliased "np", "scikit-learn" is aliased "sk", and "BeautifulSoup4" is aliased "bs4".}
+
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 10.1.
+
+No exercise questions exist for this section yet.
 \section{New Datatypes}
 Learning how to use \indexterm{Pandas} means that you need to learn how to use two new datatypes: the Series\index{Pandas!series} and the new DataFrame\index{Pandas!dataframe}. These datatypes were built expressly for the purposes of data analysis while using \indexterm{Pandas}, and they build upon the initial structure of the dictionary and the list.\par
 These datatypes are only available when you use \indexterm{Pandas}, so make sure you import the \indexterm{Pandas} library before trying to instantiate a new series\index{Pandas!series} or dataframe\index{Pandas!dataframe}.
@@ -252,6 +257,11 @@ print(players)
 dtype: object
 \end{lstlisting}
 
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 10.3.
+
+No exercise questions exist for this section yet.
+
 \section{Dataframes}
 Now that we've seen series\index{Pandas!series}, we can begin to explore dataframes. A dataframe\index{Pandas!dataframe} is yet another complex datatype, but it is among the most powerful of complex datatypes out there because of its flexibility and the sheer number of methods that exist to manipulate that data.\par
 Most data comes to data scientists as a CSV file. Whether it's been cleaned or not, they tend to follow the same form.\par
@@ -341,6 +351,10 @@ We can read pickled files using the \verb|read_pickle()| method from the \verb|P
 \begin{lstlisting}[style=pippython]
 skaters = pd.read_pickle("https://github.com/pythonforscientists/data/blob/main/skaters.pkl?raw=true")
 \end{lstlisting}
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 10.4.1.
+
+No exercise questions exist for this section yet.
 \subsection{Looking at Data}
 Before we can do anything with our data, we need to know what the data looks like. You could look at it in its raw form, but that doesn't really help us if we don't know that Python imported the data correctly. Luckily for us, Pandas comes with some methods that can help us get an idea of what the data looks like without necessarily giving us all of the beans.\par
 \boxtext{Why not all the data?}{Why would we want to only get a little bit of the data if we wanted to get the format of data? Why not get all of it? Consider a large dataset with hundreds of thousands or even millions of rows and dozens or hundreds of columns. It would be excruciating to print that entire dataset, so having the tools to print a subset of our data is critical.}
@@ -464,6 +478,11 @@ sid             player   playerid ... foloss  fopct
 
 [10 rows x 65 columns]
 \end{lstlisting}
+
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 10.4.2.
+
+No exercise questions exist for this section yet.
 
 \subsection{Adding Data}
 Consider the table presented in section 10.2: it looks like a table! With that view comes the advantage that we can index this table by rows and columns.\par
@@ -640,6 +659,12 @@ Recall that we need to put an extra check for players who have never faced off (
 hockey["fopct"] = fopct.values
 \end{lstlisting}
 Note how because we're adding a series\index{Pandas!series}, which is a compound datatype with some more abstraction than a list, we need to explicitly say that we want the values out of the \verb|fopct| series\index{Pandas!series} object. Remember, series\index{Pandas!series} have a lot more data than just a list, like an index. If we try to just put the series\index{Pandas!series} into a dataframe\index{Pandas!dataframe} column without saying that we want the values, we'll end up with a TypeError, since \indexterm{Pandas} won't know what part of the series\index{Pandas!series} we want to put into the dataframe\index{Pandas!dataframe} column.\par
+
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 10.4.3.
+
+No exercise questions exist for this section yet.
+
 \subsection{Dropping Data}
 Other times, you'll want to remove data from the dataframe\index{Pandas!dataframe}. Maybe it's because the data isn't applicable to the work that we're doing, or it might just be that we don't need that data, so we can free up some of the memory that is being used to store that data and help Python run faster.\par
 Like when adding data, we have two options to remove data: removing a column or removing a row. \indexterm{Pandas} refers to removing a row or a column as \newterm[dropping]{Pandas!dataframe!drop} the row or column. The method for either is the same: \verb|drop()|.\par
@@ -691,6 +716,12 @@ Index(['player', 'role', 'position', 'gamesplayed', 'goals', 'assists',
        'fowin', 'foloss'],
       dtype='object')
 \end{lstlisting}
+
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 10.4.4.
+
+No exercise questions exist for this section yet.
+
 \subsection{Modifying Data}
 When we work with data, we often have a need to change individual cells. Perhaps the data is incorrect or the type was created incorrectly (for example, it's a string instead of a float). This is where dataframe\index{Pandas!dataframe} data modification comes into play. When we want to modify data, we need to choose exactly which data we want to remove, and this is called data selection or data location. \indexterm{Pandas} has its own dedicated methods for data selection, including \verb|.at|, \verb|.iat|, \verb|.loc|, and \verb|.iloc|. Once you know how to select the cell that you want, it's much easier to remove that data, and it also helps you manipulate dataframes in general.\par
 The most naive method is to reference an individual cell by its column and index. We alluded to doing this in the previous section when we looked at how to view the datatype of a cell. Let's consider the \verb|skaters| dataframe object. We previously looked at the type of the \verb|"player"| column at row index 0.\par
@@ -748,6 +779,12 @@ One of the major strengths of Python is its ability to clean data. The very stru
 The simplest of data cleansing tasks is \newterm[data normalization]{data normalization}. Normalization is the process of making all of the data of a certain variable into a similar form. For example, if you had a variable called "age" that contained both integer and floating point values, then you might want to normalize the data so that all of the data is an integer (if you only care about the integer value of the age) or so that all of the data is a float (if you need more specificity).\par
 Data normalization can clarify confusing things in your data. Let's go back to our "age" variable. Let's say you had the value \verb|7| as one of the values. Does this mean 7 years exactly or some time between 7 and 8 years? Rather, we could specify that the value should be \verb|7.0| - this much more clearly indicates that we're looking at exactly 7 years, not the latter.\par
 Using your data modification skills, you can now do things like typecast cells in a Pandas dataframe.
+
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 10.4.5.
+
+No exercise questions exist for this section yet.
+
 \section{Calculating Summary Statistics}
 This book isn't really designed to be a statistics book, but what we can do is go over some basic statistics concepts and apply them to our \indexterm{Pandas} and Python skills. If you want to do more with statistics, you should go take a statistics course.\par
 \warningtext{This is not a stats book!}{This textbook is not a statistics book. This is a Python programming book. We cannot possibly cover all of the details of these statistical tests and models in this one chapter - there are entire textbooks dedicated to this topic. Rather, this book should help you translate your skills in R, SAS, or SPSS to Python.}
@@ -831,6 +868,12 @@ print(skaters["goals"].quantile([0.25, 0.5, 0.75]))
 0.75    7.0
 Name: goals, dtype: float64
 \end{lstlisting}
+
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 10.5.
+
+No exercise questions exist for this section yet.
+
 \section{Basic Hypothesis Tests with statsmodels (Optional)}
 \warningtext{Prerequisites}{For the remainder of this section, we are operating under the assumption that you have had an introductory statistics course and understand the basic principles behind statistics. We will not be covering important topics like experimental design, data collection principles, or the details behind the tests and methods explored in this chapter. Instead, we will assume that you have already done these tests in R, SPSS, SAS, by hand, or in some other programming language, and that you are only "translating" that statistics knowledge into Python.}
 A bit of a warning before we get started: this textbook is not a statistics book. This is a Python programming book. We cannot possibly cover all of the details of these statistical tests and models in this one chapter - there are entire textbooks dedicated to this topic. We would recommend only reading this section if you have prior statistics knowledge of hypothesis tests.
@@ -887,6 +930,12 @@ print(tstat, df)
 1.6839153933108315 48.0
 \end{lstlisting}
 In our experiment, we find a $p$-value of 0.0493 and a test statistic of 1.683 on 48 degrees of freedom. At an $\alpha$ level of 0.05, we reject the null hypothesis $H_0$ that the mean G-force between the two helmets are the same and conclude that there is a statistically significant difference between the two helmets.
+
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 10.6.
+
+No exercise questions exist for this section yet.
+
 \section{Basic Graphs with Matplotlib}
 \warningtext{This is not a stats book!}{This textbook is not a statistics book. This is a Python programming book. We cannot possibly cover all of the details of these statistical tests and models in this one chapter - there are entire textbooks dedicated to this topic.}
 The most glamorous part of statistics is probably the graphs. So far, almost everything that we've done has been done in the console, and while it's great for data density, it doesn't look great if we're being perfectly honest. However, we're about to leave the realm of the console and start to play with a new library: Matplotlib. This library will introduce us to tools that will open windows with graphs, since trying to view graphs in a terminal just isn't fun.\par
@@ -1019,3 +1068,8 @@ plt.show()
 \end{lstlisting}
 
 \includegraphics[width = 0.8\textwidth]{img/hist8.png}
+
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 10.7.
+
+No exercise questions exist for this section yet.

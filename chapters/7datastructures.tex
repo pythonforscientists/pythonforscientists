@@ -172,6 +172,10 @@ Returns:
 \end{lstlisting}
 If your IDE supports a specific template, it will auto-generate it once you create your block comment after your function definition. So, you can simply define a block comment as the first line of your function. If it is supported, it will be created for you. Otherwise, you can just paste in the template that works the best for you.\par
 Like whitespace, it's a good idea to get into the habit of always writing a detailed block comment for each of your functions, including what the function does, what its arguments are, and what it returns. Regardless of what template you use, make sure that you're descriptive in your code.\par
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapters 7.1.1 and 7.1.2.
+
+No exercise questions exist for this section yet.
 \subsection{Default Values}
 For many functions, you will have an argument that is processed in that function. In some functions, though, you may want to have a default value so you don't have to type in every argument, every single time. Python supports default function arguments when we define our function, and this can be extremely useful for quickly calling commonly used functions.\par
 You have already taken advantage of default function arguments when you have called functions in the past, like the \verb|print()| function. You already know how to use the \verb|print()| function: you put a string argument in it and it prints it to the console. But, what if we're concatenating and we want to change what the separator value is? We can \textit{choose} to specify the \verb|sep| argument. What if we want to change how the \verb|print()| function ends a line? We can \textit{choose} to specify the \verb|end| argument. \verb|sep| and \verb|end| have default values that will be used if these arguments are not specified when called. Because of these default arguments, the following two lines are equivalent.\par
@@ -300,6 +304,10 @@ printfopct(132, 71, "TD Ierlan")
 TD Ierlan's faceoff percentage is 0.6502463054187192
 \end{lstlisting}
 In this case, we specified that we don't want to use the default value of \verb|""| for \verb|player| and instead specified our own player name (\verb|"TD Ierlan"|).
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 7.1.3.
+
+No exercise questions exist for this section yet.
 \subsection{Positional and Keyword Arguments}
 For the past few sections, all of our functions have only had a few arguments at the most. This is pretty easy to keep track of. But now, let's consider a function with lots and lots of arguments. We could have a function with dozens of arguments, some of which are required and others of which are not. This is where positional versus keyword arguments come into play.\par
 As their names suggest, positional arguments use the position of the argument in the function call to determine what function parameter they should be representing. Again, consider the \verb|printfopct()| function from the previous section. The function's definition is given below for your convenience.\par
@@ -327,6 +335,10 @@ However, when we specify an argument like \verb|sep| or \verb|end|, we are speci
 \begin{lstlisting}[style=pippython]
 print("Hello, World", end = "\n")
 \end{lstlisting}
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 7.1.4.
+
+No exercise questions exist for this section yet.
 \section{Classes}
 \warningtext{Do you understand functions?}{If you haven't grasped the concept and application of functions yet, stop reading here. Make sure that you understand functions first, otherwise classes won't make any sense. Learning classes represents a significant jump in abstraction, so knowing how functions work is crucial to approaching classes.}Learning how to effectively use classes will prepare to practice a discipline of programming known as \newterm[object-oriented programming]{object-oriented programming} or \newterm[OOP]{object-oriented programming}. Object-oriented programming falls under the idea of programming composition, and it hinges on the idea that objects can contain other objects. That means that you could put a box inside of another box. Not only could you put a smaller box inside of a bigger box, you could put multiple smaller boxes inside of the larger box. The key behind object-oriented programming is that it allows us to store information together, rather than parsimoniously.\par
 Consider how the leap from individual variables to complex datatypes, like dictionaries, enhanced our ability to communicate clearly while writing less code. Further object orientation helps the code's reader understand not only that the information is together, but that they are related. The goal is to help us represent simple information unambiguously and simply.\par
@@ -415,6 +427,10 @@ print(ratlisc01.name)
 Scott Ratliff
 \end{lstlisting}
 The ability to put information inside of classes will allow you to abstract out your programming. By hiding the really gritty stuff and covering it with a tidy facade (essentially what classes allow you to do), you can write incredibly clean and efficient code. More importantly, if we're consistent with our attribute names, it will allow us to get the data for similar objects easily. If we know that we're always creating an attribute \verb|Player.name|, then we know that we can find the player's name in that attribute for an object of type \verb|Player|.
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 7.2.1.
+
+No exercise questions exist for this section yet.
 \subsection{Class Methods}
 You might be thinking to yourself now, "how is this any different from a dictionary?" Well, we can get information on the objects that we create using the \newterm[methods]{class!method} that we write. A class method is a function that is specific to an object and that can access data within that object. For example, in the \verb|Players| class, we have a method called \verb|fopct| which calculates the faceoff win percentage based on faceoff wins and faceoff losses. Let's use that now. First, let's make a new object called \verb|nardejo01| that takes the \verb|Player| class.\par
 \begin{lstlisting}[style=pippython]
@@ -454,6 +470,10 @@ print(gaffnco01.fopct())
 0.391304347826087
 \end{lstlisting}
 When we call \verb|fopct()| on the \verb|gaffnco01| object, \verb|self| is a reflection of \verb|gaffnco01|, and the returned value represents \verb|gaffnco01|'s faceoff percentage.
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 7.2.2.
+
+No exercise questions exist for this section yet.
 \subsection{Class Initialization and Constructors}
 Let's consider the \verb|Player| class introduced above. It is printed below for your convenience.
 \begin{lstlisting}[style=pippython]
@@ -571,6 +591,10 @@ print(adlerma01.fopct())
 \begin{lstlisting}[style=none]
 0.48502994011976047
 \end{lstlisting}
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 7.2.3.
+
+No exercise questions exist for this section yet.
 \subsection{Nested Classes}
 Python supports something really cool called nested classes. Consider where we have seen nesting before: in loops and conditional statements. For example, we might have the following nested if-then statement.\par
 \begin{lstlisting}[style=pippython]
@@ -680,13 +704,25 @@ Simoneau
 Drew  Simoneau
 \end{lstlisting}
 In this chunk, we're calling the \verb|first| and \verb|last| attributes from the \verb|name| class, then we're calling the \verb|fullname()| method from the \verb|name| class. Take note of the two periods to get to the nested class. We have the period in between \verb|simondr01| and \verb|name|, which gets the parent object, and another period in between \verb|name| and \verb|first|, which gets the child object.
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 7.2.4.
+
+No exercise questions exist for this section yet.
 \section{Functions Versus Methods}
 Now that we know what a class method is, how exactly is it different from a regular old function? Sure, on the surface, they look the exact same and they even use the exact same definition syntax! The key to a method is that it is enclosed in a class and that it operates using class attributes as opposed to naive arguments. This means that for many of your class methods, you will never need to include anything other than \verb|self| as an argument, since you'll only ever be accessing class attributes inside of your method. 
 \section{Security Types (Optional)}
 In other programming language classes, there is a concept known as security types. The security type of an object attribute is a measure of how accessible it is to the layer above it. In general, there are three security types: public, private, and undefined. Some languages don't have undefined security types, like C++ or C\#. Other languages do have undefined security types, like Java. The purpose of a private security type is to prevent a programmer from inadvertently modifying or accessing the attribute using naive code methods. \textbf{Private attributes are not inaccessible with the right methods}, only harder to get to. In languages with security types, the programmer typically writes a bridge between a private and a public attribute.\par
 In C++, a common language that has public and private security types, the differentiation of whether a member attribute can be accessed from outside the class or not is the difference between public and private members. If a member attribute is accessible from outside of the class, the attribute is considered public, whereas if the member cannot be accessed or viewed from outside of that exact class, it is considered private. C++ adds a third security type as a subset of private member attributes called protected, which allows a member attribute to be accessed from inherited classes but not in a public scope.\par
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 7.3.
+
+No exercise questions exist for this section yet.
 \section{Structures (Optional)}
 There's a concept in other programming languages known as structures, or structs. Structs are another way of structuring data compared to classes, but unfortunately, Python doesn't natively support structs. However, we can still go over what a struct is so that should you choose to pick up a new programming language down the line, you can understand how that code works.\par
 Let's say that you wanted to store a date. There's several ways that we could store this date. We could make an entire class called \verb|date|, but this seems kind of wasteful and somewhat backwards. It's a lot of code for something so simple. Likewise, we could store our year, month and date in individual variables, but this seems kind of messy and like it could cause readability issues. Instead, we can make a struct. A struct is like a combination of data that can be accessed as a single datatype, but without the overhead of a class.\par
 In performance oriented languages, like C++, C\#, Swift, or Java, structs are better than classes, since they require less memory to store and the runtime doesn't need to use all of the features of a class. In our previous example, we could make a \verb|date| struct that had three elements: year, month, and day. We can then call the entire struct to get all of its data or get specific pieces of data out of this struct by using our period notation.\par
 Python is not a performance oriented language. It has a lot of overhead, especially as an interpreter-driven language, so the performance advantages of a dedicated struct data structure don't really apply to it.\par
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 7.4.
+
+No exercise questions exist for this section yet.

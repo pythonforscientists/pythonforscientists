@@ -76,6 +76,11 @@ Tag & Description              \\
 Not all elements have two tags, and that's okay. However, these are special cases. For example, the \verb|<input>| and \verb|<br>| elements only have one tag: their opening tag. This is because all of the information that is needed to render the tag are included in the tag's \newterm[attributes]{HTML!attributes}. HTML tag attributes give additional information to the renderer about how the tag should be rendered, what the tag is, and if there's any data that needs to be dealt with. Attributes can be placed on any element, regardless of whether the tag has a closing tag or not, but they can only be placed on \textit{opening} tags, never on \textit{closing} tags.\par
 There are some common attributes, including \verb|id|, \verb|class|, and \verb|name|. However, as you can see in the above HTML code snip, you don't strictly \textit{need} to include any attributes.
 
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 11.1.1.
+
+No exercise questions exist for this section yet.
+
 \subsection{CSS and JavaScript}
 This is not a web design course, but it is important to understand how we get from the very simple HTML documents presented above to the websites of today.\par
 CSS stands for Cascading Style Sheets, and it is responsible for styling the webpage. By providing specific rules on the size, color, shape, and placement of different elements, it is possible to create pretty webpages. Essentially, it's like putting a Snapchat filter on your boring HTML code. The HTML code provides the \textit{substance}, and the CSS provides the \textit{style}.\par
@@ -85,6 +90,11 @@ Inline styles are put in the HTML attribute \verb|style=|. Inside of the style a
 Document CSS is written at the beginning or in the middle of an HTML document (in HTML5). Document CSS only applies to the document that the CSS is written in, but it applies to the entire document. Document CSS is placed inside of special \verb|<style></style>| tags, and it resembles what might be placed in a dedicated CSS document. In our actual document, we refer to the rules that we wrote in our \verb|<style>| tags using another HTML attribute: \verb|class=|.\par
 \warningtext{Not all classes are created equal}{Classes in HTML are very different from classes in Python! Be careful to not confuse the two.}
 In CSS, every group of rules is placed inside of a CSS class, which can be applied to HTML elements using the \verb|class| attribute. If all of the elements on your page are styled in a similar way, it might be possible to select what you need using the \verb|class| attribute.
+
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 11.1.2.
+
+No exercise questions exist for this section yet.
 
 \subsection{The requests Library}
 In order to get the HTML into Python, we need to use a special library that can make a web request to a web server. The web server responds with what has been requested. In fact, whenever you use a website in a standard web browser, you are making requests whenever you click. There are two types of requests that are of concern to us: \verb|POST| and \verb|GET| requests.\par
@@ -197,6 +207,12 @@ response = requests.get("https://www.bundesliga.com/en/bundesliga/table", header
 	'Sec-CH-UA-Platform': 'macOS'
 })
 \end{lstlisting}
+
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 11.1.3.
+
+No exercise questions exist for this section yet.
+
 \section{Parsing with Beautiful Soup}
 Now that we have our HTML in Python, we need to know how to break it apart. We could break the structure apart in a naive method, by writing a series of \verb|if| statements and iterating over the contents of the HTML until we find tags. However, why would we do this when we can use Beautiful Soup instead?\par
 Beautiful Soup's job is to break apart and parse webpages in a way that is easy for you to understand. As opposed to creating a parser and writing if/else statements, Beautiful Soup comes with many tools that are incredibly flexible and powerful. The power of Beautiful Soup lies in its ability to pull data out of extraordinarily complex webpages in just a few lines of code.\par
@@ -209,6 +225,12 @@ from bs4 import BeautifulSoup
 The next step is to strain the soup and find things that we want out of the soup. We do this by calling the \verb|find()| method on the \verb|soup| object that \verb|BeautifulSoup()| returned. The \verb|find()| method looks for HTML keywords (like \verb|<td>| or \verb|<option>|.\par
 The \verb|find()| method can find the high-level objects, but it has trouble finding children that match the given criteria, so we then use the \verb|find_all()| method on the \verb|PageElement| object that \verb|find()| returned.\par
 The \verb|find_all()| method returns all of the matching strings, so the next step would be to clean up the matching strings using stripping methods and regular expression matching, which we covered in Chapter 3.4.
+
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 11.2.1.
+
+No exercise questions exist for this section yet.
+
 \subsection{Parsing HTML}
 Now that we know how Beautiful Soup is processing our text string, let's apply that to our HTML.
 Let's start by making a request. We'll continue to work with the Bundesliga table page, which you can find at \\\href{https://www.bundesliga.com/en/bundesliga/table}{https://www.bundesliga.com/en/bundesliga/table}. We can get our data by using a GET request straight to this page.\par
@@ -296,6 +318,12 @@ print(bundesliga)
 
 [19 rows x 9 columns]
 \end{lstlisting}
+
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 11.2.2.
+
+No exercise questions exist for this section yet.
+
 \section{APIs}
 An \newterm[application programming interface]{application programming interface}, or \newterm[API]{application programming interface!API}, returns formatted data based on a request that is made to it. While on the surface, an API call looks like any other web resource call, its return is very different, typically an XML or JSON form. You can experiment with open APIs using an API testing tool, like Postman. Postman can also help you form authentication strings, if your API of choice requires authentication.\par
 If an API will give you the information you need, use this instead, since it's much faster to develop for.\par
@@ -350,3 +378,8 @@ print(response)
 \end{lstlisting}
 We can now see that the type is no longer \verb|str| but is a dictionary object instead.\par
 The key with the \verb|load()| and \verb|loads()| methods is that they work on any JSON-formatted data, not just data that comes from a web request. For example, consider if we imported a JSON as a file and read it into a string variable, as we showed in Chapter 8. We could then use the \verb|loads()| method to parse this string into a Python dictionary.
+
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 11.3.
+
+No exercise questions exist for this section yet.

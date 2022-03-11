@@ -385,10 +385,26 @@ print(leafygreens[1])
 Butterhead Lettuce
 \end{lstlisting}
 If we want to store data, it is almost always more practical to use a list or a dictionary. However, there are still some cases where we would want to use a tuple: when we are interacting with functions. When we want to call a function and pass specified arguments to that function, we should use a tuple, since a tuple is of a fixed length and is immutable. In this use case, we will almost never see the tuple placed into a variable, but rather given as a tuple literal. Because of their limited use case, you probably won't want to use a tuple unless you see it in library documentation for some module that you're using. We wanted to introduce the concept of tuples to you regardless, since they do exist.
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 5.3.
+\begin{Exercise}
+\Question{What is a tuple?}
+\Question{How is a tuple different from a list?}
+\Question{In Python, how do we create a tuple?}
+\Question{Can tuples be changed after they are created? Provide an example backing up your claim.}
+\end{Exercise}
+\begin{Exercise}
+Define a 4-tuple of strings with courses that you have taken. Do not put the tuple into a variable.
+\end{Exercise}
 
 \section{Sets}
 \newterm[Sets]{datatype!set} are the simplest of the complex datatypes, so if you understand lists, dictionaries, and tuples, you already understand a set.\par
 In mathematics, sets are simply a collection of elements. There are no orders, sequences, or indices. Sets also cannot contain duplicate entries. Any duplicate entries will be ignored, since in a set, all that matters is whether an element is present in the set or not. This means that the set ${2, 3, 4}$ and ${2, 3, 4, 3}$ are the same, since the values 2, 3, and 4 are in both sets. In mathematics, we write sets inside of curly braces: ${2, 3, 4, 5, 6}$.\par
+
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 5.4.
+
+No exercise questions exist for this section.
 
 \section{Subsetting}
 Now that we have seen indices in Python, we can subset based on those indices. For example, consider this list.\par
@@ -474,6 +490,73 @@ print(names[-3:])
 \begin{lstlisting}[style=none]
 ['Mathieu Van Der Poel', 'Chris Froome', 'Mark Cavendish']
 \end{lstlisting}
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 5.5.
+\begin{Exercise}
+	\Question{What is subsetting?}
+	\Question{What kinds of objects can be subsetted?}
+	\Question{What is negative indexing?}
+	\Question{What is implicit subsetting?}
+\end{Exercise}
+\begin{Exercise}
+	\Question{Create a string with the following text: "Let's have a nice tree right here. Nothing wrong with washing your brush. If I paint something, I don't want to have to explain what it is. Don't be afraid to make these big decisions. Once you start, they sort of just make themselves. Everything is happy if you choose to make it that way."}
+	\Question{Put that string into a variable called \verb|happytree|.}
+	\Question{Print the first 30 characters of \verb|happytree|.}
+	\Question{Print the last 30 characters of \verb|happytree|.}
+	\Question{Print the 10th to the 40th character of \verb|happytree|.}
+	\Question{Print from the 30th character to the last character of \verb|happytree|.}
+\end{Exercise}
+\begin{Exercise}
+	\Question{Create a list with the following elements and put it into a variable called \verb|pokemon|:\\
+"Bulbasaur"\\
+"Ivysaur"\\
+"Venusaur"\\
+"Charmander"\\
+"Charmeleon"\\
+"Charizard"\\
+"Squirtle"\\
+"Wartortle"\\
+"Blastoise"\\
+"Caterpie"\\
+"Metapod"\\
+"Butterfree"\\
+"Weedle"\\
+"Kakuna"\\
+"Pikachu"\\
+"Arbok"\\
+"Raichu"\\
+"Nidorino"}
+	\Question{How many elements are in this list? What method did you use to get this length?}
+	\Question{Print the first element of \verb|pokemon|.}
+	\Question{Print the last element of \verb|pokemon|.}
+	\Question{Print the third element of \verb|pokemon|.}
+	\Question{Print the first three elements of \verb|pokemon|.}
+	\Question{Print the last three elements of \verb|pokemon|.}
+	\Question{Print the third to the last element of \verb|pokemon|.}
+\end{Exercise}
+\begin{Exercise}
+	\Question{Create a list with the following elements and put it into a variable called \verb|villans|:\\
+"Bane"\\
+"Black Mask"\\
+"Catwoman"\\
+"Clayface"\\
+"Deadshot"\\
+"Firefly"\\
+"Harley Quinn"\\
+"Professor Hugo Strange"\\
+"Hush"\\
+"Joker"\\
+"Killer Croc"\\
+"Mr. Freeze"\\
+"Man-Bat"}
+	\Question{How many elements are in this list? What method did you use to get this length?}
+	\Question{Print the first element of \verb|villans|.}
+	\Question{Print the last element of \verb|villans|.}
+	\Question{Print the last seven elements of \verb|villans|.}
+	\Question{Print from the 7th element to the last element of \verb|villans|.}
+	\Question{Print the seventh element of \verb|villans|.}
+	\Question{Print the seventh-from-the-last element of \verb|villans|.}
+\end{Exercise}
 
 \section{String Manipulation}
 We just covered subsetting, including in strings and in lists, but we will cover two more methods for manipulating strings in Python: stripping and matching.
@@ -520,6 +603,35 @@ print("pppppppppppppapplepppp".rstrip("p"))
 \begin{lstlisting}[style=none]
 pppppppppppppapple
 \end{lstlisting}
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 5.6.1.
+\begin{Exercise}
+	\Question{What were the three methods introduced?}
+	\Question{What is the difference between each method?}
+\end{Exercise}
+\begin{Exercise}
+	\Question{If you wanted to remove certain characters from the beginning of a string, what method would you use?}
+	\Question{If you wanted to remove certain characters from the end of a string, what method would you use?}
+	\Question{If you wanted to remove certain characters from the beginning and end of a string, what method would you use?}
+\end{Exercise}
+\begin{Exercise}
+	\Question{Define a new string named \verb|fruit| and initialize it to \verb|33333banana33333|.}
+	\Question{Remove only the characters \verb|3| from the left side of \verb|fruit|.}
+	\Question{Remove only the characters \verb|3| from the right side of \verb|fruit|.}
+	\Question{Remove the letters \verb|a| and \verb|b| from the left side of \verb|fruit|. Leave the \verb|a| on the right side of \verb|fruit|.}
+\end{Exercise}
+\begin{Exercise}
+Consider the string \verb|aaaaaaabababbbbbb| for this exercise.
+	\Question{Without writing any code, strip the character \verb|a| from both sides of the string. Why did you stop removing characters where you did?}
+	\Question{Without writing any code, strip the character \verb|b| from both sides of the original string (the string before part 1). Why did you stop removing characters where you did?}
+	\Question{Without writing any code, strip the characters \verb|ab| from both sides of the original string. Why did you stop removing characters where you did?}
+\end{Exercise}
+\begin{Exercise}
+	\Question{Define a new string named \verb|actor| and initialize it to \\\verb|////  Chadwick Boseman    ****|. There are two spaces between the forward slashes and "Chadwick", and there are four spaces between "Boseman" and the asterisks.}
+	\Question{In one line, remove the asterisk and forward slash characters from \verb|actor|.}
+	\Question{Remove the spaces from the beginning and end of \verb|actor|. Did you specify any arguments for the function that you used? Why or why not?}
+\end{Exercise}
+
 \subsection{Regular Expression Matching}
 What if we wanted to match a chunk of a string? This is where regular expressions come in. Regular expressions, or \newterm[regexes]{regex} allow us to match or check if a match exists between two strings. Regexes have some special style that allows us to match as specifically or as broadly as is necessary for the application.\par
 \subsubsection{Regexes}
@@ -601,6 +713,10 @@ print(matches)
 \begin{lstlisting}[style=none]
 ['172', 'Austin Czarnik', 'czarnau01', '29', 'Eastern', 'Metropolitan', 'NYI', 'Off', 'C', '12', '95', '86', '52.5', '5.4', '72', '61', '54.1', '7.1', '16.9', '91.8', '108.8', '51.7', '48.3', '11:02', '10:22', '4', '4', '-0.1', '16', '62.5', '0:41', '10:23', '3.5', '4.2', '1.6', '0:27', '7.7', '14', '0', '0:11', '-11', '0', '23.7', '2', '4', '6', '6', '0', '0.9', '2', '0', '0', '0', '4', '0', '0', '10', '20', '132', '11:02', '5', '2', '23', '35', '39.7']
 \end{lstlisting}
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 5.6.2.
+
+No exercise questions exist for this section yet.
 
 \section{Random Number Generation}
 Now that we have knowledge of complex datatypes, it makes sense for us to now cover random number generation, since some random number generation outputs rely on prior knowledge of complex datatypes.\par
@@ -684,3 +800,8 @@ print(random.randint(1, 100))
 6
 \end{lstlisting}
 If your seed was set to the 215, the first random integer that you generate from 1 to 100 should be 6.
+
+\subsubsection*{Exercise Questions}
+These exercise questions cover chapter 5.7.
+
+No exercise questions exist for this section yet.

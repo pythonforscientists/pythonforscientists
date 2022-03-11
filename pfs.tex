@@ -20,8 +20,6 @@
 \usepackage{pythonhighlight}
 \usepackage{marginnote}
 \usepackage{exercise}
-%\usepackage{draftwatermark}
-%\usepackage{markdown}
 \usepackage{listings}
 \usepackage{textcomp}
 \usepackage{hyperref}
@@ -121,7 +119,7 @@
 \newcommand{\bookprinttitle}{Python for\\Scientists}
 \newcommand{\booksubtitle}{Introduction to Python for Scientific Computing}
 \newcommand{\booklicense}{MIT License}
-\newcommand{\bookversion}{0.1.9025}
+\newcommand{\bookversion}{0.1.9026}
 
 \author{Sejin Kim}
 % Author subtitle could be a university or a geographical location, for example
@@ -151,6 +149,7 @@
 \tikz[remember picture,overlay] \node[opacity=0.3,inner sep=0pt] at (current page.center){\includegraphics[width=\paperwidth,height=\paperheight]{img/background-image.jpg}};
 \begin{tcolorbox}[skin = widget, coltitle = white, colframe = white, colback = white, width=(\textwidth), before=\hfill, after=\hfill]
 % Title
+\vspace{5mm}
 \textbf{\fontfamily{qcs}\fontsize{48}{54}\selectfont \bookprinttitle\\}
 
 % Draw a line 4pt high
@@ -281,13 +280,13 @@ THIS IS AN UNCORRECTED PROOF AND IS NOT FOR USE IN THE CLASSROOM OR AS PART OF C
 
 % Three-level Table of Contents
 \setcounter{page}{1}
-\renewcommand{\thepage}{\roman{page}}
+\renewcommand{\thepage}{TOC \roman{page}}
 \setcounter{tocdepth}{3}
 \tableofcontents
 
 \mainmatter
 
-\setcounter{page}{1}
+\setcounter{page}{9}
 \renewcommand{\thepage}{\arabic{page}}
 
 \input{chapters/1introduction}
@@ -384,7 +383,9 @@ Python for Scientists is an open-source Python textbook designed for introductor
 \end{itemize}
 \vspace{5mm}
 Version Number: \bookversion\\
-License: \booklicense
+License: \booklicense\\
+EVALUATION COPY
+\vspace{3cm}
 \end{tcolorbox}
 \end{flushleft}
 \end{titlepage}
