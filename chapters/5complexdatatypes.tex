@@ -389,3 +389,298 @@ If we want to store data, it is almost always more practical to use a list or a 
 \section{Sets}
 \newterm[Sets]{datatype!set} are the simplest of the complex datatypes, so if you understand lists, dictionaries, and tuples, you already understand a set.\par
 In mathematics, sets are simply a collection of elements. There are no orders, sequences, or indices. Sets also cannot contain duplicate entries. Any duplicate entries will be ignored, since in a set, all that matters is whether an element is present in the set or not. This means that the set ${2, 3, 4}$ and ${2, 3, 4, 3}$ are the same, since the values 2, 3, and 4 are in both sets. In mathematics, we write sets inside of curly braces: ${2, 3, 4, 5, 6}$.\par
+
+\section{Subsetting}
+Now that we have seen indices in Python, we can subset based on those indices. For example, consider this list.\par
+\begin{lstlisting}[style=pippython]
+names = ["Peter Sagan",
+    "Caleb Ewan",
+    "Mathieu Van Der Poel",
+    "Chris Froome",
+    "Mark Cavendish"]
+\end{lstlisting}
+We know that lists are indexed at 0, so if we wanted to get Mathieu Van Der Poel out of the list, we could refer to \verb|names[2]|.
+\begin{lstlisting}[style=pippython]
+print(names[2])
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+Mathieu Van Der Poel
+\end{lstlisting}
+What if we wanted to get the first two elements from the list? We could refer to the \verb|0|'th and \verb|1|'s element, sure. But, a better tool is something called \newterm[subsetting]{datatype!subset}. Subsetting allows us to get any number of elements from a vector of objects, including strings and lists.\footnote{They also work on non-native datatypes, like the Pandas dataframe and series or the NumPy array, which we'll cover in Chapter 10.}\par
+The subsetting operator is a colon inside of square brackets. The colon is sort of like a "to" operator, meaning that we can refer to index numbers $i$ to $j$ as \verb|[i:j]|. Consider the \verb|names| list from before. If we wanted to refer to the first three names, we really want names 0 to 3 (not including 3), so we can refer to this as the following.
+\begin{lstlisting}[style=pippython]
+print(names[0:3])
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+['Peter Sagan', 'Caleb Ewan', 'Mathieu Van Der Poel']
+\end{lstlisting}
+If we wanted names 1 and 2, we could use this.
+\begin{lstlisting}[style=pippython]
+print(names[1:3])
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+['Caleb Ewan', 'Mathieu Van Der Poel']
+\end{lstlisting}
+What if we wanted to refer to the last element of the vector? Python supports something really cool called \newterm[negative indexing]{datatype!subset!negative indexing}. This essentially counts the vector in reverse order, starting at -1. So, the last element is -1, the second-to-last element is -2, the third-to-last element is -3, and so on. If we wanted to get the last element of the \verb|names| list, we could use negative indexing to get that element.
+\begin{lstlisting}[style=pippython]
+print(names[-1])
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+'Mark Cavendish'
+\end{lstlisting}
+If we wanted the second-to-last element, we could use negative indexing to get just that element.\par
+\begin{lstlisting}[style=pippython]
+print(names[-2])
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+'Chris Froome'
+\end{lstlisting}
+Subsetting also works on strings, where each character in the string is considered its own element. So, let's say we had the string:
+\begin{lstlisting}[style=pippython]
+text = "This will begin to make things right. I've traveled too far, and seen too much, to ignore the despair in the galaxy. Without the Jedi, there can be no balance in the Force. Well, because of you now we have a chance."
+\end{lstlisting}
+This isn't a \textit{short} string persay, and we might not want to print the whole string every time. If we want the first few characters of the string, we can use the third type of subsetting: \newterm[implicit subsetting]{datatype!subset!implicit}. Implicit subsetting is deliberately leaving out either the to or from marker. In implicit subsetting, Python will assume that you want to subset from the beginning of the vector to the set mark or from the set mark to the end of the vector. Where a blank exists, Python fills the blank with either the first element (if the "from" element is blank) or the last element (if the "to" element is blank). Consider the above string. If we only wanted to print the first 30 characters of this string, we can use implicit subsetting to tell Python that we want to print the beginning of the string up to the 30th element.\par
+\begin{lstlisting}[style=pippython]
+print(text[:30])
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+This will begin to make things
+\end{lstlisting}
+Similarly, if we wanted to print the all but the first 50 characters of this string, we can use implicit subsetting to tell Python that we want to print from the 50th element to the last element.
+\begin{lstlisting}[style=pippython]
+print(text[50:])
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+d too far, and seen too much, to ignore the despair in the galaxy. Without the Jedi, there can be no balance in the Force. Well, because of you now we have a chance.
+\end{lstlisting}
+We can also throw negative indexing into our implicit subsetting for an extra fun time! If we wanted to print only the last 50 characters, we could use negative indexing and an implicit subset. This is essentially telling Python to give us from the 50th-to-the-last element to the last element.
+\begin{lstlisting}[style=pippython]
+print(text[-50:])
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+ Force. Well, because of you now we have a chance.
+\end{lstlisting}
+Similarly, we could tell Python to give us from the first element to the 50th-to-the-last element.
+\begin{lstlisting}[style=pippython]
+print(text[:-50])
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+This will begin to make things right. I've traveled too far, and seen too much, to ignore the despair in the galaxy. Without the Jedi, there can be no balance in the
+\end{lstlisting}
+Negative indexing and implicit subsetting also work with lists. If we consider our \verb|names| list and we wanted from the third-to-the-last to the last element, we could use implicit subsetting with a negative index to get those three elements.
+\begin{lstlisting}[style=pippython]
+print(names[-3:])
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+['Mathieu Van Der Poel', 'Chris Froome', 'Mark Cavendish']
+\end{lstlisting}
+
+\section{String Manipulation}
+We just covered subsetting, including in strings and in lists, but we will cover two more methods for manipulating strings in Python: stripping and matching.
+\subsection{Stripping}
+An important feature of string handling is the ability to remove characters from a string. For example, let's say you got some data and it was formatted as \verb|&&data&&| or it was surrounded by spaces. How could we get rid of this cruft?\par
+The process of stripping removes unwanted characters from a string. Python provides us with three stripping methods: left stripping, right stripping, and dual stripping. As their names suggest, these methods can remove characters from the left side of the string, the right side of the string, or from both sides of the string at the same time, respectively. The functions to do this are \verb|lstrip()|, \verb|rstrip()|, and \verb|strip()|.\par
+By default, all three methods only remove whitespace. So, if you had extra tabs or spaces at the beginning or end of your string, you could simply call the \verb|strip| method to remove the whitespaces.\par
+\begin{lstlisting}[style=pippython]
+print("  data  ")
+print("  data  ".strip())
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+  data  
+data
+\end{lstlisting}
+We didn't give the \verb|strip()| method anything, so it only removed the spaces. However, we could also give it letters, numbers, symbols, or any other valid characters. For example, consider the following two print statements.\par
+\begin{lstlisting}[style=pippython]
+print("fpppppppppppppppffdatapffffffppppp")
+print("fpppppppppppppppffdatapffffffppppp".strip("fp"))
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+fpppppppppppppppffdatapffffffppppp
+data
+\end{lstlisting}
+As soon as Python runs into a character that shouldn't be stripped, it stops evaluating from that side. So, even if my word contained \verb|p| and \verb|f|, it wouldn't get stripped out. For example, consider the following print statement.\par
+\begin{lstlisting}[style=pippython]
+print("pppppppppppppapplepppp".strip("p"))
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+apple
+\end{lstlisting}
+The word "apple" has the letter \verb|p| in it, but it doesn't get stripped out because Python has stopped when it reached the \verb|a|.\par
+Let's now consider the left stripping. Left-stripping will remove letters that match stop words from the beginning of the string only.\par
+\begin{lstlisting}[style=pippython]
+print("pppppppppppppapplepppp".lstrip("p"))
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+applepppp
+\end{lstlisting}
+Python removed all of the \verb|p|'s on the left side, up to the first non-stripped character. It didn't remove anything from the right side, though. If we wanted to only remove the right-side characters, we can use the \verb|rstrip()| method.\par
+\begin{lstlisting}[style=pippython]
+print("pppppppppppppapplepppp".rstrip("p"))
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+pppppppppppppapple
+\end{lstlisting}
+\subsection{Regular Expression Matching}
+What if we wanted to match a chunk of a string? This is where regular expressions come in. Regular expressions, or \newterm[regexes]{regex} allow us to match or check if a match exists between two strings. Regexes have some special style that allows us to match as specifically or as broadly as is necessary for the application.\par
+\subsubsection{Regexes}
+For this section, let's consider the following text.
+\begin{lstlisting}[style=none]
+He is headstrong and he has much to learn of the living Force, but he is capable. There is little more he can learn from me. Young Skywalker's fate will be decided later. Now is not the time for this. the Senate is voting for a new Supreme Chancellor and Queen Amidala is returning home, which will put pressure on the Federation, and could widen the confrontation. And draw out the Queen's attacker.
+\end{lstlisting}
+The most simple regex is a direct match. To make a direct match, we simply enter the string to match. Let's try to match the word "the". The regex parser will find 6 matches ("of the living," "not the time", "the Senate is," "on the Federation," "widen the confrontation," and "out the Queen's").\par
+If we chose a direct match that occurs inside of other words, the regex parser will grab those as well. For example, if we try to match the phrase "ch", the regex parser will find 2 matches ("has much to" and "home, which will").\par
+There are several characters that we can use to modify the regex search, with the most greedy being the period. This character is something called a \newterm[wildcard]{regex!wildcard}, which means that it can match different things that adhere to a certain condition. The period matches any single character, meaning that each character in our text has been matched ("H", "e", " ", "i", "s", " ", "h", "e", "a", "d", "s", "t", "r", "o", "n", "g", " "...).\par
+What if we wanted to find a word character only? This is where the word wildcard comes in: \verb|\w|. The \verb|\w| wildcard matches any word character, including from A-Z, a-z, 0-9, or the underscore character. In our text, the \verb|\w| wildcard would match "H", "e", "i", "s",..., "e", "r", but skip spaces, periods, and apostrophes. Similarly, the \verb|\d| wildcard matches any digit from 0-9. It would find no matches in the text above, since the text above has no digits. The \verb|\s| wildcard matches any whitespace, including spaces, tabs, newlines, and carriage returns.\par
+\warningtext{Case Sensitive}{Regexes are case sensitive, meaning that \texttt{\textbackslash d} and \texttt{\textbackslash D} are not the same thing.}
+The \verb|\w|, \verb|\d|, and \verb|\s| wildcards also have negative versions, meaning that it will search the opposite. The negative versions are the capital \verb|\W|, \verb|\D|, and \verb|\S|, which will find \textit{non}-word, \textit{non}-digit, and \textit{non}-whitespace characters, respectively. That means that using the \verb|\s| (lowercase) wildcard catches all of the spaces and the newline at the end of the passage, while the \verb|\S| (uppercase) wildcard catches all of the letters, numbers, and symbols but no spaces or newlines.\par
+We can also create our own custom character sets to select by. For example, if we wanted only the letters \verb|a|, \verb|b|, \verb|c|, \verb|d|, and \verb|e| to be captured, you can use a custom character set. To create a custom character set, just enclose the characters that you want to include in square brackets. So, to catch \verb|a|, \verb|b|, \verb|c|, \verb|d|, and \verb|e|, we would write \verb|[abcde]|. This would catch every letter that is a, b, c, d, or e, lowercase only. In our passage, it would catch the \verb|e| in \verb|He|, but not the \verb|H|. It also catches the \verb|e|, \verb|a|, and \verb|d| in \verb|headstrong|. If we wanted to include capitals, we would need to explicitly set this in our regex: \verb|[ABCDEabcde]|. This would also catch the \verb|C| in \verb|Chancellor|.\par
+Regexes also can span a range of letters by using the dash \verb|-|. For example, if we wanted to rewrite the previous regex (\verb|[ABCDEabcde]|) using a dash, we could write \verb|[A-Ea-e]|. This works for \verb|[A-Z]|, \verb|[a-z]|, and \verb|[0-9]|. So, the following regex would capture every letter and number from A-z, 0-9, no matter the case: \verb|[A-Za-z0-9]|.\par
+To this point, we have only been covering single characters unless we specify a literal match. What if we want to match multiple letters? This is called a quantifier, and it allows us to match multiples of characters together as one. For example, if we wanted to match an entire word (instead of matching letters of a word), we would use a quantifier on a letter wildcard. There are six valid quantifiers.
+\begin{itemize}
+\item \verb|?| matches zero or one of the previous token
+\item \verb|*| matches zero or more of the previous token
+\item \verb|+| matches one or more of the previous token
+\item \verb|{n}| matches exactly $n$ of the previous token
+\item \verb|{n,}| matches $n$ or more of the previous token
+\item \verb|{n,m}| matches between $n$ and $m$ of the previous token
+\end{itemize}
+Let's apply this to our passage. We'll use the \verb|[A-Za-z]| regex as our token to quantify. If we apply the \verb|?| quantifier, our regex looks like \verb|[A-Za-z]?|, and this will match every single letter, as well as a \verb|None| at the end of every word, since the end of every word has zero of the \verb|[A-Za-z]| token.\par 
+If we use the \verb|*| quantifier, our regex looks like \verb|[A-Za-z]*|, and this will match zero or one capital or lowercase letters. This will match every single word, but it will also match the end of every word, resulting in every other match being \verb|None| or \verb|null|.\par
+Instead, we might want to use the \verb|+| quantifier, which will look like \verb|[A-Za-z]+|. This will match entire words separated by anything that isn't a letter. We don't get any \verb|None|s or nulls.\par
+If we use the \verb|{2}| quantifier, our regex will look like \verb|[A-Za-z]{2}|. This will match all two letter pairs. So, it will match \verb|He| and \verb|is|, but it will also match the chunks of "headstrong" as \verb|he|, \verb|ea|, \verb|ds|, \verb|ro|, and \verb|ng|.\par
+If we use the \verb|{3,}| quantifier, our regex will look like \verb|[A-Za-z]{3,}|. This will match all words that are three letters long or longer. So, it won't match \verb|He| or \verb|is|, but it will match \verb|headstrong| and \verb|and|.\par
+If we use the \verb|{3,6}| quantifier, our regex will look like \verb|[A-Za-z]{3,6}|. This will match all words that are three letters long or longer, but six letters long or shorter. So, this will match \verb|and| and \verb|much|, but it won't match with the entirety of "headstrong". However, it will match \verb|headst| and \verb|rong| from \verb|headstrong|.\par
+If we wanted to match only entire words, we need to use something called a word boundary. Word boundaries limit matches to immediately between a character matched by the \verb|\w| (lowercase) wildcard and a character by \verb|\W| (capital) wildcard (in either order). So, if we wanted to only find whole words that are between 3 and 6 letters long that are lowercase or have uppercase letters, we would have to put word boundaries around the beginning and end to make sure that the space is present at the beginning and end of the word. This would look like \verb|\b[A-Za-z]{3,6}\b|. This regex would match word like \verb|and| and \verb|Senate|, but it would not match \verb|headstrong|, since by the sixth character, the next character is not a \verb|\W| character.\par
+This is a very basic introduction to regexes. Regexes can become incredibly complex. For example, something as simple as an email address can require a doozy of a regex.\par
+\begin{lstlisting}[style=none]
+(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])
+\end{lstlisting}
+This regex is actually on the shorter end of email-address-validating regexes. However, the best way to get started with regexes is to write them out.
+\subsubsection{Regex Matching in Python}
+Python has a library called \verb|re| that provides regular expression matching capabilities. This library can be loaded by this line.\par
+\begin{lstlisting}[style=pippython]
+import re
+\end{lstlisting}
+One of the most common methods inside of \verb|re| is the \verb|match()| method. The \verb|match()| method takes two arguments: \verb|pattern| and \verb|string|, which correspond to the regex and the string to be tested. The \verb|match()| method, as its name suggests, matches at the beginning of the string.\par
+In Python, when we write out a regex, we should specify to Python that we are actually writing out a regex instead of just a regular string, and we do that by fixing a \verb|r| to the beginning of the string, before the opening quotation mark.\par
+Let us consider the following string.\par
+\begin{lstlisting}[style=pippython]
+teststr = "Traveling through hyperspace isn't like dusting crops, boy! Without precise calculations we could fly right through a star or bounce too close to a supernova and that'd end your trip real quick, wouldn't it? What's that flashing? We're losing our deflector shield. Go strap yourself in, I'm going to make the jump to light speed. We've entered the Alderaan system. Governor Tarkin, I should have expected to find you holding Vader's leash."
+\end{lstlisting}
+Let's say that we wanted to find all of the full words that were longer than 4 letters. Our regex for this would look like \verb|\b[A-Za-z]{4,}\b|. This regex matches the letters from A-Z and a-z (case insensitive) in sequences of at least four letters long between two word boundaries. We can apply this to the \verb|match()| method as follows.\par
+\begin{lstlisting}[style=pippython]
+matches = re.match(r'\b[A-Za-z]{4,}\b', teststr)
+\end{lstlisting}
+Notice how the regex is prefixed with a \verb|r|. This tells Python that this should be treated as a regex, and normal escaping should be ignored.\cprotect\footnote{If normal escaping is in effect, things like \verb|\n| would be evaluated as newlines instead of as a newline in a regex, and your regex would likely not work correctly.}\par
+The \verb|match()| method returns a \verb|Match| object with the first valid match. We can get the match by looking at the \verb|0|th element of the \verb|Match| object, which returns the entire match.
+\begin{lstlisting}[style=pippython]
+print(matches[0])
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+Traveling
+\end{lstlisting}
+In this case, the first match is the word \verb|Traveling|. There is no object at \verb|[1]|, since the \verb|match()| method only returns the first match. But what if we wanted to get all of the matches?\par
+This is where the \verb|findall()| method comes in. The \verb|findall()| method scans through the entire string and puts the resulting matches into a list. Here is the same regex, but using the \verb|findall()| method instead of the \verb|match()| method. Again, this regex matches the letters from A-Z and a-z (case insensitive) in sequences of at least four letters long between two word boundaries.
+\begin{lstlisting}[style=pippython]
+matches = re.findall(r'\b[A-Za-z]{4,}\b', teststr)
+print(matches)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+['Traveling', 'through', 'hyperspace', 'like', 'dusting', 'crops', 'Without', 'precise', 'calculations', 'could', 'right', 'through', 'star', 'bounce', 'close', 'supernova', 'that', 'your', 'trip', 'real', 'quick', 'wouldn', 'What', 'that', 'flashing', 'losing', 'deflector', 'shield', 'strap', 'yourself', 'going', 'make', 'jump', 'light', 'speed', 'entered', 'Alderaan', 'system', 'Governor', 'Tarkin', 'should', 'have', 'expected', 'find', 'holding', 'Vader', 'leash']
+\end{lstlisting}
+Now, let's suppose that we had a comma-separated file and we wanted to separate the individual elements into a list, without the commas. This is where we would use the \verb|split()| method. The \verb|split()| method splits a string at every match and puts everything between the matches into list elements.\par
+Let's suppose that we had the following string, which represents comma-separated values.
+\begin{lstlisting}[style=pippython]
+testcommas = "172,Austin Czarnik,czarnau01,29,Eastern,Metropolitan,NYI,Off,C,12,95,86,52.5,5.4,72,61,54.1,7.1,16.9,91.8,108.8,51.7,48.3,11:02,10:22,4,4,-0.1,16,62.5,0:41,10:23,3.5,4.2,1.6,0:27,7.7,14,0,0:11,-11,0,23.7,2,4,6,6,0,0.9,2,0,0,0,4,0,0,10,20,132,11:02,5,2,23,35,39.7"
+\end{lstlisting}
+If we call the \verb|split()| method to split on commas, we will split this string into individual cells without the commas. For this, we will use the regex \verb|r','|, which matches on the literal comma character \verb|,|.\par
+\begin{lstlisting}[style=pippython]
+matches = re.split(r",", testcommas)
+print(matches)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+['172', 'Austin Czarnik', 'czarnau01', '29', 'Eastern', 'Metropolitan', 'NYI', 'Off', 'C', '12', '95', '86', '52.5', '5.4', '72', '61', '54.1', '7.1', '16.9', '91.8', '108.8', '51.7', '48.3', '11:02', '10:22', '4', '4', '-0.1', '16', '62.5', '0:41', '10:23', '3.5', '4.2', '1.6', '0:27', '7.7', '14', '0', '0:11', '-11', '0', '23.7', '2', '4', '6', '6', '0', '0.9', '2', '0', '0', '0', '4', '0', '0', '10', '20', '132', '11:02', '5', '2', '23', '35', '39.7']
+\end{lstlisting}
+
+\section{Random Number Generation}
+Now that we have knowledge of complex datatypes, it makes sense for us to now cover random number generation, since some random number generation outputs rely on prior knowledge of complex datatypes.\par
+Random number generation is a very useful feature of any programming language, but in order to understand the limitations of random number generation, we need to understand why computers can't generate random numbers.\par
+If you've used a Texas Instruments TI-84 graphing calculator, you may have generated random numbers using it. If you were in a classroom with others, you might've gotten the same random numbers, meaning that the numbers aren't really randomly generated.\par
+This is a deficiency with computers. Computers are inherently unable to generate random numbers due to their procedural nature. Because of this, computers have to use pseudo-random number generation techniques.\par
+\funtext{RNG in the real world}{Video games use random numbers to carry out many of their functions, and sometimes, certain random numbers may make the game much more difficult. If you hear the phrase "bad RNG," now you know what that means!}
+Random number generation in a computer starts with something called a seed. In a computer, random numbers are generated as the result of a mathematical function, and the seed is the input to that mathematical function that will return a pseudo-random number. Sometimes, seeding by hand is a good thing, because it will ensure that we will get the same "random" number every single time. This is great for testing purposes.\par
+However, seeding can also be done by something completely unrelated to the computer. Some programs seed according to insanely small units of time, like nanoseconds. Others seed using arbitrary numeric data, like processor cycles. Yet others seed using external data.\par
+\funtext{Lava lamps}{Cloudflare's San Francisco office famously seeds its cryptographic functions using a camera feed of lava lamps. The lava lamps move in random ways, and the camera used to capture the lava lamps has digital noise that cannot be predicted.}
+After a seed has been chosen, it needs to be processed. Modern random-number generators are good enough that you can treat the near-randomness of your random number as random. However, older random-number generators were much more primative. One of these methods is called linear congruential generation, or LCG. LCG uses a mathematical function, iterated over multiple times, to create a random number.\par
+To use LCG, you need to have four things: a minimum, a maximum, a seed, and the number of iterations.\par
+The generator itself is quite a simple machine. Using itself, it creates mathematically related output based off of its own output. The LCG equation is given as
+
+$$
+x = (a * x + c) \text{ mod }m
+$$
+
+where $a$ is the multiplier, $c$ is the increment amount for each iteration, and $m$ is a modulus, which are all constant values. $x$ is the seed. Every time a new number is needed, the increment amount increases the mutiplier by $c$. Then, to get the number in the right range, we can use
+
+$$
+o = \frac{(r_\text{upper} - r_\text{lower}) * ((a * x + c) \text{ mod }m)}{(m - 1) + r_\text{lower}}
+$$
+
+to get a number, where $r_\text{upper}$ is the upper range of our possible random numbers, $r_\text{lower}$ is the lower range of our possible random numbers, and $o$ is the random number.\par
+This is a very primative pseudo-random number generator. There are only as many intermediate steps from the seed to the pseudo-random number as iterations, and in general, more intermediate steps leads to better random numbers. Because of this, LCGs are rarely used anymore, but their theory of operation make them a useful tool for understanding why we get the random numbers that we do.\par
+Thankfully, Python has a simple library that allows us to use a much more sophisticated pseudo-random number generator. Predicably, this library is called \verb|random|. There are three methods inside of \verb|random| that will be of great use to us: \verb|random()|, \verb|randint()|, and \verb|choice()|.\par
+Let us start with \verb|random()|. The \verb|random()| method generates pseudo-random floating-point values on a uniform real distribution from 0 to 1. As opposed to the very simple linear congruential generator that we previously used, \verb|random()| uses the Mersenne Twister generator, which is a much more complex and precise generator than the LCG.\par
+\funtext{Mersenne Twisters in C}{Python is built on top of C, and it actually uses the C-based Mersenne Twister generator found in \texttt{mt19937} for 32-bit C and \texttt{mt19937\_64} for 64-bit C. It produces a 53-bit precision float and uses a modulus of 2 mod 19937 - 1 (hence C's generator naming).}
+To use the \verb|random()| method in Python, we first need to import the \verb|random| library.\par
+\begin{lstlisting}[style=pippython]
+import random
+\end{lstlisting}
+Now, we can call the \verb|random()| method to generate a random floating-point number from 0 to 1.\par
+\begin{lstlisting}[style=pippython]
+print(random.random())
+print(random.random())
+print(random.random())
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+0.7592076143986661
+0.22557165065717144
+0.01434871426522899
+\end{lstlisting}
+More often than not, we will want to generate a random integer. We could use the \verb|random()| method and pull a little bit from the output, but that's a lot of work. So instead, let's use the \verb|randint()| method. The \verb|randint()| method takes two arguments, a minimum and a maximum for the random number.\par
+\begin{lstlisting}[style=pippython]
+print(random.randint(1, 10))
+print(random.randint(1, 10))
+print(random.randint(1, 10))
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+3
+2
+7
+\end{lstlisting}
+Now, let's suppose that we have a list with two coin sides: heads and tails.\par
+\begin{lstlisting}[style=pippython]
+coin = ['heads', 'tails']
+\end{lstlisting}
+If we wanted to generate a coin flip, we could generate a random integer, then get the value of the item at that index list.\par
+\begin{lstlisting}[style=pippython]
+print(coin[random.randint(0, 1)])
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+heads
+\end{lstlisting}
+However, since we have a list already, this is the perfect scenario to use the \verb|choice()| method, which picks a pseudo-random choice from a list.\par
+\begin{lstlisting}[style=pippython]
+print(random.choice(coin))
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+heads
+\end{lstlisting}
+We mentioned seeds when we were talking about linear congruential generators, and it's not for nought. Every random number generator has a seed. Whether you can see or edit that seed or not doesn't matter - the seed \textit{is} there. Again, it could be seeded from something else (like a video feed of a lava lamp). By default, Python seeds its random numbers from the current system time. Hoewver, Python's \verb|random| library allows us to set a seed manually so that our results can be reproducable. That means that if I set my seed to be \verb|215|, then I generate a random integer, it should be the same as if you set your seed to be \verb|215|, then generated a random integer.\par
+In Python, the \verb|random| class has a method that we can use to set a seed manually called \verb|seed()|. Once we set the seed, it is the same for the rest of the environment.\par
+\begin{lstlisting}[style=pippython]
+random.seed(215)
+print(random.randint(1, 100))
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+6
+\end{lstlisting}
+If your seed was set to the 215, the first random integer that you generate from 1 to 100 should be 6.

@@ -2,6 +2,127 @@
 \markboth{\MakeUppercase{Labs}}{\MakeUppercase{Labs}}
 This chapter contains labs and rubrics for each lab. Your instructor might assign certain labs to you and not others.\par
 Any modifications that your instructor makes should take precedence over the lab provided here. You should take care to follow your course's style guide, if your instructor has one. This style guide should give you important information regarding naming conventions, line spacing, whitespace, and other notes like these. Remember to follow your course's style guide!
+
+\section*{Lab 0: Python \& Jupyter Notebooks}
+\subsection*{Description}
+In this lab, we will be investigating how to use Google Colab, an online tool for creating, editing, and exporting Jupyter Notebooks. A Jupyter Notebook is like a lab notebook for computer scientists and data scientists, and it's a great way to share your code with other computer scientists, since it lets you write code and text inline. Google Colab is just one way of accessing Jupyter Notebooks. You could also use Anaconda, which is a way to edit your Jupyter Notebooks locally.
+\subsection*{Task}
+You will be guided through this lab step-by-step.\par
+\subsubsection*{Lab Preparation}
+\begin{enumerate}
+	\item In another tab, go to \href{https://colab.research.google.com}{colab.research.google.com}. If this is your first time using Google Colab, you'll probably see a Welcome to Colaboratory document. You can just ignore this. Instead, within your web browser, go to File > New notebook. This will make a new Jupyter Notebook and open it for you. You'll do your lab in this notebook.
+	\item Now, at the top of the notebook, you should see that your document is probably named \verb|Untitled0.ipynb|. This is normal, and you can change the name of your notebook by just clicking on the document's name. Go ahead and change it to your username, followed by \verb|Lab 0.ipynb|.
+	\item \textit{Hint: Your Jupyter Notebook must always end in .ipynb for it to be recognized as an actual Notebook. ipynb stands for Interactive PYthon NoteBook.}
+\end{enumerate}
+
+\subsubsection*{Markdown}
+The default first block of your new Jupyter Notebook is a code block. However, we actually don't want to use a code block - we want to use a markdown or text block. So, hover over the existing code block and at the very right side, in the menu that shows up, click on the Trash can icon. This will delete the code block.\par
+Now, at the top, underneath the menu bar, you probably see two buttons: one to add code and one to add text.\par
+Click on the button to add a new text block.\par
+\textbf{i. Text}
+\begin{itemize}
+	\item When you add text, even if you add Python code, it cannot and will not be executed.
+	\item \textbf{Your task}: Go ahead and type in a short introduction for yourself in paragraph form (sentences, not bullet points - we'll learn how to do that later). Include your name, your major, minor or concentrations, and what your favorite dinosaur is.
+\end{itemize}
+\textbf{ii. Links}
+\begin{itemize}
+	\item Great! The next most important thing that you'll need to do is put in links. There's only one way to put in links for Jupyter Notebooks:\\
+	\begin{lstlisting}[style=none]
+[An inline link](//google.com)
+	\end{lstlisting}
+	\item If you're not sure what to put inside of the brackets, you can always just put the URL in there. That might look like this:\\
+	\begin{lstlisting}[style=none]
+[An inline link](//google.com)
+	\end{lstlisting}
+	\item \textit{Hint: Why don't we specify the http: or https: at the beginning? We'll let our web browser figure that out for us. Instead, just put two slashes and the markdown renderer will figure out which protocol to use.}
+	\item \textbf{Your task}: Make a new text block. In this text block, make a link that goes to your favorite YouTube video, with the link label stating the name of the video. Put this in a new text block in your lab notebook.
+\end{itemize}
+\textbf{iii. Lists}
+\begin{itemize}
+	\item You'll probably also have to make lists. Lists are pretty simple, too. You can create either unordered lists (bullet points) or ordered lists.
+	\item Let's start with unordered lists. To create an unordered list, just put a dash and a space at the beginning of each new line with new material.
+	\begin{lstlisting}[style=none]
+- Item
+- Item 
+- Item
+	\end{lstlisting}
+	\item If you want to make an ordered list, instead of a dash, put a number or letter.
+	\begin{lstlisting}[style=none]
+1. Item 1
+2. Item 2
+3. Item 3
+	\end{lstlisting}
+	\item You can also make nested lists. If you are making a nested unordered list, use plus signs for the next level in, then dashes for the next level in, then pluses, and so on and so forth. For each level in, add an indent.
+	\begin{lstlisting}[style=none]
+- Item
+  + Subitem
+    - Sub-subitem
+      + Sub-sub-subitem
+    - Sub-subitem
+      + Sub-sub-subitem
+      + Sub-sub-subitem
+    - Sub-subitem
+  + Subitem
+  + Subitem
+- Item
+- Item
+	\end{lstlisting}
+	\item The same goes for ordered lists.
+	\begin{lstlisting}[style=none]
+1. Item 1
+  1. Item a
+    1. Item i
+  2. Item b
+  3. Item c
+2. Item 2
+3. Item 3
+	\end{lstlisting}
+	\item \textbf{Your task}: Now, in your notebook, make a new text block. In this new text block, make an unordered list with the courses you are taking this semester, and make an ordered list of your top five favorite buildings on your campus. If you don't know, just make some buildings up.
+\end{itemize}
+\textbf{iv. Emphasis}
+\begin{itemize}
+	\item It's often really handy to emphasize something. Here's how to emphasize stuff in Markdown.
+	\begin{lstlisting}[style=none]
+Emphasis, aka italics, with *asterisks* or _underscores_.
+
+Strong emphasis, aka bold, with **asterisks** or __underscores__.
+
+Combined emphasis with **asterisks and _underscores_**.
+
+Strikethrough uses two tildes. ~~Scratch this.~~
+	\end{lstlisting}
+	\item \textbf{Your task}: Now, in your notebook, make a new text block. In this new text block, make some egregious statement like "The earth is flat" and strike it out. Then, make a statement on what your favorite candy is, and bold the candy's name.
+\end{itemize}
+\textbf{v. Emphasis}
+\begin{itemize}
+	\item Sometimes, you'll want to put code into your Markdown, like if you want to show what function you're defining or let your reader know what your variable is named.
+	\item If you are highlighting code inline (within paragraph text), then you can just use a backquote at the beginning and end of your code chunk. For example {\texttt this} is some code. The backquote character is at the top-left corner of your keyboard, next to the 1/! key.
+	\begin{lstlisting}[style=none]
+Inline `code` has `back-ticks around` it.
+	\end{lstlisting}
+	\item Sometimes, you need to list more read-only code than can comfortably fit inside of an inline code mark. Instead, you can write an inline code block. This is still markdown, and it's not executable, but it'll still have Python notation highlighted.
+	\begin{lstlisting}[style=none]
+```python
+s = "Python syntax highlighting"
+print s
+```
+	\end{lstlisting}
+	\item This is also known as a fenced code block.
+	\item \textbf{Your task}: Now, make a fenced code block that contains the following code, marked down in Python. Add one more line of code, based on something that you've seen in class.
+\end{itemize}
+\subsubsection*{The Interactive Python Shell}
+You can also execute Python code inside of a Jupyter Notebook! This is one of the big advantages of using a Jupyter Notebook instead of in a Word document or Google Doc.\par
+Remember that code block that you deleted at the beginning? Now, let's actually use it.\par
+In your own lab notebook, make a new code block at the end. Put some Python code that you've run in class, like a \verb|print()| or \verb|input()|. Run it and see what happens! Then, in a new text block below, explain what your code does in using the Markdown skills that you practiced in Part 1.\par
+This is the interactive Python shell, and it's great for running small or large chunks of Python code. One of the other cool things about the Python environment is that your variables are maintained throughout your entire notebook. Now, try to define a new variable \verb|students| and assign it some integer value.\par
+Now, create a text block explaining where you got the number for \verb|students|.\par
+Create a new code block (not the code block that you used above) and print the value of \verb|students|.\par
+\subsubsection*{Writing Your Labs in a Jupyter Notebook}
+You will write all of your lab writeups in a Jupyter Notebook (one notebook per lab), just like you're doing for this lab. Once you're done. It's not hard to share your finished notebook. At the top, go to File > Download .ipynb. This will download the interactive Python straight to your computer. You can turn this file in. So, export the Jupyter notebook that you've been working on and turn it in using Moodle for the Lab 0 assignment.\par
+\textit{Hint: If you export the .py file, all of your markdown will be discarded! Make sure you export as an .ipynb file!}
+\subsection*{Turn In}
+Turn in your Jupyter Notebook as an \verb|.ipynb| file.
+
 \section*{Lab 1: Error Messages}
 \subsection*{Description}
 An important part of programming is being able to see how your changes change the behavior of the program. For this exercise, you'll be deliberately making errors and figuring out what lines of code result in these issues.
@@ -190,7 +311,7 @@ Trial & Name & Year & Majors & Minors & Dormitory \\
 \hline
 2     & Ben Loch & Junior & \makecell[l]{Env. Science} & & \makecell[l]{McAlester\\Apartment} \\
 \hline
-3     & Sam Williams & Senior & \makecell[l]{Biology,\\Chemistry} & \makecell[l]{Computer\\Science} & \makecell[l]{Raphael\\Dormitory} \\
+3     & Sam Williams & Senior & \makecell[l]{Biology,\\Chemistry} & \makecell[l]{Computer\\Science} & \makecell[l]{Lewis\\Dormitory} \\
 \hline
 \end{tabular}}
 
@@ -211,4 +332,165 @@ Trial & Name & Year & Majors & Minors & Dormitory \\
 
 Note: This means that you will \textit{receive} points for writing bad (but syntactically correct) code yourself \textit{and} for properly analyzing and breaking down your partner's bad code.
 
-\section*{Lab 4: }
+\section*{Lab 4: Seven-Figure Display}
+\subsection*{Description}
+You may not know it, but you've seen a seven-figure display before. A seven-figure display uses seven lights to display letters and numbers in relatively simple applications, like microwave ovens and digital clocks.
+
+\includegraphics[width=0.1\textwidth]{img/7Segment5.png}
+
+However, seven figure displays cannot display every character. For example, there is no way to display the letter \verb|g| without it being confused for a \verb|9|. Seven-figure displays are not large enough to display the letter \verb|m|, either. Your goal for this lab is to find the longest word that can be displayed by a seven-segment display.
+\subsection*{Task}
+Use the \verb|requests| library to download the \verb|words.txt| file from \\\href{https://github.com/pythonforscientists/data/blob/main/words.txt?raw=true}{https://github.com/pythonforscientists/data/blob/main/words.txt?raw=true}. This file contains a list of words of varying length, organized alphanumerically. You will use Python to find what the longest word out of this list is that can be displayed on a seven-figure display.\par
+Seven-figure displays cannot display the following letters: g, k, m, q, v, w, x, and z.
+\subsection*{Turn In}
+Turn in a program inside of a Jupyter Notebook. You should include your script, along with the longest word that you found. Include downsides of the approach that you chose and how you might choose to change things if you were to write your program again.
+\subsection*{Trial Data}
+You should use the \verb|words.txt| file.
+\subsection*{Grading Table}
+\begin{tabular}{|l|l|}
+\hline
+Requirement & Possible Points \\ \hline
+Correct longest word & 10 \\ \hline
+Appropriate whitespace and formatting & 10 \\ \hline
+Good variable names & 5 \\ \hline
+Good comments and inline documentation & 5 \\ \hline
+Downsides identified and explained & 10 \\ \hline
+Jupyter Notebook is constructed well & 10 \\ \hline
+\hline
+\textbf{Total} & \textbf{50} \\ \hline
+\end{tabular}
+
+\section*{Lab 5: Wordle}
+\subsection*{Description}
+Wordle is a simple word guessing game. Your user will be guessing words that are five letters long. They have six chances to get the correct word, otherwise they lose. If they guess a correct letter in any one of the five slots, it is typically marked yellow, and if they guess a correct letter in the correct position, it is typically marked green. Try the Wordle \href{https://www.nytimes.com/games/wordle/index.html}{here}.
+\subsection*{Task}
+You will program a simplified Wordle, since programming with color is much more difficult. Use the \verb|requests| library to get the \verb|wordle.txt| file from \\\href{https://github.com/pythonforscientists/data/raw/main/wordle.txt}{https://github.com/pythonforscientists/data/raw/main/wordle.txt}. The \verb|wordle.txt| file has 5,757 lower-case words that are five letters long.\par
+At random, pick a word, but hide it from the user. Prompt the user to guess what the word is. If they guess a letter in the correct place, display it in its place in a five-letter blank. For example, if they incorrectly guessed \verb|herby| but the third letter is \verb|r|, then display the \verb|r| to confirm the user's guess is correct.
+\begin{lstlisting}[style=none]
+__r__
+\end{lstlisting}
+If they guess a letter, but it's not in the correct place, display the letter next to the five-letter blank. For example, if they incorrectly guessed \verb|beret| but third letter is \verb|r| and the fourth letter is \verb|t|, then display the \verb|r| to confirm that letter is correct and the \verb|t| next to the blanks to confirm that the letter is correct, but in the wrong place.
+\begin{lstlisting}[style=none]
+__r__
+In the wrong spot - t
+
+Guess: 
+\end{lstlisting}
+If the user guesses the secret word in six tries or less, then they win and the game ends.
+\begin{lstlisting}[style=none]
+Guess: yurts
+yurts
+You found the word in 4 guesses! Congratulations!
+\end{lstlisting}
+If the user runs out of guesses, then they lose and the game ends. 
+\begin{lstlisting}[style=none]
+Guess: stone
+_____
+You ran out of guesses! The word was yurts. Better luck next time!
+\end{lstlisting}
+If the user tries to enter a word that's not on the list of words (like 'abcde' or 'xxxxx'), tell the user that the word isn't a valid word, but do not deduct any guesses.
+\begin{lstlisting}
+Guess: abcde
+That's not a word. No guesses used. 6 guesses remain.
+\end{lstlisting}
+\subsection*{Sample Output}
+This sample output is provided to guide you to your solution. You should follow the instructions provided to include all of the functionality that is shown below.
+\begin{lstlisting}[style=none]
+Guess the word (5 letters, 6 guesses).
+Guess: stare
+_____
+In the wrong spot: a, e
+
+Guess: deans
+_____
+In the wrong spot: a, e, s
+
+Guess: cleat
+__ea_
+In the wrong spot: 
+
+Guess: wreak
+__ea_
+In the wrong spot: r
+
+Guess: smear
+smear
+You found the word in 5 guesses! Nice!
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+Guess the word (5 letters, 6 guesses).
+Guess: stare
+s_are
+In the wrong spot: 
+
+Guess: spare
+s_are
+In the wrong spot:
+
+Guess: scare
+scare
+You found the word in 3 guesses! Nice!
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+Guess the word (5 letters, 6 guesses).
+Guess: stare
+s_are
+In the wrong spot: 
+
+Guess: abcde
+That's not a word. No guesses used. 5 guesses remain.
+
+Guess: scare
+scare
+You found the word in 2 guesses! Nice!
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+Guess the word (5 letters, 6 guesses).
+Guess: stare
+_____
+In the wrong spot: a, e
+
+Guess: deans
+_____
+In the wrong spot: a, e, s
+
+Guess: cleat
+__ea_
+In the wrong spot: 
+
+Guess: wreak
+__ea_
+In the wrong spot: r
+
+Guess: mount
+_____
+In the wrong spot: m
+
+Guess: swear
+s_ear
+You ran out of guesses! The word was smear. Better luck next time!
+\end{lstlisting}
+\subsection*{Bonus}
+For bonus points, have the program ask the user whether they'd like to play again. If so, you should keep track of these statistics for the session:
+\begin{itemize}
+\item What percentage of the time have they gotten the word on their first, second third, fourth, fifth, and sixth try?
+\item How many times have they played?
+\item How many times have they won?
+\item What's their win percentage?
+\end{itemize}
+After every round, display these statistics to the user. This bonus section is worth 20 extra points, but it must be completed in entirety to be eligible for the bonus. A partially functional bonus is not worth anything.
+\subsection*{Turn In}
+Turn in your program in a Jupyter Notebook, along with at least four trial runs. Include at least one win and one loss, as well as what happens when an invalid word is entered. Also include a small conclusion on what you would change about your program if you were to write it again. That is, how would you rearrange your program?
+\subsection*{Grading Table}
+\begin{tabular}{|l|l|}
+\hline
+Requirement & Possible Points \\ \hline
+Correctly functioning program & 20 \\ \hline
+Appropriate whitespace and formatting & 20 \\ \hline
+Good variable names & 20 \\ \hline
+Good comments and inline documentation & 20 \\ \hline
+Program refactoring explained & 10 \\ \hline
+Jupyter Notebook is constructed well & 10 \\ \hline
+\textit{Optional bonus section} & \textit{20} \\\hline
+\textbf{Total} & \textbf{100/\textit{120}} \\ \hline
+\end{tabular}

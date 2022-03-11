@@ -172,6 +172,161 @@ Returns:
 \end{lstlisting}
 If your IDE supports a specific template, it will auto-generate it once you create your block comment after your function definition. So, you can simply define a block comment as the first line of your function. If it is supported, it will be created for you. Otherwise, you can just paste in the template that works the best for you.\par
 Like whitespace, it's a good idea to get into the habit of always writing a detailed block comment for each of your functions, including what the function does, what its arguments are, and what it returns. Regardless of what template you use, make sure that you're descriptive in your code.\par
+\subsection{Default Values}
+For many functions, you will have an argument that is processed in that function. In some functions, though, you may want to have a default value so you don't have to type in every argument, every single time. Python supports default function arguments when we define our function, and this can be extremely useful for quickly calling commonly used functions.\par
+You have already taken advantage of default function arguments when you have called functions in the past, like the \verb|print()| function. You already know how to use the \verb|print()| function: you put a string argument in it and it prints it to the console. But, what if we're concatenating and we want to change what the separator value is? We can \textit{choose} to specify the \verb|sep| argument. What if we want to change how the \verb|print()| function ends a line? We can \textit{choose} to specify the \verb|end| argument. \verb|sep| and \verb|end| have default values that will be used if these arguments are not specified when called. Because of these default arguments, the following two lines are equivalent.\par
+\begin{lstlisting}[style=pippython]
+print("Cats" + "and dogs", sep = " ", end = "\n")
+print("Cats" + "and dogs")
+\end{lstlisting}
+This means that whenever we need to call the \verb|print()| function, we don't need to write out every single possible argument, only the ones that we want to \verb|change| from the default. When you're writing your own functions, you can also choose default values to be used if the function call doesn't specify the argument. We do this by initializing the variable in the function definition. That is, when we specify an argument when we specify the function's definition, we also initialize a default value for that argument to be used if the function call doesn't specify something else. Consider the following function, which calculates the percentage of faceoffs won, given the number of faceoffs won and the number of faceoffs lost (this could be used to help analyze hockey or lacrosse data).\par
+\begin{lstlisting}[style=pippython]
+def fopct(fowins, folosses):
+	"""
+	Calculates faceoff win percentage.
+	
+	Parameters
+	----------
+	fowins : int
+		Number of faceoffs won.
+
+	folosses : int
+		Number of faceoffs lost.
+
+	Returns
+	-------
+	float
+		The faceoff percentage from 0 to 1.
+	"""
+	
+	if (fowins + folosses) == 0:
+		return 0.0
+	else:
+		return float(fowins / (fowins + folosses))
+\end{lstlisting}
+In this function, if we were to not specify either \verb|fowins| or \verb|folosses| when we called the function, the function would error out with a \verb|TypeError|:
+\begin{lstlisting}[style=pippython]
+print(fopct())
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+TypeError: fopct() missing 2 required positional arguments: 'fowins' and 'folosses'
+\end{lstlisting}
+Python was \textit{expecting} two arguments in our function call, and since it had no default value, it results in an error. Now, let's redefine this function, but let's initialize \verb|fowins| and \verb|folosses| to 0 in our definition line to assign a default value of 0 to each of these arguments.\par
+\begin{lstlisting}[style=pippython]
+def fopct(fowins = 0, folosses = 0):
+	"""
+	Calculates faceoff win percentage.
+	
+	Parameters
+	----------
+	fowins : int
+		Number of faceoffs won.
+
+	folosses : int
+		Number of faceoffs lost.
+
+	Returns
+	-------
+	float
+		The faceoff percentage from 0 to 1.
+	"""
+	
+	if (fowins + folosses) == 0:
+		return 0.0
+	else:
+		return float(fowins / (fowins + folosses))
+\end{lstlisting}
+Now, if we were to not specify either \verb|fowins| or \verb|folosses| when we called the function, the function would use the default values of 0 and 0 for \verb|fowins| and \verb|folosses|, respectively.
+\begin{lstlisting}[style=pippython]
+print(fopct())
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+0.0
+\end{lstlisting}
+We don't necessarily need to specify every argument's default. Some arguments might be required, while others are optional with defaults. Consider the following void function.\par
+\begin{lstlisting}[style=pippython]
+def printfopct(fowins, folosses, player = ""):
+	"""
+	Prints faceoff win percentage.
+	
+	Parameters
+	----------
+	fowins : int, required
+		Number of faceoffs won.
+
+	folosses : int, required
+		Number of faceoffs lost.
+
+	player : str, optional
+		Player's name as a string.
+
+	Returns
+	-------
+	None
+	"""
+	
+	if player == "":
+		if (fowins + folosses) == 0:
+			print("The player's faceoff percentage is 0.0")
+		else:
+			print("The player's faceoff percentage is " + str(float(fowins / (fowins + folosses))), sep = "")
+	else:
+		if (fowins + folosses) == 0:
+			print(player + "'s faceoff percentage is 0.0", sep = "")
+		else:
+			print(player + "'s faceoff percentage is " + str(float(fowins / (fowins + folosses))), sep = "")
+\end{lstlisting}
+In the above function, if the \verb|player| argument is not specified, the function will use the default value of \verb|""| (an empty string). However, if it is specified, the function will use the value that is passed in.\par
+Let's look at some examples of this function in action. First, let's consider if we don't pass in any of the required arguments.\par
+\begin{lstlisting}[style=pippython]
+printfopct()
+\end{lstlisting}
+\begin{lstlisting}[style=pippython]
+TypeError: printfopct() missing 2 required positional arguments: 'fowins' and 'folosses'
+\end{lstlisting}
+We still get an error that we're missing required arguments. However, notice how even though we specified three possible arguments, Python is only erroring out on two arguments that are considered required because we never specified a default value in our function's definition. The \verb|player| argument was initialized to \verb|""|, since the argument was never specified.\par
+Now, let's consider if we only pass in the required arguments.\par
+\begin{lstlisting}[style=pippython]
+printfopct(132, 71)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+The player's faceoff percentage is 0.6502463054187192
+\end{lstlisting}
+Again, \verb|player| was initialized to \verb|""|, which was used for the remainder of the function, since we didn't specify a value for it in our function call. What if we specify a value for \verb|player|?\par
+\begin{lstlisting}[style=pippython]
+printfopct(132, 71, "TD Ierlan")
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+TD Ierlan's faceoff percentage is 0.6502463054187192
+\end{lstlisting}
+In this case, we specified that we don't want to use the default value of \verb|""| for \verb|player| and instead specified our own player name (\verb|"TD Ierlan"|).
+\subsection{Positional and Keyword Arguments}
+For the past few sections, all of our functions have only had a few arguments at the most. This is pretty easy to keep track of. But now, let's consider a function with lots and lots of arguments. We could have a function with dozens of arguments, some of which are required and others of which are not. This is where positional versus keyword arguments come into play.\par
+As their names suggest, positional arguments use the position of the argument in the function call to determine what function parameter they should be representing. Again, consider the \verb|printfopct()| function from the previous section. The function's definition is given below for your convenience.\par
+\begin{lstlisting}[style=pippython]
+# DO NOT RUN
+def printfopct(fowins, folosses, player = ""):
+\end{lstlisting}
+In this function, we know that the first argument to call is \verb|fowins|, then \verb|folosses|, then \verb|player|, and whenever we've called this before, we've always used this order. But, what if we wanted to change the order? Let's say we wanted to specify the player first? This is where we can use keyword arguments to specify exactly which value is which.\par
+\begin{lstlisting}[style=pippython]
+printfopct(player = "Max Adler", fowins = 81, folosses = 85)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+Max Adler's faceoff percentage is 0.4879518072289157
+\end{lstlisting}
+The function call is still correct, even though we specified the arguments out of order. This is because we specified what value each of the arguments should be. This works for any function, regardless of whether the argument is required or not.\par
+You can also mix positional and keyword arguments. You've already done this, actually! Whenever you've called the \verb|print()| function and passed in an optional argument, you've mixed positional and keyword arguments. The \verb|value| argument, which is required, is almost always passed in as a positional argument. We could write
+\begin{lstlisting}[style=pippython]
+print(value = "Hello, World")
+\end{lstlisting}
+, but, more often than not, we just write
+\begin{lstlisting}[style=pippython]
+print("Hello, World")
+\end{lstlisting}
+However, when we specify an argument like \verb|sep| or \verb|end|, we are specifying a keyword argument right next to a positional argument.\par
+\begin{lstlisting}[style=pippython]
+print("Hello, World", end = "\n")
+\end{lstlisting}
 \section{Classes}
 \warningtext{Do you understand functions?}{If you haven't grasped the concept and application of functions yet, stop reading here. Make sure that you understand functions first, otherwise classes won't make any sense. Learning classes represents a significant jump in abstraction, so knowing how functions work is crucial to approaching classes.}Learning how to effectively use classes will prepare to practice a discipline of programming known as \newterm[object-oriented programming]{object-oriented programming} or \newterm[OOP]{object-oriented programming}. Object-oriented programming falls under the idea of programming composition, and it hinges on the idea that objects can contain other objects. That means that you could put a box inside of another box. Not only could you put a smaller box inside of a bigger box, you could put multiple smaller boxes inside of the larger box. The key behind object-oriented programming is that it allows us to store information together, rather than parsimoniously.\par
 Consider how the leap from individual variables to complex datatypes, like dictionaries, enhanced our ability to communicate clearly while writing less code. Further object orientation helps the code's reader understand not only that the information is together, but that they are related. The goal is to help us represent simple information unambiguously and simply.\par
@@ -299,10 +454,237 @@ print(gaffnco01.fopct())
 0.391304347826087
 \end{lstlisting}
 When we call \verb|fopct()| on the \verb|gaffnco01| object, \verb|self| is a reflection of \verb|gaffnco01|, and the returned value represents \verb|gaffnco01|'s faceoff percentage.
+\subsection{Class Initialization and Constructors}
+Let's consider the \verb|Player| class introduced above. It is printed below for your convenience.
+\begin{lstlisting}[style=pippython]
+class Player:
+	"""
+	A player on a lacrosse team.
+	"""
+
+	def fopct(self):
+		"""
+		Calculates faceoff win percentage.
+		
+		Returns
+		-------
+		float
+			The faceoff percentage from 0 to 1.
+		"""
+		
+		if (self.fowins + self.folosses) == 0:
+			return 0.0
+		else:
+			return float(self.fowins / (self.fowins + self.folosses))
+\end{lstlisting}
+We know that there are at least two attributes in the \verb|Player| class: \verb|Player.fowins| and \verb|Player.folosses|. We can see that we're using these attributes in the \verb|fopct()| method, and if we were to call \verb|fopct()| on an object of the \verb|Player| class that doesn't have these attributes, we'll get an error. For example, consider the \verb|ratlisc01| object that we defined above. Again, object initialization has been provided below for your convenience.\par
+\begin{lstlisting}[style=pippython]
+ratlisc01.name = 'Scott Ratliff'
+ratlisc01.gamesplayed = 9
+ratlisc01.groundballs = 19
+\end{lstlisting}
+Notice how this object doesn't actually have a \verb|fowins| or a \verb|folosses| attribute; we never initialized these attributes, so if we call the \verb|fopct()| method on it, we'll be calling the method on nonexistent attributes.
+\begin{lstlisting}[style=pippython]
+print(ratlisc01.fopct())
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+Traceback (most recent call last):
+
+  File "ipykernel_12412/2288342692.py", line 1, in <module>
+    ratlisc01.fopct()
+
+  File "playerclass.py", line 1, in fopct
+
+AttributeError: 'Player' object has no attribute 'fowins'
+\end{lstlisting}
+This is somewhat analogous to a \verb|NameError| where a name is not defined. You would get a \verb|NameError| if you tried to call a variable that didn't exist, for example. In this case, we get an \verb|AttributeError| because the \verb|Player| class doesn't have a default for the \verb|fowins| or \verb|folosses| attributes, meaning that these attributes essentially don't exist.\par
+Python provides us a way to avoid this by something called class initialization. Class initialization allows us to "set up" an object with defaults every time a new object of that class is initialized. If we wrote a class initialization for our \verb|Player| class, we could set default values for \verb|fowins| and \verb|folosses| so that we would never get an \verb|AttributeError| because of a nonexistent attribute.\par
+The process of making a class initialization is called making a constructor in many programming languages.\par
+In Python, we create a constructor by using a special method name called \verb|__init__|. The two underscores before and after \verb|init| tell Python that this is a special method that should be run before class initialization is completed. Inside of our class initialization, we can set default values for attributes that we know we'll need, like \verb|fowins| and \verb|folosses|. We can always change these values later, but they need to exist in order to avoid \verb|AttributeError|s. A well-constructed \verb|__init__| method will have one key feature: it will allow us to set those values upon object initialization (when we call \verb|Player()| to make the \verb|Player| object) or set those values later. This is done by setting a default value in the method initialization, and this is called a default constructor. Consider the following initialization inside of the \verb|Player| class.\par
+\begin{lstlisting}[style=pippython]
+class Player:
+	"""
+	A player on a lacrosse team.
+	"""
+	
+	def __init__(self, fowins = 0, folosses = 0):
+		self.fowins = fowins
+		self.folosses = folosses
+
+	def fopct(self):
+		"""
+		Calculates faceoff win percentage.
+		
+		Returns
+		-------
+		float
+			The faceoff percentage from 0 to 1.
+		"""
+		
+		if (self.fowins + self.folosses) == 0:
+			return 0.0
+		else:
+			return float(self.fowins / (self.fowins + self.folosses))
+\end{lstlisting}
+Notice how the parameters in the \verb|__init__| definition are \textit{different} from the class attributes. Sure, the attribute and the variable are named the same, but the \textit{attribute} is specific to the class, while the \textit{variable} is specific to the global class. So, in our initialization function, we actually need to assign the variables from the global class (\verb|fowins| and \verb|folosses|) to the object attributes (\verb|self.fowins| and \verb|self.folosses|).\par
+\warningtext{What variable?}{It is important to not confuse your variables in your global class with your object attributes. Whenever you refer to an attribute inside of a class, you need to preface with \texttt{self} to indicate that you're using that particular instantiation. This is like referencing a attribute outside of a class. Just like the \texttt{ratlisc01.name} attribute is different from the variable \texttt{name}, \texttt{self.name} is different from the variable \texttt{name}.}
+Now, our \verb|Player| class has a default constructor that will initialize the \verb|fowins| and \verb|folosses| to 0 if they are not set when the object is created. Let's consider the several ways to change these values by creating some more objects. First, let's create an object called \verb|witheja01|, which will be a \verb|Player| object for the player, Jake Withers. For this example, we will not pass any attributes into our class initialization.\par
+\begin{lstlisting}[style=pippython]
+witheja01 = Player()
+print(witheja01.fopct())
+\end{lstlisting}
+\begin{lstlisting}[style=pippython]
+0.0
+\end{lstlisting}
+When we ran line 1 to create the \verb|Player| object and put it into \verb|witheja01|, the class was created like before, but the \verb|__init__| method was also automatically run, which set the \verb|fowins| and \verb|folosses| attributes to 0. Because we already declared and initialized these attributes to a valid value, we can call the \verb|fopct()| method on the \verb|witheja01| object and get a valid output of 0.0.\par
+Now, let's change the attributes in the \verb|witheja01| object.\par
+\begin{lstlisting}[style=pippython]
+witheja01.name = "Jake Withers"
+witheja01.fowins = 117
+witheja01.folosses = 98
+\end{lstlisting}
+Now, when we call the \verb|fopct()| function again, we'll be using the updated values.
+\begin{lstlisting}[style=pippython]
+print(witheja01.fopct())
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+0.5441860465116279
+\end{lstlisting}
+Now, let's bypass the default values and just initialize the values when we create the object. We'll create a new object \verb|adlerma01| and initialize the values for \verb|fowins| and \verb|folosses| directly in our object initialization.\par
+\begin{lstlisting}[style=pippython]
+adlerma01 = Player(fowins = 81, folosses = 87)
+print(adlerma01.fopct())
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+0.48214285714285715
+\end{lstlisting}
+Because we initialized the values according to the names that we defined in our \verb|__init__| function, we can immediately start using these values.\par
+We can also change these values just like we changed the values for \verb|witheja01| by reassigning the attribute value. For example, we got the \verb|folosses| attribute wrong - it should be 86, not 87. We can just reassign it, and while we're at it, let's also give \verb|adlerma| a \verb|name| attribute.\par
+\begin{lstlisting}[style=pippython]
+adlerma01.folosses = 86
+adlerma01.name = "Max Adler"
+\end{lstlisting}
+Now, if we recalculate the faceoff percentage, it should be correct.\par
+\begin{lstlisting}[style=pippython]
+print(adlerma01.fopct())
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+0.48502994011976047
+\end{lstlisting}
+\subsection{Nested Classes}
+Python supports something really cool called nested classes. Consider where we have seen nesting before: in loops and conditional statements. For example, we might have the following nested if-then statement.\par
+\begin{lstlisting}[style=pippython]
+x = 5
+if x == 0:
+	print("x is zero")
+else:
+	if (x % 2 == 0):
+		print("x is even")
+	else:
+		print("x is odd")
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+x is odd
+\end{lstlisting}
+This is a contrived example for the sake of demonstration, but the idea still holds: conditional logic statements in Python can be nested. The same concept holds for Python classes. For example, let's consider the \verb|Player| class from the previous section. It is printed below for your convenience.\par
+\begin{lstlisting}[style=pippython]
+class Player:
+	"""
+	A player on a lacrosse team.
+	"""
+
+	def fopct(self):
+		"""
+		Calculates faceoff win percentage.
+		
+		Returns
+		-------
+		float
+			The faceoff percentage from 0 to 1.
+		"""
+		
+		if (self.fowins + self.folosses) == 0:
+			return 0.0
+		else:
+			return float(self.fowins / (self.fowins + self.folosses))
+\end{lstlisting}
+This class has one method in it that returns the faceoff win percentage. But, let's say we wanted to split the first and last name apart and have a method that put them together. We could just have two separate attributes for first and last name, but we could also make a nested class called \verb|Name| that has its own concatenation method that returns the full name. Consider the following script.
+\begin{lstlisting}[style=pippython]
+class Player:
+	"""
+	A player on a lacrosse team.
+	"""
+	
+	class Name:
+		"""
+		A name of a person.
+		"""
+		def __init__(self, first = "", middle = "", last = ""):
+			self.first = first
+			self.middle = middle
+			self.last = last
+		
+		def fullname(self):
+			"""
+			Returns the full name.
+			"""
+			return str(self.first + " " + self.middle + " " + self.last)
+			
+	def __init__(self, fowins = 0, folosses = 0):
+			self.fowins = fowins
+			self.folosses = folosses
+
+	def fopct(self):
+		"""
+		Calculates faceoff win percentage.
+		
+		Returns
+		-------
+		float
+			The faceoff percentage from 0 to 1.
+		"""
+		
+		if (self.fowins + self.folosses) == 0:
+			return 0.0
+		else:
+			return float(self.fowins / (self.fowins + self.folosses))
+\end{lstlisting}
+We still have our \verb|fopct()| method in our class, but we also now have a subclass called \verb|Name| with its own method \verb|fullname()|. Because \verb|fullname()| is nested inside of the \verb|Name| class, it would not be syntactically correct to call the \verb|fullname()| method on \verb|Player|, but we could call it on \verb|Name|. How would this look?\par
+Let's consider how we've always seen classes before. When something is an attribute or a method of a class, it's been prefaced by its parent class and a period. This is a one-level nest, but we can have multi-level nests, too, like our updated \verb|Player| class now has. So, let's create a new \verb|Player| object that stores a name inside of the \verb|Player.Name| class.\par
+\begin{lstlisting}[style=pippython]
+simondr01 = Player()
+simondr01.name = Player.Name()
+simondr01.name.first = "Drew"
+simondr01.name.last = "Simoneau"
+simondr01.fowins = 31
+simondr01.folosses = 43
+\end{lstlisting}
+Let's break this down. Line 1 should look very similar by now. We're simply making a new \verb|Player| object and assigning it to the \verb|simondr01| variable. Inside of the \verb|Player| class, there is a subclass called \verb|Name| that has three attributes: \verb|first|, \verb|middle|, and \verb|last|. The \verb|Name| class also has an default constructor that will initialize any empty attribute to an empty string. We have then placed the \verb|Name| object inside of the \verb|name| attribute inside of the \verb|simondr01| object. Then, we assigned the values \verb|"Drew"| and \verb|"Simoneau"| to the \verb|first| and \verb|last| attributes of our \verb|Name| object inside of our \verb|Player| object. Finally, we assign the \verb|fowins| and \verb|folosses| to the \verb|Player| object, just as before.\par
+If we want to refer to something inside of the \verb|Player| class (which we'll call the parent class), we can just reference that attribute from the parent class. If we want to refer to something inside of the \verb|Name| class (which we'll call the child class), we can reference that attribute from the child class inside of the parent class.\par
+We can call the \verb|fopct()| method, just like before.\par
+\begin{lstlisting}[style=pippython]
+print(simondr01.fopct())
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+0.4189189189189189
+\end{lstlisting}
+Now, however, we can call the \verb|fullname()| method on the \verb|Name| class inside of the \verb|Player| class.
+\begin{lstlisting}[style=pippython]
+print(simondr01.name.first)
+print(simondr01.name.last)
+print(simondr01.name.fullname())
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+Drew
+Simoneau
+Drew  Simoneau
+\end{lstlisting}
+In this chunk, we're calling the \verb|first| and \verb|last| attributes from the \verb|name| class, then we're calling the \verb|fullname()| method from the \verb|name| class. Take note of the two periods to get to the nested class. We have the period in between \verb|simondr01| and \verb|name|, which gets the parent object, and another period in between \verb|name| and \verb|first|, which gets the child object.
 \section{Functions Versus Methods}
 Now that we know what a class method is, how exactly is it different from a regular old function? Sure, on the surface, they look the exact same and they even use the exact same definition syntax! The key to a method is that it is enclosed in a class and that it operates using class attributes as opposed to naive arguments. This means that for many of your class methods, you will never need to include anything other than \verb|self| as an argument, since you'll only ever be accessing class attributes inside of your method. 
 \section{Security Types (Optional)}
-In other programming language classes, there is a concept known as security types. The security type of an object attribute is a measure of how accessible it is to the layer above it. In general, there are three security types: public, private, and undefined. Some languages don't have undefined security types, like C++ or C\#. Other languages do have undefined security types, like Java. The purpose of a private security type is to prevent a programmer from inadvertently modifying or accessing the attribute using naive code methods. \textbf{Private attributes are not inaccessible with the right methods}, only harder to get to. In languages with security types, the programmer typically writes a bridge between a private and a public attribute.
+In other programming language classes, there is a concept known as security types. The security type of an object attribute is a measure of how accessible it is to the layer above it. In general, there are three security types: public, private, and undefined. Some languages don't have undefined security types, like C++ or C\#. Other languages do have undefined security types, like Java. The purpose of a private security type is to prevent a programmer from inadvertently modifying or accessing the attribute using naive code methods. \textbf{Private attributes are not inaccessible with the right methods}, only harder to get to. In languages with security types, the programmer typically writes a bridge between a private and a public attribute.\par
+In C++, a common language that has public and private security types, the differentiation of whether a member attribute can be accessed from outside the class or not is the difference between public and private members. If a member attribute is accessible from outside of the class, the attribute is considered public, whereas if the member cannot be accessed or viewed from outside of that exact class, it is considered private. C++ adds a third security type as a subset of private member attributes called protected, which allows a member attribute to be accessed from inherited classes but not in a public scope.\par
 \section{Structures (Optional)}
 There's a concept in other programming languages known as structures, or structs. Structs are another way of structuring data compared to classes, but unfortunately, Python doesn't natively support structs. However, we can still go over what a struct is so that should you choose to pick up a new programming language down the line, you can understand how that code works.\par
 Let's say that you wanted to store a date. There's several ways that we could store this date. We could make an entire class called \verb|date|, but this seems kind of wasteful and somewhat backwards. It's a lot of code for something so simple. Likewise, we could store our year, month and date in individual variables, but this seems kind of messy and like it could cause readability issues. Instead, we can make a struct. A struct is like a combination of data that can be accessed as a single datatype, but without the overhead of a class.\par

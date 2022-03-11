@@ -54,7 +54,7 @@ emptySeries = pd.Series()
 \begin{lstlisting}[style=pippython]
 var2 = pd.Series([122, 139, 185, 115])
 \end{lstlisting}\par
-\boxtext{Variables Versus Literals}{Notice how in var1, we passed in a variable with a list, while in var2, we passed in a list literal. As long as the datatype is correct, Python will make the series\index{Pandas!series}.}
+\boxtext{Variables Versus Literals}{Notice how in \texttt{var1}, we passed in a variable with a list, while in \texttt{var2}, we passed in a list literal. As long as the datatype is correct, Python will make the series\index{Pandas!series}.}
 If we tried to print the list before we typecast \verb|var1|, we would end up with something like this.
 \begin{lstlisting}
 [56, 52, 63, 38]
@@ -331,9 +331,9 @@ print(skaters.head())
 
 [5 rows x 62 columns]
 \end{lstlisting}
-\boxtext{Where am I?}{To find what your current working directory is, you can just run the pwd command in the Python shell. pwd stands for "print working directory."}
+\boxtext{Where am I?}{To find what your current working directory is, you can just run the \texttt{pwd} command in the Python shell. \texttt{pwd} stands for "print working directory."}
 \boxtext{Getting Data in Subdirectories}{If your CSV file is in a subdirectory of your current working directory, you can just use slashes to indicate subdirectories. For example, if skaters.csv were a file inside of the data directory, which was inside inside of nhlskaters, which was inside of Downloads, and Downloads was my current working directory, I could just pass in "nhlskaters/data/skaters.csv"}
-\boxtext{From the Top}{Sometimes, it's easier to just give the entire file string. On Unix-like systems, this is easy: just preface the first directory with /. Your home directory is located in /home/yourname/. On Windows, start with C:/ instead. Your home directory is located in C:/Users/yourname/.}
+\boxtext{From the Top}{Sometimes, it's easier to just give the entire file string. On Unix-like systems, this is easy: just preface the first directory with \texttt{/}. Your home directory is located in \texttt{/home/yourname/}. On Windows, start with \texttt{C:/} instead. Your home directory is located in \texttt{C:/Users/yourname/}.}
 \subsubsection{Reading a Pickle}
 Pickles are a method of storing a data in non-volatile memory that represent an entire \indexterm{Pandas} object. When a \indexterm{Pandas} object is pickled, it is stored and recalled exactly the same at the time of pickling. Consider some of the ways that we can fail to read a CSV file. If the data were created with tabs instead of commas, it would be possible to read the data incorrectly. Plus, we can't tell \indexterm{Pandas} that the first column is an index, meaning that anyone that imports the data down the line might create a new index, thus breaking your code. A pickle avoids these problems by storing the object as a whole, including indices, column names, and other metadata. This data is read when someone attempts to read the pickle, and the process of reading the pickle recreates the object exactly as it existed from whoever wrote the picklefile.\par
 Essentially, writing a pickle freezes an object in time, and anyone who uses that pickle down the line will get that object exactly as it stood when it was frozen.\par
@@ -344,13 +344,134 @@ skaters = pd.read_pickle("https://github.com/pythonforscientists/data/blob/main/
 \subsection{Looking at Data}
 Before we can do anything with our data, we need to know what the data looks like. You could look at it in its raw form, but that doesn't really help us if we don't know that Python imported the data correctly. Luckily for us, Pandas comes with some methods that can help us get an idea of what the data looks like without necessarily giving us all of the beans.\par
 \boxtext{Why not all the data?}{Why would we want to only get a little bit of the data if we wanted to get the format of data? Why not get all of it? Consider a large dataset with hundreds of thousands or even millions of rows and dozens or hundreds of columns. It would be excruciating to print that entire dataset, so having the tools to print a subset of our data is critical.}
+In this section, we will cover four main methods of viewing our data: viewing the data itself, viewing the data's description, viewing a subset of the first few rows, and viewing a subset of the last few rows.\par
+If we know that the size of our dataset is managable, it may make sense to just print the entire dataset. The easiest way to do this is just by using the naive \verb|print()| function in Python. When we print a Pandas dataframe, the dataframe is organized and tabulated before being printed, so it looks like a plaintext table. When we print just a dataframe, Pandas will return every single row, but it might not return every single column. If you have more than just a few columns, Pandas won't be able to print all of them, so it will abbreviate by using an ellipses to represent rows that aren't printed.\par
+However, more often than not, we will be working with large datasets that don't make sense to print the entirety of. For example, let's consider the \verb|skaters| dataset that we pulled in previously. As a review, we pulled this dataset into Python as a pickle using this code.\par
+\begin{lstlisting}[style=pippython]
+skaters = pd.read_pickle("https://github.com/pythonforscientists/data/blob/main/skaters.pkl?raw=true")
+\end{lstlisting}
+Now that we've imported the data, let's look at what shape this dataframe is in. Conveniently, Pandas has an attribute called \verb|shape| that we can call on dataframe objects that will give us the shape, or dimensions, of our dataframe.\par
+\warningtext{Methods versus attributes}{Cast your mind back to when we covered classes, and make sure you're not confusing your methods and your attributes. Methods are used to process data within a class, while an attribute is a feature of an object. In this case, "shape" is an attribute of the DataFrame class, not a method, so it doesn't get any parentheses.}
+\begin{lstlisting}[style=pippython]
+print(skaters.shape)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+(943, 65)
+\end{lstlisting}
+This gave us the shape, or dimensions, of our dataframe. In this tuple, the first figure represents the number of rows, and the second figure represents the number of columns. We can see that in the \verb|skaters| dataset, we have 943 rows across 65 columns.\par
+However, this doesn't actually give us what the column names are. But, guess what! There's another attribute of the DataFrame class that has the names of all of the columns, and it's named \verb|columns| (shocker, I know!).
+\begin{lstlisting}[style=pippython]
+print(skaters.columns)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+Index(['sid', 'player', 'playerid', 'age', 'conference', 'division', 'team',
+       'role', 'position', 'gamesplayed', 'cf', 'ca', 'cfpct', 'cfpctrel',
+       'ff', 'fa', 'ffpct', 'ffpctrel', 'toishootpct', 'toisavepct', 'pdo',
+       'offzonestartpct', 'defzonestartpct', 'toi', 'toieven', 'takeaways',
+       'giveaways', 'expected', 'attempted', 'thrupct', 'shift', 'estoi',
+       'escfpctrel', 'esgf', 'esga', 'pptoi', 'ppcfpctrel', 'ppgf', 'ppga',
+       'shtoi', 'shcfpctrel', 'shgf', 'shga', 'goals', 'assists', 'points',
+       'pm', 'pim', 'ps', 'evg', 'ppg', 'shg', 'gwg', 'eva', 'ppa', 'sha',
+       'sog', 'shotpct', 'toi.1', 'toiavg', 'blocks', 'hits', 'fowin',
+       'foloss', 'fopct'],
+      dtype='object')
+\end{lstlisting}
+So now, we know what our columns are, but what types are they? We \textit{could} call the \verb|type()| function on an individual data cell in a column (which we'll cover how to do in a later section), or we could just look at the datatype that column is. In Pandas, we can do that by looking at the \verb|dtype| attribute of the dataframe, which will give us the datatype of all of the columns.
+\begin{lstlisting}[style=pippython]
+print(skaters.dtype)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+sid             int64
+player         object
+playerid       object
+age             int64
+conference     object
+               ...
+blocks          int64
+hits            int64
+fowin           int64
+foloss          int64
+fopct         float64
+Length: 65, dtype: object
+\end{lstlisting}
+Because of how many columns we have, Pandas has truncated our output to only include the first and last five columns. Since we know the names of our columns (thanks to our \verb|columns| attribute), we can also look at the datatype of an individual column.\par
+\begin{lstlisting}[style=pippython]
+print(skaters.dtypes["ff"])
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+dtype('int64')
+\end{lstlisting}
+This is how Pandas represents the data, but it might not be how Python represents the data. For example, let's look at what type the \verb|player| column is. We would expect this to be a string. It contains entries like \verb|"Michael Amadio"| and \verb|"Connor McDavid"|. However, when we call our \verb|dtypes| attribute for that column, we don't get that it's a string.\par
+\begin{lstlisting}[style=pippython]
+print(skaters.dtypes["players"])
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+dtype('0')
+\end{lstlisting}
+This is Pandas's representation of a native Python object. Pandas, frankly, doesn't care what the Python datatype is. If we want to know what \textit{kind} of object this is, we need to actually view the type of one of the rows in that column. So, let's grab the type of the first row of the \verb|player| column.
+\begin{lstlisting}[style=pippython]
+print(type(skaters["player"][0]))
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+str
+\end{lstlisting}
+We'll get into more depth on data location in the data modification section, but for your purposes now, all you need to know is that we're trying to get the type of the element from the \verb|skaters| dataframe in the \verb|"player"| column in the 0th row.
+Now that we know what the datatypes are, let's actually take a look at some of this data. Remember, this is a large dataset, so we don't necessarily want to print all of it to the console. Thankfully for us, Pandas has two methods for dataframes that can give us the first $n$ rows and the last $n$ rows: \verb|head()| and \verb|tail()|.\par
+\funtext{Why heads or tails?}{Pandas borrows from the Unix commands to view the first and last lines of a text file, which also use head and tail.}
+We can call the \verb|head()| and \verb|tail()| methods on a dataframe object to view the first or last five rows in a dataframe, respectively.
+\begin{lstlisting}[style=pippython]
+print(skaters.head())
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+sid           player   playerid ... foloss fopct
+0    1    Calen Addison  addisca01 ...   0   0.0
+1    2  Andrew Agozzino  agozzan01 ...   2  33.3
+2    3       Jack Ahcan  ahcanja01 ...   0   0.0
+3    4    Sebastian Aho    ahose01 ... 268  52.7
+4    5    Sebastian Aho    ahose02 ...   0   0.0
+
+[5 rows x 65 columns]
+\end{lstlisting}
+\begin{lstlisting}[style=pippython]
+print(skaters.tail())
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+sid           player   playerid ... foloss fopct
+938  939   Mika Zibanejad  zibanmi01 ... 361  52.2
+939  940    Radim Zohorna  zohorra01 ...   8  33.3
+940  941        Artem Zub    zubar01 ...   0   0.0
+941  942  Mats Zuccarello  zuccama01 ...  17  45.2
+942  943     Jason Zucker  zuckeja01 ...  10  28.6
+
+[5 rows x 65 columns]
+\end{lstlisting}
+The default value for the \verb|head()| and \verb|tail()| methods is 5, meaning that by default, calling either method will return 5 rows. However, we can also pass in a value for \verb|n| that will return \verb|n| rows. This is the only attribute that the \verb|head()| or \verb|tail()| method can take.\par
+\begin{lstlisting}[style=pippython]
+print(skaters.tail(10))
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+sid             player   playerid ... foloss  fopct
+933  934     Nikita Zaitsev  zaitsni01 ...   0    0.0
+934  935       Yegor Zamula  zamulye01 ...   0    0.0
+935  936       Jakub Zboril  zborija01 ...   0    0.0
+936  937      Trevor Zegras  zegratr01 ... 204   41.5
+937  938  Fabian Zetterlund  zettefa01 ...   0  100.0
+938  939     Mika Zibanejad  zibanmi01 ... 361   52.2
+939  940      Radim Zohorna  zohorra01 ...   8   33.3
+940  941          Artem Zub    zubar01 ...   0    0.0
+941  942    Mats Zuccarello  zuccama01 ...  17   45.2
+942  943       Jason Zucker  zuckeja01 ...  10   28.6
+
+[10 rows x 65 columns]
+\end{lstlisting}
+
 \subsection{Adding Data}
 Consider the table presented in section 10.2: it looks like a table! With that view comes the advantage that we can index this table by rows and columns.\par
 \boxtext{Recall}{We first saw numerical indexing when we looked at lists. Remember that in Python (and in \indexterm{Pandas}), indices start at 0, not at 1!}
 We can add data in two directions: horizontally (adding a column) or vertically (adding a row), and these are done differently due to the way that dataframes are constructed. Remember, a \indexterm{Pandas} dataframe\index{Pandas!dataframe} is still a bunch of \indexterm{Pandas} series\index{Pandas!series} ordered next to each other.\par
 Consider the \verb|hockey.csv| dataset. It contains 31 hockey players on the NHL Anaheim Ducks team for the 2021-2022 season. It contains the following columns: player, role, position, gamesplayed, goals, assists, fowin, foloss. For this section, we will focus on this dataset.\par
 Let's start by importing this dataset. The data are located at\\ \href{https://github.com/kim3-sudo/pfs/raw/main/data/hockey.csv}{https://github.com/kim3-sudo/pfs/raw/main/data/hockey.csv} as a CSV file, so we can import it into Python as a \indexterm{Pandas} dataframe\index{Pandas!dataframe} by using the \verb|read_csv| method in \indexterm{Pandas}.\par
-\boxtext{URLs or local files?}{The read\_csv method in \indexterm{Pandas} supports reading from a URL or from a local filepath as its argument. So, if you don't want to download the file and read it as a local file, you can also just pass in the URL of the dataset as a raw CSV file to \indexterm{Pandas} and it will pull the dataset from the Internet.}
+\boxtext{URLs or local files?}{The \texttt{read\_csv} method in \indexterm{Pandas} supports reading from a URL or from a local filepath as its argument. So, if you don't want to download the file and read it as a local file, you can also just pass in the URL of the dataset as a raw CSV file to \indexterm{Pandas} and it will pull the dataset from the Internet.}
 We can read the CSV from the Internet using the \verb|read_csv| method. This CSV is formatted as most CSVs are, meaning that we don't need to pass any extra arguments into the \verb|read_csv| method: strings are in quotes, the delimiter is a comma, and there is a header.
 \begin{lstlisting}[style=pippython]
 hockey = pd.read_csv("https://github.com/pythonforscientists/data/raw/main/hockey.csv")
@@ -524,42 +645,377 @@ Other times, you'll want to remove data from the dataframe\index{Pandas!datafram
 Like when adding data, we have two options to remove data: removing a column or removing a row. \indexterm{Pandas} refers to removing a row or a column as \newterm[dropping]{Pandas!dataframe!drop} the row or column. The method for either is the same: \verb|drop()|.\par
 The \verb|drop()| method takes a special argument called \verb|axis| that tells Pandas whether you want to remove a column or a row, and like the \verb|concat()| method, it returns the modified dataframe without altering the original one unless you overwrite the original object with the modified data. The \verb|axis| argument can take either a 0 or a 1, which correspond to whether you want to remove a row or a column, respectively. You also need to tell Pandas what you actually want to remove, and this is done inside of the \verb|labels| argument, which can be passed as a tuple.\par
 Let's take a look at how this works. We will continue to work with the \verb|hockey| dataset that we began using above.\cprotect\footnote{Again, assume that we still have Trevor Zegras's data in \verb|hockey|, as well as the added column \verb|fopct|.}\par
-Let's start by removing a row. We'll remove Simon Benoit from the data, who has index number 0.
-\boxtext{Heads and tails}{Recall how we can use the head and tail methods on a dataframe to print the first five rows in a dataframe.}
+Let's start by removing a row. We'll remove Simon Benoit from the data, who has index number 0.\par
+\boxtext{Heads and tails}{Recall how we can use the \texttt{head} and \texttt{tail} methods on a dataframe to print the first five rows in a dataframe.}
+The \verb|drop()| syntax is very similar to the \verb|concat()| syntax. We have a label that corresponds to an index or a column label, and we have an axis which corresponds to whether we want to delete a row (0) or a column (1). The default value for the axis is to drop a row, so if we only wanted to remove Benoit's observation from our dataset, we would only have to pass in the index number \verb|0|.
+\begin{lstlisting}[style=pippython]
+print(hockey.head())
+print(hockey.shape)
+hockey = hockey.drop(0)
+print(hockey.head())
+print(hockey.shape)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+player role  ...  foloss     fopct
+0         Simon Benoit  Def  ...   0  0.000000
+1          Sam Carrick  Off  ...  90  0.497207
+2          Max Comtois  Off  ...  15  0.482759
+3  Nicolas Deslauriers  Off  ...   3  0.250000
+4       Jamie Drysdale  Def  ...   0  0.000000
 
+[5 rows x 9 columns]
+(31,9)
+player role ... foloss     fopct
+1          Sam Carrick  Off ... 90  0.497207
+2          Max Comtois  Off ... 15  0.482759
+3  Nicolas Deslauriers  Off ...  3  0.250000
+4       Jamie Drysdale  Def ...  0  0.000000
+5           Cam Fowler  Def ...  0  0.000000
+
+[5 rows x 9 columns]
+(30,9)
+\end{lstlisting}
+After running the \verb|drop()| method, we dropped Simon Benoit's observation and the size of our dataframe decreased by one.\par
+\warningtext{Read the right dimensions!}{Calling the head or tail method returns a dataframe of size (n, rows), where n is the number of rows requested. So, the dimensions displayed in a head or tail output will correspond to the returned dataframe, not to the original dataframe. That's why the headed and tailed hockey dataframes have 5 rows but the shape of the dataframe is reported as 31 and 30 rows, respectively.}
+The process to drop a column looks remarkably similar. We will still use the \verb|drop()| method on a dataframe. This time however, we will pass in the name of the column that we want to specify as a string, and we'll specify that we want to delete on the column axis by specifying the \verb|axis| argument to be \verb|1|. Let's say that we wanted to delete the \verb|fopct| column that we created earlier.\par
+\begin{lstlisting}[style=pippython]
+print(hockey.columns)
+hockey = hockey.drop("fopct", axis = 1)
+print(hockey.columns)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+Index(['player', 'role', 'position', 'gamesplayed', 'goals', 'assists',
+       'fowin', 'foloss', 'fopct'],
+      dtype='object')
+Index(['player', 'role', 'position', 'gamesplayed', 'goals', 'assists',
+       'fowin', 'foloss'],
+      dtype='object')
+\end{lstlisting}
 \subsection{Modifying Data}
-When we work with data, we often have a need to change individual cells. Perhaps the data is incorrect or the type was created incorrectly (for example, it's a string instead of a float). This is where dataframe\index{Pandas!dataframe} data modification comes into play. When we want to modify data, we need to choose exactly which data we want to remove, and this is called data selection or data location. \indexterm{Pandas} has its own dedicated methods for data selection, including \verb|.at|, \verb|.iat|, \verb|.loc|, and \verb|.iloc|. Once you know how to select the cell that you want, it's much easier to remove that data, and it also helps you manipulate dataframes in general.
-\subsection{Transforming Data}
-What if we don't want to edit just one column, but we'd rather change the entire shape of the data? This is called \newterm[data transformation]{data transformation}.\footnote{Note that the term "transformation" means something different here than it does in traditional statistics. While in statistics, transformation means to alter a variable to change its value by using some function (like taking the square root) in order to fit some assumption (like normality), we take "transformation" to mean changing the shape of how the data are represented in the dataframe\index{Pandas!dataframe}.}
-
-\section{Cleaning Up Data}
+When we work with data, we often have a need to change individual cells. Perhaps the data is incorrect or the type was created incorrectly (for example, it's a string instead of a float). This is where dataframe\index{Pandas!dataframe} data modification comes into play. When we want to modify data, we need to choose exactly which data we want to remove, and this is called data selection or data location. \indexterm{Pandas} has its own dedicated methods for data selection, including \verb|.at|, \verb|.iat|, \verb|.loc|, and \verb|.iloc|. Once you know how to select the cell that you want, it's much easier to remove that data, and it also helps you manipulate dataframes in general.\par
+The most naive method is to reference an individual cell by its column and index. We alluded to doing this in the previous section when we looked at how to view the datatype of a cell. Let's consider the \verb|skaters| dataframe object. We previously looked at the type of the \verb|"player"| column at row index 0.\par
+\begin{lstlisting}[style=pippython]
+print(type(skaters["player"][0]))
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+str
+\end{lstlisting}
+What we did here was actually look at the type of a cell's data using Python. If we were to remove the \verb|type()| function, we would just get the data that is stored in that cell.\par
+\begin{lstlisting}[style=pippython]
+print(skaters["player"][0])
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+'Calen Addison'
+\end{lstlisting}
+This is the most primitive method of selecting data, and we can actually use this to edit this one cell. Let's break down how we're referencing this cell.\par
+There are three components to a dataframe cell call: the dataframe, the column, and the index. To reference a cell, we provide the dataframe on its own, then the column name (provided as a string) surrounded in square brackets, then the row index in another set of square brackets. When we provide the row index, our index must match whatever Pandas acknowledges the index to be. Most of the time, the index will be numeric, but if you manually specified that you wanted to use a custom index when you declared your dataframe, you must continue to use this index.\par
+So, let's look at the \verb|skaters| dataframe object again. If we wanted to get the player ID of the player at index 80 (the 79th entry), we would use the following.
+\begin{lstlisting}[style=pippython]
+skaters["playerid"][80]
+\end{lstlisting}
+The object at this location is just like any other object in Python, so if we want to output it, we need to print it. So, let's put the result into a print statement.\par
+\begin{lstlisting}[style=pippython]
+print(skaters["playerid"][80])
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+boqvije01
+\end{lstlisting}
+Let's do this again. This time, let's print the number of hits that the player at index 100 scored.
+\begin{lstlisting}[style=pippython]
+print(skaters["hits"][100])
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+9
+\end{lstlisting}
+The player at index 100 is Connor Brown. Let's say that we want to update the value for \verb|hits| for Brown. This is as simple as reassigning the value at that location using the assignment operator, just as if the value was in a nested list.\par
+\begin{lstlisting}[style=pippython]
+skaters["hits"][100] = 10
+print(skaters["hits"][100])
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+10
+\end{lstlisting}
+Equipped with our data modification skills, we can actually edit entire columns. For example, let's say we wanted more accurate faceoff percentages (beyond float 1). We have the integer values for \verb|fowin| and \verb|foloss|, so we can calculate the win percentage fairly easily.\par
+\begin{lstlisting}[style=pippython]
+for index, row in skaters.iterrows():
+	if (skaters["fowin"][index] + skaters["foloss"][index] == 0):
+		skaters["fopct"][index] = 0.0
+	else:
+		skaters["fopct"][index] = float(skaters["fowin"][index] / (skaters["fowin"][index] + skaters["foloss"][index])) * 100
+\end{lstlisting}
+With that, we have just modified an entire column of data by calculating that value naively.\par
 One of the major strengths of Python is its ability to clean data. The very structure of Python means that it's great at very program-oriented tasks, such as procedurally cleaning and sorting data.\par
 The simplest of data cleansing tasks is \newterm[data normalization]{data normalization}. Normalization is the process of making all of the data of a certain variable into a similar form. For example, if you had a variable called "age" that contained both integer and floating point values, then you might want to normalize the data so that all of the data is an integer (if you only care about the integer value of the age) or so that all of the data is a float (if you need more specificity).\par
 Data normalization can clarify confusing things in your data. Let's go back to our "age" variable. Let's say you had the value \verb|7| as one of the values. Does this mean 7 years exactly or some time between 7 and 8 years? Rather, we could specify that the value should be \verb|7.0| - this much more clearly indicates that we're looking at exactly 7 years, not the latter.\par
+Using your data modification skills, you can now do things like typecast cells in a Pandas dataframe.
 \section{Calculating Summary Statistics}
 This book isn't really designed to be a statistics book, but what we can do is go over some basic statistics concepts and apply them to our \indexterm{Pandas} and Python skills. If you want to do more with statistics, you should go take a statistics course.\par
 \warningtext{This is not a stats book!}{This textbook is not a statistics book. This is a Python programming book. We cannot possibly cover all of the details of these statistical tests and models in this one chapter - there are entire textbooks dedicated to this topic. Rather, this book should help you translate your skills in R, SAS, or SPSS to Python.}
-\section{Basic Hypothesis Tests with statsmodels}
-\warningtext{This is not a stats book!}{This textbook is not a statistics book. This is a Python programming book. We cannot possibly cover all of the details of these statistical tests and models in this one chapter - there are entire textbooks dedicated to this topic.}
+Summary statistics, as their names suggest, are summaries of our data. These summary statistics are important for giving us an idea of what our data look like. Summary statistics include things like mean, median, standard deviation, and count. Pandas gives us a way to get the following information from a series or a dataframe.
+\begin{itemize}
+	\item \verb|count|: how many observations exist in the series
+	\item \verb|mean|: the average of the observations
+	\item \verb|std|: the standard deviation of the observations
+	\item \verb|min|: the minimum value in the series
+	\item \verb|25%|: the lower-bound of the inter-quartile range
+	\item \verb|50%|: the median of the data
+	\item \verb|75%|: the upper-bound of the inter-quartile range
+	\item \verb|max|: the largest value in the series
+\end{itemize}
+Pandas will actually give up all this information in one fell swoop if we use the \verb|describe()| method on a dataframe or a series. Recall that a dataframe is just a series of series, so if we call \verb|describe()| on a dataframe, Pandas will evaluate all of the summary statistics above for every column with numerical data, treating every column as a series. Let's consider the \verb|skaters| dataset that we were previously looking at.
+\begin{lstlisting}[style=pippython]
+print(skaters.describe())
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+              age  ...      foloss       fopct
+count  943.000000  ...  943.000000  943.000000
+mean    26.513256  ...   44.941676   24.631881
+std      4.165573  ...   92.895175   25.438452
+min     18.000000  ...    0.000000    0.000000
+25%     23.000000  ...    0.000000    0.000000
+50%     26.000000  ...    2.000000   25.000000
+75%     29.000000  ...   27.000000   48.062916
+max     44.000000  ...  442.000000  100.000000
+
+[8 rows x 51 columns]
+\end{lstlisting}
+\boxtext{Dataframes return dataframes}{The keen-eyed among you have already noticed that the return type of \texttt{describe()} is a dataframe when we called the method on a dataframe. That means that we can use naive methods to grab any one of the cells out of this dataframe.}
+We do know that there are other columns hidden behind those ellipses, and we can view the summary statistics for any column by simply calling the \verb|describe()| method on that column. When we call a column from a dataframe, Pandas returns a series, and we are running the \verb|describe()| method on that series to return another series with the summary statistics.\par
+\begin{lstlisting}[style=pippython]
+print(skaters["goals"].describe())
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+count    943.000000
+mean       4.774125
+std        5.789375
+min        0.000000
+25%        0.000000
+50%        3.000000
+75%        7.000000
+max       33.000000
+Name: goals, dtype: float64
+\end{lstlisting}
+\boxtext{Series return series}{The keen-eyed among you have already noticed that the return type of \texttt{describe()} is a series when we called the method on a series. That means that we can use naive methods to grab any one of the cells out of this dataframe.}
+This is nicely arranged data, but if we only wanted to get the median out of this, we'd have to pull the median out of the series that Pandas returned from the \verb|describe()| method. This isn't impossible, and it looks like this.
+\begin{lstlisting}[style=pippython]
+print(skaters["goals"].describe()["median"])
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+3.0
+\end{lstlisting}
+However, this just isn't very readable. We're taking the value of a non-numeric index (\verb|"median"|) from the return of the \verb|describe()| method which is being run on a single column \verb|"goals"| as a series inside of the dataframe \verb|skaters|. Phew! Thankfully, Pandas has a few methods that'll help us out. For all of the metrics above, there is a corresponding method that returns only that value as a floating-point value. That means that instead of calling \verb|describe()|, then picking what we need out of that series, we can just get the value by itself to begin with.\par
+Let's start with mean, median, and standard deviation. For these, the methods correspond to the names of the indices in the above returned series.\par
+\begin{lstlisting}[style=pippython]
+print(skaters["goals"].mean())
+print(skaters["goals"].median())
+print(skaters["goals"].std())
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+4.774125132555674
+3.0
+5.789375349335461
+\end{lstlisting}
+The same exists for the count ($n$), minimum, and maximum.\par
+\begin{lstlisting}[style=pippython]
+print(skaters["goals"].count())
+print(skaters["goals"].min())
+print(skaters["goals"].max())
+\end{lstlisting}
+To get the quantiles, we need to specify exactly which quantiles we want. The most common quantiles to request are the 25\% and 75\% quantiles, since the difference between the two makes up the interquartile range. To get the quantiles, we can use the \verb|quantile()| method from Pandas on a series. We can pass in a list of quantiles that we want for as many quantiles as we want.\par
+\begin{lstlisting}[style=pippython]
+print(skaters["goals"].quantile([0.25, 0.5, 0.75]))
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+0.25    0.0
+0.50    3.0
+0.75    7.0
+Name: goals, dtype: float64
+\end{lstlisting}
+\section{Basic Hypothesis Tests with statsmodels (Optional)}
+\warningtext{Prerequisites}{For the remainder of this section, we are operating under the assumption that you have had an introductory statistics course and understand the basic principles behind statistics. We will not be covering important topics like experimental design, data collection principles, or the details behind the tests and methods explored in this chapter. Instead, we will assume that you have already done these tests in R, SPSS, SAS, by hand, or in some other programming language, and that you are only "translating" that statistics knowledge into Python.}
+A bit of a warning before we get started: this textbook is not a statistics book. This is a Python programming book. We cannot possibly cover all of the details of these statistical tests and models in this one chapter - there are entire textbooks dedicated to this topic. We would recommend only reading this section if you have prior statistics knowledge of hypothesis tests.
 Alone, \indexterm{Pandas} and Python make quite the deadly duo, but add in statsmodels and scipy and you've got yourself a Triforce of Stats! The statsmodels library adds many statistical tests that can be used to evaluate a dataset. Again, this isn't a statstics book, so we won't delve into the theory and details of the tests, but we can cover what the tests do and how to run the tests in R. For more detail, we recommend you check out the OpenIntro Statistics textbook (or just take a statistics class!).\par
 We'll cover three statistical tests: the Z-test for proportions, the T-test for differences in means, and the Kruskal-Wallis test for differences in medians.
 \subsection{Z-Test for Proportions}
 To run a Z-test for proportions, we can use the \verb|proportions_ztest()| method in the \verb|proportion| module in the statsmodels library.\par
-The purpose of the Z-test for proportions is to determine whether the proportions between two groups are the same. For example, suppose we wanted to test the idea that out of a sample of 50 men and 50 women, the proportion of men whose favorite Pok\'emon is Pikachu is the same as the proportion of women whose favorite Pok\'emon is Pikachu.
+The purpose of the Z-test for proportions is to determine whether the proportions between two groups are the same. For example, suppose we wanted to test the idea that out of a sample of 50 men and 50 women, the proportion of men whose favorite Pok\'emon is Pikachu is the same as the proportion of women whose favorite Pok\'emon is Pikachu. In our survey, we found that 24 of the men said Pikachu was their favorite, and we found that 29 of the women said Pikachu was their favorite.\footnote{For this, let us assume that the conditions for normality, independence, and sample size have been met.}\par
+The \verb|statsmodels| library relies on NumPy, so let's import that.\par
+\begin{lstlisting}[style=pippython]
+import numpy as np
+\end{lstlisting}
+We want to import a specific subclass from the \verb|statsmodels| library, since it's quite large and we don't want to have to type out the parent classes every single time. The \verb|proportions_ztest()| method is inside of the \verb|proportion| class, which is inside of the \verb|stats| class, which is inside of the \verb|statsmodels| class. If we import the deepest class, we won't have access to any of the higher classes, but if we don't need them, we can avoid typing them out all the way.\par
+\begin{lstlisting}[style=pippython]
+from statsmodels.stats.proportion import proportions_ztest
+\end{lstlisting}
+\boxtext{What's for?}{We didn't have much reason to cover classes which were nested this deeply in the chapter on classes, since you will almost certainly never be working on a large enough module to justify breaking it up into pieces this small. However, you will see the \texttt{from...import} notation used more commonly, which is used when we want to import only a certain subclass from a larger class.}
+We didn't cover the NumPy arrays much, but you can think of them as NumPy-fied lists or as a less sophisticated version of a Pandas series.\par
+\funtext{Pandas's Parents}{Pandas is actually built on top of NumPy. When we're using Pandas, we're using a skin on top of NumPy, which is a skin on top of Python, which itself is a skin on top of the C programming language.}
+For our proportion test, there are two arguments that the \verb|proportions_ztest| will take: \verb|count| and \verb|nobs|. \verb|count| is the number of "successes" for each independent sample (so in this case, it would be the number of people in the group whose favorite Pok\'emon is Pikachu. \verb|nobs| is the number of observations. Optionally, we can also pass the \verb|value|, which is the value of the null hypothesis equal to the proportion in the case of a one-sample test. The \verb|alternative| argument can be \verb|'two-sided'|, \verb|'smaller'|, or \verb|'larger'|, which specifies our alternative hypothesis.\cprotect\footnote{For R developers, these are more often written as \verb|'two.sided'|, \verb|'less'|, and \verb|'greater'|. If you are switching to Python, make sure you use \verb|'two-sided'|, \verb|'smaller'|, or \verb|'larger'| instead!}\par
+Our proportion test is being run under the null hypothesis that the two groups are the same, so we will use a two-sided Z-test for proportions. The Z-test for proportions returns two things: \verb|stat| and \verb|pval|. \verb|stat| is the Z-test statistic, which we could compare to a Z-score table given our $N$. However, we can also just use the \verb|pval| return object, which is of type \verb|float|, and that is the precomputed probability that the proportions are the same.
+For this experiment, we are operating under the null hypothesis $H_0$ that the proportions of men and women who said Pikachu was their favorite Pok\'emon is equal and under the alternative hypothesis $H_A$ that the proportion of men who said Pikachu was their favorite Pok\'emon is not equal to the proportion of women who said Pikachu was their favorite Pok\'emon.\par
+\begin{lstlisting}[style=pippython]
+teststat, pval = proportions_ztest(np.array([24, 29]), np.array([50, 50]), alternative = 'two-sided')
+print(pval)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+0.3164378424577682
+\end{lstlisting}
+In our experiment, we find a $p$-value of 0.3164. At an $\alpha$ level of 0.05, we fail to reject the null hypothesis $H_0$ that there is a significant difference between the proportions and conclude that there is no statistically significant difference in the proportion of men and women who said that Pikachu was their favorite Pok\'emon.
 \subsection{T-Test for Differences in Means}
-To run a T-test for differences in means, we can use the \verb|ttest_ind()| method in the \verb|weightstats| module in the statsmodels library.
-\subsection{Kruskal-Wallis Rank Test for Differences in Medians}
-To run the Kruskal-Wallis test for differences in medians, we can use the \verb|kruskal()| method in the \verb|stats| module in the scipy library.
-\section{Building Basic Models}
-\warningtext{This is not a stats book!}{This textbook is not a statistics book. This is a Python programming book. We cannot possibly cover all of the details of these statistical tests and models in this one chapter - there are entire textbooks dedicated to this topic.}
-A big part of statistics is models. Statisticians use models to evaluate their data all the time, and it's something that Python and \indexterm{Pandas} are quite good at doing.\par
-For this book, we'll cover two models: the simple linear regression model, and the logistic regression model.\par
-In order to understand why we're doing any of this, we must first understand what a model is. Consider a dataset with a few columns. One of these columns is our response variable, and the other columns are our indicator variables. If we just look at this one dataset, we know the data that was collected, but how does this generalize? That is, how can we make a prediction for our response variable given a new situation? This generalization is called a model.\par
-As a more concrete example, consider a dataset of 25 high-school age soccer players in a specific league. We might have the variables  speed, agility, age, and goals. Given the data, we can build a simple linear model to predict how many goals a player might score given their speed, agility, and age. This allows us to generalize the dataset (with its real data) to the entire league of, say 200 player, even though they might not have been sampled (assuming that our dataset is representative of the league).\footnote{This is a dramatic simplification of the process of making a model. You should refer to a statistician for more details.}
-\subsection{Simple Linear Regression}
-\subsection{Logistic Regression}
+To run a T-test for differences in means, we can use the \verb|ttest_ind()| method in the \verb|weightstats| module in the statsmodels library.\par
+The purpose of the T-test for differences in means is to determine whether there is a difference in the means between two groups. For example, suppose a football helmet manufacturer was testing a new design for a helmet that was designed to decrease the number of G-forces that a player's head experiences after a collision. The manufacturer put sensors on 50 helmets (25 of the old model, and 25 of the new model), then had 50 test subjects assigned at random to one of the two helmets tackle a dummy to collect data on the G-forces that were incurred during the collision. The data are available to you at \\\href{https://github.com/pythonforscientists/data/raw/main/helmets.csv}{https://github.com/pythonforscientists/data/raw/main/helmets.csv}.\footnote{Like with the Z-test, we will assume that the conditions for independence, sample size, and equal variance have been met. We will check the normality condition using a normal QQ plot below.}\par
+Again, we need NumPy in order to use \verb|statsmodels|.\par
+\begin{lstlisting}[style=pippython]
+import numpy as np
+\end{lstlisting}
+And again, our method will be imported from a specific subclass in the \verb|statsmodels| library. The \verb|ttest_ind()| method is inside of the \verb|weightstats| class, which is inside of the \verb|stats| class, which is inside of the \verb|statsmodels| class.
+\begin{lstlisting}[style=pippython]
+from statsmodels.stats.weightstats import ttest_ind
+\end{lstlisting}
+For our T-test, there are two required arguments: \verb|x1| and \verb|x2|. Each of these are vectors corresponding to one of our independent groups. That is, \verb|x1| will have the data for one helmet, and \verb|x2| will have the data for the other helmet. We can also specify an alternative hypothesis out of \verb|'two-sided'|, \verb|'larger'|, and \verb|'smaller'|.\par
+For this test, we will be using the alternative hypothesis that the mean for \verb|x1| (the old helmet) is greater than the mean for \verb|x2| (the new helmet), so we will specify the \verb|'larger'| alternative hypothesis.\par
+Our proportion test is being run under the null hypothesis $H_0$ that the mean G-force between the old helmet and the new helmet are the same versus the alternative hypothesis $H_A$ that the mean G-force on the old helmet is higher than the mean G-force on the new helmet.\par
+Like the Z-test for differences in proportions, the \verb|ttest_ind()| method returns multiple objects. However, because we are running a $T$-test, we have degrees of freedom for our test statistic, so the method returns a \verb|tstat|, a \verb|pval|, and \verb|df|. The \verb|tstat| object is a float with the test statistic, and it is interpreted using the \verb|df|, which is an int or float with the degrees of freedom used in the t-test. The \verb|pval| is the precomputed probability that the means are the same.\par
+Now, let's run the independent T-test.\par
+\begin{lstlisting}[style=pippython]
+tstat, pval, df = ttest_ind(helmets["helmet1"], helmets["helmet2"], alternative = 'larger')
+print(pval)
+print(tstat, df)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+0.049345648191665814
+1.6839153933108315 48.0
+\end{lstlisting}
+In our experiment, we find a $p$-value of 0.0493 and a test statistic of 1.683 on 48 degrees of freedom. At an $\alpha$ level of 0.05, we reject the null hypothesis $H_0$ that the mean G-force between the two helmets are the same and conclude that there is a statistically significant difference between the two helmets.
 \section{Basic Graphs with Matplotlib}
 \warningtext{This is not a stats book!}{This textbook is not a statistics book. This is a Python programming book. We cannot possibly cover all of the details of these statistical tests and models in this one chapter - there are entire textbooks dedicated to this topic.}
 The most glamorous part of statistics is probably the graphs. So far, almost everything that we've done has been done in the console, and while it's great for data density, it doesn't look great if we're being perfectly honest. However, we're about to leave the realm of the console and start to play with a new library: Matplotlib. This library will introduce us to tools that will open windows with graphs, since trying to view graphs in a terminal just isn't fun.\par
 \funtext{Matplotlib's Etymology}{Matplotlib was derived from MATLAB as a library for Python designed to look like MATLAB. It stands for MATlab PLOTting LIBrary (think: mat-plot-lib).}
-Matplotlib is an incredibly complex and powerful library that allows you to create plots that are both static and animated! However, we'll only be looking at static plots.
+Matplotlib is an incredibly complex and powerful library that allows you to create plots that are both static and animated! However, we'll only be looking at static plots. For this section, we'll be looking at three plots: a pie chart, a histogram, and a normal QQ plot.\par
+Let's start with the pie chart. Matplotlib is quite a large library, and we really only need one class from it: the \verb|pyplot.plt| class. So, let's import this class, first.\par
+\begin{lstlisting}[style=pippython]
+import matplotlib.pyplot as plt
+\end{lstlisting}
+The \verb|subplots| call returns two objects, which we've placed into \verb|fig1| and \verb|ax1|. The \verb|fig1| object is a Figure object, and this is a top-level container for all of our plot elements. We won't touch the Figure object right now. The \verb|ax1| object is an array of axes, and this is what we'll be operating on to make a pie chart.\par
+Next, we need to create our list of values. Matplotlib will calculate the percentages for us if we give it a list of values that correspond to the relative size of each of our pie wedges. So, let's create a list of values.\par
+\begin{lstlisting}[style=pippython]
+sizes = [10, 33, 9, 31]
+\end{lstlisting}
+If we were to plot, we wouldn't be able to see what pie wedge is what, so we probably also want some labels for our pie wedges. We can put our labels into another list as strings.\par
+\begin{lstlisting}[style=pippython]
+labels = ['Ham', 'Eggs', 'Green Ham', 'Green Eggs']
+\end{lstlisting}
+The pie chart method is \verb|pie|, and it can be called on a \verb|subplot| object. So, let's make this subplot object. The subplot object is simply a place where plots can be made.\par
+Now, let's actually generate a plot. There are three parts to generating a pie plot: figuring out the sizes and generating the shapes, fixing the shapes, then showing the shapes. These are done with the \verb|pie()| method on the \verb|Axes| object, then the \verb|axis()| method on the \verb|Axes| object, then the \verb|show()| method on the \verb|plt| object. Every time we want to create a plot, we'll call some method on part of our subplots objects, then we'll update the display by calling the \verb|show()| method.\par
+\begin{lstlisting}[style=pippython]
+fig1, ax1 = plt.subplots()
+ax1.pie(sizes, labels = labels)
+ax1.axis('equal')
+plt.show()
+\end{lstlisting}
+\warningtext{Plotting Pitfall}{Generating the subplots, then making the shapes, corrections, and showing must all be done in one code block. If you're running this in a \texttt{.py} file, you'll be fine, but if you're running this line-by-line, you won't actually be able to make the plot.}
+If we didn't run the fixing step (the \verb|axis()| method), we'd end up with a lopsided plot, and the \verb|axis()| method helps us by fixing the directions and aligning all of the wedges with each other.\par
+
+\includegraphics[width=0.8\textwidth]{img/pie1.png}
+
+To help us read our pie plot a little easier, we can have Matplotlib insert percentages on each of the slices by specifying a format for the \verb|autopct| parameter in \verb|pie()|. This parameter uses POSIX escapes, and here, we want to specify how many digits we want, along with a percent sign. We'll use the argument \verb|%1.1f%%|, which will give us at least the ones place (the \verb|%1|, a decimal point (\verb|.|), at least one decimal place (\verb|1f|), and an escaped percent sign (\verb|%%|).
+
+\begin{lstlisting}[style=pippython]
+fig1, ax1 = plt.subplots()
+ax1.pie(sizes, labels = labels, autopct = '%1.1f%%')
+ax1.axis('equal')
+plt.show()
+\end{lstlisting}
+
+\includegraphics[width=0.8\textwidth]{img/pie2.png}
+
+Pie plots are great for a quick comparison, but they're not very useful outside of just exploring data. Why don't we look at a histogram instead. Histograms provide more information on the distribution of the data, which is a very useful feature to statisticians.\par
+Let's consider the \verb|skaters| dataset once again. What does the \verb|assists| distribution look like compared to the \verb|goals| distribution? We could run a statistical test to compare distributions, but we can also use our eyeballs to see what the data look like. Histograms bin data, then count frequencies within that bin and display that as a bar.\par
+Let's start by pulling the \verb|skaters| dataset in. It is provided below for your convenience.\par
+\begin{lstlisting}[style=pippython]
+skaters = pd.read_pickle("https://github.com/pythonforscientists/data/blob/main/skaters.pkl?raw=true")
+\end{lstlisting}
+Like when we generated pie plots, we will need to generate subplots, but instead of the \verb|pie()| method on the \verb|Axes| object, we will use the \verb|hist()| method. Let's make our subplots, then making our histograms for the \verb|goals| and \verb|assists| columns.\par
+\begin{lstlisting}[style=pippython]
+fig1, ax1 = plt.subplots()
+ax1.set_title("Goals")
+ax1.hist(skaters["goals"])
+fig2, ax2 = plt.subplots()
+ax2.set_title("Assists")
+ax2.hist(skaters["assists"])
+\end{lstlisting}
+
+\includegraphics[width = 0.8\textwidth]{img/hist1.png}
+
+\includegraphics[width = 0.8\textwidth]{img/hist2.png}
+
+We also threw in another method on \verb|ax1| and \verb|ax2| in this code chunk: \verb|set_title()|, which predictably, sets a title for the plot. It takes a single string argument.
+
+This gives us some idea of what our data looks like, but what if we could view our two plots side-by-side? We can do so by specifying four parameters. The first two parameters are the shape that we want in rows, then columns. We want one row and two columns, so we'll specify the first two arguments to be \verb|1| and \verb|2|. the parameter \verb|sharey| to be \verb|True| when we create our subplot. In this case, we only want one subplot, since both of our histograms will be displayed by \verb|ax1|. We will also specify that we want to crunch the plots together by specifying the \verb|tight_layout| parameter to be \verb|True|.\par
+Now, we can specify the subplot at position \verb|0| to be one of our histograms and the subplot at position \verb|1| to be the other histogram.
+\begin{lstlisting}[style=pippython]
+fig1, ax1 = plt.subplots(1, 2, sharey = True, tight_layout = True)
+ax1[0].set_title("Goals")
+ax1[0].hist(skaters["goals"])
+ax1[1].set_title("Assists")
+ax1[1].hist(skaters["assists"])
+\end{lstlisting}
+
+\includegraphics[width = 0.8\textwidth]{img/hist3.png}
+
+We can also specify the number of bins that we want to use by specifying the \verb|bins| argument in the \verb|hist()| method. \verb|bins| takes an integer value.\footnote{In the below plot, we'll only set bins for the Assists plot for the sake of demonstration.}\par
+\begin{lstlisting}[style=pippython]
+fig1, ax1 = plt.subplots(1, 2, sharey = True, tight_layout = True)
+ax1[0].set_title("Goals")
+ax1[0].hist(skaters["goals"])
+ax1[1].set_title("Assists")
+ax1[1].hist(skaters["assists"], bins = 10)
+\end{lstlisting}
+
+\includegraphics[width = 0.8\textwidth]{img/hist4.png}
+
+Histograms are great for getting an idea of the shape of our distribution, but if we want to look at the data compared to the normal distribution, a better plot is a normal Q-Q plot. The normal Q-Q plot is a scatterplot created by plotting sample quantiles against theoretical quantiles from the normal distribution. If the sample quantile points are also normal, the line formed will be roughly straight, but if the sample quantile points are not normal, the line formed will not be straight and may have bends, curves, tails, and other abnormalities.\par
+In Python, we'll use a combination of tools from the \verb|statsmodels| library and the \verb|matplotlib| library. Let's consider the \verb|helmets| data from earlier in this chapter. As a convenience, the data import line is provided here.\par
+\begin{lstlisting}[style=pippython]
+helmets = pd.read_csv("https://github.com/pythonforscientists/data/raw/main/helmets.csv")
+\end{lstlisting}
+Let's look at the histograms for each helmet.\par
+\begin{lstlisting}[style=pippython]
+fig1, ax1 = plt.subplots(1, 2, sharey = True, tight_layout = True)
+ax1[0].set_title("Helmet 1")
+ax1[0].hist(helmets["helmet1"])
+ax1[1].set_title("Helmet 2")
+ax1[1].hist(helmets["helmet2"])
+\end{lstlisting}
+
+\includegraphics[width = 0.8\textwidth]{img/hist5.png}
+
+Given these histograms, we want some more information to tell us whether either helmet is roughly normal. To do this, we can generate a normal Q-Q plot for each helmet. Let's start by importing the \verb|api| class from \verb|statsmodels|, as well as \verb|pyplot| from \verb|matplotlib| aliased as \verb|plt|.
+\begin{lstlisting}[style=pippython]
+import statsmodels.api
+import matplotlib.pyplot as plt
+\end{lstlisting}
+Then, we can use the \verb|qqplot()| method from the \verb|api| class inside of \verb|statsmodels|. Then, we'll show the plot that \verb|qqplot()| made using Matplotlib's \verb|show()| method.\par
+Because we have a non-zero mean, it makes sense for us to use a standardized line instead of a 45-degree line. The standardized line is created by scaling the expected order statistics by the standard deviation of the sample and having the mean added to them. If know your data are centered at zero, then you can also use \verb|'45'| instead of \verb|'s'|.\footnote{If you create normal Q-Q plots in R, the default is to create a standardized line.}
+\begin{lstlisting}[style=pippython]
+helmet1norm = statsmodels.api.qqplot(helmets["helmet1"], line = 's')
+plt.show()
+helmet2norm = statsmodels.api.qqplot(helmets["helmet2"], line = 's')
+plt.show()
+\end{lstlisting}
+
+\includegraphics[width = 0.8\textwidth]{img/hist6.png}
+
+\includegraphics[width = 0.8\textwidth]{img/hist7.png}
+
+But what if our data are not normal? Let's consider the \verb|assists| variable from the \verb|skaters| dataset. The histogram looks like the following.
+
+\includegraphics[width = 0.8\textwidth]{img/hist2.png}
+
+When we create our normal Q-Q plot, it severely twists away from the standardized line.\par
+\begin{lstlisting}[style=pippython]
+assistsnorm = statsmodels.api.qqplot(skaters["assists"], line = 's')
+plt.show()
+\end{lstlisting}
+
+\includegraphics[width = 0.8\textwidth]{img/hist8.png}

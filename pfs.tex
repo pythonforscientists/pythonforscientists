@@ -30,8 +30,17 @@
 \usepackage{makecell}
 \usepackage{cprotect}
 \usepackage{fancyhdr}
-\pagestyle{fancy}
 \newcommand{\sectionbreak}{\clearpage}
+
+% Headers and footers
+\pagestyle{fancy}
+\fancyhf{}
+% Header style
+\fancyhead[LE]{\textit{\leftmark}}
+\fancyhead[RO]{\textit{\rightmark}}
+\fancyhead[LO, RE]{\thepage}
+% Footer style
+\fancyfoot[C]{EVALUATION COPY}
 
 % set the default code style
 
@@ -98,9 +107,6 @@
     numbers=none,
 }
 
-% Footer text
-\cfoot{UNCORRECTED PROOF}
-
 % Create term preset
 \newcommand{\newterm}[2][]{\textbf{\textit{#1\index{#2}}}}
 \newcommand{\indexterm}[1]{#1\index{#1}}
@@ -135,7 +141,8 @@
 % Content Starts Here
 \begin{document}
 \frontmatter
-
+\setcounter{page}{1}
+\renewcommand{\thepage}{Title \arabic{page}}
 % ---- Half Title Page ----
 % current geometry will be restored after title page
 \newgeometry{top=1.75in,bottom=.5in}
@@ -184,11 +191,13 @@
 % \end{titlepage}
 \restoregeometry
 % ---- End of Half Title Page ----
-
+\setcounter{page}{1}
+\renewcommand{\thepage}{Inside Cover \arabic{page}}
 
 % No page numbers on the Frontispiece page
 \thispagestyle{empty}
-
+\setcounter{page}{1}
+\renewcommand{\thepage}{Title Page \arabic{page}}
 
 % ---- Title Page ----
 % current geometry will be restored after title page
@@ -241,6 +250,9 @@ Gambier, Ohio}
 % Do not show page numbers on colophon page
 \thispagestyle{empty}
 
+\setcounter{page}{1}
+\renewcommand{\thepage}{Colophon \arabic{page}}
+
 \begin{flushleft}
 \vspace*{\fill}
 Credits and acknowledgements in this textbook appear on the appropriate page within the text.
@@ -260,15 +272,23 @@ THIS IS AN UNCORRECTED PROOF AND IS NOT FOR USE IN THE CLASSROOM OR AS PART OF C
 
 % A title page resets the page # to 1, but the second title page
 % was actually page 3. So add two to page counter.
-\addtocounter{page}{2}
+\setcounter{page}{1}
+\renewcommand{\thepage}{\roman{page}}
 
 \input{chapters/0preface}
 
+\newpage
+
 % Three-level Table of Contents
+\setcounter{page}{1}
+\renewcommand{\thepage}{\roman{page}}
 \setcounter{tocdepth}{3}
 \tableofcontents
 
 \mainmatter
+
+\setcounter{page}{1}
+\renewcommand{\thepage}{\arabic{page}}
 
 \input{chapters/1introduction}
 

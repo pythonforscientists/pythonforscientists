@@ -93,10 +93,210 @@ GET requests, as their name suggests, get data from a remote server. In our bull
 \warningtext{Common pitfall: authentication}{Some websites require authentication. Whether this is through an username-password combination or an authentication token, this should be checked if you're having issues getting or posting data. A basic test to see if authentication is required is to just open a new Incognito, InPrivate, or Private window in a web browser, then try to directly access the resource by pasting its URL into the address bar.}
 With that, it might seem like we'd only want to use GET requests. However, the inner workings of modern web frameworks are much more complicated, and they often involve asking for specific amounts of data. It's a negotiated process: you might ask for the format of the data, the web server responds with the format, you then ask if you need permissions and the web server responds with a yes, so you send the authentication token and the web server asks you what data you want, you finally send a request for what you want and the web server responds with the data. In this highly simplified scenario, we've already placed eight requests. Modern webpages might involve dozens of requests!\par
 The \verb|requests| library abstracts all of this for us. We don't need to know all of the details of which requests to place and what kind of data to expect in response, since \verb|requests| already does this for us.
-\subsection{Parsing with Beautiful Soup}
+\subsubsection{Making a GET Request}
+Now that we know what the difference is between a GET and a POST request, let's apply that to a request that we'll place. Inside of the \verb|requests| library exists a \verb|get()| method, which allows us to place a GET request to a specified address.\par
+The only required parameter is \verb|url|, which is almost always passed in as the first positional argument. The \verb|url| parameter is of type string, so we can just pass in a string literal. In an address, there is also something called a query string. Not all addresses have a query string, but query strings can deliver state information to a page. You can tell if an address has a query string by if it has a question mark \verb|?|. The question mark indicates the beginning of a query string, and a query string can contain multiple queries, separated by ampersands \verb|&|. Every query string has a key and a value (just like a Python dictionary), which are separated by an equal sign.\par
+Let's look at an address with a query string.
+\begin{lstlisting}[style=none]
+https://www.nba.com/stats/player/203999?SeasonType=Playoffs&PerMode=Per48
+\end{lstlisting}
+Can you find the question mark? Everything after the question mark is part of the query string, and the query string lasts from the question mark to the very end of the address. In the address above, there are two query strings: \verb|SeasonType| and \verb|PerMode|. Nothing before the question mark is part of the query string, including what falls after the slash (in this case, \verb|203999|). In this address, we see that the keys are \verb|SeasonType| and \verb|PerMode|, and the values are \verb|Playoffs| and \verb|Per48|, respectively.\par
+\boxtext{URL Encoding}{If we can't use a space in addresses, how do we put a space in our address? What about a question mark or percent sign? Special characters have a special ASCII encoding for URLs. \texttt{\%20} is the code for a space character, \texttt{\%21} is the code for the exclamation mark \texttt{!}, \texttt{\%25} is the code for the percent sign \texttt{\%}, and \texttt{\%26} is the code for the ampersand \texttt{\&}, just to name a few. Every valid address character actually has an encoding (including letters and numbers), so you \textit{could} give a valid URL that's entirely encoded using HTML ASCII formats. For example, \texttt{https://github.com} could theoretically be encoded as \texttt{https://\%67\%69\%74\%68\%75\%62\%2E\%63\%6F\%6D}, which is a valid address (try it!).}
+Python will encode any special characters using their ASCII format if it is needed to send the query string.\par
+The \verb|get()| method also supports many more parameters, including \\\verb|allow_redirects|, which allows you to disable redirects (the default is \verb|True|), \verb|auth| and \verb|cert|, which are for HTTP authentication or specifying a certificate file or key, \verb|cookies| for specifying a dictionary of cookies to use when making the request, \verb|proxies| for proxy servers, \verb|stream| for whether the response data should be downloaded immediately or streamed (the default is to download immediately), \verb|timeout| for whether the client should wait for a response, and \verb|verify| for certificate verification. For the most part, you can leave all of these parameters set to their default by not specifying the parameter in the function call.\par
+One argument that you may want to specify is \verb|header|, which sends HTTP headers to send to the specified URL. We'll cover HTTP headers in a couple of sections.\par
+Let's consider the following URL, which we'll make a GET request to.\par
+\begin{lstlisting}[style=none]
+https://bundesliga.com/en/bundesliga/table
+\end{lstlisting}
+There are no query strings in this address, so we'll just make our request as-is after importing the \verb|requests| library. We'll put the result of our request into a variable called \verb|response|.
+\begin{lstlisting}[style=pippython]
+import requests
+response = requests.get("https://bundesliga.com/en/bundesliga/table")
+\end{lstlisting}
+If our request was successful, we should be able to print \verb|response| and see the response code.
+\begin{lstlisting}[style=pippython]
+print(response)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+<Response [200]>
+\end{lstlisting}
+A 200 response code means that everything is good, and the response was successful. There are several response codes that you should recognize if you plan on doing a lot of scraping.\par
+\begin{itemize}
+	\item 200: OK
+	\item 301: Permanent Redirect
+	\item 302: Temporary Redirect
+	\item 404: Not Found
+	\item 410: Gone
+	\item 500: Internal Server Error
+	\item 503: Unavailable
+\end{itemize}
+\funtext{404: Not Found}{A 404 error isn't just a webpage that everyone uses - it actually corresponds to the 404 response code in the hypertext transfer protocol, or HTTP. There are many more codes, but these are the most common.}
+If we look at the type of our \verb|response| variable, it's not what you might expect.\par
+\begin{lstlisting}[style=pippython]
+print(type(response))
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+<class 'requests.models.Response'>
+\end{lstlisting}
+This is a \verb|Response| object, which contains a server's response to an HTTP request. It contains many different attributes that correspond to a typical HTTP response, including whether the response is from a redirect, how much time elapsed, what cookies exist, what the HTTP response or status code is, what the request URL is, and what the response itself is.\par
+Let's look at some of the detail from our request.\par
+\begin{lstlisting}[style=pippython]
+print(response.encoding)
+print(response.status_code)
+print(response.url)
+print(response.text[:500])
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+utf-8
+200
+https://www.bundesliga.com/en/bundesliga/table
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Bundesliga | Table | 2021-2022</title><script type="text/javascript">let shouldUseDarkTheme="0";const availibleThemes=["light","dark"];localStorage&&availibleThemes.includes(localStorage.getItem("bl-force-theme"))?shouldUseDarkTheme="dark"===localStorage.getItem("bl-force-theme")?"1":"0":window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches&&(shouldUseDarkTheme="1"),window.document.documentElement.setAttribut
+\end{lstlisting}
+For the bulk of the work that we'll be doing with the \verb|requests| library, you'll want the \verb|text| attribute, since it contains the actual contents of the webpage that we want to parse in a string.\par
+\subsubsection{Making a POST Request}
+Making a POST request is not that different from making a GET request. Like the \verb|get()| method, \verb|post()| requires a \verb|url| to be passed, and this is typically passed in as the first positional argument. Recall that the POST method is used to send data to the remote web server. Because we're not just getting data from the webserver, we need to have some additional parameters in our \verb|post()| method that will allow us to send data.\par
+Most importantly, we have the \verb|data|, \verb|json|, and \verb|files| parameters, which are all parameters for data that we want to send to the remote server. The \verb|data| parameter allows us to send data from a Python dictionary, tuple, set, list, or primative datatype to the remote server. Python will typecast any data into a string. Remote web servers don't care about the type, and in fact don't even have the capability to read the datatype from a remote request. The \verb|json| parameter works very similar to the \verb|data| parameter except that it typecasts a dictionary that is passed in into a stringified JSON, which is then sent as the request payload. The \verb|files| attribute, as its name suggests, is used for sending files.\par
+When we make requests to more sophisticated systems that aren't just returning a webpage as a response, we may have the need to authenticate ourselves to that remote system. This can be done by an API key or by a username and password. This is where the \verb|auth| parameter comes in. The \verb|auth| parameter takes a type tuple of strings, which are passed to the remote web server as authentication keys. If you are authenticating to one of these systems (called an API), look up the documentation for how you should be authenticating.\par
+Like a GET request, a POST request has a response. The response in a POST request can be one of several things. The simplest response is just acknowledgement that the remote server received the data and that the data is valid. If this happens, the remote web server will respond with a 200 code. However, the remote web server may respond with "instructions" for your machine to follow in order to get data. For example, if you send an valid authentication request, the remote web server might respond with a different place to get the requested data from, so your computer can then reach out to that different place by placing another request. This is called a redirect.\par
+\subsubsection{HTTP Headers}
+We promised that we'd go over what HTTP headers are, and we have gotten to that point at long last! Some web servers have more aggressive checking to stop robots from accessing their contents. The more sophisticated web servers will actually reject traffic from clients that don't meet certain requirements, including a valid header.\par
+The header contains information about the requestor, or your computer. It doesn't contain any information about \textit{you}, but rather about the equipment that you're using. This information is most often used to give you the proper data for your platform. For example, you know how when you download a piece of software, sometimes the website can detect whether you're on Windows, macOS, or Linux and offer you the correct download package for your computer? The website is actually reading the header from the request.\par
+Headers contain information on the request and the client that the request is coming from. This information includes:
+\begin{itemize}
+	\item Whether the request is a GET or POST request
+	\item What the filepath is on the remote server
+	\item What the scheme is (typically HTTP or HTTPS for web traffic)
+	\item What kind of data is accepted (like whether the client will accept certain types of images)
+	\item What the accepted encodings are (like UTF-8)
+	\item The system language
+	\item The operating system
+	\item The web browser
+	\item The user agent
+\end{itemize}
+Depending on the website, you might need to pass certain header parameters with your request. The most common header parameter is the user agent, since this is the most often checked by a remote server to validate regular traffic. The user agent header bundles the application, operating system, vendor, and version numbers of the requesting user agent. Reading the user agent string helps remote sites identify whether the device is a mobile phone, tablet, desktop, or even a TV before any data is sent back.\par
+The Mozilla Firefox query string looks like this for Firefox version 47.0 on a modern version of macOS that's running an Intel processor.\par
+\begin{lstlisting}[style=none]
+Mozilla/5.0 (Macintosh; Intel Mac OS X x.y; rv:42.0) Gecko/20100101 Firefox/42.0
+\end{lstlisting}
+\boxtext{Intel versus ARM}{On macOS, the standard is to send the processor type to the remote web server in the query string, since the processor dictates how data is processed on the local machine (macOS uses a different compilation than Windows). The ARM processor cores found on modern M1 Macs is different than Intel x64, and that's different from PowerPC processor cores found on older Macs. Windows does not need to send the processor type, since the local machine runs everything in virtual sandbox regardless.}
+The Google Chrome query string looks like this for Chrome version 99 on a modern version of Windows.\par
+\begin{lstlisting}[style=none]
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36
+\end{lstlisting}
+In Python's requests library, we can specify a custom header on a request by passing in the header information in a dictionary. The dictionary's key is the header identifier, and the value is the header value. For example, if we wanted to pass a custom user agent string as we were requesting data from \href{https://github.com}{https://github.com}, we could pass the following.\par
+\begin{lstlisting}[style=pippython]
+response = requests.get("https://github.com", headers = {
+	'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36'
+})
+\end{lstlisting}
+If we wanted to pass that we were on macOS to the Bundesliga table site from above, we could send this header, which has two keys (\verb|user-agent| and \verb|Sec-CH-UA-Platform|).
+\begin{lstlisting}[style=pippython]
+response = requests.get("https://www.bundesliga.com/en/bundesliga/table", headers = {
+	'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36',
+	'Sec-CH-UA-Platform': 'macOS'
+})
+\end{lstlisting}
+\section{Parsing with Beautiful Soup}
 Now that we have our HTML in Python, we need to know how to break it apart. We could break the structure apart in a naive method, by writing a series of \verb|if| statements and iterating over the contents of the HTML until we find tags. However, why would we do this when we can use Beautiful Soup instead?\par
-Beautiful Soup's job is to break apart and parse webpages in a way that is easy for you to understand. As opposed to creating a parser and writing if/else statements, Beautiful Soup comes with many tools that are incredibly powerful. The power of Beautiful Soup lies in its ability to pull data out of extraordinarily complex webpages in just a few lines of code.\par
-\subsection{APIs}
+Beautiful Soup's job is to break apart and parse webpages in a way that is easy for you to understand. As opposed to creating a parser and writing if/else statements, Beautiful Soup comes with many tools that are incredibly flexible and powerful. The power of Beautiful Soup lies in its ability to pull data out of extraordinarily complex webpages in just a few lines of code.\par
+\subsection{Beautiful Soup's Methods}
+The process of parsing HTML using Beautiful Soup begins with "soupifying" the string. Beautiful Soup has several parsers built into it, and the most commonly used parser is the \verb|lxml| parser because of its relatively high accuracy and ease of use. Python also has a HTML parser that can be used called \verb|html.parser|, but it's not as fast as \verb|lxml|. There is another option for HTML-like parsing called \verb|html5lib|, but it's very slow. The only reason to use it would be is if you're having issues with the other parsers, since it's a very lenient parser and it parses webpages the same that a web browser does. It can also create valid HTML unlike the others.\par
+To \textit{soupify} the text, we use the \\\verb|BeautifulSoup()| method from the \verb|BeautifulSoup| class in the \verb|bs4| class. Most people just import the \verb|BeautifulSoup| class from the \verb|bs4| class instead of importing the entire \verb|bs4| class.\par
+\begin{lstlisting}[style=pippython]
+from bs4 import BeautifulSoup
+\end{lstlisting}
+The next step is to strain the soup and find things that we want out of the soup. We do this by calling the \verb|find()| method on the \verb|soup| object that \verb|BeautifulSoup()| returned. The \verb|find()| method looks for HTML keywords (like \verb|<td>| or \verb|<option>|.\par
+The \verb|find()| method can find the high-level objects, but it has trouble finding children that match the given criteria, so we then use the \verb|find_all()| method on the \verb|PageElement| object that \verb|find()| returned.\par
+The \verb|find_all()| method returns all of the matching strings, so the next step would be to clean up the matching strings using stripping methods and regular expression matching, which we covered in Chapter 3.4.
+\subsection{Parsing HTML}
+Now that we know how Beautiful Soup is processing our text string, let's apply that to our HTML.
+Let's start by making a request. We'll continue to work with the Bundesliga table page, which you can find at \\\href{https://www.bundesliga.com/en/bundesliga/table}{https://www.bundesliga.com/en/bundesliga/table}. We can get our data by using a GET request straight to this page.\par
+\begin{lstlisting}[style=pippython]
+response = requests.get("https://www.bundesliga.com/en/bundesliga/table")
+\end{lstlisting}
+If we grab just the first 500 characters of our data, we can see what form it's in.\par
+\begin{lstlisting}[style=pippython]
+print(response.text[:500])
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Bundesliga | Table | 2021-2022</title><script type="text/javascript">let shouldUseDarkTheme="0";const availibleThemes=["light","dark"];localStorage&&availibleThemes.includes(localStorage.getItem("bl-force-theme"))?shouldUseDarkTheme="dark"===localStorage.getItem("bl-force-theme")?"1":"0":window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches&&(shouldUseDarkTheme="1"),window.document.documentElement.setAttribut
+\end{lstlisting}
+It looks like we have a valid response, so let's move on. We start by soupifying our text using the \verb|lxml| parser.\par
+\begin{lstlisting}[style=pippython]
+soup = BeautifulSoup(response.text, 'lxml')
+\end{lstlisting}
+Note that for our argument with the response, we want to give Beautiful Soup the text attribute, not the response. The response itself is just a 200 code, which isn't useful to Beautiful Soup's parser.\par
+The \verb|soup()| method returns a \verb|BeautifulSoup| object that can then be searched through to find a table, then table rows, then table cells. We're also going to set a condition that the class must match 'table'. We start by finding the table.\par
+\begin{lstlisting}[style=pippython]
+table = soup.find('table', attrs = {'class': 'table'})
+\end{lstlisting}
+Now that we have a table, we can find all of the rows inside of this table using the \verb|find_all()| method. Had we used \verb|find_all()| on the entire document, it would have likely found non-matches or at the very least been slower.\par
+\begin{lstlisting}[style=pippython]
+rows = table.find_all('tr')
+\end{lstlisting}
+Let's take a peek at the rows.
+\begin{lstlisting}[style=pippython]
+print(str(rows)[:500])
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+'[<tr _ngcontent-sc238=""><th _ngcontent-sc238="" class="qual" scope="col"></th><th _ngcontent-sc238="" class="rank"></th><th _ngcontent-sc238="" class="tend"></th><th _ngcontent-sc238="" class="logo"></th><th _ngcontent-sc238="" class="team"></th><th _ngcontent-sc238="" class="live"></th><th _ngcontent-sc238="" class="matches"><span _ngcontent-sc238="" class="d-none d-lg-inline">Played </span><span _ngcontent-sc238="" class="d-lg-none">P</span></th><th _ngcontent-sc238="" class="pts"><span _ngco'
+\end{lstlisting}
+This has returned all of the rows in the table and placed the result inside of the \verb|rows| variable. Now, we can find the cells. However, continuing to use the same \verb|find_all()| method will detabulate our data, since there are multiple cells per row. Instead, we're going to split up our table into rows and sort our rows piecewise. Let's start by making a place for our data called \verb|data|.\par
+\begin{lstlisting}[style=pippython]
+data = []
+\end{lstlisting}
+Now we can iterate through all of our rows and pull out the cells. We'll use a nested loop to pull out the contents of our cells within our rows. Essentially, we want to iterate over our rows, and in each row iteration, we want to iterate through each cell horizontally.\par
+\boxtext{Table Structure Reminder}{Why are we going this way? Recall that HTML tables are rows of individual cells, not columns of rows. So, we have to go this way. If we want to get all of just one column, we have to parse through the entire sheet, then grab that column from the final dataframe.}
+\begin{lstlisting}[style=pippython]
+for tr in rows:
+	td = tr.find_all('td')
+	row = [tr.text for tr in td]
+	data.append(row)
+\end{lstlisting}
+Let's take a peek at the cells.
+\begin{lstlisting}[style=pippython]
+print(data[1])
+print(data[2])
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+['', '1', '-', '', 'FCB Bayern FC Bayern Munchen', '', '25', '59', '19', '2', '4', '76:27', '+49']
+['', '2', '-', '', 'BVB Dortmund Borussia Dortmund', '', '24', '50', '16', '2', '6', '64:37', '+27']
+\end{lstlisting}
+Now that we have a list of lists, we can put the results into a Pandas dataframe, specifying the source data and the columns when we make the dataframe. It'll be easier to drop rows from our dataframe than to drop every useless cell one-by-one, so let's shove everything into a dataframe with some placeholder columns, then drop those columns and print the final dataframe.\par
+\begin{lstlisting}[style=pippython]
+bundesliga = pd.DataFrame(data, columns = ['drop1', 'rank', 'drop2', 'drop3', 'team', 'drop4', 'played', 'points', 'w', 'd', 'l', 'goals', 'goaldiff'])
+bundesliga = bundesliga.drop("drop1", axis = 1)
+bundesliga = bundesliga.drop("drop2", axis = 1)
+bundesliga = bundesliga.drop("drop3", axis = 1)
+bundesliga = bundesliga.drop("drop4", axis = 1)
+bundesliga = bundesliga.drop(0, axis = 0)
+print(bundesliga)
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+    rank  ... played  ...     l  goals goaldiff
+1      1  ...     25  ...     4  76:27      +49
+2      2  ...     24  ...     6  64:37      +27
+3      3  ...     25  ...     6  64:40      +24
+4      4  ...     25  ...     8  48:36      +12
+5      5  ...     25  ...     8  51:29      +22
+6      6  ...     25  ...     6  40:27      +13
+7      7  ...     25  ...     8  32:33       -1
+8      8  ...     25  ...     7  36:39       -3
+9      9  ...     24  ...    10  35:29       +6
+10    10  ...     25  ...     9  37:37        0
+11    11  ...     25  ...    11  27:35       -8
+12    12  ...     25  ...    12  27:37      -10
+13    13  ...     25  ...    12  34:51      -17
+14    14  ...     25  ...    11  27:41      -14
+15    15  ...     25  ...    10  22:33      -11
+16    16  ...     25  ...    14  26:58      -32
+17    17  ...     25  ...    13  31:47      -16
+18    18  ...     25  ...    17  23:64      -41
+
+[19 rows x 9 columns]
+\end{lstlisting}
+\section{APIs}
 An \newterm[application programming interface]{application programming interface}, or \newterm[API]{application programming interface!API}, returns formatted data based on a request that is made to it. While on the surface, an API call looks like any other web resource call, its return is very different, typically an XML or JSON form. You can experiment with open APIs using an API testing tool, like Postman. Postman can also help you form authentication strings, if your API of choice requires authentication.\par
 If an API will give you the information you need, use this instead, since it's much faster to develop for.\par
 There is an API for everything, and many of these APIs are free (though some still require you to get a free authentication key)! Here, we'll look at \index{application programming interface!Animechan}Animechan, an API that returns a random quote from a list of animes. Animechan doesn't require any authentication, so we can simply make a request to \href{https://animechan.vercel.app/api/random}{https://animechan.vercel.app/api/random}. If you were to just type this into a web browser, you'd get a response in the form of JSON, which can be parsed using the JSON library in Python. We'll cover this in the next section.\par
@@ -135,8 +335,8 @@ print(type(response))
 print(response)
 \end{lstlisting}
 \begin{lstlisting}[style=none]
-str
-{"anime":"Death Note","character":"Light Yagami","quote":"This is the first time in my life that I've been provoked to hit a woman."}
+<class 'str'>
+{"anime":"Neon Genesis Evangelion","character":"Rei Ayanami","quote":"Those who hate themselves, cannot love or trust others."}
 \end{lstlisting}
 This time, our response is left in the string form that it was given to us by the API. We can parse this using the \verb|loads()| method in the json library. \verb|loads()| typically only takes one argument, the string with the JSON-formatted string.
 \begin{lstlisting}[style=pippython]
@@ -146,7 +346,7 @@ print(response)
 \end{lstlisting}
 \begin{lstlisting}[style=none]
 <class 'dict'>
-{'anime': 'Death Note', 'character': 'Light Yagami', 'quote': "This is the first time in my life that I've been provoked to hit a woman."}
+{"anime":"Neon Genesis Evangelion","character":"Rei Ayanami","quote":"Those who hate themselves, cannot love or trust others."}
 \end{lstlisting}
 We can now see that the type is no longer \verb|str| but is a dictionary object instead.\par
 The key with the \verb|load()| and \verb|loads()| methods is that they work on any JSON-formatted data, not just data that comes from a web request. For example, consider if we imported a JSON as a file and read it into a string variable, as we showed in Chapter 8. We could then use the \verb|loads()| method to parse this string into a Python dictionary.

@@ -145,24 +145,24 @@ These exercise questions cover chapter 4.1.
     \Question{\verb|print('Hello, World!")|}
 \end{Exercise}
 
-\section{Variables}
+\section{Variables\index{variable}}
 We've alluded to storing data a lot already, but how do we actually do this? Well, we use variables. Just like in algebra, variables in Python can be represented by lots of different things, and they can represent a lot of other things.\par
 We'll use variables to store nearly everything in Python. They're the best way to store the state of something while you're working on it, track how many times you've run through a loop (we'll get there later), store user information, and so many other things. In fact, variables are foundational to every single programming language.\par
-All data that is worked on in variables is stored in memory when you're running a Python script. When you declare a new variable, your variable is assigned a memory address in the computer's RAM. You can do anything you want with that memory space\index{memory!space}, including filling it with data or editing the data that's inside of it. For a review on what a memory space is, refer to chapter 2.2.\par
+All data that is worked on in variables is stored in memory when you're running a Python script. When you declare\index{variable!initialization} a new \indexterm{variable}, your \indexterm{variable} is assigned a memory address in the computer's RAM. You can do anything you want with that memory space\index{memory!space}, including filling it with data or editing the data that's inside of it. For a review on what a memory space is, refer to chapter 2.2.\par
 Since all of your variables are stored in memory, they can only persist while the program itself is running. After your program is terminated, the memory space is marked as free by the operating system, meaning that any other program is now free to overwrite that memory. \par
 \subsection{Declaration and Initialization}
-There are two steps to creating a new variable in Python: declaration and initialization. \newterm[Declaration]{variable!declaration} means that you are telling Python that you are going to create a new variable. \newterm[Initialization]{variable!initialization} is the process of putting some initial data into that variable that can then be manipulated later. Initializing a variable doesn't necessarily mean that you cannot change the variable's value later.\footnote{The exception to this is if you decide to use constant values, or consts. You might set a constant for the value of Pi or for the force of gravity. Constants cannot be changed after initialization.} Declaration and initialization are typically done on the same line of code. By using a single equal sign \verb|=|, we can initialize and declare a variable in one fell swoop. Python will do its best to figure out what kind of variable it is, depending on what kind of information you give it. Consider the following code.\par
+There are two steps to creating a new \indexterm{variable} in Python: declaration\index{variable!initialization} and initialization. \newterm[Declaration]{variable!declaration} means that you are telling Python that you are going to create a new \indexterm{variable}. \newterm[Initialization]{variable!initialization} is the process of putting some initial data into that \indexterm{variable} that can then be manipulated later. Initializing a \indexterm{variable} doesn't necessarily mean that you cannot change the \indexterm{variable}'s value later.\footnote{The exception to this is if you decide to use constant values, or consts. You might set a constant for the value of Pi or for the force of gravity. Constants cannot be changed after initialization.} Declaration\index{variable!declaration} and initialization\index{variable!initialization} are typically done on the same line of code. By using a single equal sign \verb|=|, we can initialize\index{variable!initialization} and declare a \indexterm{variable} in one fell swoop. Python will do its best to figure out what kind of \indexterm{variable} it is, depending on what kind of information you give it. Consider the following code.\par
 \begin{lstlisting}[style=pippython]
 cashValue = 3.39
 accountHolder = "Stinky Pete"
 isBroke = True
 kitties = 390
 \end{lstlisting}
-This code is declaring the four new variables \verb|cashValue|, \verb|accountHolder|, \verb|isBroke|, and \verb|kitties|. Each of these variables is being initialized to a different type. \verb|cashValue| is being initialized to the value \verb|3.39|, which would be stored as a float. Likewise, \verb|accountHolder| is being initialized to the value \verb|"Stinky Pete"|, which is a string. \verb|isBroke| is being initialized to the \indexterm{Boolean} value \verb|True|. Note that \verb|kitties| is being initialized to 390, and Python will try to store this value as an integer, since there isn't a decimal point. If we wanted to force Python to store \verb|kitties| as a float, we could just add a \verb|.0| to the end of the initialization value:\par
+This code is declaring the four new variables \verb|cashValue|, \verb|accountHolder|, \verb|isBroke|, and \verb|kitties|. Each of these variables is being initialized\index{variable!initialization} to a different type. \verb|cashValue| is being initialized\index{variable!initialization} to the value \verb|3.39|, which would be stored as a float. Likewise, \verb|accountHolder| is being initialized\index{variable!initialization} to the value \verb|"Stinky Pete"|, which is a string. \verb|isBroke| is being initialized\index{variable!initialization} to the \indexterm{Boolean} value \verb|True|. Note that \verb|kitties| is being initialized\index{variable!initialization} to 390, and Python will try to store this value as an integer, since there isn't a decimal point. If we wanted to force Python to store \verb|kitties| as a float, we could just add a \verb|.0| to the end of the initialization\index{variable!initialization} value:\par
 \begin{lstlisting}[style=pippython]
 kitties = 390.0
 \end{lstlisting}
-When declaring or updating the value of a variable, the name of the variable always goes to the left side of the equal sign. You can think of a variable statement as putting the thing on the right side of the equal sign into the variable on the left side of the equal sign. So, the following code is syntactically correct:
+When declaring or updating the value of a \indexterm{variable}, the name of the \indexterm{variable} always goes to the left side of the equal sign. You can think of a \indexterm{variable} statement as putting the thing on the right side of the equal sign into the \indexterm{variable} on the left side of the equal sign. So, the following code is syntactically correct:
 \begin{lstlisting}[style=pippython]
 accountHolder = "Stinky Pete"
 \end{lstlisting}
@@ -170,27 +170,27 @@ But the following code is not syntactically correct.
 \begin{lstlisting}[style=pippython]
 "Stinky Pete" = accountHolder # WRONG
 \end{lstlisting}
-In the above examples, can you guess what the variables are describing? Probably. The variable names \verb|cashValue|, \verb|accountHolder|, and \verb|isBroke| explain what information the variables hold pretty well. However, the variable \verb|kitties| doesn't really make sense. Is this how many kitties I have? Is it my love or hatred of cats on a scale from 1 to 1000? We don't really know. In programming (not just in Python), it is critically important that you get into the good habit of declaring good variable names. Be descriptive, but concise. A better variable name might be \verb|numKitties|.\par
+In the above examples, can you guess what the variables are describing? Probably. The \indexterm{variable} names \verb|cashValue|, \verb|accountHolder|, and \verb|isBroke| explain what information the variables hold pretty well. However, the \indexterm{variable} \verb|kitties| doesn't really make sense. Is this how many kitties I have? Is it my love or hatred of cats on a scale from 1 to 1000? We don't really know. In programming (not just in Python), it is critically important that you get into the good habit of declaring good \indexterm{variable} names. Be descriptive, but concise. A better \indexterm{variable} name might be \verb|numKitties|.\par
 There are several rules that you MUST follow when making new Python variables. Failing to follow these rules will result in syntax errors:
 \begin{itemize}
-    \item A variable name must start with a letter or the underscore character \verb|_|
-    \item A variable name cannot start with a number
-    \item A variable name can only contain alphanumeric characters and underscores (A-Z, a-z, 0-9, and \_)
-    \item Variable names are case-sensitive: \verb|age|, \verb|Age|, and \verb|AGE| are three different variables
-    \item Variable names cannot be reserved words in Python, such as \verb|print|
+    \item A \indexterm{variable} name must start with a letter or the underscore character \verb|_|
+    \item A \indexterm{variable} name cannot start with a number
+    \item A \indexterm{variable} name can only contain alphanumeric characters and underscores (A-Z, a-z, 0-9, and \_)
+    \item Variable\index{variable} names are case-sensitive: \verb|age|, \verb|Age|, and \verb|AGE| are three different variables
+    \item Variable\index{variable} names cannot be reserved words in Python, such as \verb|print|
 \end{itemize}
 Now is also a good time to go over naming conventions. There are several different naming conventions that you might see while programming. It doesn't terribly matter, but whichever convention you go with, you should stick with it throughout the entire project.\par
 \begin{itemize}
     \item snake\_case is written with underscores in between each word. In Python, snake case is typically used for package or modules that must be longer than one word. Avoid using snake case when possible.
     \item flatcase is written with no spaces and no additional capitalization. In Python, flatcase is typically used for methods and functions. However, you may find it easier to use camelcase.
-    \item lowercaseCamelCase is written with the first word in all lowercase and all following words capitalized. In Python, lowercase camel case is typically used for variable names.
+    \item lowercaseCamelCase is written with the first word in all lowercase and all following words capitalized. In Python, lowercase camel case is typically used for \indexterm{variable} names.
     \item UppercaseCamelCase is written with all of the words capitalized. In Python, uppercase camel case is typically used for method names.
     \item ALLCAPS is written with all letters capitalized. In Python, all caps case is typically used for constants.
     \item train-case is written with dashes in between each word. Python doesn't typically use train-case.
     \item sArCaSmCaSe Is UsEd To InDiCaTe ExTrEmE sArCaSm.\footnote{ThE pOwEr To UsE SaRcAsMcAsE cOmEs WiTh GrEaT rEsPoNsiBiLiTy. UsE iT wIsElY.}
 \end{itemize}
 When using camel case, capitalize all letters of abbreviations (e.g. \verb|HTTPSServer| instead of \verb|HttpsServer|). Always avoid naming this with \verb|O| (easily confused with \verb|0|) or \verb|I| (easily confused with \verb|1| or \verb|L|). \par
-It is possible to declare a new variable without initializing it, but you must declare a variable before initializing it. If you don't know what type of variable will be, but you know that you'll need a variable, you can initialize to something called the \newterm[Nonetype]{Nonetype}. To do so, simply set the initialization to \verb|None|. This is the practical equivalent to declaring without initializing.\footnote{Other languages have no Nonetype, since they support direct declaration without initialization. For example, in C++, you could run the line 'int age;', which would declare the 'age' variable without initializing it with anything.} Consider the following code.\par
+It is possible to declare\index{variable!declaration} a new \indexterm{variable} without initializing\index{variable!initialization} it, but you must declare\index{variable!declaration} a \indexterm{variable} before initializing\index{variable!initialization} it. If you don't know what type of \indexterm{variable} will be, but you know that you'll need a \indexterm{variable}, you can initialize\index{variable!initialization} to something called the \newterm[Nonetype]{Nonetype}. To do so, simply set the initialization\index{variable!initialization} to \verb|None|. This is the practical equivalent to declaring\index{variable!initialization} without initializing\index{variable!initialization}.\footnote{Other languages have no Nonetype, since they support direct declaration\index{variable!initialization} without initialization. For example, in C++, you could run the line 'int age;', which would declare\index{variable!declaration} the 'age' \indexterm{variable} without initializing\index{variable!initialization} it with anything.} Consider the following code.\par
 \begin{lstlisting}[style=pippython]
 emptyVar = None
 print(type(emptyVar))
@@ -198,29 +198,29 @@ print(type(emptyVar))
 \begin{lstlisting}
 <class 'NoneType'>
 \end{lstlisting}
-In general, you should always try to initialize your variables, even if it's just to \verb|0| (if it's an integer), \verb|0.0| (if it's a float), or \verb|""| (if it's a string). If it's a \indexterm{Boolean} variable, you can initialize it to \verb|True| or \verb|False|, depending on what makes sense.\par
-\boxtext{Initialize to type variables}{Initializing your variables helps you determine what datatype they should be, since Python is a weakly-typed language. As you become more experienced with Python datatypes, you should be able to instantly determine a datatype just by looking at the variable's first initialization. Therefore, it's worth learning the datatypes by heart - it'll come in handy later!}
-We've talked about variables, but there's a specific type of variable in Python called a constant.\footnote{Yes, in math, variables and constants are different concepts, but in Python, a constant is a subset of the variable.} The difference between a regular variable and a constant is that a constant \textit{cannot} be changed after initialization. To mark a constant, you should name it in all caps. It might be useful to use constants to store data that you know will never change, such as a conversion factor or a mathematical constant, like $\pi$ or $e$.\par
+In general, you should always try to initialize\index{variable!initialization} your variables, even if it's just to \verb|0| (if it's an integer), \verb|0.0| (if it's a float), or \verb|""| (if it's a string). If it's a \indexterm{Boolean} \indexterm{variable}, you can initialize\index{variable!initialization} it to \verb|True| or \verb|False|, depending on what makes sense.\par
+\boxtext{Initialize to type variables}{Initializing your variables helps you determine what datatype they should be, since Python is a weakly-typed language. As you become more experienced with Python datatypes, you should be able to instantly determine a datatype just by looking at the \indexterm{variable}'s first initialization\index{variable!initialization}. Therefore, it's worth learning the datatypes by heart - it'll come in handy later!}
+We've talked about variables, but there's a specific type of \indexterm{variable} in Python called a constant.\footnote{Yes, in math, variables and constants are different concepts, but in Python, a constant is a subset of the \indexterm{variable}.} The difference between a regular \indexterm{variable} and a constant is that a constant \textit{cannot} be changed after initialization\index{variable!initialization}. To mark a constant, you should name it in all caps. It might be useful to use constants to store data that you know will never change, such as a conversion factor or a mathematical constant, like $\pi$ or $e$.\par
 \begin{lstlisting}[style=pippython]
 PI = 3.1415
 E = 2.71
 GRAVITY = 9.8
 \end{lstlisting}
-\warningtext{Changing Constants}{Some languages, like Python, treat constants and variables in the same way, meaning that it is possible to change the value of a constant (although you shouldn't!) Other languages essentially lock away the constant once it is declared as a constant. In these languages, after the first constant initialization, the interpreter or compiler will throw an error or warning if you try to reinitialize a constant.}
+\warningtext{Changing Constants}{Some languages, like Python, treat constants and variables in the same way, meaning that it is possible to change the value of a constant (although you shouldn't!) Other languages essentially lock away the constant once it is declared\index{variable!declaration} as a constant. In these languages, after the first constant initialization\index{variable!initialization}, the interpreter or compiler will throw an error or warning if you try to reinitialize\index{variable!initialization} a constant.}
 \subsubsection*{Exercise Questions}
 These exercise questions cover chapter 4.2. 
 \begin{Exercise}
-    \Question{When you create a variable, where is it stored: primary, secondary, or tertiary memory?}
-    \Question{What are the two steps for creating a variable?}
+    \Question{When you create a \indexterm{variable}, where is it stored: primary, secondary, or tertiary memory?}
+    \Question{What are the two steps for creating a \indexterm{variable}?}
     \Question{Can you do those two steps in one line, or must they be done in two lines?}
-    \Question{What character should you use to initialize a variable?}
+    \Question{What character should you use to initialize\index{variable!initialization} a \indexterm{variable}?}
 \end{Exercise}
 \begin{Exercise}
-    \Question{What is the difference between a datatype and a variable?}
-    \Question{What datatype can a variable be?}
+    \Question{What is the difference between a datatype and a \indexterm{variable}?}
+    \Question{What datatype can a \indexterm{variable} be?}
 \end{Exercise}
 \begin{Exercise}
-    What is a good variable name for the following pieces of data? What type of variable would Python probably initialize it to? Provide an example of how Python would store that data. For example, if you came up with a variable named \verb|numCookies| that was an integer, then an example of the data might be \verb|5|.
+    What is a good \indexterm{variable} name for the following pieces of data? What type of \indexterm{variable} would Python probably initialize\index{variable!initialization} it to? Provide an example of how Python would store that data. For example, if you came up with a \indexterm{variable} named \verb|numCookies| that was an integer, then an example of the data might be \verb|5|.
     \Question{The name of your favorite sports team}
     \Question{What home stadium your team plays at (or home city)}
     \Question{The number of wins your team got}
@@ -243,9 +243,9 @@ These exercise questions cover chapter 4.2.
     \Question{Consider the variables \verb|pointsReceived| and \verb|PointsReceived|. Are these variables interchangable? Why or why not?}
     \Question{Consider the variables \verb|_pointsReceived| and \verb|pointsReceived|. Are these variables interchangable? Why or why not?}
 \end{Exercise}
-\subsection{Referring to Variables}
+\subsection{Referring to Variables\index{variable}\index{variable}}
 Now that you've created variables, it'd also be really handy to get the value of those variables down the line. Being able to refer to variables means that you can get and change their value.\par
-The way in which you refer to an existing variable will depend on the manner in which you need to refer to it. In most cases, it is possible to simply refer to a variable by name. For example, let's declare a new variable as a string, then print the contents of that variable.
+The way in which you refer to an existing \indexterm{variable} will depend on the manner in which you need to refer to it. In most cases, it is possible to simply refer to a \indexterm{variable} by name. For example, let's declare a new \indexterm{variable} as a string, then print the contents of that \indexterm{variable}.
 \begin{lstlisting}[style=pippython]
 stringToPrint = "Python is cool!"
 print(stringToPrint)
@@ -253,8 +253,8 @@ print(stringToPrint)
 \begin{lstlisting}
 Python is cool!
 \end{lstlisting}
-Observe how we are \textit{not} using any quotation marks inside of our print statement. This is because we are not actually printing "stringToPrint," but rather, we are printing the string literal that is stored as a value of the variable \verb|stringToPrint|.\par
-Recall how we created a variable and filled with something. The process of creating the variable was called the declaration, and the "filling" was called the initialization. We can also reinitialize a variable by simply overwriting the contents of the memory space that the variable uses. We need not redeclare the variable, since it already exists. Attempting to redeclare an existing variable will result in a syntax error. Consider the following code.\par
+Observe how we are \textit{not} using any quotation marks inside of our print statement. This is because we are not actually printing "stringToPrint," but rather, we are printing the string literal that is stored as a value of the \indexterm{variable} \verb|stringToPrint|.\par
+Recall how we created a \indexterm{variable} and filled with something. The process of creating the \indexterm{variable} was called the declaration\index{variable!initialization}, and the "filling" was called the initialization\index{variable!initialization}. We can also reinitialize\index{variable!initialization} a \indexterm{variable} by simply overwriting the contents of the memory space that the \indexterm{variable} uses. We need not redeclare\index{variable!initialization} the \indexterm{variable}, since it already exists. Attempting to redeclare\index{variable!initialization} an existing \indexterm{variable} will result in a syntax error. Consider the following code.\par
 \begin{lstlisting}[style=pippython]
 string1 = "Python is cool!"
 print(string1)
@@ -265,7 +265,7 @@ print(string1)
 Python is cool!
 Python is rad!
 \end{lstlisting}
-In this code sample, we are printing the same variable \verb|string1| twice. However, we also observe that the output changes. This is because we're reinitializing the variable in the third line using \verb|string1 = "Python is rad!"|. Because of this, we will get a different result when we try to print the same variable.\par
+In this code sample, we are printing the same \indexterm{variable} \verb|string1| twice. However, we also observe that the output changes. This is because we're reinitializing the \indexterm{variable} in the third line using \verb|string1 = "Python is rad!"|. Because of this, we will get a different result when we try to print the same \indexterm{variable}.\par
 The same can also be said for variables that have non-string contents. For example, consider the following code.\par
 \begin{lstlisting}[style=pippython]
 int1 = 5
@@ -277,22 +277,22 @@ print(str(int1))
 5
 7
 \end{lstlisting}
-Since we're changing the contents of the variable, the second print statement is simply getting the updated variable value.\footnote{For now, ignore the str() function. This is typecasting the integer into a string so that it can be printed by the print() function. We'll cover typecasting in chapter 4.6.}\par
+Since we're changing the contents of the \indexterm{variable}, the second print statement is simply getting the updated \indexterm{variable} value.\footnote{For now, ignore the str() function. This is typecasting the integer into a string so that it can be printed by the print() function. We'll cover typecasting in chapter 4.6.}\par
 \subsubsection*{Exercise Questions}
 These exercise questions cover chapter 4.2.2.
 \begin{Exercise}
-    \Question{Define a new variable \verb|name| and initialize it to your name.}
-    \Question{Now, print "Your name is: " and concatenate it with the \verb|name| variable in the print statement.}
+    \Question{Define a new \indexterm{variable} \verb|name| and initialize it to your name.}
+    \Question{Now, print "Your name is: " and concatenate it with the \verb|name| \indexterm{variable} in the print statement.}
 \end{Exercise}
 \begin{Exercise}
-    \Question{Using your variable naming rules, create a new variable that would describe the name of a building on your college campus. Initialize it to the name of a building on your college campus.}
-    \Question{Create a new variable that describes the discipline of that building (math, history, psychology, English, etc.) and initialize it to that value.}
-    \Question{Write a print statement that will print "\_\_\_ is a \_\_\_ building." Fill the first blank with the variable for your building's name, and fill the second blank with the variable for the discipline of that building. Use string concatenation to print all of the variables from the same print statement.}
+    \Question{Using your \indexterm{variable} naming rules, create a new \indexterm{variable} that would describe the name of a building on your college campus. Initialize it to the name of a building on your college campus.}
+    \Question{Create a new \indexterm{variable} that describes the discipline of that building (math, history, psychology, English, etc.) and initialize it to that value.}
+    \Question{Write a print statement that will print "\_\_\_ is a \_\_\_ building." Fill the first blank with the \indexterm{variable} for your building's name, and fill the second blank with the \indexterm{variable} for the discipline of that building. Use string concatenation to print all of the variables from the same print statement.}
 \end{Exercise}
 
 \subsection{Handling User Input}
 It's also possible that you'll want your user to input something on the keyboard so that you can evaluate it in your program. The ability to input text is a very useful. For now, we're only going to focus on taking in text. We'll cover how to turn that text into numbers, like integers and floats, in chapter 4.6 on typecasting.\par
-On the console, the function to take in user input is quite aptly named \verb|input()|. \verb|input()| must always be preceded by a variable and the variable assignment operator; it cannot stand on its own like \verb|print()| can. Consider the following example code.\par
+On the console, the function to take in user input is quite aptly named \verb|input()|. \verb|input()| must always be preceded by a \indexterm{variable} and the \indexterm{variable} assignment operator; it cannot stand on its own like \verb|print()| can. Consider the following example code.\par
 \begin{lstlisting}[style=pippython]
 print("What is your name?", end = " ")
 name = input()
@@ -302,9 +302,9 @@ print("Your name is ", name, ".", sep="")
 What is your name? Stinky Pete
 Your name is Stinky Pete.
 \end{lstlisting}
-When you run this code, your program will prompt you for your name. You can then type directly into the console using your keyboard. When you press Enter, the contents that you typed are put into the variable \verb|name| as a string. The last line then prints some string literals and your name.\par
-When using \verb|input()|, it doesn't matter whether you input only letters or only numbers. The \verb|input()| function will always return the input as a string. You can, however, typecast a variable as some other datatype. See chapter 4.6 on typecasting.\par
-The \verb|input()| function can take one argument, a string to prompt the user. You can either pass in a variable which is of type string or just use a string literal. So, the following code is logically the same as the previous example.\par
+When you run this code, your program will prompt you for your name. You can then type directly into the console using your keyboard. When you press Enter, the contents that you typed are put into the \indexterm{variable} \verb|name| as a string. The last line then prints some string literals and your name.\par
+When using \verb|input()|, it doesn't matter whether you input only letters or only numbers. The \verb|input()| function will always return the input as a string. You can, however, typecast a \indexterm{variable} as some other datatype. See chapter 4.6 on typecasting.\par
+The \verb|input()| function can take one argument, a string to prompt the user. You can either pass in a \indexterm{variable} which is of type string or just use a string literal. So, the following code is logically the same as the previous example.\par
 \begin{lstlisting}[style=pippython]
 name = input("What is your name?")
 print("Your name is ", name, ".", sep="")
@@ -316,28 +316,28 @@ Your name is Stinky Pete.
 \subsubsection*{Exercise Questions}
 These exercise questions cover chapters 4.2.3. 
 \begin{Exercise}
-    \Question{Is it possible to use the \verb|input()| function standalone (that is, without an variable and assignment operator)? Why or why not?}
+    \Question{Is it possible to use the \verb|input()| function standalone (that is, without an \indexterm{variable} and assignment operator)? Why or why not?}
     \Question{What happens when you try to use the \verb|input()| function standalone? If you receive an error, what kind of error is it?}
 \end{Exercise}
 \begin{Exercise}
-    \Question{Create a new variable \verb|age| and initialize it to the Nonetype. See chapter 4.2.1 for a review on the Nonetype.}
+    \Question{Create a new \indexterm{variable} \verb|age| and initialize it to the Nonetype. See chapter 4.2.1 for a review on the Nonetype.}
     \Question{Use the \verb|input()| function to ask for the user's age and put the result into the \verb|age|.}
-    \Question{Print the datatype of \verb|age|. What datatype is it? Why is this so? (Hint: to print the datatype of a variable, you can print the \verb|type(variableName)|.)}
+    \Question{Print the datatype of \verb|age|. What datatype is it? Why is this so? (Hint: to print the datatype of a \indexterm{variable}, you can print the \verb|type(variableName)|.)}
 \end{Exercise}
 \begin{Exercise}
-    \Question{Create a new variable \verb|color| and initialize it to be an empty string.}
-    \Question{Write an \verb|input()| statement that prompts the user for their favorite color and puts the result in the \verb|color| variable.}
+    \Question{Create a new \indexterm{variable} \verb|color| and initialize it to be an empty string.}
+    \Question{Write an \verb|input()| statement that prompts the user for their favorite color and puts the result in the \verb|color| \indexterm{variable}.}
     \Question{Write a single print statement that prints the user's favorite color and compliments their color choice.}
-    \Question{Write another \verb|input| statement that prompts the user for their least favorite color and overwrites the contents of the \verb|color| variable.}
+    \Question{Write another \verb|input| statement that prompts the user for their least favorite color and overwrites the contents of the \verb|color| \indexterm{variable}.}
     \Question{Write another single print statement that prints the user's least favorite color and tells them that you agree the color looks bad.}
 \end{Exercise}
 
-\section{Whitespace}
-Whitespace is a crucial component of every programming language, and using whitespace correctly is very important. Different languages handle whitespace differently, but you should know how to correctly format your code, regardless of which language you're writing code in.\par
-\subsection{Why is Whitespace Important?}
-Donald Knuth once said, "Programs are meant to be read by humans and only incidentally for computers to execute." As programmers, it is in your best interest to make your code readable. More readable code means that you can understand it, find problems faster, and others can catch onto your programming style quickly and understand your code swiftly. Messy code is difficult to read. Even if your instructor does not require you to or does not penalize for incorrect whitespace, it is still an important skill.\par
+\section{Whitespace\index{whitespace}}
+Whitespace\index{whitespace} is a crucial component of every programming language, and using \indexterm{whitespace} correctly is very important. Different languages handle \indexterm{whitespace} differently, but you should know how to correctly format your code, regardless of which language you're writing code in.\par
+\subsection{Why is Whitespace\index{whitespace} Important?}
+Donald Knuth once said, "Programs are meant to be read by humans and only incidentally for computers to execute." As programmers, it is in your best interest to make your code readable. More readable code means that you can understand it, find problems faster, and others can catch onto your programming style quickly and understand your code swiftly. Messy code is difficult to read. Even if your instructor does not require you to or does not penalize for incorrect \indexterm{whitespace}, it is still an important skill.\par
 Python requires that you use the right indentation when using code blocks, such as loops or conditional logic, as you'll see in chapter 6. Other languages use curly braces \verb|{}| to denote groups of code that should run when certain conditions are met. Regardless, there are some rules that you should follow when writing code, especially around comparison operators and assignment operators.\par
-Consider the following code, which uses poor or inconsistent whitespace.\par
+Consider the following code, which uses poor or inconsistent \indexterm{whitespace}.\par
 \begin{lstlisting}[style=pippython]
 if(a>0):
   print(a)
@@ -358,9 +358,9 @@ else:
   else:
     print("a is negative or greater than 10")
 \end{lstlisting}
-Observe how this code uses consistent whitespace patterns for all of its indentation. One indentation is, in this case, always two spaces. Indentation doesn't always need to be two spaces. It could just as easily be four or eight spaces, or a tab character.\par
-Regardless of which whitespace rules you choose to follow and those you choose to ignore, think about how your decisions will affect the readability of the code. \par
-Whitespace is also vertical. You can generally put empty lines at logical breaks in the code, such as between loops, functions, or if/else statements. Consider the following code.\par
+Observe how this code uses consistent \indexterm{whitespace} patterns for all of its indentation. One indentation is, in this case, always two spaces. Indentation doesn't always need to be two spaces. It could just as easily be four or eight spaces, or a tab character.\par
+Regardless of which \indexterm{whitespace} rules you choose to follow and those you choose to ignore, think about how your decisions will affect the readability of the code. \par
+Whitespace\index{whitespace} is also vertical. You can generally put empty lines at logical breaks in the code, such as between loops, functions, or if/else statements. Consider the following code.\par
 \begin{lstlisting}[style=pippython]
 def function1(arg1, arg2):
   return arg1 + arg2
@@ -369,7 +369,7 @@ def function2(arg1, arg2):
 def function3(arg1, arg2):
   return arg1 // arg2
 \end{lstlisting}
-You don't need to understand exactly what this code does, but while it does have good horizontal whitespace, we could improve its vertical whitespace by adding extra empty lines. Compare the previous example to the following code.\par
+You don't need to understand exactly what this code does, but while it does have good horizontal \indexterm{whitespace}, we could improve its vertical \indexterm{whitespace} by adding extra empty lines. Compare the previous example to the following code.\par
 \begin{lstlisting}[style=pippython]
 def function1(arg1, arg2):
   return arg1 + arg2
@@ -381,8 +381,8 @@ def function3(arg1, arg2):
   return arg1 // arg2
 \end{lstlisting}
 Breaking apart each of these logical blocks by adding extra empty lines doesn't affect the functionality of the software, but it does make it a lot easier to read. It's easier to see where the block starts and where it ends.
-\subsection{Common Whitespace Patterns}
-There are several whitespace patterns that are used in programming, especially in Python. In general, follow the following rules.\par
+\subsection{Common Whitespace\index{whitespace} Patterns}
+There are several \indexterm{whitespace} patterns that are used in programming, especially in Python. In general, follow the following rules.\par
 \begin{itemize}
     \item The assignment operator \verb|=| should always be surrounded by one space on either side. For example, use \verb|cats = 10| instead of \verb|cats=10|.
     \item The comparison operators (\verb|==|, \verb|!=|, \verb|<|, \verb|>|, \verb|<=|, and \verb|>=|) should always be surrounded by one space on either side. For example, use \verb|cats >= 10| instead of \verb|cats>=10|.
@@ -392,14 +392,14 @@ There are several whitespace patterns that are used in programming, especially i
 \end{itemize}
 Different computers and different text editors have different standards for how they'll treat spaces between brackets and braces and how they write tabs in, so when you change computers, you should double-check what the tab settings are for that computer, as you might need to change them.\par
 Soft wrap is a really handy viewing mode that you can use in your text editor, and we mentioned it above. But what is it? Soft wrap allows your editor to wrap lines that are too long for one line into the next line without affecting any functionality of your source code and without changing of the line numbers. When you write in a standard word processor like Microsoft Word or Google Docs, you've actually already used soft wrap. Notice how as you type, when you approach the end of the line, your word processor makes a new line for you without you having to explicitly hit the carriage return key. The same thing can be done in your text editor or IDE, and the option is typically found under the View options as Soft wrap or Toggle Soft Wrap. In advanced text editors, there are three options: soft wrap, hard wrap, and no wrap. Most text editors only use soft wrap and no wrap. The difference between a soft wrap and a hard wrap is that soft wrapping will add your extra line without breaking any words (it breaks on spaces) whereas a hard wrap will add your extra line wherever the end of the line is (it breaks on characters.\par
-You can play around with which whitespace rules you'd like to use and which you will ignore. The important thing is that you try to stay organized and that you are consistent throughout your entire source code file or project.\par
+You can play around with which \indexterm{whitespace} rules you'd like to use and which you will ignore. The important thing is that you try to stay organized and that you are consistent throughout your entire source code file or project.\par
 \subsubsection*{Exercise Questions}
 These exercise questions cover chapters 4.3.1 and 4.3.2.
 \begin{Exercise}
-    \Question{What is whitespace?}
-    \Question{What directions does whitespace apply: horizontal, vertical, or horizontal \textit{and} vertical?}
-    \Question{Why is whitespace so important?}
-    \Question{Does your course instructor or grader penalize for improper whitespace? If so, what is the penalty?}
+    \Question{What is \indexterm{whitespace}?}
+    \Question{What directions does \indexterm{whitespace} apply: horizontal, vertical, or horizontal \textit{and} vertical?}
+    \Question{Why is \indexterm{whitespace} so important?}
+    \Question{Does your course instructor or grader penalize for improper \indexterm{whitespace}? If so, what is the penalty?}
 \end{Exercise}
 \begin{Exercise}
     Open your text editor or IDE. Use it to answer the following questions. You may also need to open a source code file.
@@ -408,10 +408,10 @@ These exercise questions cover chapters 4.3.1 and 4.3.2.
     \Question{Do all text editors or IDEs use the same default indentation or wrap settings?}
 \end{Exercise}
 \begin{Exercise}
-    \Question{What should surround the assignment operator to achieve good whitespace?}
-    \Question{What should surround a comparison operator for good whitespace?}
+    \Question{What should surround the assignment operator to achieve good \indexterm{whitespace}?}
+    \Question{What should surround a comparison operator for good \indexterm{whitespace}?}
     \Question{Should you put an extra space in between two characters in a comparison operator (\verb|!=| versus \verb|! =|)?}
-    \Question{Is it okay to change the indentation standard or whitespace pattern in the middle of a project? When is it okay to, if ever?}
+    \Question{Is it okay to change the indentation standard or \indexterm{whitespace} pattern in the middle of a project? When is it okay to, if ever?}
     \Question{If you had a really long line that was wider than your text editor window, what should you do?}
 \end{Exercise}
 \begin{Exercise}
@@ -419,7 +419,7 @@ These exercise questions cover chapters 4.3.1 and 4.3.2.
     \Question{Sometimes, you'll need to use someone else's computer, including their text editor in the way that it was set up. What are some things you might want to check before starting to work on your project on that computer?}
 \end{Exercise}
 \begin{Exercise}
-Fix the following lines of code by correcting the whitespace errors. What did you fix, and why did you choose to make that fix? If there are no errors, say so.
+Fix the following lines of code by correcting the \indexterm{whitespace} errors. What did you fix, and why did you choose to make that fix? If there are no errors, say so.
 \Question{
 \begin{lstlisting}[style=pippython]
 if(var!=3):
@@ -445,7 +445,7 @@ def addFive (inputVal):
 }
 \end{Exercise}
 \section{Comments}
-Comments are a critical part of any program, even if they don't contribute to the actual functionality of your code. Just like how whitespace is so important, your comments are the key for you being able to understand your code. Talk to any experienced programmer, and they'll have stories of how they spent all night working on a chunk of code, then forgot what it meant or how it worked the very next day and had to rewrite the entire chunk of code.\par
+Comments are a critical part of any program, even if they don't contribute to the actual functionality of your code. Just like how \indexterm{whitespace} is so important, your comments are the key for you being able to understand your code. Talk to any experienced programmer, and they'll have stories of how they spent all night working on a chunk of code, then forgot what it meant or how it worked the very next day and had to rewrite the entire chunk of code.\par
 While you don't need to comment every single print statement, commenting with enough detail that others can understand your code is a good habit to get into.\par
 \subsection{Line Comments}
 The most common type of comment is a line comment. A line comment can either take an entire line (no code is executed on that line) or it can take the latter half of a line.\par
@@ -569,7 +569,7 @@ There are several default error types, of which \verb|SyntaxError| is one. Some 
     \item \verb|KeyError|: raised when a dictionary key is not found in a set of existing keys; we will go over keys in dictionaries in Chapter 5
     \item \verb|KeyboardInterrupt|: not strictly an error, but raised when program execution is halted after the user hits the interrupt key (normally \verb|Control-C| or \verb|Delete|)
     \item \verb|MemoryError|: raised when an operation runs out of memory but the situation might be able to be rescued by deleting some objects
-    \item \verb|NameError|: raised when a locall or global name (variable) is not found
+    \item \verb|NameError|: raised when a locall or global name (\indexterm{variable}) is not found
     \item \verb|OSError|: raised when the host operating system (like Windows, MacOS, or Linux) encounters a system-related error in response to a Python request, including I/O failures like "file not found" or "disk full" errors
     \item \verb|OverflowError|: raised when an \indexterm{arithmetic} operation is too large to be represented
     \item \verb|RecursionError|: raised when the maximum recursion depth is exceeded
@@ -643,8 +643,8 @@ Traceback (most recent call last):
     print('Hi, ', userName, sep="")
 NameError: name 'userName' is not defined
 \end{lstlisting}
-Let's break down this output. The first line of the output is working as we expect it to. The \verb|input()| is printing a prompt for our user, which is showing up. The second line of the output is what our user entered. However, on the third line, we see a \verb|Traceback|, with the most recent call listed last. If you had a chain of errors, which typically occurs when you're using functions, classes, or modules, the root of these errors would show up so that you can trace back the issue. Next, we see the filename (main.py) and the line number that the error is occurring in. Next, the interpreter is giving us the offending line of code, but it doesn't have a clue where the error is, so it doesn't even try to point out where it thinks the error is. Lastly, it gave us the error class and the error code. The error class is \verb|NameError|, which might occur if there's an unspecified variable or object that's being called. Sure enough, the error code indicates that \verb|'userName'| is not defined. This code's author accidentally wrote the wrong variable name in the print statement. If we replace \verb|userName| with \verb|name|, the code runs properly.\par
-In the process of programming, you'll probably run into new errors that you haven't seen before, such as \verb|TypeError|s, \verb|IndexError|s, \verb|ImportError|s, \verb|KeyError|s, or \verb|ModuleNotFoundError|s. Before you paste the error code into a search engine (really, we don't recommend this), you should take a close look at the error to figure out why it might be occurring. Chances are, it's a pretty simple fix. If you can't figure out why the error code is occurring, you can try to search keywords from the error, especially if the error is occurring because of some variable name.\par
+Let's break down this output. The first line of the output is working as we expect it to. The \verb|input()| is printing a prompt for our user, which is showing up. The second line of the output is what our user entered. However, on the third line, we see a \verb|Traceback|, with the most recent call listed last. If you had a chain of errors, which typically occurs when you're using functions, classes, or modules, the root of these errors would show up so that you can trace back the issue. Next, we see the filename (main.py) and the line number that the error is occurring in. Next, the interpreter is giving us the offending line of code, but it doesn't have a clue where the error is, so it doesn't even try to point out where it thinks the error is. Lastly, it gave us the error class and the error code. The error class is \verb|NameError|, which might occur if there's an unspecified \indexterm{variable} or object that's being called. Sure enough, the error code indicates that \verb|'userName'| is not defined. This code's author accidentally wrote the wrong \indexterm{variable} name in the print statement. If we replace \verb|userName| with \verb|name|, the code runs properly.\par
+In the process of programming, you'll probably run into new errors that you haven't seen before, such as \verb|TypeError|s, \verb|IndexError|s, \verb|ImportError|s, \verb|KeyError|s, or \verb|ModuleNotFoundError|s. Before you paste the error code into a search engine (really, we don't recommend this), you should take a close look at the error to figure out why it might be occurring. Chances are, it's a pretty simple fix. If you can't figure out why the error code is occurring, you can try to search keywords from the error, especially if the error is occurring because of some \indexterm{variable} name.\par
 You may also get something called a traceback, especially if your error has been caused by a chain of events (like a function call). Don't worry about understanding how chains of events are formed (this is called data structures, which we'll cover in Chapter 7). As its name suggests, a traceback provides breadcrumbs for you to find the origin of the error. The first breadcrumb will fall on the line of code that caused the execution error. The second breadcrumb will give you the line of code that caused the first breadcrumb's error. The third breadcrumb will give you the line of code that caused the second breadcrumb's error, and so on. Python \textit{could} just give you the line of code that caused the exact error, but it often doesn't reveal deeper problems that will help you diagnose a problem. The error may occur anywhere between the first and last breadcrumb, but as you get better at reading a traceback error log, you'll also get better at reading exactly where an error occurred.\cprotect\footnote{Read this footnote after you've read Chapter 7.1 on functions, since we'll give you some more information on tracebacks that rely on knowledge from that chapter. Tracebacks are commonly found when you have a function that called another function. For example, let's say you had a function called \verb|double()| that was responsible for doubling an integer or a float. Then, later in the code, you called \verb|double("spot")|. Obviously, "spot" is not an integer nor a float, and this will result in a syntax error. However, the act of calling \verb|double("spot")| is not inherently syntactically invalid: the act of multiplying "spot" by two is invalid. If Python only gave us the line of code that failed, we'd only get a line saying that \verb|double("spot")| failed, but not why it failed or why "spot" is an invalid argument. However, the traceback would give us the following information: the line \verb|double("spot")| failed in the function \verb|double()| because the \verb|double()| function encountered a TypeError. Along with this information, the traceback will also give us line numbers for each line of code the error occurred and which file it's in.}\par
 \boxtext{How far to traceback?}{When examining a traceback, you will almost \textit{never} need to go beyond the code that you wrote. If your traceback goes beyond your code and into a module or library that you imported (like Pandas), your immediate suspicion should be something that you wrote. The only exception to this is if you know that there's something wrong with the library that the library developers need to fix - in this case, you'll provide the library developers with your full traceback so they can see what line of code caused the library to fail. Never give a traceback to a developer unless you are certain that the error was caused by an error in the library (out of respect for their time and effort) and they ask for the traceback to prove that whatever you ran is what caused the library to fail. Giving a traceback to a developer because your code might be wrong and blaming it on the developer isn't a good look. (It's actually pretty rude.)}
 \subsubsection*{Exercise Questions}
@@ -736,7 +736,7 @@ File "main.py", line 3, in <module>
   
 Exception: Only integers allowed
 \end{lstlisting}
-You don't have to understand exactly what this code does, but do pay attention to the exception. This code tests if the variable \verb|x| is an integer. If it isn't, then it'll throw a generic exception. We can also throw a \verb|TypeError|, since we could generally classify this as a datatype error. Consider the following code.\par
+You don't have to understand exactly what this code does, but do pay attention to the exception. This code tests if the \indexterm{variable} \verb|x| is an integer. If it isn't, then it'll throw a generic exception. We can also throw a \verb|TypeError|, since we could generally classify this as a datatype error. Consider the following code.\par
 \begin{lstlisting}[style=pippython]
 x = "hello"
 if not type(x) is int:
@@ -771,26 +771,26 @@ These exercise questions cover chapter 4.5.3.
 Typecasting is an important part of dealing with data. Sure, we've talked about typecasting in previous chapters, but what actually is it, and how can we use it?\par
 Recall the material that you learned in Chapter 3, on the basic datatypes in Python. We know how to use Booleans, integers, floats, and strings, but it'd also be really handy to be able to convert between different datatypes. This is the essence of typecasting. Some of the functionality in Python and some functions can only accept certain types of data, so typecasting allows us to have the exact type of data needed to execute these operations.\par
 Let's look at one of the most common functions that you'll use in Python: the \verb|input()| function. We know that \verb|input()| can take one argument, but what does it spit out?\par
-A little bit of sleuthing in the Python documentation reveals that \verb|input()| always returns a string. Consider the following code. Assume that the variable \verb|price| has not been declared or initialized already.
+A little bit of sleuthing in the Python documentation reveals that \verb|input()| always returns a string. Consider the following code. Assume that the \indexterm{variable} \verb|price| has not been declared\index{variable!initialization} or initialized already.
 \begin{lstlisting}[style=pippython]
 price = input("Input the total price of your groceries as a decimal:")
 print(price)
 \end{lstlisting}
-What datatype would \verb|price| be? No matter what kind of data we try to input in our program, \verb|price| will always be a string, since that's the datatype that \verb|input()| will always insert into the variable that it is being assigned to.\par
+What datatype would \verb|price| be? No matter what kind of data we try to input in our program, \verb|price| will always be a string, since that's the datatype that \verb|input()| will always insert into the \indexterm{variable} that it is being assigned to.\par
 This would be great if we could always work with strings, but this just isn't the case. For example, \indexterm{arithmetic} operations, which we'll cover in chapter 4.8, require us to use an integer or a float, not a string.\par
-As you can probably guess, this is where typecasting comes in. We can try to typecast our input into the datatypes that we need so that we can perform our basic \indexterm{arithmetic} operations. Consider the following code. Assume that the variable \verb|price| has not been declared or initialized already. It's okay if you don't understand what's going on in the third line yet.\par
+As you can probably guess, this is where typecasting comes in. We can try to typecast our input into the datatypes that we need so that we can perform our basic \indexterm{arithmetic} operations. Consider the following code. Assume that the \indexterm{variable} \verb|price| has not been declared\index{variable!initialization} or initialized already. It's okay if you don't understand what's going on in the third line yet.\par
 \begin{lstlisting}[style=pippython]
 price = input("Input the total price of your groceries as a decimal:")
 price = float(price)
 tax = price * 0.08
 print("You need an extra \$", tax, " for tax, sep = "")
 \end{lstlisting}
-This program expands on our previous program by calculating our tax. It multiplies the float variable \verb|total| by a given tax rate, 8\%. However, I'd like to draw your attention to the second line:\par
+This program expands on our previous program by calculating our tax. It multiplies the float \indexterm{variable} \verb|total| by a given tax rate, 8\%. However, I'd like to draw your attention to the second line:\par
 \begin{lstlisting}[style=pippython]
 price = float(price)
 \end{lstlisting}
-We can see that we're using a previously declared and initialized variable \verb|price| and we're reinitializing the variable's value to the typecasted value of the original variable.\par
-In line 1, \verb|price| was declared a string, since it was assigned a string by the \verb|input()| function.\par Then, in line 2, we typecast that string into a float and replaced the value of the original string with the new float. In line 3, we did some arithmetic on our float and put the result into the variable \verb|tax|. We don't need to typecast \verb|tax|, since the value of \verb|price * 0.08| is already a float. Finally, in line 4, we're printing a string literal using string concatenation.\par
+We can see that we're using a previously declared\index{variable!initialization} and initialized \indexterm{variable} \verb|price| and we're reinitializing the \indexterm{variable}'s value to the typecasted value of the original \indexterm{variable}.\par
+In line 1, \verb|price| was declared\index{variable!initialization} a string, since it was assigned a string by the \verb|input()| function.\par Then, in line 2, we typecast that string into a float and replaced the value of the original string with the new float. In line 3, we did some arithmetic on our float and put the result into the \indexterm{variable} \verb|tax|. We don't need to typecast \verb|tax|, since the value of \verb|price * 0.08| is already a float. Finally, in line 4, we're printing a string literal using string concatenation.\par
 We can also typecast variables to different datatypes. The functions are as described here.\par
 \vspace{5mm}
 \begin{tabular}{|l|l|}
@@ -805,7 +805,7 @@ Function Name     & What It Does                         \\
 \hline
 \end{tabular}
 \vspace{5mm}\par
-In the above table, the argument can be any type of variable: a Boolean, integer, float, or string. However, it's worth noting that while you \textit{could} pass any datatype into your typecasting function, not all \verb|variables| can be passed in. For example, consider the following example.
+In the above table, the argument can be any type of \indexterm{variable}: a Boolean, integer, float, or string. However, it's worth noting that while you \textit{could} pass any datatype into your typecasting function, not all \verb|variables| can be passed in. For example, consider the following example.
 \begin{lstlisting}[style=pippython]
 cat = input("Input your favorite type of cat: ")
 cat = int(cat)
@@ -814,7 +814,7 @@ print(cat)
 This would almost certainly not work, since we can't typecast "tabby" or "Jellicle" to an integer. In this case, you'll probably end up with a \verb|TypeError| letting you know that your typecast attempt is invalid.\par
 You can handle these errors in all manner of different ways, such as those described in chapter 4.5.3. Using this, you can let your user know that they need to input their data according to a certain format.\par
 Let's say that you were writing a program that attempted to calculate the amount of tax that someone would pay on their groceries. You know that you'll need to typecast into a float, but your user might input something that isn't typecastable, like \verb|$45.97| instead of just \verb|45.97|. So, you could write the following block instead to catch the exception and prompt the user again.\par
-Again, assume that \verb|price| and \verb|tax| are undeclared and uninitialized.\par
+Again, assume that \verb|price| and \verb|tax| are undeclared\index{variable!initialization} and uninitialized.\par
 \begin{lstlisting}[style=pippython]
 price = 0.0
 while price == 0.0:
@@ -829,7 +829,7 @@ while price == 0.0:
 tax = price * 0.08
 print("You need an extra \$", tax, " for tax, sep = "")
 \end{lstlisting}
-We'll get to what the \verb|while| is in chapter 6.3, but the gist of the code is, Python will declare a new variable \verb|price| to be 0.0. As long as the price is 0.0, Python will assume that the user hasn't inputted a valid price and will keep prompting the user until they enter a valid price that can be typecast into a float. Then, it can carry on with the rest of the program.\par
+We'll get to what the \verb|while| is in chapter 6.3, but the gist of the code is, Python will declare\index{variable!initialization} a new \indexterm{variable} \verb|price| to be 0.0. As long as the price is 0.0, Python will assume that the user hasn't inputted a valid price and will keep prompting the user until they enter a valid price that can be typecast into a float. Then, it can carry on with the rest of the program.\par
 \subsubsection*{Exercise Questions}
 These exercise questions cover chapter 4.6.
 \begin{Exercise}
@@ -843,14 +843,14 @@ These exercise questions cover chapter 4.6.
     \Question{What is the syntax to typecast an integer into a float?}
 \end{Exercise}
 \begin{Exercise}
-Write the applicable code to typecast the following variables into a string. If typecasting cannot be performed or is not applicable to the variable, explain why.
+Write the applicable code to typecast the following variables into a string. If typecasting cannot be performed or is not applicable to the \indexterm{variable}, explain why.
     \Question{\verb|v = 3|}
     \Question{\verb|cats = "Tabby"|}
     \Question{\verb|isBlue = True|}
     \Question{\verb|r2 = 3.2209|}
 \end{Exercise}
 \begin{Exercise}
-Write the applicable code to typecast the following variables into an integer. If typecasting cannot be performed or is not applicable to the variable, explain why.
+Write the applicable code to typecast the following variables into an integer. If typecasting cannot be performed or is not applicable to the \indexterm{variable}, explain why.
     \Question{\verb|v = 3|}
     \Question{\verb|cats = 5.0|}
     \Question{\verb|n = "three"|}
@@ -861,15 +861,15 @@ Write the applicable code to typecast the following variables into an integer. I
     \Question{Provide an example for why you would want to typecast an integer into a string.}
 \end{Exercise}
 \section{F-strings}
-Beginning in Python 3.6, Python included something called a \newterm[f-string]{f-string}.\footnote{The ability to use f-strings should be in standard Python after version 3.6, but some interpreters don't respect f-strings, instead printing literally or even erroring out because of a non-escaped special character (a curly brace). Your instructor should be able to tell you whether the interpreter that you are using supports f-strings to avoid immense frustration!} F-strings allow you to print two or more things, one of which as a variable, without explicitly concatenating. Essentially, f-strings create areas with placeholder objects without having to close your string quotes, typecast, or add a concatenation operator.\par
-The fundamental parts of a f-string are the literal and the variable. The literal portion of the f-string is printed just as any other string is. As a review, this is a string literal printed.
+Beginning in Python 3.6, Python included something called a \newterm[f-string]{f-string}.\footnote{The ability to use f-strings should be in standard Python after version 3.6, but some interpreters don't respect f-strings, instead printing literally or even erroring out because of a non-escaped special character (a curly brace). Your instructor should be able to tell you whether the interpreter that you are using supports f-strings to avoid immense frustration!} F-strings allow you to print two or more things, one of which as a \indexterm{variable}, without explicitly concatenating. Essentially, f-strings create areas with placeholder objects without having to close your string quotes, typecast, or add a concatenation operator.\par
+The fundamental parts of a f-string are the literal and the \indexterm{variable}. The literal portion of the f-string is printed just as any other string is. As a review, this is a string literal printed.
 \begin{lstlisting}[style=pippython]
 print("The cat is orange.")
 \end{lstlisting}
 \begin{lstlisting}[style=none]
 The cat is orange.
 \end{lstlisting}
-Traditionally, if we wanted to print the variable \verb|color|, we would need to do this.
+Traditionally, if we wanted to print the \indexterm{variable} \verb|color|, we would need to do this.
 \begin{lstlisting}[style=pippython]
 color = "orange"
 print("The cat is " + color + ".", sep = "")
@@ -877,7 +877,7 @@ print("The cat is " + color + ".", sep = "")
 \begin{lstlisting}
 The cat is orange.
 \end{lstlisting}
-This should look familiar. We still have a string literal portion ("The cat is "), a variable ("orange"), and another string literal ("."). However, we could use a f-string to avoid having to close our quotes out at all. To do this, we can simply enclose our variable inside of curly braces \verb|{}|. The curly braces tell Python that the contents of the curly brace are actually a variable, and we want Python to take that variable instead of the literal string.\par
+This should look familiar. We still have a string literal portion ("The cat is "), a \indexterm{variable} ("orange"), and another string literal ("."). However, we could use a f-string to avoid having to close our quotes out at all. To do this, we can simply enclose our \indexterm{variable} inside of curly braces \verb|{}|. The curly braces tell Python that the contents of the curly brace are actually a \indexterm{variable}, and we want Python to take that \indexterm{variable} instead of the literal string.\par
 The above example, as a f-string, looks like this.
 \begin{lstlisting}[style=pippython]
 color = "orange"
@@ -887,8 +887,8 @@ print(f'The cat is {color}.')
 The cat is orange.
 \end{lstlisting}
 We're not actually concatenating here, so we don't need the \verb|sep| argument to dictate what the separator value should be between concatenated objects. Instead, we can build our separation right into our f-string.\par
-In the above f-string, take note of the following. The f-string is predicated with a \verb|f|. This tells Python that we want to use a f-string, rather than a traditional string. Next, there is no space between the \verb|f| and the opening quote \verb|'|. Putting a space between the \verb|f| and the opening quote \verb|'| is not syntactically correct. Finally, our variable \verb|color| is only enclosed in curly braces inside of our f-string.\par
-If we had a non-string value in a variable, like an integer or float, we cannot just print that value. As a review, we end up with a \verb|TypeError|.
+In the above f-string, take note of the following. The f-string is predicated with a \verb|f|. This tells Python that we want to use a f-string, rather than a traditional string. Next, there is no space between the \verb|f| and the opening quote \verb|'|. Putting a space between the \verb|f| and the opening quote \verb|'| is not syntactically correct. Finally, our \indexterm{variable} \verb|color| is only enclosed in curly braces inside of our f-string.\par
+If we had a non-string value in a \indexterm{variable}, like an integer or float, we cannot just print that value. As a review, we end up with a \verb|TypeError|.
 \begin{lstlisting}[style=pippython]
 print("The value is " + 1)
 \end{lstlisting}
@@ -902,7 +902,7 @@ print("The value is " + str(1))
 \begin{lstlisting}[style=none]
 The value is 1
 \end{lstlisting}
-In a f-string, we do not need to typecast a non-string variable. Typecasting is implicitly done at runtime to any non-string values, meaning that we can simply call the object.\par
+In a f-string, we do not need to typecast a non-string \indexterm{variable}. Typecasting is implicitly done at runtime to any non-string values, meaning that we can simply call the object.\par
 \begin{lstlisting}[style=pippython]
 value = 1
 print(type(value))
@@ -913,16 +913,16 @@ print(f'The value is {value}')
 The value is 1
 \end{lstlisting}
 Observe how we never typecasted \verb|value|. The type of \verb|value| is still an integer when we print it in our f-string. However, it is implicitly typecast to a string before being printed, meaning that we never need to explicitly typecast the value.\par
-F-strings are a great way to increase the readability of your code. They decrease the amount of extra symbols, since we don't need to explicitly concatenate, typecast, or close our string to still call a variable inside of a string.
+F-strings are a great way to increase the readability of your code. They decrease the amount of extra symbols, since we don't need to explicitly concatenate, typecast, or close our string to still call a \indexterm{variable} inside of a string.
 \subsubsection*{Exercise Questions}
 These exercise questions cover chapter 4.7.
 \begin{Exercise}
-\Question{In a new Python script, create a variable named \verb|value| and initialize the variable to \verb|10.60|.}
+\Question{In a new Python script, create a \indexterm{variable} named \verb|value| and initialize the \indexterm{variable} to \verb|10.60|.}
 \Question{}
 \end{Exercise}
 \section{Statements and Expressions Review}
-So far, we've learnt of several different statements and expressions. From variable declaration and initialization to function calls, you've already learned how to use statements. Let's look at some other types of statements that you'll run into, especially as your programming skills grow.\par
-Firstly, let's review the assignment operator \verb|=|. The assignment operator is used to assign a value to a variable. For example, consider the following code.\par
+So far, we've learnt of several different statements and expressions. From \indexterm{variable} declaration\index{variable!initialization} and initialization to function calls, you've already learned how to use statements. Let's look at some other types of statements that you'll run into, especially as your programming skills grow.\par
+Firstly, let's review the assignment operator \verb|=|. The assignment operator is used to assign a value to a \indexterm{variable}. For example, consider the following code.\par
 \begin{lstlisting}[style=pippython]
 cats = "tabby cat"
 \end{lstlisting}
@@ -930,13 +930,13 @@ We can also use a function on the right side of an assignment operator, as long 
 \begin{lstlisting}[style=pippython]
 cats = input("Input your favorite cat: ")
 \end{lstlisting}
-However, if the function doesn't produce something, then Python will create a syntax error. The only way to prevent this from happening is to handle the exception; using exception handling, you can assign the Nonetype to the variable. For example, consider the following code.\par
+However, if the function doesn't produce something, then Python will create a syntax error. The only way to prevent this from happening is to handle the exception; using exception handling, you can assign the Nonetype to the \indexterm{variable}. For example, consider the following code.\par
 \begin{lstlisting}[style=pippython]
 cats = print("tabby cat")
 \end{lstlisting}
 This code will result in a syntax error, since the \verb|print()| function can take arguments, but cannot return anything back.\par
 We've also seen standalone statements, such as the \verb|print()| function. Statements like these don't use any operators, such as \verb|=|. If you try to use an assignment operator with a standalone statement, you'll end up with a syntax error, since this is not syntactically correct, according to Python.\par
-Lastly, we've seen the block format, where certain code routines are run as part of another block of code. Most recently, we've seen this used in try...except blocks. To denote that a code routine should run as a part of another line of code, like \verb|try| or \verb|except|, we should use an indentation. The exact style of indentation isn't terribly important, so you could use two spaces, four spaces, a tab, or two tabs, but according to our whitespace rules, it's important to be consistent with whichever style we choose to use.\par
+Lastly, we've seen the block format, where certain code routines are run as part of another block of code. Most recently, we've seen this used in try...except blocks. To denote that a code routine should run as a part of another line of code, like \verb|try| or \verb|except|, we should use an indentation. The exact style of indentation isn't terribly important, so you could use two spaces, four spaces, a tab, or two tabs, but according to our \indexterm{whitespace} rules, it's important to be consistent with whichever style we choose to use.\par
 For example, this chunk of code will run a try...except. The underscores represent spaces.\footnote{This code is not technically correct: the underscore might cause some interpreters to misinterpret the purpose of the underscore. Avoid using more than one underscore unless you have a very good reason to do so.}
 \begin{lstlisting}[style=pippython]
 # DO NOT RUN
@@ -981,16 +981,16 @@ Operation & Description      \\
 \end{tabular}\par
 \vspace{5mm}
 You've probably seen at least four of these operations in elementary school, but perhaps you haven't seen all of them, and that's okay. In Python, we need to write our code line-by-line, so it would be difficult to write things like exponents on a single line without confusing characters with other commonly used reserved characters. This is why we need to use these seemingly arbitrary symbols or symbol combinations.\par
-Firstly, let's discuss where you might use these symbols. In programming (not just in Python), \indexterm{arithmetic} operations are typically run next to an assignment operator \verb|=|, so that their result can be assigned to a variable. Consider the following code.
+Firstly, let's discuss where you might use these symbols. In programming (not just in Python), \indexterm{arithmetic} operations are typically run next to an assignment operator \verb|=|, so that their result can be assigned to a \indexterm{variable}. Consider the following code.
 \begin{lstlisting}[style=pippython]
 seven = 2 + 5
 \end{lstlisting}
-Observe how the variable name is on the left side and the value is on the right side. Recall how the assignment operator must always be used in this manner, with the variable name on the left and the value to be assigned to that variable on the right.\par
+Observe how the \indexterm{variable} name is on the left side and the value is on the right side. Recall how the assignment operator must always be used in this manner, with the \indexterm{variable} name on the left and the value to be assigned to that \indexterm{variable} on the right.\par
 This is especially important in programming, since we do things that mathematicians might become very confused by. Consider the following:\par
 $$
 x = 2 + 4
 $$
-This is a mathematically correct equation. We're taking some value on the right side and putting it into the variable $x$. Now, consider the following in a mathematical context:\par
+This is a mathematically correct equation. We're taking some value on the right side and putting it into the \indexterm{variable} $x$. Now, consider the following in a mathematical context:\par
 $$
 x = x + 2
 $$
@@ -999,12 +999,12 @@ This doesn't make much sense, and in fact, it is wrong mathematically. There is 
 x = 5
 x = x + 2
 \end{lstlisting}
-In this case, we're initializing the value of the variable \verb|x| to be 5, then we're adding 2 to the value of \verb|x|. Even though this is not \textit{mathematically} correct, this is correct in \textit{programming}. However, it's worth noting that the following is \textit{not} syntactically correct:\par
+In this case, we're initializing the value of the \indexterm{variable} \verb|x| to be 5, then we're adding 2 to the value of \verb|x|. Even though this is not \textit{mathematically} correct, this is correct in \textit{programming}. However, it's worth noting that the following is \textit{not} syntactically correct:\par
 \begin{lstlisting}[style=pippython]
 x = 5 
 x + 2 = x # WRONG
 \end{lstlisting}
-As we saw in chapter 4.2, our variable needs to be the only thing on the left side. Again, this might be mathematically correct, but it's incorrect in Python.\par
+As we saw in chapter 4.2, our \indexterm{variable} needs to be the only thing on the left side. Again, this might be mathematically correct, but it's incorrect in Python.\par
 \begin{lstlisting}[style=pippython]
 2 + 4 = x # WRONG
 \end{lstlisting}
@@ -1037,7 +1037,7 @@ print(z)
 \begin{lstlisting}[style=none]
 15
 \end{lstlisting}
-How can Python know the difference between a negative number and the subtraction operator? For one, the negation operator must come with something on the left and the right, whereas a negative number can only have something on the right (nothing on the left). Secondly, negative numbers must be written with no space between the negation symbol and the number itself as shown. Even with our whitespace rules, this is considered common practice.\par
+How can Python know the difference between a negative number and the subtraction operator? For one, the negation operator must come with something on the left and the right, whereas a negative number can only have something on the right (nothing on the left). Secondly, negative numbers must be written with no space between the negation symbol and the number itself as shown. Even with our \indexterm{whitespace} rules, this is considered common practice.\par
 The last of our common operators is the division operator, or \verb|/|. The division operator can take two elements, one before and one after. If the number that results from the division is not an integer, the result will be stored as a floating point number.\par
 \begin{lstlisting}[style=pippython]
 a = 15 / 5
@@ -1150,7 +1150,7 @@ Consider the following code snips. Are they syntactically correct? Why or why no
     \Question{Write a line of Python code to prove that Python respects or does not respect the order of operations, including what the answer \textit{should} be and the output that Python \textit{actually} gives you.}
 \end{Exercise}
 \begin{Exercise}
-Write the applicable code to evaluate the following lines in Python. Imagine that you are typing directly into the Python interpreter as a calculator. That means there's no need to put the result into a variable.
+Write the applicable code to evaluate the following lines in Python. Imagine that you are typing directly into the Python interpreter as a calculator. That means there's no need to put the result into a \indexterm{variable}.
     \Question{Two plus two}
     \Question{Four plus three plus nine}
     \Question{Eight subtracted from ten}
