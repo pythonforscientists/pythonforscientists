@@ -355,6 +355,33 @@ skaters = pd.read_pickle("https://github.com/pythonforscientists/data/blob/main/
 These exercise questions cover chapter 10.4.1.
 
 No exercise questions exist for this section yet.
+\subsubsection{Writing a CSV Out}
+We now know how to read a CSV into our Python environment as a Pandas dataframe, but what if we want to save an existing dataframe as a CSV? Pandas also supports the writing of CSV files from dataframe objects. This makes Pandas an incredibly powerful tool for data manipulation. For example, suppose you were working with data in a different programming language, but the datafiles aren't in a format that are easy to work with. You could conceivably bring that data into Python using Pandas, manipulate it, then write a new file out that has the desired modifications.\par
+Pandas provides us the \verb|to_csv()| method inside of the \verb|DataFrame| class. This means that we can call \verb|to_csv()| on any of our dataframe objects to save it as a CSV file.\par
+\warningtext{Dataframes Only}{The \texttt{to\_csv()} method is a method on the \texttt{DataFrame} class in Pandas. There is no \texttt{to\_csv()} method for objects of type \texttt{Series}, so if you have a \texttt{Series} object that you want to turn into a CSV, you'll need to typecast that series into a dataframe with one column, then save that dataframe.}
+The \verb|to_csv()| method takes one optional argument, which is the file to write. If no argument is passed in, Pandas will not write any file. It will, however, return the data in a CSV string.\par
+Let's consider the \verb|skaters| object, which we read in as a pickle. Suppose we wanted to get the form of this data as if it were a CSV without actually writing out a CSV file. To do this, let's call the \verb|to_csv()| method on the \verb|skaters| object and put the result into a variable called \verb|skaterscsvstring|.\par
+\begin{lstlisting}[style=pippython]
+skaterscsvstring = skaters.to_csv()
+\end{lstlisting}
+If we pass in no argument, the return value of \verb|to_csv()| is the CSV-form data as a string in the variable that we chose to put the string into. That means that \verb|skatercsvstring| should now be filled with a CSV-form string. We can check this by printing the first 200 characters of the \verb|skaterscsvstring| variable.\par
+\begin{lstlisting}[style=pippython]
+print(skatercsvstring[:200])
+\end{lstlisting}
+\begin{lstlisting}[style=none]
+,sid,player,playerid,age,conference,division,team,role,position,gamesplayed,cf,ca,cfpct,cfpctrel,ff,fa,ffpct,ffpctrel,toishootpct,toisavepct,pdo,offzonestartpct,defzonestartpct,toi,toieven,takeaways,g
+\end{lstlisting}
+Now, let's suppose that we wanted to save this object in a new file called \verb|skaters.csv| as a CSV string. Using the file handling methods that we covered in Chapter 8, we could now write the \verb|skaterscsvstring| object that we just created into a new file called \verb|skaters.csv|. However, we could also use pass in the file argument into a new \verb|to_csv()| call in Pandas.\footnote{This is generally regarded as good practice, since naively writing a file is more error-prone than using the Pandas method.}\par
+So, let's pass in an argument \verb|"skaters.csv"| into the \verb|to_csv()| method.\par
+\begin{lstlisting}[style=pippython]
+skaters.to_csv("skaters.csv")
+\end{lstlisting}
+This time, we are not going to put the return of \verb|to_csv()| into any object. Rather, we passed in the argument \verb|"skaters.csv"|, so Pandas will attempt to write out a CSV file with the contents of the return value on its own. Because we specified no filepath (relative or absolute), Pandas will save \verb|skaters.csv| in our current working directory.\par
+\warningtext{Permissions Pitfall}{If Python doesn't have write permissions to the directory that you are trying to save your file to, you'll end up with an \texttt{OSError} that permissions are missing. Make sure that your target directory is writable by Python. Just because \textit{you} can write a file to the directory doesn't mean that other processes on your machine can.}
+\subsubsection*{Exercise Questions}
+No exercise questions exist for this section.
+\subsubsection{Pickling an Object}
+Like writing a CSV, we may also want to write a pickle. Pickles are only readable by Pandas, but they have some advantages over reading a plaintext file. For one, picklefiles contain more than just the data. They also contain data about the data, like what the indices are, the datatypes, and the shape of the data. If we wanted to share a Pandas object with someone else who was also using Pandas, we can write a picklefile to save that object in the exact state that we left it.
 \subsection{Looking at Data}
 Before we can do anything with our data, we need to know what the data looks like. You could look at it in its raw form, but that doesn't really help us if we don't know that Python imported the data correctly. Luckily for us, Pandas comes with some methods that can help us get an idea of what the data looks like without necessarily giving us all of the beans.\par
 \boxtext{Why not all the data?}{Why would we want to only get a little bit of the data if we wanted to get the format of data? Why not get all of it? Consider a large dataset with hundreds of thousands or even millions of rows and dozens or hundreds of columns. It would be excruciating to print that entire dataset, so having the tools to print a subset of our data is critical.}

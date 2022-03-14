@@ -713,10 +713,60 @@ print(matches)
 \begin{lstlisting}[style=none]
 ['172', 'Austin Czarnik', 'czarnau01', '29', 'Eastern', 'Metropolitan', 'NYI', 'Off', 'C', '12', '95', '86', '52.5', '5.4', '72', '61', '54.1', '7.1', '16.9', '91.8', '108.8', '51.7', '48.3', '11:02', '10:22', '4', '4', '-0.1', '16', '62.5', '0:41', '10:23', '3.5', '4.2', '1.6', '0:27', '7.7', '14', '0', '0:11', '-11', '0', '23.7', '2', '4', '6', '6', '0', '0.9', '2', '0', '0', '0', '4', '0', '0', '10', '20', '132', '11:02', '5', '2', '23', '35', '39.7']
 \end{lstlisting}
+Python has split up the \verb|testcommas| string on the commas without including any of the commas themselves. Our regular expression was matching on the literal comma character \verb|,|, so any matches to the regular expression were considered to be a delimiting character.
 \subsubsection*{Exercise Questions}
 These exercise questions cover chapter 5.6.2.
-
-No exercise questions exist for this section yet.
+\begin{Exercise}
+	\Question{What is a regular expression?}
+	\Question{Why might we want to write a regular expression?}
+\end{Exercise}
+\begin{Exercise}
+Write a Python-compliant regular expression that captures the following expressions.
+	\Question{The exact phrase "cat".}
+	\Question{The exact phrase "dog".}
+	\Question{The exact phrase "cat" or "dog".}
+	\Question{A three-digit number.}
+	\Question{Lowercase-only words surrounded by a space that are exactly five letters long. Do not capture the space.}
+	\Question{Uppercase-only words surrounded by a space that are exactly six letters long. Do not capture the space.}
+	\Question{Uppercase-only words surrounded by a space that are more or equal to one letter but less than or equal to five letters. Do not capture the space.}
+	\Question{Uppercase letters, lowercase letters, numbers, and underscores.}
+	\Question{Uppercase letters, lowercase letters, and numbers surrounded by a space that are more than or equal to three letters. Do not capture the space.}
+	\Question{Spaces, tabs, newlines, and carriage returns.}
+	\Question{Commas, apostrophes, quotation marks, exclamation marks, and dollar signs.}
+	\Question{Two or more commas next to each other.}
+	\Question{Exactly two spaces next to each other.}
+	\Question{Words that are exactly five letters long.}
+\end{Exercise}
+\begin{Exercise}
+	\Question{What are the methods that we introduced for using regular expressions in Python?}
+	\Question{Let's say you were given a paragraph of prose text and you were told to split it into individual words. What method would you use? You do not need to write out the regular expression; only provide the method.}
+	\Question{Let's say you were given a stanza of poem text and you were told to split it into individual lines. What method would you use? You do not need to write out the regular expression.}
+	\Question{Let's say you were given a paragraph of prose text and you were told to find the first instance of a phrase. What method would you use? You do not need to write out the regular expression.}
+	\Question{Let's say you were given a line of delimiter-separated data and you were told to split the individual data elements into their own elements in a list. What method would you use? You do not need to write out the regular expression.}
+\end{Exercise}
+\begin{Exercise}
+For the following exercise questions, consider the following text passage.\\
+\begin{lstlisting}[style=none]
+It is a period of civil war. Rebel spaceships, striking from a hidden base, have won their first victory against the evil Galactic Empire. During the battle, Rebel spies managed to steal secret plans to the Empire's ultimate weapon, the DEATH STAR, an armored space station with enough power to destroy an entire planet. Pursued by the Empire's sinister agents, Princess Leia races home aboard her starship, custodian of the stolen plans that can save her people and restore freedom to the galaxy...\end{lstlisting}
+\Question{Write a regular expression and choose the correct method to get the word \verb|Rebel| from the text.}
+\Question{Write a regular expression and choose the correct method to get the phrase \verb|civil war| from the text.}
+\Question{Write a regular expression and choose the correct method that puts all words that start with a capital letter in a list.}
+\end{Exercise}
+\begin{Exercise}
+For the following exercise questions, consider the following text passage. Indented lines are part of the previous line (meaning that there are six total lines).\\
+\begin{lstlisting}[style=none]
+Once upon a midnight dreary, while I pondered, weak and weary,
+Over many a quaint and curious volume of forgotten lore-
+While I nodded, nearly napping, suddenly there came a tapping,
+As of some one gently rapping, rapping at my chamber door.
+"'Tis some visitor," I muttered, "tapping at my chamber door-
+Only this and nothing more."
+\end{lstlisting}
+\Question{Write a regular expression and choose the correct method to put each line of the poem into its own list element.}
+\Question{Write a regular expression and choose the correct method to put all of the words that end in \textit{ing} into a list. This should match words like \textit{napping}, \textit{tapping}, and \textit{rapping}.}
+\Question{Write a regular expression and choose the correct method to put all of the phrases that start with a quotation mark and end with a qotation mark into a list. For your convenience, all of the quotation marks have been converted to standard quotes (instead of smart quotes).}
+\Question{Write a regular expression and choose the correct method to put each phrase of the poem into its own list element. Each phrase starts with a comma, dash, or period and ends with the next comma, dash, or period. So, \textit{Once upon a midnight dreary} would be considered one phrase, \textit{while I pondered} is another phrase, \textit{weak and weary} is another phrase, and \textit{Over many a quaint and curious volume of forgotten lore} is another phrase. Note that newlines are not necessarily an indicator of a new phrase.}
+\end{Exercise}
 
 \section{Random Number Generation}
 Now that we have knowledge of complex datatypes, it makes sense for us to now cover random number generation, since some random number generation outputs rely on prior knowledge of complex datatypes.\par
@@ -803,5 +853,32 @@ If your seed was set to the 215, the first random integer that you generate from
 
 \subsubsection*{Exercise Questions}
 These exercise questions cover chapter 5.7.
-
-No exercise questions exist for this section yet.
+\begin{Exercise}
+	\Question{We introduced two methods for generating pseudo-random numbers. What are they?}
+	\Question{Which of the two methods does the \verb|random| library utilize in Python?}
+\end{Exercise}
+\begin{Exercise}
+	\Question{What is a pseudo-randomly generated number?}
+	\Question{We have been using the term \textit{pseudo-random} throughout this chapter. Why?}
+\end{Exercise}
+\begin{Exercise}
+	\Question{What is a seed?}
+	\Question{What is a situation where we might want to set the seed?}
+	\Question{If we do not explicitly set a seed, what will Python use as the seed?}
+\end{Exercise}
+\begin{Exercise}
+	\Question{In a new Python script, import the \verb|random| library.}
+	\Question{Create a pseudo-random floating point number from 0 to 1 and place the result into a new variable called \verb|randomfloat1|.}
+	\Question{Print \verb|randomfloat1|.}
+	\Question{Create another pseudo-random floating point number from 0 to 1 and place the result into a new variable called \verb|randomfloat2|.}
+	\Question{Print \verb|randomfloat2|.}
+	\Question{Sum \verb|randomfloat1| and \verb|randomfloat2| and put the result into a new variable called \verb|randomsum|.}
+\end{Exercise}
+\begin{Exercise}
+	\Question{In a new Python script, import the \verb|random| library.}
+	\Question{Create a new pseudo-random integer in the range of 0 to 1000 and place the result into a new variable called \verb|dividend|.}
+	\Question{Create another pseudo-random integer in the range of 1 to 100 and place the result into a new variable called \verb|divisor|.}
+	\Question{Print the quotient of $dividend \div divisor$.}
+	\Question{Print the remainder value of $dividend \div divisor$ as an integer.}
+	\Question{Print the quotient of $dividend \div divisor$ without the decimal/remainder portion.}
+\end{Exercise}
