@@ -19,8 +19,29 @@ Now, we can access the \verb|pandas| method by using \verb|pd|. For example, ins
 
 \subsubsection*{Exercise Questions}
 These exercise questions cover chapter 10.1.
-
-No exercise questions exist for this section yet.
+\begin{Exercise}
+Consider the following block of code.
+\begin{lstlisting}[style=pippython]
+import pandas
+df = pandas.DataFrame()
+\end{lstlisting}
+Compare this code to the following.
+\begin{lstlisting}[style=pippython]
+import pandas as pd
+df = pd.DataFrame()
+\end{lstlisting}
+What are the keywords? How are these two code chunks the same? How are they different?
+\end{Exercise}
+\begin{Exercise}
+	\Question{What is a library alias?}
+	\Question{At least three aliases were introduced to you in this section. Give some examples of aliases.}
+	\Question{Why should you not use any other alias other than \verb|pd| for Pandas?}
+\end{Exercise}
+\begin{Exercise}
+	\Question{Import a hypothetical class called \verb|Dragon| with the alias \verb|dr|.}
+	\Question{Import a hypothetical class called \verb|LongLibraryNameGoesHere| with the alias \verb|longlib|.}
+	\Question{Suppose there were a method inside of the \verb|Dragon| library called \verb|breath()|. How could you refer to the \verb|breath()| method if the \verb|Dragon| library were aliased with \verb|dr|?}
+\end{Exercise}
 \section{New Datatypes}
 Learning how to use \indexterm{Pandas} means that you need to learn how to use two new datatypes: the Series\index{Pandas!series} and the new DataFrame\index{Pandas!dataframe}. These datatypes were built expressly for the purposes of data analysis while using \indexterm{Pandas}, and they build upon the initial structure of the dictionary and the list.\par
 These datatypes are only available when you use \indexterm{Pandas}, so make sure you import the \indexterm{Pandas} library before trying to instantiate a new series\index{Pandas!series} or dataframe\index{Pandas!dataframe}.
