@@ -268,7 +268,7 @@ If we don't pass in the \verb|ignore_index| argument, \indexterm{Pandas} will re
 players = pd.Series(["Justin Bailey", "Brock Boeser", "Madison Bowey"])
 players = players.concat(pd.Series(["Guillaume Briseboise", "Kyle Burroughs"]))
 print(players)
-\end{lstlsting}
+\end{lstlisting}
 \begin{lstlisting}[style=none]
 0           Justin Bailey
 1            Brock Boeser
@@ -280,8 +280,35 @@ dtype: object
 
 \subsubsection*{Exercise Questions}
 These exercise questions cover chapter 10.3.
-
-No exercise questions exist for this section yet.
+\begin{Exercise}
+	\Question{What Python datatypes do a Pandas Series mimic?}
+	\Question{What is a Pandas series?}
+	\Question{What is the Pandas method to create a series?}
+\end{Exercise}
+\begin{Exercise}
+	\Question{By default, how are Pandas series indexed?}
+	\Question{If you use the default index, is a Pandas series more akin to a Python list or a Python dictionary?}
+	\Question{What argument can you pass to the \verb|Series| method to set the index?}
+	\Question{If you set an explicit index, is a Pandas series more akin to a Python list or a Python dictionary?}
+\end{Exercise}
+\begin{Exercise}
+	\Question{Create a variable \verb|fruits| of type \verb|list|. Inside of the list, add the elements \verb|banana|, \verb|apple|, and \verb|orange|.}
+	\Question{Typecast \verb|fruits| to a Pandas series.}
+	\Question{Print the second element of the series (\verb|apple|).}
+\end{Exercise}
+\begin{Exercise}
+	\Question{Create a variable \verb|colors| of type \verb|dict|. Inside of the dictionary, add the keys \verb|banana|, \verb|apple|, and \verb|orange| with the values \verb|yellow|, \verb|red|, and \verb|orange|, respectively.}
+	\Question{Typecast \verb|colors| to a Pandas series using the keys as the index and the values as the series values.}
+	\Question{Print the color of an orange.}
+\end{Exercise}
+\begin{Exercise}
+	\Question{Create a variable \verb|bikeweights| of type \verb|pandas.Series|. Inside of the series, add the indices \verb|Canyon Ultimate CF|, \verb|Specialized Tarmac|, and \verb|Ridley Helium| with the values \verb|5.68|, \verb|6.7|, and \verb|7.57|, respectively. Do not create a dictionary to do so; instead, add your values directly to the \verb|Series| method.}
+	\Question{Print the value for a Specialized Tarmac.}
+	\Question{Print the value for a Canyon Ultimate CF, and append \verb|KG| to the end of the printed value.}
+	\Question{Print the index and value of a Ridley Helium.}
+	\Question{Add an index \verb|Trek Domane| with the value \verb|8.82| to the \verb|bikeweights| series.}
+	\Question{Print the index and value of a Trek Domane, then append \verb|KG| to the end of the printed value.}
+\end{Exercise}
 
 \section{Dataframes}
 Now that we've seen series\index{Pandas!series}, we can begin to explore dataframes. A dataframe\index{Pandas!dataframe} is yet another complex datatype, but it is among the most powerful of complex datatypes out there because of its flexibility and the sheer number of methods that exist to manipulate that data.\par
@@ -363,8 +390,8 @@ print(skaters.head())
 [5 rows x 62 columns]
 \end{lstlisting}
 \boxtext{Where am I?}{To find what your current working directory is, you can just run the \texttt{pwd} command in the Python shell. \texttt{pwd} stands for "print working directory."}
-\boxtext{Getting Data in Subdirectories}{If your CSV file is in a subdirectory of your current working directory, you can just use slashes to indicate subdirectories. For example, if skaters.csv were a file inside of the data directory, which was inside inside of nhlskaters, which was inside of Downloads, and Downloads was my current working directory, I could just pass in "nhlskaters/data/skaters.csv"}
-\boxtext{From the Top}{Sometimes, it's easier to just give the entire file string. On Unix-like systems, this is easy: just preface the first directory with \texttt{/}. Your home directory is located in \texttt{/home/yourname/}. On Windows, start with \texttt{C:/} instead. Your home directory is located in \texttt{C:/Users/yourname/}.}
+\boxtext{Getting Data in Subdirectories}{If your CSV file is in a subdirectory of your current working directory, you can just use slashes to indicate subdirectories. For example, if skaters.csv were a file inside of the data directory, which was inside inside of nhlskaters, which was inside of Downloads, and Downloads was my current working directory, I could just pass in "nhlskaters/data/skaters.csv". This is called a relative filepath, since you're giving the file location relative to your current working directory.}
+\boxtext{Absolute Filepaths}{Sometimes, it's easier to just give the entire file string. This is called an absolute filepath. On Unix-like systems, this is easy: just preface the first directory with \texttt{/}. Your home directory is located in \texttt{/home/yourname/}. On Windows, start with \texttt{C:/} instead. Your home directory is located in \texttt{C:/Users/yourname/}.}
 \subsubsection{Reading a Pickle}
 Pickles are a method of storing a data in non-volatile memory that represent an entire \indexterm{Pandas} object. When a \indexterm{Pandas} object is pickled, it is stored and recalled exactly the same at the time of pickling. Consider some of the ways that we can fail to read a CSV file. If the data were created with tabs instead of commas, it would be possible to read the data incorrectly. Plus, we can't tell \indexterm{Pandas} that the first column is an index, meaning that anyone that imports the data down the line might create a new index, thus breaking your code. A pickle avoids these problems by storing the object as a whole, including indices, column names, and other metadata. This data is read when someone attempts to read the pickle, and the process of reading the pickle recreates the object exactly as it existed from whoever wrote the picklefile.\par
 Essentially, writing a pickle freezes an object in time, and anyone who uses that pickle down the line will get that object exactly as it stood when it was frozen.\par
@@ -374,8 +401,36 @@ skaters = pd.read_pickle("https://github.com/pythonforscientists/data/blob/main/
 \end{lstlisting}
 \subsubsection*{Exercise Questions}
 These exercise questions cover chapter 10.4.1.
+\begin{Exercise}
+	\Question{What is a Pandas dataframe?}
+	\Question{What is a Pandas dataframe made out of ?}
+	\Question{If you wanted to look at the datatype of a dataframe column, what object's datatype are we actually examining?}
+\end{Exercise}
+\begin{Exercise}
+	\Question{What is the Pandas method to create a dataframe?}
+	\Question{If you call this method without passing in any arguments, what is the size of the dataframe that is created?}
+	\Question{If you call this method with the \verb|columns| argument but with no values, what is the size of the dataframe that is created?}
+\end{Exercise}
+\begin{Exercise}
+	\Question{We introduced two methods for reading two different data files. What are these methods, and what kind of files can they read?}
+	\Question{If you wanted to read something other than these two data files, what would you do?}
+\end{Exercise}
+\begin{Exercise}
+	\Question{What is the command to print your working directory?}
+	\Question{What is the difference between a relative and an absolute filepath?}
+\end{Exercise}
+\begin{Exercise}
+	\Question{Consider the method to read a CSV file. What is the Pandas method that reads a CSV file and returns a Pandas dataframe?}
+	\Question{What is the separator or delimiter character that is used by default in this method?}
+	\Question{Pandas dataframes need an index. If you do not specify an index in when you create a dataframe from a CSV, will Pandas create an index or will Pandas infer the index column from the data by default?}
+\end{Exercise}
+\begin{Exercise}
+	\Question{Consider the \verb|fifa.csv| file, which is located at\\ \href{https://github.com/pythonforscientists/data/raw/main/fifa.csv}{https://github.com/pythonforscientists/data/raw/main/fifa.csv}.}
+	\Question{Read the CSV file into Pandas with the default settings into a variable called \verb|fifa|.}
+	\Question{Take a peek at the dataframe. What column would you use as the index?}
+	\Question{Re-read the CSV file into Pandas, but this time, tell Pandas that you want to use that column as the index.}
+\end{Exercise}
 
-No exercise questions exist for this section yet.
 \subsubsection{Writing a CSV Out}
 We now know how to read a CSV into our Python environment as a Pandas dataframe, but what if we want to save an existing dataframe as a CSV? Pandas also supports the writing of CSV files from dataframe objects. This makes Pandas an incredibly powerful tool for data manipulation. For example, suppose you were working with data in a different programming language, but the datafiles aren't in a format that are easy to work with. You could conceivably bring that data into Python using Pandas, manipulate it, then write a new file out that has the desired modifications.\par
 Pandas provides us the \verb|to_csv()| method inside of the \verb|DataFrame| class. This means that we can call \verb|to_csv()| on any of our dataframe objects to save it as a CSV file.\par
