@@ -425,7 +425,7 @@ These exercise questions cover chapter 10.4.1.
 	\Question{Pandas dataframes need an index. If you do not specify an index in when you create a dataframe from a CSV, will Pandas create an index or will Pandas infer the index column from the data by default?}
 \end{Exercise}
 \begin{Exercise}
-	\Question{Consider the \verb|fifa.csv| file, which is located at\\ \href{https://github.com/pythonforscientists/data/raw/main/fifa.csv}{https://github.com/pythonforscientists/data/raw/main/fifa.csv}.}
+	\Question{Consider the \verb|fifa.csv| file, which is located at\\ \href{https://github.com/pythonforscientists/data/raw/main/fifa.csv}{https://github.com/pythonforscientists/data/raw/main/fifa.csv}. The dataset contains basic scores for players in the FIFA 19 video game.}
 	\Question{Read the CSV file into Pandas with the default settings into a variable called \verb|fifa|.}
 	\Question{Take a peek at the dataframe. What column would you use as the index?}
 	\Question{Re-read the CSV file into Pandas, but this time, tell Pandas that you want to use that column as the index.}
@@ -584,8 +584,32 @@ sid             player   playerid ... foloss  fopct
 
 \subsubsection*{Exercise Questions}
 These exercise questions cover chapter 10.4.2.
-
-No exercise questions exist for this section yet.
+\begin{Exercise}
+	\Question{Consider the \verb|fifa.csv| file, which is located at\\ \href{https://github.com/pythonforscientists/data/raw/main/fifa.csv}{https://github.com/pythonforscientists/data/raw/main/fifa.csv}. The dataset contains basic scores for players in the FIFA 19 video game.}
+	\Question{Read the CSV file into Pandas with the default settings into a variable called \verb|fifa|.}
+	\Question{What are the dimensions of the dataframe? How many columns and rows does the dataframe have?}
+	\Question{What are the column names of the \verb|fifa| dataframe?}
+	\Question{Print a series with the datatypes of the \verb|fifa| dataframe.}
+	\Question{What is the type of the \verb|composure| column as reported by Pandas?}
+	\Question{What is the type of the \verb|composure| column as reported by Python?}
+	\Question{Are the datatypes for the \verb|composure| the same when reported by Pandas or by Python? Why or why not?}
+	\Question{What is the type of the \verb|name| column as reported by Pandas?}
+	\Question{What is the type of the \verb|name| column as reported by Python?}
+	\Question{Are the datatypes for the \verb|name| the same when reported by Pandas or by Python? Why or why not?}
+\end{Exercise}
+\begin{Exercise}
+	\Question{Consider the \verb|cycling.csv| file, which is located at\\ \href{https://github.com/pythonforscientists/data/raw/main/cycling.csv}{https://github.com/pythonforscientists/data/raw/main/cycling.csv}. The dataset contains race results for the 2021 Tour of Flanders cycling race.}
+	\Question{Read the CSV file into Pandas with the default settings into a variable called \verb|tourflanders21|.}
+	\Question{What are the dimensions of the dataframe? How many columns and rows does the dataframe have?}
+	\Question{What are the column names of the \verb|tourflanders21| dataframe?}
+	\Question{Print a series with the datatypes of the \verb|tourflanders21| dataframe.}
+	\Question{What is the type of the \verb|uci| column as reported by Pandas?}
+	\Question{What is the type of the \verb|uci| column as reported by Python?}
+	\Question{Are the datatypes for the \verb|uci| the same when reported by Pandas or by Python? Why or why not?}
+	\Question{What is the type of the \verb|team| column as reported by Pandas?}
+	\Question{What is the type of the \verb|team| column as reported by Python?}
+	\Question{Are the datatypes for the \verb|team| the same when reported by Pandas or by Python? Why or why not?}
+\end{Exercise}
 
 \subsection{Adding Data}
 Consider the table presented in section 10.2: it looks like a table! With that view comes the advantage that we can index this table by rows and columns.\par
@@ -765,8 +789,26 @@ Note how because we're adding a series\index{Pandas!series}, which is a compound
 
 \subsubsection*{Exercise Questions}
 These exercise questions cover chapter 10.4.3.
-
-No exercise questions exist for this section yet.
+\begin{Exercise}
+	\Question{Consider the \verb|fifa.csv| file, which is located at\\ \href{https://github.com/pythonforscientists/data/raw/main/fifa.csv}{https://github.com/pythonforscientists/data/raw/main/fifa.csv}. The dataset contains basic scores for players in the FIFA 19 video game.}
+	\Question{Print just the names, separated by a newline, using dataframe row iteration.}
+	\Question{Print the names and the vision score, with each name separated by a new line, using dataframe row iteration.}
+\end{Exercise}
+\begin{Exercise}
+	\Question{Consider the \verb|cereal.csv| file, which is located at\\ \href{https://github.com/pythonforscientists/data/raw/main/cereal.csv}{https://github.com/pythonforscientists/data/raw/main/cereal.csv}. The dataset contains price data for wheat, rice, and corn from 1992 to 2021.}
+	\Question{Read the CSV file into Pandas with the default settings into a variable called \verb|cereal|.}
+	\Question{What is the last row of the cereal dataframe? Hint: Print the dataframe using negative indexing.}
+	\Question{2021 is missing the December entry. Add the following data for each of the columns.\\
+	Year: 2021\\
+	Month: Dec\\
+	Price\_wheat\_ton: 332.06\\
+	Price\_rice\_ton: 400.0\\
+	Price\_corn\_ton: 264.54\\
+	Inflation\_rate: -1.29\\
+	Price\_wheat\_ton\_infl: 327.78\\
+	Price\_rice\_ton\_infl: 394.84\\
+	Price\_corn\_ton\_infl: 261.13}
+\end{Exercise}
 
 \subsection{Dropping Data}
 Other times, you'll want to remove data from the dataframe\index{Pandas!dataframe}. Maybe it's because the data isn't applicable to the work that we're doing, or it might just be that we don't need that data, so we can free up some of the memory that is being used to store that data and help Python run faster.\par
@@ -822,8 +864,17 @@ Index(['player', 'role', 'position', 'gamesplayed', 'goals', 'assists',
 
 \subsubsection*{Exercise Questions}
 These exercise questions cover chapter 10.4.4.
-
-No exercise questions exist for this section yet.
+\begin{Exercise}
+	\Question{Consider the \verb|cereal.csv| file, which is located at\\ \href{https://github.com/pythonforscientists/data/raw/main/cereal.csv}{https://github.com/pythonforscientists/data/raw/main/cereal.csv}. The dataset contains price data for wheat, rice, and corn from 1992 to 2021.}
+	\Question{Read the CSV file into Pandas with the default settings into a variable called \verb|cereal|.}
+	\Question{Remove every row from before the year 2000.}
+	\Question{Remove the \verb|Inflation_rate| column.}
+\end{Exercise}
+\begin{Exercise}
+	\Question{Consider the \verb|cycling.csv| file, which is located at\\ \href{https://github.com/pythonforscientists/data/raw/main/cycling.csv}{https://github.com/pythonforscientists/data/raw/main/cereal.csv}. The dataset contains race results for the 2021 Tour of Flanders cycling race.}
+	\Question{Read the CSV file into Pandas with the default settings into a variable called \verb|tourflanders21|.}
+	\Question{Remove all of the rows where the rider last name starts with \verb|A|. The \verb|rider| column is formatted as LAST First. Hint: Use string subsetting to determine whether the first letter of the \verb|rider| column is exactly equal to \verb|A|.}
+\end{Exercise}
 
 \subsection{Modifying Data}
 When we work with data, we often have a need to change individual cells. Perhaps the data is incorrect or the type was created incorrectly (for example, it's a string instead of a float). This is where dataframe\index{Pandas!dataframe} data modification comes into play. When we want to modify data, we need to choose exactly which data we want to remove, and this is called data selection or data location. \indexterm{Pandas} has its own dedicated methods for data selection, including \verb|.at|, \verb|.iat|, \verb|.loc|, and \verb|.iloc|. Once you know how to select the cell that you want, it's much easier to remove that data, and it also helps you manipulate dataframes in general.\par
@@ -974,8 +1025,14 @@ Name: goals, dtype: float64
 
 \subsubsection*{Exercise Questions}
 These exercise questions cover chapter 10.5.
-
-No exercise questions exist for this section yet.
+\begin{Exercise}
+	\Question{Consider the \verb|fifa.csv| dataset, which is located at\\ \href{https://github.com/pythonforscientists/data/raw/main/fifa.csv}{https://github.com/pythonforscientists/data/raw/main/fifa.csv}. The dataset contains basic scores for players in the FIFA 19 video game.}
+	\Question{What is the mean and median of the \verb|vision| column?}
+	\Question{What is the lowest \verb|strength| score?}
+	\Question{What is the highest \verb|agility| score?}
+	\Question{Who is the player with the lowest \verb|acceleration| score?}
+	\Question{Who is the player with the highest \verb|speed| score?}
+\end{Exercise}
 
 \section{Basic Hypothesis Tests with statsmodels (Optional)}
 \warningtext{Prerequisites}{For the remainder of this section, we are operating under the assumption that you have had an introductory statistics course and understand the basic principles behind statistics. We will not be covering important topics like experimental design, data collection principles, or the details behind the tests and methods explored in this chapter. Instead, we will assume that you have already done these tests in R, SPSS, SAS, by hand, or in some other programming language, and that you are only "translating" that statistics knowledge into Python.}
@@ -1035,9 +1092,7 @@ print(tstat, df)
 In our experiment, we find a $p$-value of 0.0493 and a test statistic of 1.683 on 48 degrees of freedom. At an $\alpha$ level of 0.05, we reject the null hypothesis $H_0$ that the mean G-force between the two helmets are the same and conclude that there is a statistically significant difference between the two helmets.
 
 \subsubsection*{Exercise Questions}
-These exercise questions cover chapter 10.6.
-
-No exercise questions exist for this section yet.
+There are no exercise questions for chapter 10.6.
 
 \section{Basic Graphs with Matplotlib}
 \warningtext{This is not a stats book!}{This textbook is not a statistics book. This is a Python programming book. We cannot possibly cover all of the details of these statistical tests and models in this one chapter - there are entire textbooks dedicated to this topic.}
@@ -1173,6 +1228,4 @@ plt.show()
 \includegraphics[width = 0.8\textwidth]{img/hist8.png}
 
 \subsubsection*{Exercise Questions}
-These exercise questions cover chapter 10.7.
-
-No exercise questions exist for this section yet.
+There are no exercise questions for chapter 10.7.
