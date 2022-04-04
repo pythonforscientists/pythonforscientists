@@ -397,7 +397,7 @@ Pickles are a method of storing a data in non-volatile memory that represent an 
 Essentially, writing a pickle freezes an object in time, and anyone who uses that pickle down the line will get that object exactly as it stood when it was frozen.\par
 We can read pickled files using the \verb|read_pickle()| method from the \verb|Pandas| class. Because we want to get our data exactly as it was left when it was pickled, the \verb|read_pickle()| method has many fewer options compared to \verb|read_csv()|. In fact, there's really only one argument that you'll ever use when reading a pickle, and that is where the pickle is located, which is passed in as a string.\par
 \begin{lstlisting}[style=pippython]
-skaters = pd.read_pickle("https://github.com/pythonforscientists/data/blob/main/skaters.pkl?raw=true")
+skaters = pd.read_pickle("https://pythonforscientists.github.io/data/data/skaters.pkl")
 \end{lstlisting}
 \subsubsection*{Exercise Questions}
 These exercise questions cover chapter 10.4.1.
@@ -425,7 +425,7 @@ These exercise questions cover chapter 10.4.1.
 	\Question{Pandas dataframes need an index. If you do not specify an index in when you create a dataframe from a CSV, will Pandas create an index or will Pandas infer the index column from the data by default?}
 \end{Exercise}
 \begin{Exercise}
-	\Question{Consider the \verb|fifa.csv| file, which is located at\\ \href{https://github.com/pythonforscientists/data/raw/main/fifa.csv}{https://github.com/pythonforscientists/data/raw/main/fifa.csv}. The dataset contains basic scores for players in the FIFA 19 video game.}
+	\Question{Consider the \verb|fifa.csv| file, which is located at\\ \href{https://pythonforscientists.github.io/data/data/fifa.csv}{https://pythonforscientists.github.io/data/data/fifa.csv}. The dataset contains basic scores for players in the FIFA 19 video game.}
 	\Question{Read the CSV file into Pandas with the default settings into a variable called \verb|fifa|.}
 	\Question{Take a peek at the dataframe. What column would you use as the index?}
 	\Question{Re-read the CSV file into Pandas, but this time, tell Pandas that you want to use that column as the index.}
@@ -465,7 +465,7 @@ In this section, we will cover four main methods of viewing our data: viewing th
 If we know that the size of our dataset is managable, it may make sense to just print the entire dataset. The easiest way to do this is just by using the naive \verb|print()| function in Python. When we print a Pandas dataframe, the dataframe is organized and tabulated before being printed, so it looks like a plaintext table. When we print just a dataframe, Pandas will return every single row, but it might not return every single column. If you have more than just a few columns, Pandas won't be able to print all of them, so it will abbreviate by using an ellipses to represent rows that aren't printed.\par
 However, more often than not, we will be working with large datasets that don't make sense to print the entirety of. For example, let's consider the \verb|skaters| dataset that we pulled in previously. As a review, we pulled this dataset into Python as a pickle using this code.\par
 \begin{lstlisting}[style=pippython]
-skaters = pd.read_pickle("https://github.com/pythonforscientists/data/blob/main/skaters.pkl?raw=true")
+skaters = pd.read_pickle("https://pythonforscientists.github.io/data/data/skaters.pkl")
 \end{lstlisting}
 Now that we've imported the data, let's look at what shape this dataframe is in. Conveniently, Pandas has an attribute called \verb|shape| that we can call on dataframe objects that will give us the shape, or dimensions, of our dataframe.\par
 \warningtext{Methods versus attributes}{Cast your mind back to when we covered classes, and make sure you're not confusing your methods and your attributes. Methods are used to process data within a class, while an attribute is a feature of an object. In this case, "shape" is an attribute of the DataFrame class, not a method, so it doesn't get any parentheses.}
@@ -585,7 +585,7 @@ sid             player   playerid ... foloss  fopct
 \subsubsection*{Exercise Questions}
 These exercise questions cover chapter 10.4.2.
 \begin{Exercise}
-	\Question{Consider the \verb|fifa.csv| file, which is located at\\ \href{https://github.com/pythonforscientists/data/raw/main/fifa.csv}{https://github.com/pythonforscientists/data/raw/main/fifa.csv}. The dataset contains basic scores for players in the FIFA 19 video game.}
+	\Question{Consider the \verb|fifa.csv| file, which is located at\\ \href{https://pythonforscientists.github.io/data/data/fifa.csv}{https://pythonforscientists.github.io/data/data/fifa.csv}. The dataset contains basic scores for players in the FIFA 19 video game.}
 	\Question{Read the CSV file into Pandas with the default settings into a variable called \verb|fifa|.}
 	\Question{What are the dimensions of the dataframe? How many columns and rows does the dataframe have?}
 	\Question{What are the column names of the \verb|fifa| dataframe?}
@@ -598,7 +598,7 @@ These exercise questions cover chapter 10.4.2.
 	\Question{Are the datatypes for the \verb|name| the same when reported by Pandas or by Python? Why or why not?}
 \end{Exercise}
 \begin{Exercise}
-	\Question{Consider the \verb|cycling.csv| file, which is located at\\ \href{https://github.com/pythonforscientists/data/raw/main/cycling.csv}{https://github.com/pythonforscientists/data/raw/main/cycling.csv}. The dataset contains race results for the 2021 Tour of Flanders cycling race.}
+	\Question{Consider the \verb|cycling.csv| file, which is located at\\ \href{https://pythonforscientists.github.io/data/data/cycling.csv}{https://pythonforscientists.github.io/data/data/cycling.csv}. The dataset contains race results for the 2021 Tour of Flanders cycling race.}
 	\Question{Read the CSV file into Pandas with the default settings into a variable called \verb|tourflanders21|.}
 	\Question{What are the dimensions of the dataframe? How many columns and rows does the dataframe have?}
 	\Question{What are the column names of the \verb|tourflanders21| dataframe?}
@@ -616,11 +616,11 @@ Consider the table presented in section 10.2: it looks like a table! With that v
 \boxtext{Recall}{We first saw numerical indexing when we looked at lists. Remember that in Python (and in \indexterm{Pandas}), indices start at 0, not at 1!}
 We can add data in two directions: horizontally (adding a column) or vertically (adding a row), and these are done differently due to the way that dataframes are constructed. Remember, a \indexterm{Pandas} dataframe\index{Pandas!dataframe} is still a bunch of \indexterm{Pandas} series\index{Pandas!series} ordered next to each other.\par
 Consider the \verb|hockey.csv| dataset. It contains 31 hockey players on the NHL Anaheim Ducks team for the 2021-2022 season. It contains the following columns: player, role, position, gamesplayed, goals, assists, fowin, foloss. For this section, we will focus on this dataset.\par
-Let's start by importing this dataset. The data are located at\\ \href{https://github.com/kim3-sudo/pfs/raw/main/data/hockey.csv}{https://github.com/kim3-sudo/pfs/raw/main/data/hockey.csv} as a CSV file, so we can import it into Python as a \indexterm{Pandas} dataframe\index{Pandas!dataframe} by using the \verb|read_csv| method in \indexterm{Pandas}.\par
+Let's start by importing this dataset. The data are located at\\ \href{https://pythonforscientists.github.io/data/data/hockey.csv}{https://pythonforscientists.github.io/data/data/hockey.csv} as a CSV file, so we can import it into Python as a \indexterm{Pandas} dataframe\index{Pandas!dataframe} by using the \verb|read_csv| method in \indexterm{Pandas}.\par
 \boxtext{URLs or local files?}{The \texttt{read\_csv} method in \indexterm{Pandas} supports reading from a URL or from a local filepath as its argument. So, if you don't want to download the file and read it as a local file, you can also just pass in the URL of the dataset as a raw CSV file to \indexterm{Pandas} and it will pull the dataset from the Internet.}
 We can read the CSV from the Internet using the \verb|read_csv| method. This CSV is formatted as most CSVs are, meaning that we don't need to pass any extra arguments into the \verb|read_csv| method: strings are in quotes, the delimiter is a comma, and there is a header.
 \begin{lstlisting}[style=pippython]
-hockey = pd.read_csv("https://github.com/pythonforscientists/data/raw/main/hockey.csv")
+hockey = pd.read_csv("https://pythonforscientists.github.io/data/data/hockey.csv")
 print(hockey)
 \end{lstlisting}
 \begin{lstlisting}[style=none]
@@ -790,12 +790,12 @@ Note how because we're adding a series\index{Pandas!series}, which is a compound
 \subsubsection*{Exercise Questions}
 These exercise questions cover chapter 10.4.3.
 \begin{Exercise}
-	\Question{Consider the \verb|fifa.csv| file, which is located at\\ \href{https://github.com/pythonforscientists/data/raw/main/fifa.csv}{https://github.com/pythonforscientists/data/raw/main/fifa.csv}. The dataset contains basic scores for players in the FIFA 19 video game.}
+	\Question{Consider the \verb|fifa.csv| file, which is located at\\ \href{https://pythonforscientists.github.io/data/data/fifa.csv}{https://pythonforscientists.github.io/data/data/fifa.csv}. The dataset contains basic scores for players in the FIFA 19 video game.}
 	\Question{Print just the names, separated by a newline, using dataframe row iteration.}
 	\Question{Print the names and the vision score, with each name separated by a new line, using dataframe row iteration.}
 \end{Exercise}
 \begin{Exercise}
-	\Question{Consider the \verb|cereal.csv| file, which is located at\\ \href{https://github.com/pythonforscientists/data/raw/main/cereal.csv}{https://github.com/pythonforscientists/data/raw/main/cereal.csv}. The dataset contains price data for wheat, rice, and corn from 1992 to 2021.}
+	\Question{Consider the \verb|cereal.csv| file, which is located at\\ \href{https://pythonforscientists.github.io/data/data/cereal.csv}{https://pythonforscientists.github.io/data/data/cereal.csv}. The dataset contains price data for wheat, rice, and corn from 1992 to 2021.}
 	\Question{Read the CSV file into Pandas with the default settings into a variable called \verb|cereal|.}
 	\Question{What is the last row of the cereal dataframe? Hint: Print the dataframe using negative indexing.}
 	\Question{2021 is missing the December entry. Add the following data for each of the columns.\\
@@ -865,13 +865,13 @@ Index(['player', 'role', 'position', 'gamesplayed', 'goals', 'assists',
 \subsubsection*{Exercise Questions}
 These exercise questions cover chapter 10.4.4.
 \begin{Exercise}
-	\Question{Consider the \verb|cereal.csv| file, which is located at\\ \href{https://github.com/pythonforscientists/data/raw/main/cereal.csv}{https://github.com/pythonforscientists/data/raw/main/cereal.csv}. The dataset contains price data for wheat, rice, and corn from 1992 to 2021.}
+	\Question{Consider the \verb|cereal.csv| file, which is located at\\ \href{https://pythonforscientists.github.io/data/data/cereal.csv}{https://pythonforscientists.github.io/data/data/cereal.csv}. The dataset contains price data for wheat, rice, and corn from 1992 to 2021.}
 	\Question{Read the CSV file into Pandas with the default settings into a variable called \verb|cereal|.}
 	\Question{Remove every row from before the year 2000.}
 	\Question{Remove the \verb|Inflation_rate| column.}
 \end{Exercise}
 \begin{Exercise}
-	\Question{Consider the \verb|cycling.csv| file, which is located at\\ \href{https://github.com/pythonforscientists/data/raw/main/cycling.csv}{https://github.com/pythonforscientists/data/raw/main/cereal.csv}. The dataset contains race results for the 2021 Tour of Flanders cycling race.}
+	\Question{Consider the \verb|cycling.csv| file, which is located at\\ \href{https://pythonforscientists.github.io/data/data/cereal.csv}{https://pythonforscientists.github.io/data/data/cereal.csv}. The dataset contains race results for the 2021 Tour of Flanders cycling race.}
 	\Question{Read the CSV file into Pandas with the default settings into a variable called \verb|tourflanders21|.}
 	\Question{Remove all of the rows where the rider last name starts with \verb|A|. The \verb|rider| column is formatted as LAST First. Hint: Use string subsetting to determine whether the first letter of the \verb|rider| column is exactly equal to \verb|A|.}
 \end{Exercise}
@@ -1026,7 +1026,7 @@ Name: goals, dtype: float64
 \subsubsection*{Exercise Questions}
 These exercise questions cover chapter 10.5.
 \begin{Exercise}
-	\Question{Consider the \verb|fifa.csv| dataset, which is located at\\ \href{https://github.com/pythonforscientists/data/raw/main/fifa.csv}{https://github.com/pythonforscientists/data/raw/main/fifa.csv}. The dataset contains basic scores for players in the FIFA 19 video game.}
+	\Question{Consider the \verb|fifa.csv| dataset, which is located at\\ \href{https://pythonforscientists.github.io/data/data/fifa.csv}{https://pythonforscientists.github.io/data/data/fifa.csv}. The dataset contains basic scores for players in the FIFA 19 video game.}
 	\Question{What is the mean and median of the \verb|vision| column?}
 	\Question{What is the lowest \verb|strength| score?}
 	\Question{What is the highest \verb|agility| score?}
@@ -1066,7 +1066,7 @@ print(pval)
 In our experiment, we find a $p$-value of 0.3164. At an $\alpha$ level of 0.05, we fail to reject the null hypothesis $H_0$ that there is a significant difference between the proportions and conclude that there is no statistically significant difference in the proportion of men and women who said that Pikachu was their favorite Pok\'emon.
 \subsection{T-Test for Differences in Means}
 To run a T-test for differences in means, we can use the \verb|ttest_ind()| method in the \verb|weightstats| module in the statsmodels library.\par
-The purpose of the T-test for differences in means is to determine whether there is a difference in the means between two groups. For example, suppose a football helmet manufacturer was testing a new design for a helmet that was designed to decrease the number of G-forces that a player's head experiences after a collision. The manufacturer put sensors on 50 helmets (25 of the old model, and 25 of the new model), then had 50 test subjects assigned at random to one of the two helmets tackle a dummy to collect data on the G-forces that were incurred during the collision. The data are available to you at \\\href{https://github.com/pythonforscientists/data/raw/main/helmets.csv}{https://github.com/pythonforscientists/data/raw/main/helmets.csv}.\footnote{Like with the Z-test, we will assume that the conditions for independence, sample size, and equal variance have been met. We will check the normality condition using a normal QQ plot below.}\par
+The purpose of the T-test for differences in means is to determine whether there is a difference in the means between two groups. For example, suppose a football helmet manufacturer was testing a new design for a helmet that was designed to decrease the number of G-forces that a player's head experiences after a collision. The manufacturer put sensors on 50 helmets (25 of the old model, and 25 of the new model), then had 50 test subjects assigned at random to one of the two helmets tackle a dummy to collect data on the G-forces that were incurred during the collision. The data are available to you at \\\href{https://pythonforscientists.github.io/data/data/helmets.csv}{https://pythonforscientists.github.io/data/data/helmets.csv}.\footnote{Like with the Z-test, we will assume that the conditions for independence, sample size, and equal variance have been met. We will check the normality condition using a normal QQ plot below.}\par
 Again, we need NumPy in order to use \verb|statsmodels|.\par
 \begin{lstlisting}[style=pippython]
 import numpy as np
@@ -1140,7 +1140,7 @@ Pie plots are great for a quick comparison, but they're not very useful outside 
 Let's consider the \verb|skaters| dataset once again. What does the \verb|assists| distribution look like compared to the \verb|goals| distribution? We could run a statistical test to compare distributions, but we can also use our eyeballs to see what the data look like. Histograms bin data, then count frequencies within that bin and display that as a bar.\par
 Let's start by pulling the \verb|skaters| dataset in. It is provided below for your convenience.\par
 \begin{lstlisting}[style=pippython]
-skaters = pd.read_pickle("https://github.com/pythonforscientists/data/blob/main/skaters.pkl?raw=true")
+skaters = pd.read_pickle("https://pythonforscientists.github.io/data/data/skaters.pkl")
 \end{lstlisting}
 Like when we generated pie plots, we will need to generate subplots, but instead of the \verb|pie()| method on the \verb|Axes| object, we will use the \verb|hist()| method. Let's make our subplots, then making our histograms for the \verb|goals| and \verb|assists| columns.\par
 \begin{lstlisting}[style=pippython]
@@ -1184,7 +1184,7 @@ ax1[1].hist(skaters["assists"], bins = 10)
 Histograms are great for getting an idea of the shape of our distribution, but if we want to look at the data compared to the normal distribution, a better plot is a normal Q-Q plot. The normal Q-Q plot is a scatterplot created by plotting sample quantiles against theoretical quantiles from the normal distribution. If the sample quantile points are also normal, the line formed will be roughly straight, but if the sample quantile points are not normal, the line formed will not be straight and may have bends, curves, tails, and other abnormalities.\par
 In Python, we'll use a combination of tools from the \verb|statsmodels| library and the \verb|matplotlib| library. Let's consider the \verb|helmets| data from earlier in this chapter. As a convenience, the data import line is provided here.\par
 \begin{lstlisting}[style=pippython]
-helmets = pd.read_csv("https://github.com/pythonforscientists/data/raw/main/helmets.csv")
+helmets = pd.read_csv("https://pythonforscientists.github.io/data/data/helmets.csv")
 \end{lstlisting}
 Let's look at the histograms for each helmet.\par
 \begin{lstlisting}[style=pippython]
