@@ -341,7 +341,17 @@ You may not know it, but you've seen a seven-figure display before. A seven-figu
 However, seven figure displays cannot display every character. For example, there is no way to display the letter \verb|g| without it being confused for a \verb|9|. Seven-figure displays are not large enough to display the letter \verb|m|, either. Your goal for this lab is to find the longest word that can be displayed by a seven-segment display.
 \subsection*{Task}
 Use the \verb|requests| library to download the \verb|words.txt| file from \\\href{https://pythonforscientists.github.io/data/data/words.txt}{https://pythonforscientists.github.io/data/data/words.txt}. This file contains a list of words of varying length, organized alphanumerically. You will use Python to find what the longest word out of this list is that can be displayed on a seven-figure display.\par
-Seven-figure displays cannot display the following letters: g, k, m, q, v, w, x, and z.
+Seven-figure displays cannot display the following letters.
+\begin{itemize}
+	\item g: can be confused for a 9
+	\item k: not possible to represent on a 7-figure display
+	\item m: not possible to represent on a 7-figure display
+	\item q: can be confused for a 9 or g
+	\item v: can be confused for a u
+	\item w: not possible to represent on a 7-figure display
+	\item x: not possible to represent on a 7-figure display
+	\item z: can be confused for a 5
+\end{itemize}
 \subsection*{Turn In}
 Turn in a program inside of a Jupyter Notebook. You should include your script, along with the longest word that you found. Include downsides of the approach that you chose and how you might choose to change things if you were to write your program again.
 \subsection*{Trial Data}
