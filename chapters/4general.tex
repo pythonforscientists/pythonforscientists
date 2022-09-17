@@ -489,7 +489,7 @@ The following code is not syntactically correct. Remember that the quotation mar
 """This is a bad block comment.
 This will result in an error."""
 \end{lstlisting}
-Block comments are a powerful tool, and they can be used to test parts of your code without having to write pound signs before every single line. For example, consider the following code.\par
+Block comments are a powerful tool, and they can be used to test parts of your code without having to write pound signs before every single line. For example, consider the following code.\footnote{It's worth noting, however, that some IDEs support the ability to comment multiple lines at once through a keyboard shortcut or menu option. When you choose an option to comment multiple lines in the menu, the IDE will almost never make a block comment, instead inserting pound signs before every line. The same goes for uncommenting those lines - the IDE will remove the pound signs before the line. However, not all IDEs support this behavior. When you are sharing code with others who might not be using the same IDE as you, you should be very careful to use this feature, since your compatriot might have to manually remove those same pound signs. This means that they could end up having to manually remove hundreds of pound signs if you had mass-commented out hundreds of lines using your IDEs multiline comment feature.}\par
 \begin{lstlisting}[style=pippython]
 print("This code will execute.")
 """
@@ -503,7 +503,7 @@ print("So will this line of code.")
 This code will execute.
 So will this line of code.
 \end{lstlisting}
-Also note that some IDEs and text editors might color your block comments differently from your line comments. This is nothing to be worried about.
+Also note that some IDEs and text editors might color your block comments differently from your line comments. This is nothing to be worried about.\footnote{The reason for this is because a block comment in Python is actually a multiline string. Suppose you had a really big string that included lots of horizontal breaks (new lines, carriage returns). Writing your string as a multiline comment allows you to skip the \textbackslash n and \textbackslash r marks. However, multiline strings make excellent block comments, and this has become the defacto way of making a block comment in Python.}
 \subsubsection*{Exercise Questions}
 These exercise questions cover chapters 4.4.1 and 4.4.2.
 \begin{Exercise}
